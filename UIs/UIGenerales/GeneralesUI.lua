@@ -62,7 +62,7 @@ local expandButton = Instance.new("TextButton")
 expandButton.Name = "ExpandButton"
 expandButton.Size = UDim2.new(0, 30, 0, 30)
 expandButton.Position = UDim2.new(1, -30, 0, 10)
-expandButton.Text ="+"
+expandButton.Text = "+"
 expandButton.TextColor3 = Color3.new(1, 1, 1)
 expandButton.BackgroundColor3 = Color3.new(0, 0, 0)
 expandButton.BackgroundTransparency = 0.5
@@ -110,7 +110,7 @@ local function updateButtons()
 
     local yOffset = 0
     for line in response:gmatch("[^\r\n]+") do
-        local name, directory = line:match("(%w+):(%S+)")
+        local name, directory = line:match("([^:]+):([^:]+)")
 
         if name and directory then
             if searchInput == "" or string.find(name:lower(), searchInput:lower()) then
@@ -152,4 +152,4 @@ searchBox:GetPropertyChangedSignal("Text"):Connect(function()
 end)
 
 -- Show startup notification
-showNotification("Visítanos En\nYT: @OneCreatorX")
+showNotification("Visítanos en YT:\n @OneCreatorX")
