@@ -7,7 +7,7 @@ Altura de salto-PowerJump:Final/Salto
 Tp Players:Final/TPplayers
 Speed-Velocidad:Final/Velocidad
 Waypoints:Final/Waypoints
-Tp height/altura:Final/TpAltura
+Tp height-altura:Final/TpAltura
 Generador Ininify plataformas FUN1:Final/SobrePlataformasV1
 Generador Ininify plataformas FUN2:Final/SobrePlataformasV2
 Subir +10 plataforma:Final/PlataformaUP+10
