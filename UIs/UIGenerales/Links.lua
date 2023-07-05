@@ -1,5 +1,5 @@
-Plataforma+10:Utilidas:Live:ModoEspectador.lua
-Caminar sobre plataformas:Utilidad:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Generaled/CaminarPlataforma.lua
+Plataforma+10:Utilidas:Live:Final/ModoEspectador.lua
+Caminar sobre plataformas:Utilidad:Live:Final/Caer
 Modo Espectador:Utilidad:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Generaled/ModoEspectador.lua
 Dex v3:Utilidad:Live:https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua
 Atravesar Paredes(noclip):Utilidad:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Nocolision.lua
