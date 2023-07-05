@@ -12,6 +12,8 @@ frame.BackgroundTransparency = 0.8
 frame.BackgroundColor3 = Color3.new(0, 0, 0)
 frame.BorderSizePixel = 2
 frame.BorderColor3 = Color3.new(0.5, 0.5, 0.5)
+frame.Active = true
+frame.Draggable = true
 frame.Parent = screenGui
 
 local searchInput = ""
@@ -36,11 +38,10 @@ local buttonContainer = Instance.new("ScrollingFrame")
 buttonContainer.Name = "ButtonContainer"
 buttonContainer.Size = UDim2.new(1, -20, 1, -60)
 buttonContainer.Position = UDim2.new(0, 10, 0, 60)
-buttonContainer.BackgroundColor3 = Color3.new(0, 0, 0)
-buttonContainer.BackgroundTransparency = 0.8
-buttonContainer.BorderSizePixel = 2
-buttonContainer.BorderColor3 = Color3.new(0.5, 0.5, 0.5)
+buttonContainer.BackgroundTransparency = 1
+buttonContainer.BorderSizePixel = 0
 buttonContainer.ScrollBarThickness = 8
+buttonContainer.ScrollBarImageColor3 = Color3.new(0.8, 0.8, 0.8)
 buttonContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
 buttonContainer.Parent = frame
 
@@ -61,7 +62,7 @@ local expandButton = Instance.new("TextButton")
 expandButton.Name = "ExpandButton"
 expandButton.Size = UDim2.new(0, 30, 0, 30)
 expandButton.Position = UDim2.new(1, -30, 0, 10)
-expandButton.Text = "+"
+expandButton.Text ="+"
 expandButton.TextColor3 = Color3.new(1, 1, 1)
 expandButton.BackgroundColor3 = Color3.new(0, 0, 0)
 expandButton.BackgroundTransparency = 0.5
@@ -69,6 +70,27 @@ expandButton.BorderSizePixel = 0
 expandButton.Font = Enum.Font.SourceSans
 expandButton.TextSize = 18
 expandButton.Parent = frame
+
+local notificationLabel = Instance.new("TextLabel")
+notificationLabel.Name = "NotificationLabel"
+notificationLabel.Size = UDim2.new(1, 0, 0, 30)
+notificationLabel.Position = UDim2.new(0, 0, -0.2, 0)
+notificationLabel.Text = ""
+notificationLabel.TextColor3 = Color3.new(1, 1, 1)
+notificationLabel.BackgroundColor3 = Color3.new(0, 0, 0)
+notificationLabel.BackgroundTransparency = 0.5
+notificationLabel.BorderSizePixel = 0
+notificationLabel.Font = Enum.Font.SourceSans
+notificationLabel.TextSize = 18
+notificationLabel.Visible = false
+notificationLabel.Parent = frame
+
+local function showNotification(message)
+    notificationLabel.Text = message
+    notificationLabel.Visible = true
+    wait(3)
+    notificationLabel.Visible = false
+end
 
 local function closeInterface()
     screenGui:Destroy()
@@ -81,43 +103,38 @@ local function expandInterface()
 end
 
 local function updateButtons()
-    for _, button in ipairs(buttonContainer:GetChildren()) do
-        if button:IsA("TextButton") then
-            button:Destroy()
-        end
-    end
+    buttonContainer:ClearAllChildren()
 
-    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua" -- Reemplaza con la URL del archivo de Lua en GitHub
-
+    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua"
     local response = game:HttpGet(linkURL)
 
-    -- Crea los botones utilizando los datos del archivo de Lua
     local yOffset = 0
     for line in response:gmatch("[^\r\n]+") do
         local name, directory = line:match("(%w+):(%S+)")
 
         if name and directory then
-            local button = Instance.new("TextButton")
-            button.Name = name
-            button.Size = UDim2.new(1, -20, 0, 40)
-            button.Position = UDim2.new(0, 10, 0, yOffset)
-            button.Text = name
-            button.TextColor3 = Color3.new(1, 1, 1)
-            button.BackgroundColor3 = Color3.new(0, 0, 0)
-            button.BackgroundTransparency = 0.5
-            button.BorderSizePixel = 2
-            button.Font = Enum.Font.SourceSans
-            button.TextSize = 18
-            button.Parent = buttonContainer
+            if searchInput == "" or string.find(name:lower(), searchInput:lower()) then
+                local button = Instance.new("TextButton")
+                button.Name = name
+                button.Size = UDim2.new(1, -20, 0, 40)
+                button.Position = UDim2.new(0, 10, 0, yOffset)
+                button.Text = name
+                button.TextColor3 = Color3.new(1, 1, 1)
+                button.BackgroundColor3 = Color3.new(0, 0, 0)
+                button.BackgroundTransparency = 0.5
+                button.BorderSizePixel = 2
+                button.Font = Enum.Font.SourceSans
+                button.TextSize = 18
+                button.Parent = buttonContainer
 
-            yOffset = yOffset + 50
+                yOffset = yOffset + 50
 
-            button.MouseButton1Click:Connect(function()
-                local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Generales/" .. directory .. ".lua"
-loadstring(game:HttpGet(scriptUrl))()
-                -- Hacer algo con la URL del script, como cargar/ejecutar el script
-                print(scriptUrl)
-            end)
+                button.MouseButton1Click:Connect(function()
+                    local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Generales/" .. directory .. ".lua"
+                    loadstring(game:HttpGet(scriptUrl))()
+                    showNotification("Script executed: " .. name)
+                end)
+            end
         end
     end
 
@@ -133,3 +150,6 @@ searchBox:GetPropertyChangedSignal("Text"):Connect(function()
     searchInput = searchBox.Text
     updateButtons()
 end)
+
+-- Show startup notification
+showNotification("Visítanos En\nYT: @OneCreatorX")
