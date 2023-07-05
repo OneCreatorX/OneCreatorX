@@ -1,5 +1,4 @@
-ESP Players:Utilidad:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Esp.lua
-Plataforma+10:Utilidas:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Generaled/%2B10DeAltura.lua
+Plataforma+10:Utilidas:Live:ModoEspectador.lua
 Caminar sobre plataformas:Utilidad:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Generaled/CaminarPlataforma.lua
 Modo Espectador:Utilidad:Live:https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Generaled/ModoEspectador.lua
 Dex v3:Utilidad:Live:https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua
