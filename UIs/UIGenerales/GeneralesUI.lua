@@ -145,7 +145,7 @@ local function updateButtons()
         end
     end
 
-    local linkURL = "https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Links.lua"
+    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua?token=GHSAT0AAAAAACEXSESJRXQKORNS74NHPBGIZFFO24Q"
     local response = game:HttpGet(linkURL)
     local fileList = {}
 
