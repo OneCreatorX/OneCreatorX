@@ -145,30 +145,43 @@ local function updateButtons()
         end
     end
 
-    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua?token=GHSAT0AAAAAACEXSESJRXQKORNS74NHPBGIZFFO24Q"
-    local response = game:HttpGet(linkURL)
-    local fileList = {}
+    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua"
 
-    for line in response:gmatch("[^\r\n]+") do
-        local name, type, state, url = line:match("([^:]+):([^:]+):([^:]+):(.+)")
-        if name and url then
+local searchInput = ""
+local buttonContainer = script.Parent.ButtonContainer
+local buttonTemplate = script.Parent.ButtonTemplate
+
+local function updateButtons()
+    for _, button in ipairs(buttonContainer:GetChildren()) do
+        if button:IsA("TextButton") then
+            button:Destroy()
+        end
+    end
+
+    local linkResponse = game:HttpGet(linkURL)
+    local linkFileList = {}
+
+    for line in linkResponse:gmatch("[^\r\n]+") do
+        local name, type, state, folder, file = line:match("([^:]+):([^:]+):([^:]+):([^:]+):(.+)")
+        if name and folder and file then
             if not type then
-                type = "Utilidad" -- Valor predeterminado para el tipo
+                type = "Utilidad"
             end
             if not state then
-                state = "Live" -- Valor predeterminado para el estado
+                state = "Live"
             end
-            fileList[name] = {
+            linkFileList[name] = {
                 type = type,
                 state = state,
-                url = url
+                folder = folder,
+                file = file
             }
         end
     end
 
     local filteredFiles = {}
 
-    for name, data in pairs(fileList) do
+    for name, data in pairs(linkFileList) do
         if string.find(string.lower(name), string.lower(searchInput)) then
             table.insert(filteredFiles, {name = name, data = data})
         end
@@ -181,62 +194,32 @@ local function updateButtons()
     buttonContainer.CanvasSize = UDim2.new(0, 0, 0, #filteredFiles * 40)
 
     for i, fileData in ipairs(filteredFiles) do
-        local buttonFrame = Instance.new("Frame")
-        buttonFrame.Name = fileData.name
-        buttonFrame.Size = UDim2.new(1, 0, 0, 30)
-        buttonFrame.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
-        buttonFrame.BackgroundTransparency = 1
-        buttonFrame.Parent = buttonContainer
+        local newButton = buttonTemplate:Clone()
+        newButton.Parent = buttonContainer
+        newButton.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
+        newButton.Visible = true
+        newButton.Text = fileData.name
 
-        local buttonText = Instance.new("TextLabel")
-        buttonText.Name = "ButtonText"
-        buttonText.Size = UDim2.new(0.5, 0, 1, 0)
-        buttonText.Position = UDim2.new(0, 0, 0, 0)
-        buttonText.BackgroundTransparency = 1
-        buttonText.Text = fileData.name
-        buttonText.TextColor3 = Color3.new(1, 1, 1)
-        buttonText.Font = Enum.Font.SourceSans
-        buttonText.TextSize = 18
-        buttonText.TextXAlignment = Enum.TextXAlignment.Left
-        buttonText.Parent = buttonFrame
+        local typeLabel = newButton.TypeLabel
+        local stateLabel = newButton.StateLabel
 
-        local typeStateText = Instance.new("TextLabel")
-        typeStateText.Name = "TypeStateText"
-        typeStateText.Size = UDim2.new(0.5, 0, 1, 0)
-        typeStateText.Position = UDim2.new(0.5, 0, 0, 0)
-        typeStateText.BackgroundTransparency = 1
-        typeStateText.Text = fileData.data.type .. " | " .. fileData.data.state
-        typeStateText.TextColor3 = Color3.new(1, 1, 1)
-        typeStateText.Font = Enum.Font.SourceSans
-        typeStateText.TextSize = 18
-        typeStateText.TextXAlignment = Enum.TextXAlignment.Right
-        typeStateText.Parent = buttonFrame
+        typeLabel.Text = "Tipo: " .. fileData.data.type
+        stateLabel.Text = "Estado: " .. fileData.data.state
 
-        local clickButton = Instance.new("TextButton")
-        clickButton.Name = "ClickButton"
-        clickButton.Size = UDim2.new(1, 0, 1, 0)
-        clickButton.Position = UDim2.new(0, 0, 0, 0)
-        clickButton.Text = ""
-        clickButton.BackgroundColor3 = Color3.new(0, 0, 0)
-        clickButton.BackgroundTransparency = 0.5
-        clickButton.BorderSizePixel = 0
-        clickButton.Parent = buttonFrame
+        local clickButton = newButton.ClickButton
 
         clickButton.MouseButton1Click:Connect(function()
             print("Se ha hecho clic en el botón " .. fileData.name)
-            local scriptCode = "loadstring(game:HttpGet('" .. fileData.data.url .. "'))()"
+            local scriptCode = "loadstring(game:HttpGet('https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Generales/" .. fileData.data.folder .. "/" .. fileData.data.file .. "'))()"
             loadstring(scriptCode)()
         end)
     end
 end
 
-searchBox:GetPropertyChangedSignal("Text"):Connect(function()
-    searchInput = searchBox.Text
+script.Parent.SearchButton.MouseButton1Click:Connect(function()
+    searchInput = script.Parent.SearchBox.Text
     updateButtons()
 end)
-
-closeButton.MouseButton1Click:Connect(closeInterface)
-expandButton.MouseButton1Click:Connect(expandInterface)
 
 updateButtons()
 
