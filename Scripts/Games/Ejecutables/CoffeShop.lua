@@ -31,7 +31,7 @@ for i = 1, 6 do
 
     -- Evento de clic para ejecutar el script y destruir el UI
     Button.MouseButton1Click:Connect(function()
-        local scriptUrl = "https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Pasteler%C3%ADa/Cafe" .. i .. ".lua"
+        local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/CaffeeShop/Cafe" .. i .. ".lua"
         loadstring(game:HttpGet(scriptUrl))()
         DestroyUI()
     end)
