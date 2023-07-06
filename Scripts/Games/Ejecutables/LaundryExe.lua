@@ -123,21 +123,21 @@ end)
 -- Acciones al hacer clic en los botones
 button1.MouseButton1Click:Connect(function()
     gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Pasteler%C3%ADa/Laundry3.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry3.lua"))()
 end)
 
 button2.MouseButton1Click:Connect(function()
     gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Pasteler%C3%ADa/Laundry4.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry4.lua"))()
 end)
 
 button3.MouseButton1Click:Connect(function()
     gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Pasteler%C3%ADa/Laundry5.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry5.lua"))()
 end)
 
 button4.MouseButton1Click:Connect(function()
     gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/Pasteler%C3%ADa/Laundry6.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry6.lua"))()
 end)
 
