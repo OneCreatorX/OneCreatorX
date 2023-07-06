@@ -16,3 +16,4 @@ Tp jugador cercano:Beta/Tpjugadorcercano
 Tp por Name:Beta/TpName
 Quitar Colision/NoClip:ParaMejorar/Nocolision
 Infinity Yield/Consola:Final/Consola
+Dex V3:Final/DexV3
