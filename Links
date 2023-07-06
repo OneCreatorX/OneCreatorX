@@ -1,1 +1,8 @@
+UI de Games:
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/UILoady.lua"))() 
+
+
+UI de Tools:
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua"))() 
