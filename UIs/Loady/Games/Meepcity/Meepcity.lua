@@ -1,4 +1,4 @@
-local Scripts = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/Games/Meepcity/Meepcity.lua"))
+local Scripts = game.HttpService:JSONDecode(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Meepcity.lua"))
 
 local Library = loadstring(game:HttpGet("https://bitbucket.org/cat__/uis/raw/Loady/Module"))()
 local Window = Library:Window("Loady", function(Script, Func)
