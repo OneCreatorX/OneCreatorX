@@ -6,15 +6,15 @@ end
 
 -- Hilos para ejecutar los scripts simultáneamente
 local thread1 = coroutine.create(function()
-    loadAndExecuteScript("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/C%C3%A9spedCaminar.lua")
+    loadAndExecuteScript("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/CortaCesped/CespedCaminar.lua")
 end)
 
 local thread2 = coroutine.create(function()
-    loadAndExecuteScript("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/CortaCespe.lua")
+    loadAndExecuteScript("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/CortaCesped/CortaCespe.lua")
 end)
 
 local thread3 = coroutine.create(function()
-    loadAndExecuteScript("https://raw.githubusercontent.com/AnonyProArg/ScriptsRobloz/main/ComprarCespet.lua")
+    loadAndExecuteScript("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/CortaCesped/ComprarCespet.lua")
 end)
 
 -- Función para ejecutar los hilos
