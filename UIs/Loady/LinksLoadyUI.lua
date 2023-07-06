@@ -33,7 +33,7 @@
  "370731277":{
     "Creator": "OneCreatorX",
     "Status": "Functional",
-"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Meepcity.lua",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/Games/Meepcity/Meepcity.lua",
   "Updated": "04/07/2023"
   },
  "12398414727":{
