@@ -36,7 +36,7 @@ backgroundImage.Parent = mainFrame
 local titleText = Instance.new("TextLabel")
 titleText.Size = UDim2.new(1, 0, 0, 40)
 titleText.Position = UDim2.new(0, 0, -0.4, 20)
-titleText.BackgroundTransparency = 0.8
+titleText.BackgroundTransparency = 0.4
 titleText.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 titleText.BorderSizePixel = 1
 titleText.Text = "Laundry X"
@@ -59,7 +59,7 @@ specialClothingButton.BackgroundTransparency = 0.5
 specialClothingButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 specialClothingButton.BorderSizePixel = 2
 specialClothingButton.Text = "Prendas Especiales [X]"
-specialClothingButton.TextColor3 = Color3.new(1, 1, 1)
+specialClothingButton.TextColor3 = Color3.new(1, 0, 0)
 specialClothingButton.Font = Enum.Font.GothamSemibold
 specialClothingButton.TextSize = 10
 specialClothingButton.TextScaled = true
@@ -78,7 +78,7 @@ autofarmButton.BackgroundTransparency = 0.5
 autofarmButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 autofarmButton.BorderSizePixel = 1
 autofarmButton.Text = "Auto Game"
-autofarmButton.TextColor3 = Color3.new(1, 1, 1)
+autofarmButton.TextColor3 = Color3.new(1, 0, 0)
 autofarmButton.Font = Enum.Font.GothamSemibold
 autofarmButton.TextSize = 15
 autofarmButton.TextScaled = true
@@ -152,10 +152,25 @@ local function AutoFarm()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"))()
 end
 
-specialClothingButton.MouseButton1Click:Connect(function()
-    ToggleAutoFarm()
-end)
+-- Función para cambiar el color del texto del botón de Auto Game
+local function changeAutoFarmButtonColor()
+    autofarmButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
+end
 
+-- Evento MouseButton1Click del botón de Auto Game
+autofarmButton.MouseButton1Click:Connect(changeAutoFarmButtonColor)
 autofarmButton.MouseButton1Click:Connect(function()
     AutoFarm()
 end)
+
+local function changeSpecialClothingButtonColor()
+    specialClothingButtonState = not specialClothingButtonState -- Invertir el estado
+    if specialClothingButtonState then
+        specialClothingButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
+        ToggleAutoFarm() -- Ejecutar función ToggleAutoFarm
+    else
+        specialClothingButton.TextColor3 = Color3.new(1, 0, 0) -- Cambiar a rojo
+    end
+end
+
+specialClothingButton.MouseButton1Click:Connect(changeSpecialClothingButtonColor)
