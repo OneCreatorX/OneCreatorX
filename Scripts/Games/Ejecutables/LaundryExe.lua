@@ -1,88 +1,102 @@
-local Players = game:GetService("Players")
-local Workspace = game:GetService("Workspace")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Plot = game:GetService("Players").LocalPlayer.NonSaveVars.OwnsPlot.Value
 
-local player = Players.LocalPlayer
-local playerPosition = player.Character.HumanoidRootPart.Position
-
-local function GetPlot()
-    for _, v in ipairs(Workspace.Plots:GetDescendants()) do
-        if v.Name == "Owner" and v.Value == player then
-            return v.Parent
-        end
-    end
+local function UpdateClothingDirectory()
+    return game:GetService("Workspace").Debris.Clothing:GetChildren()
 end
 
-local function invokeClothing(clothing)
-    ReplicatedStorage.Events.GrabClothing:FireServer(clothing)
+local function InvokeClothing(clothing)
+    game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(clothing)
 end
 
-local function compareDistance(a, b)
-    local distanceA = (a.Position - playerPosition).Magnitude
-    local distanceB = (b.Position - playerPosition).Magnitude
-    return distanceA < distanceB
+local function DropClothesInChute()
+    game:GetService("ReplicatedStorage").Events.DropClothesInChute:FireServer()
 end
 
-local function checkAndInvokeClothing()
-    local clothingDirectory = Workspace.Debris.Clothing
-    local clothingList = {}
+local gui = Instance.new("ScreenGui")
+gui.Name = "AutoFarmGUI"
+gui.ResetOnSpawn = false
+gui.DisplayOrder = 1000
+gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-    for _, clothing in ipairs(clothingDirectory:GetChildren()) do
-        table.insert(clothingList, clothing)
-    end
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 200, 0, 180)
+mainFrame.Position = UDim2.new(0.5, -100, 0.5, -90)
+mainFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+mainFrame.BorderSizePixel = 0
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = gui
 
-    table.sort(clothingList, compareDistance)
+local titleButton = Instance.new("TextButton")
+titleButton.Size = UDim2.new(0, 180, 0, 40)
+titleButton.Position = UDim2.new(0.5, -90, 0.5, -20)
+titleButton.AnchorPoint = Vector2.new(0.5, 0.5)
+titleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleButton.BorderSizePixel = 0
+titleButton.Text = "Solo ropa especial X"
+titleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleButton.Font = Enum.Font.GothamSemibold
+titleButton.TextSize = 14
+titleButton.Parent = mainFrame
 
-    for _, clothing in ipairs(clothingList) do
-        clothing:SetAttribute("IsInvoked", true)
-        invokeClothing(clothing)
-        wait(0.1) -- Pequeño tiempo de espera entre cada invocación
-    end
+local autofarmButton = Instance.new("TextButton")
+autofarmButton.Size = UDim2.new(0, 120, 0, 40)
+autofarmButton.Position = UDim2.new(0.5, -60, 0.8, -20)
+autofarmButton.AnchorPoint = Vector2.new(0.5, 0)
+autofarmButton.BackgroundColor3 = Color3.fromRGB(40, 130, 240)
+autofarmButton.BorderSizePixel = 0
+autofarmButton.Text = "AutoFarm"
+autofarmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+autofarmButton.Font = Enum.Font.GothamSemibold
+autofarmButton.TextSize = 14
+autofarmButton.Parent = mainFrame
 
-    table.clear(clothingList) -- Limpiar la tabla de ropas
-end
+local isAutoFarmEnabled = false
 
-local function manageWashingMachine(washingMachine)
-    while true do
-        -- Iniciar lavadora
-        ReplicatedStorage.Events.LoadWashingMachine:FireServer(washingMachine)
+local function ToggleAutoFarm()
+    isAutoFarmEnabled = not isAutoFarmEnabled
+    
+    if isAutoFarmEnabled then
+        titleButton.Text = "Solo ropa especial ✓"
+        -- Realizar las acciones correspondientes al encender la función
+        local clothingList = UpdateClothingDirectory()
+        local specialClothingList = {}
 
-        -- Detener lavadora
-        ReplicatedStorage.Events.UnloadWashingMachine:FireServer(washingMachine)
-        wait()
-    end
-end
+        for _, v in ipairs(clothingList) do
+            local SpecialTag = v:FindFirstChild("SpecialTag")
 
-local function invokeClothingProcess()
-    while true do
-        checkAndInvokeClothing()
-        wait(2) -- Esperar 2 segundos al final de cada recorrido
-    end
-end
-
-local function dropClothesInChute()
-    while true do
-        ReplicatedStorage.Events.DropClothesInChute:FireServer()
-        wait(1)
-    end
-end
-
-local function startSpam()
-    local plot = GetPlot()
-    if plot then
-        local washingMachines = plot.WashingMachines:GetChildren()
-
-        for _, washingMachine in ipairs(washingMachines) do
-            spawn(function()
-                manageWashingMachine(washingMachine)
-            end)
+            if SpecialTag then
+                table.insert(specialClothingList, v)
+            end
         end
 
-        spawn(invokeClothingProcess)
-        spawn(dropClothesInChute)
+        -- Tomar las prendas especiales primero
+        for _, v in ipairs(specialClothingList) do
+            if isAutoFarmEnabled then
+                InvokeClothing(v)
+                wait(0.2)
+            else
+                break
+            end
+        end
     else
-        print("No se encontró el Plot del jugador.")
+        titleButton.Text = "Solo ropa especial X"
+        -- Realizar las acciones correspondientes al apagar la función
+        -- Detener la función
+        -- Implementa la lógica necesaria para detener la función según tus necesidades
     end
 end
 
-startSpam()
+local function AutoFarm()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"))()
+end
+
+autofarmButton.MouseButton1Click:Connect(function()
+    AutoFarm()
+end)
+
+titleButton.MouseButton1Click:Connect(function()
+    ToggleAutoFarm()
+end)
+
+titleButton.Parent = mainFrame
