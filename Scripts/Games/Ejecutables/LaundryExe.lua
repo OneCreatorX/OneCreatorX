@@ -29,27 +29,28 @@ mainFrame.Parent = gui
 
 local titleButton = Instance.new("TextButton")
 titleButton.Size = UDim2.new(0, 180, 0, 40)
-titleButton.Position = UDim2.new(0.5, -90, 0.5, -20)
+titleButton.Position = UDim2.new(0.5, -0, 0.5, -40)
 titleButton.AnchorPoint = Vector2.new(0.5, 0.5)
 titleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-titleButton.BorderSizePixel = 0
-titleButton.Text = "Solo ropa especial X"
-titleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleButton.BorderSizePixel = 1
+titleButton.Text = "Solo ropa especial [X]"
+titleButton.TextColor3 = Color3.fromRGB(255, 299, 255)
 titleButton.Font = Enum.Font.GothamSemibold
 titleButton.TextSize = 14
 titleButton.Parent = mainFrame
 
 local autofarmButton = Instance.new("TextButton")
 autofarmButton.Size = UDim2.new(0, 120, 0, 40)
-autofarmButton.Position = UDim2.new(0.5, -60, 0.8, -20)
-autofarmButton.AnchorPoint = Vector2.new(0.5, 0)
+autofarmButton.Position = UDim2.new(0.5, -0, 0.8, -20)
+autofarmButton.AnchorPoint = Vector2.new(0.5, 0.5)
 autofarmButton.BackgroundColor3 = Color3.fromRGB(40, 130, 240)
 autofarmButton.BorderSizePixel = 0
-autofarmButton.Text = "AutoFarm"
+autofarmButton.Text = "Auto Game"
 autofarmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 autofarmButton.Font = Enum.Font.GothamSemibold
 autofarmButton.TextSize = 14
 autofarmButton.Parent = mainFrame
+
 
 local isAutoFarmEnabled = false
 
@@ -57,31 +58,32 @@ local function ToggleAutoFarm()
     isAutoFarmEnabled = not isAutoFarmEnabled
     
     if isAutoFarmEnabled then
-        titleButton.Text = "Solo ropa especial ✓"
-        -- Realizar las acciones correspondientes al encender la función
-        local clothingList = UpdateClothingDirectory()
-        local specialClothingList = {}
+        titleButton.Text = "Solo ropa especial [✓]"
+        
+        -- Iniciar el bucle de comprobación e invocación continua
+        while isAutoFarmEnabled do
+            local clothingList = UpdateClothingDirectory()
+            local specialClothingList = {}
 
-        for _, v in ipairs(clothingList) do
-            local SpecialTag = v:FindFirstChild("SpecialTag")
+            for _, v in ipairs(clothingList) do
+                local SpecialTag = v:FindFirstChild("SpecialTag")
 
-            if SpecialTag then
-                table.insert(specialClothingList, v)
+                if SpecialTag then
+                    table.insert(specialClothingList, v)
+                end
             end
-        end
 
-        -- Tomar las prendas especiales primero
-        for _, v in ipairs(specialClothingList) do
-            if isAutoFarmEnabled then
+            -- Tomar las prendas especiales
+            for _, v in ipairs(specialClothingList) do
                 InvokeClothing(v)
                 wait(0.2)
-            else
-                break
             end
+            
+            wait(1)  -- Esperar un segundo antes de realizar la próxima comprobación
         end
     else
         titleButton.Text = "Solo ropa especial X"
-        -- Realizar las acciones correspondientes al apagar la función
+        
         -- Detener la función
         -- Implementa la lógica necesaria para detener la función según tus necesidades
     end
