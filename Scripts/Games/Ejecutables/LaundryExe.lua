@@ -12,45 +12,105 @@ local function DropClothesInChute()
     game:GetService("ReplicatedStorage").Events.DropClothesInChute:FireServer()
 end
 
+-- Crear la interfaz gráfica (gui)
 local gui = Instance.new("ScreenGui")
-gui.Name = "AutoFarmGUI"
-gui.ResetOnSpawn = false
-gui.DisplayOrder = 1000
 gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 200, 0, 180)
-mainFrame.Position = UDim2.new(0.5, -100, 0.5, -90)
-mainFrame.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-mainFrame.BorderSizePixel = 0
+mainFrame.Size = UDim2.new(0, 200, 0, 240)
+mainFrame.Position = UDim2.new(0.5, -100, 0.5, -120)
+mainFrame.BackgroundTransparency = 0.5 -- Valor entre 0 (opaco) y 1 (transparente)
 mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = gui
 
-local titleButton = Instance.new("TextButton")
-titleButton.Size = UDim2.new(0, 180, 0, 40)
-titleButton.Position = UDim2.new(0.5, -0, 0.5, -40)
-titleButton.AnchorPoint = Vector2.new(0.5, 0.5)
-titleButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-titleButton.BorderSizePixel = 1
-titleButton.Text = "Solo ropa especial [X]"
-titleButton.TextColor3 = Color3.fromRGB(255, 299, 255)
-titleButton.Font = Enum.Font.GothamSemibold
-titleButton.TextSize = 14
-titleButton.Parent = mainFrame
+-- Agregar una imagen de fondo al marco principal
+local backgroundImage = Instance.new("ImageLabel")
+backgroundImage.Name = "BackgroundImage"
+backgroundImage.Size = UDim2.new(1, 0, 1, 0)
+backgroundImage.BackgroundTransparency = 0.5
+backgroundImage.Image = "rbxassetid://13959537980" -- Reemplaza el ID de asset con la imagen deseada
+backgroundImage.Parent = mainFrame
 
+-- Crear el título
+local titleText = Instance.new("TextLabel")
+titleText.Size = UDim2.new(1, 0, 0, 40)
+titleText.Position = UDim2.new(0, 0, 0, 20)
+titleText.BackgroundTransparency = 0.8
+titleText.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleText.BorderSizePixel = 1
+titleText.Text = "Laundry X"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.Font = Enum.Font.GothamSemibold
+titleText.TextSize = 14
+titleText.TextScaled = true
+titleText.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+titleText.TextStrokeTransparency = 0.5
+titleText.TextTransparency = 0.2
+titleText.ClipsDescendants = true
+titleText.Parent = mainFrame
+
+-- Crear el botón para ropa especial
+local specialClothingButton = Instance.new("TextButton")
+specialClothingButton.Size = UDim2.new(0, 180, 0, 40)
+specialClothingButton.Position = UDim2.new(0.5, 0, 0, 80)
+specialClothingButton.AnchorPoint = Vector2.new(0.5, 0)
+specialClothingButton.BackgroundTransparency = 0.8
+specialClothingButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+specialClothingButton.BorderSizePixel = 2
+specialClothingButton.Text = "Solo ropa especial [X]"
+specialClothingButton.TextColor3 = Color3.new(0, 0, 0)
+specialClothingButton.Font = Enum.Font.GothamSemibold
+specialClothingButton.TextSize = 15
+specialClothingButton.TextScaled = true
+specialClothingButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+specialClothingButton.TextStrokeTransparency = 0.5
+specialClothingButton.TextTransparency = 0.4
+specialClothingButton.ClipsDescendants = true
+specialClothingButton.Parent = mainFrame
+
+-- Crear el botón de Auto Game
 local autofarmButton = Instance.new("TextButton")
-autofarmButton.Size = UDim2.new(0, 120, 0, 40)
-autofarmButton.Position = UDim2.new(0.5, -0, 0.8, -20)
-autofarmButton.AnchorPoint = Vector2.new(0.5, 0.5)
-autofarmButton.BackgroundColor3 = Color3.fromRGB(40, 130, 240)
-autofarmButton.BorderSizePixel = 0
+autofarmButton.Size = UDim2.new(0, 180, 0, 40)
+autofarmButton.Position = UDim2.new(0.5, 0, 0, 140)
+autofarmButton.AnchorPoint = Vector2.new(0.5, 0)
+autofarmButton.BackgroundTransparency = 0.8
+autofarmButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+autofarmButton.BorderSizePixel = 2
 autofarmButton.Text = "Auto Game"
-autofarmButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+autofarmButton.TextColor3 = Color3.new(0, 0, 0)
 autofarmButton.Font = Enum.Font.GothamSemibold
-autofarmButton.TextSize = 14
+autofarmButton.TextSize = 15
+autofarmButton.TextScaled = true
+autofarmButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+autofarmButton.TextStrokeTransparency = 0.5
+autofarmButton.TextTransparency = 0.5
+autofarmButton.ClipsDescendants = true
 autofarmButton.Parent = mainFrame
 
+
+local titleTexts = {"Laundry X", "YT:@OneCreatorX"}
+local titleColors = {
+    Color3.fromRGB(255, 0, 0),   -- Rojo
+    Color3.fromRGB(0, 255, 0),   -- Verde
+    Color3.fromRGB(0, 0, 255)    -- Azul
+}
+local currentIndex = 1
+
+local function changeTitleTextAndColor()
+    currentIndex = currentIndex % #titleTexts + 1
+    titleText.Text = titleTexts[currentIndex]
+    titleText.TextColor3 = titleColors[currentIndex]
+end
+
+local titleChangeInterval = 5 -- Intervalo en segundos para cambiar el texto y color del título
+
+spawn(function()
+    while true do
+        wait(titleChangeInterval)
+        changeTitleTextAndColor()
+    end
+end)
 
 local isAutoFarmEnabled = false
 
@@ -58,7 +118,7 @@ local function ToggleAutoFarm()
     isAutoFarmEnabled = not isAutoFarmEnabled
     
     if isAutoFarmEnabled then
-        titleButton.Text = "Solo ropa especial [✓]"
+        specialClothingButton.Text = "Solo ropa especial [✓]"
         
         -- Iniciar el bucle de comprobación e invocación continua
         while isAutoFarmEnabled do
@@ -78,11 +138,11 @@ local function ToggleAutoFarm()
                 InvokeClothing(v)
                 wait(0.2)
             end
-            
+
             wait(1)  -- Esperar un segundo antes de realizar la próxima comprobación
         end
     else
-        titleButton.Text = "Solo ropa especial X"
+        specialClothingButton.Text = "Solo ropa especial [X]"
         
         -- Detener la función
         -- Implementa la lógica necesaria para detener la función según tus necesidades
@@ -93,12 +153,10 @@ local function AutoFarm()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"))()
 end
 
-autofarmButton.MouseButton1Click:Connect(function()
-    AutoFarm()
-end)
-
-titleButton.MouseButton1Click:Connect(function()
+specialClothingButton.MouseButton1Click:Connect(function()
     ToggleAutoFarm()
 end)
 
-titleButton.Parent = mainFrame
+autofarmButton.MouseButton1Click:Connect(function()
+    AutoFarm()
+end)
