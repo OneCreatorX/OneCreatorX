@@ -1,143 +1,108 @@
--- Crear la GUI
-local gui = Instance.new("ScreenGui")
-gui.Name = "BotonesGUI"
-gui.ResetOnSpawn = false
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-gui.DisplayOrder = 999
-gui.Parent = game.Players.LocalPlayer.PlayerGui
+local Players = game:GetService("Players")
+local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- Crear el marco principal
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 300, 0, 360)
-frame.Position = UDim2.new(0.5, -150, 0.5, -180)
-frame.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
-frame.BorderSizePixel = 0
-frame.Parent = gui
+local playerPosition = Players.LocalPlayer.Character.HumanoidRootPart.Position
 
--- Crear el título
-local title = Instance.new("TextLabel")
-title.Parent = frame
-title.Size = UDim2.new(1, 0, 0, 50)
-title.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-title.BorderSizePixel = 0
-title.Font = Enum.Font.GothamBold
-title.Text = "Laundry X"
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.TextSize = 30
-
--- Crear los botones
-local button1 = Instance.new("TextButton")
-button1.Name = "Button1"
-button1.Parent = frame
-button1.Position = UDim2.new(0, 50, 0, 80)
-button1.Size = UDim2.new(0, 200, 0, 50)
-button1.BackgroundColor3 = Color3.fromRGB(128, 187, 219)
-button1.BorderSizePixel = 0
-button1.Font = Enum.Font.GothamSemibold
-button1.Text = "0neCreatorX->"
-button1.TextColor3 = Color3.fromRGB(255, 255, 255)
-button1.TextSize = 18
-button1.AutoButtonColor = false
-
-local button2 = Instance.new("TextButton")
-button2.Name = "Button2"
-button2.Parent = frame
-button2.Position = UDim2.new(0, 50, 0, 150)
-button2.Size = UDim2.new(0, 200, 0, 50)
-button2.BackgroundColor3 = Color3.fromRGB(196, 185, 255)
-button2.BorderSizePixel = 0
-button2.Font = Enum.Font.GothamSemibold
-button2.Text = "0neCreatorX->"
-button2.TextColor3 = Color3.fromRGB(255, 255, 255)
-button2.TextSize = 18
-button2.AutoButtonColor = false
-
-local button3 = Instance.new("TextButton")
-button3.Name = "Button3"
-button3.Parent = frame
-button3.Position = UDim2.new(0, 50, 0, 220)
-button3.Size = UDim2.new(0, 200, 0, 50)
-button3.BackgroundColor3 = Color3.fromRGB(91, 93, 105)
-button3.BorderSizePixel = 0
-button3.Font = Enum.Font.GothamSemibold
-button3.Text = "<-0neCreatorX"
-button3.TextColor3 = Color3.fromRGB(255, 255, 255)
-button3.TextSize = 18
-button3.AutoButtonColor = false
-
-local button4 = Instance.new("TextButton")
-button4.Name = "Button4"
-button4.Parent = frame
-button4.Position = UDim2.new(0, 50, 0, 290)
-button4.Size = UDim2.new(0, 200, 0, 50)
-button4.BackgroundColor3 = Color3.fromRGB(236, 153, 70)
-button4.BorderSizePixel = 0
-button4.Font = Enum.Font.GothamSemibold
-button4.Text = "<-0neCreatorX"
-button4.TextColor3 = Color3.fromRGB(255, 255, 255)
-button4.TextSize = 18
-button4.AutoButtonColor = false
-
--- Funciones para resaltar los botones
-local function highlightButton(button)
-    button.BackgroundColor3 = button.BackgroundColor3:Lighten(0.1)
+local function GetPlot()
+    for _, v in ipairs(Workspace.Plots:GetDescendants()) do
+        if v.Name == "Owner" and v.Value == Players.LocalPlayer then
+            return v.Parent
+        end
+    end
 end
 
-local function unhighlightButton(button)
-    button.BackgroundColor3 = button.BackgroundColor3:Darken(0.1)
+local function invokeClothing(clothing)
+    ReplicatedStorage.Events.GrabClothing:FireServer(clothing)
 end
 
--- Resaltar los botones al pasar el cursor sobre ellos
-button1.MouseEnter:Connect(function()
-    highlightButton(button1)
-end)
+local specialTag = Instance.new("StringValue") -- Reemplaza "StringValue" con el tipo de la etiqueta
 
-button1.MouseLeave:Connect(function()
-    unhighlightButton(button1)
-end)
+local function hasSpecialTag(clothing)
+    return clothing:FindFirstChild("SpecialTag") == specialTag
+end
 
-button2.MouseEnter:Connect(function()
-    highlightButton(button2)
-end)
+local function checkAndInvokeClothing()
+    local clothingDirectory = Workspace.Debris.Clothing
+    local clothingList = clothingDirectory:GetChildren()
 
-button2.MouseLeave:Connect(function()
-    unhighlightButton(button2)
-end)
+    -- Función de comparación para ordenar la lista de ropa por distancia al jugador
+    local function compareDistance(a, b)
+        local distanceA = (a.Position - playerPosition).Magnitude
+        local distanceB = (b.Position - playerPosition).Magnitude
+        return distanceA < distanceB
+    end
 
-button3.MouseEnter:Connect(function()
-    highlightButton(button3)
-end)
+    -- Ordenar la lista de ropa por distancia al jugador
+    table.sort(clothingList, compareDistance)
 
-button3.MouseLeave:Connect(function()
-    unhighlightButton(button3)
-end)
+    -- Separar la lista de ropa en dos grupos: especial y normal
+    local specialClothingList = {}
+    local normalClothingList = {}
 
-button4.MouseEnter:Connect(function()
-    highlightButton(button4)
-end)
+    for _, clothing in ipairs(clothingList) do
+        if hasSpecialTag(clothing) then
+            table.insert(specialClothingList, clothing)
+        else
+            table.insert(normalClothingList, clothing)
+        end
+    end
 
-button4.MouseLeave:Connect(function()
-    unhighlightButton(button4)
-end)
+    -- Invocar la ropa especial primero, seguida de la ropa normal
+    for _, clothing in ipairs(specialClothingList) do
+        clothing:SetAttribute("IsInvoked", true)
+        invokeClothing(clothing)
+        wait(0.1) -- Pequeño tiempo de espera entre cada invocación
+    end
 
--- Acciones al hacer clic en los botones
-button1.MouseButton1Click:Connect(function()
-    gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry3.lua"))()
-end)
+    for _, clothing in ipairs(normalClothingList) do
+        clothing:SetAttribute("IsInvoked", true)
+        invokeClothing(clothing)
+        wait(0.1) -- Pequeño tiempo de espera entre cada invocación
+    end
+end
 
-button2.MouseButton1Click:Connect(function()
-    gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry4.lua"))()
-end)
+local function manageWashingMachine(washingMachine)
+    while true do
+        -- Iniciar lavadora
+        ReplicatedStorage.Events.LoadWashingMachine:FireServer(washingMachine)
 
-button3.MouseButton1Click:Connect(function()
-    gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry5.lua"))()
-end)
+        -- Detener lavadora
+        ReplicatedStorage.Events.UnloadWashingMachine:FireServer(washingMachine)
+        wait(1.5)
+    end
+end
 
-button4.MouseButton1Click:Connect(function()
-    gui:Destroy()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/Laundry6.lua"))()
-end)
+local function invokeClothingProcess()
+    while true do
+        checkAndInvokeClothing()
+        wait(1) -- Esperar 2 segundos al final de cada recorrido
+    end
+end
 
+local function dropClothesInChute()
+    while true do
+        ReplicatedStorage.Events.DropClothesInChute:FireServer()
+        wait(1)
+    end
+end
+
+local function startSpam()
+    local plot = GetPlot()
+    if plot then
+        local washingMachines = plot.WashingMachines:GetChildren()
+
+        for _, washingMachine in ipairs(washingMachines) do
+            spawn(function()
+                manageWashingMachine(washingMachine)
+            end)
+        end
+
+        spawn(invokeClothingProcess)
+        spawn(dropClothesInChute)
+    else
+        print("No se encontró el Plot del jugador.")
+    end
+end
+
+startSpam()
