@@ -17,9 +17,9 @@ local gui = Instance.new("ScreenGui")
 gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 200, 0, 240)
-mainFrame.Position = UDim2.new(0.5, -100, 0.5, -120)
-mainFrame.BackgroundTransparency = 0.5 -- Valor entre 0 (opaco) y 1 (transparente)
+mainFrame.Size = UDim2.new(0, 200, -0.2, 240)
+mainFrame.Position = UDim2.new(0.5, -100, 0, 0)
+mainFrame.BackgroundTransparency = 0.8 -- Valor entre 0 (opaco) y 1 (transparente)
 mainFrame.Active = true
 mainFrame.Draggable = true
 mainFrame.Parent = gui
@@ -27,15 +27,15 @@ mainFrame.Parent = gui
 -- Agregar una imagen de fondo al marco principal
 local backgroundImage = Instance.new("ImageLabel")
 backgroundImage.Name = "BackgroundImage"
-backgroundImage.Size = UDim2.new(1, 0, 1, 0)
-backgroundImage.BackgroundTransparency = 0.5
+backgroundImage.Size = UDim2.new(1, 0, 0.30, -1)
+backgroundImage.BackgroundTransparency = 1
 backgroundImage.Image = "rbxassetid://13959537980" -- Reemplaza el ID de asset con la imagen deseada
 backgroundImage.Parent = mainFrame
 
 -- Crear el título
 local titleText = Instance.new("TextLabel")
 titleText.Size = UDim2.new(1, 0, 0, 40)
-titleText.Position = UDim2.new(0, 0, 0, 20)
+titleText.Position = UDim2.new(0, 0, -0.4, 20)
 titleText.BackgroundTransparency = 0.8
 titleText.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 titleText.BorderSizePixel = 1
@@ -53,41 +53,40 @@ titleText.Parent = mainFrame
 -- Crear el botón para ropa especial
 local specialClothingButton = Instance.new("TextButton")
 specialClothingButton.Size = UDim2.new(0, 180, 0, 40)
-specialClothingButton.Position = UDim2.new(0.5, 0, 0, 80)
+specialClothingButton.Position = UDim2.new(0.5, 0, 0, 52)
 specialClothingButton.AnchorPoint = Vector2.new(0.5, 0)
-specialClothingButton.BackgroundTransparency = 0.8
+specialClothingButton.BackgroundTransparency = 0.5
 specialClothingButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 specialClothingButton.BorderSizePixel = 2
-specialClothingButton.Text = "Solo ropa especial [X]"
-specialClothingButton.TextColor3 = Color3.new(0, 0, 0)
+specialClothingButton.Text = "Prendas Especiales [X]"
+specialClothingButton.TextColor3 = Color3.new(1, 1, 1)
 specialClothingButton.Font = Enum.Font.GothamSemibold
-specialClothingButton.TextSize = 15
+specialClothingButton.TextSize = 10
 specialClothingButton.TextScaled = true
 specialClothingButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 specialClothingButton.TextStrokeTransparency = 0.5
-specialClothingButton.TextTransparency = 0.4
+specialClothingButton.TextTransparency = 0.2
 specialClothingButton.ClipsDescendants = true
 specialClothingButton.Parent = mainFrame
 
 -- Crear el botón de Auto Game
 local autofarmButton = Instance.new("TextButton")
 autofarmButton.Size = UDim2.new(0, 180, 0, 40)
-autofarmButton.Position = UDim2.new(0.5, 0, 0, 140)
+autofarmButton.Position = UDim2.new(0.5, 0, 0, 97)
 autofarmButton.AnchorPoint = Vector2.new(0.5, 0)
-autofarmButton.BackgroundTransparency = 0.8
+autofarmButton.BackgroundTransparency = 0.5
 autofarmButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-autofarmButton.BorderSizePixel = 2
+autofarmButton.BorderSizePixel = 1
 autofarmButton.Text = "Auto Game"
-autofarmButton.TextColor3 = Color3.new(0, 0, 0)
+autofarmButton.TextColor3 = Color3.new(1, 1, 1)
 autofarmButton.Font = Enum.Font.GothamSemibold
 autofarmButton.TextSize = 15
 autofarmButton.TextScaled = true
 autofarmButton.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
 autofarmButton.TextStrokeTransparency = 0.5
-autofarmButton.TextTransparency = 0.5
+autofarmButton.TextTransparency = 0.2
 autofarmButton.ClipsDescendants = true
 autofarmButton.Parent = mainFrame
-
 
 local titleTexts = {"Laundry X", "YT:@OneCreatorX"}
 local titleColors = {
