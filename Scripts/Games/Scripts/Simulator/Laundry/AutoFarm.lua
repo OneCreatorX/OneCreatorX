@@ -97,8 +97,6 @@ wait(0.8)
                 end
             end
 
-game:GetService("ReplicatedStorage").Events.DropClothesInChute:FireServer()
-
             checkAndInvokeClothing()
             wait(2) -- Esperar 2 segundos al final de cada recorrido
         end
