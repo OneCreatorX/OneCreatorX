@@ -8,7 +8,7 @@
   },
  "Community Scripts":{
      "Creator": "Community",
-    "Status": "irregular zone",
+    "Status": "Community Zone",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/Comunidad/LoadyComunidad.lua",
   "Updated": "10/07/2023"
   },
@@ -62,7 +62,7 @@
   },
 "11966456877":{
     "Creator": "OneCreatorX",
-    "Status": "functional and working",
+    "Status": "functional and in progress",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/RespondeOmuere.lua",
   "Updated": "10/07/2023"
   }
