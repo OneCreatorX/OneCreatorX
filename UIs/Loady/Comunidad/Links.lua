@@ -1,9 +1,9 @@
 {
 "Updated":"04/07/2023",
-  "Name/ID":{
-     "Creator": "OneCreatorX",
-    "Status": "",
-"Url": "",
-  "Updated": "##/##/####"
+  "2768379856":{
+     "Creator": "SCP.SF",
+    "Status": "Verified",
+"Url":"loadstring(game:HttpGet("https://raw.githubusercontent.com/ScriptV2PE/SCP.SF/main/.github/workflows/Scp3008WZ"))(),
+  "Updated": "10/07/2023"
   }
 }
