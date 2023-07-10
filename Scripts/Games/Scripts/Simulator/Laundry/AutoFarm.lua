@@ -70,20 +70,41 @@ end
 local function startSpam()
     local plot = GetPlot()
     if plot then
-        local washingMachines = plot.WashingMachines:GetChildren()
+        local processedWashingMachines = {} -- Almacenar lavadoras procesadas
 
-        for _, washingMachine in ipairs(washingMachines) do
-            spawn(function()
-                manageWashingMachine(washingMachine)
-            end)
+        while true do
+wait(0.8)
+            local washingMachines = plot.WashingMachines:GetChildren()
+
+            -- Crear una copia de la tabla processedWashingMachines
+            local processedCopy = table.move(processedWashingMachines, 1, #processedWashingMachines, 1, {})
+
+            -- Verificar lavadoras que ya no están presentes
+            for i = #processedCopy, 1, -1 do
+                local washingMachine = processedCopy[i]
+                if not table.find(washingMachines, washingMachine) then
+                    table.remove(processedWashingMachines, i) -- Eliminar lavadora de la tabla
+                end
+            end
+
+            -- Procesar lavadoras nuevas y no procesadas
+            for _, washingMachine in ipairs(washingMachines) do
+                if not table.find(processedWashingMachines, washingMachine) then
+                    spawn(function()
+                        manageWashingMachine(washingMachine)
+                    end)
+                    table.insert(processedWashingMachines, washingMachine) -- Agregar lavadora a las procesadas
+                end
+            end
+
+game:GetService("ReplicatedStorage").Events.DropClothesInChute:FireServer()
+
+            checkAndInvokeClothing()
+            wait(2) -- Esperar 2 segundos al final de cada recorrido
         end
-
-        spawn(invokeClothingProcess)
-        spawn(dropClothesInChute)
     else
         print("No se encontró el Plot del jugador.")
     end
 end
 
 startSpam()
-
