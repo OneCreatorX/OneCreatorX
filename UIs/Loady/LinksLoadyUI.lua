@@ -6,6 +6,12 @@
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua",
   "Updated": "04/07/2023"
   },
+ "Community Scripts":{
+     "Creator": "Community",
+    "Status": "irregular zone",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/Comunidad/LoadyComunidad.lua",
+  "Updated": "10/07/2023"
+  },
  "13276475159":{
     "Creator": "OneCreatorX",
     "Status": "Functional and in Development",
