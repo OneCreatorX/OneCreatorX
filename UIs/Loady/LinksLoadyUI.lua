@@ -56,7 +56,7 @@
   },
 "11966456877":{
     "Creator": "OneCreatorX",
-    "Status": "Functional",
+    "Status": "functional and working",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/RespondeOmuere.lua",
   "Updated": "10/07/2023"
   }
