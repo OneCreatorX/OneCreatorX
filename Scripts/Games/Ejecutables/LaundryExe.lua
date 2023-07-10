@@ -58,7 +58,7 @@ specialClothingButton.AnchorPoint = Vector2.new(0.5, 0)
 specialClothingButton.BackgroundTransparency = 0.5
 specialClothingButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 specialClothingButton.BorderSizePixel = 2
-specialClothingButton.Text = "Prendas Especiales [X]"
+specialClothingButton.Text = "Ropas Especial"
 specialClothingButton.TextColor3 = Color3.new(1, 0, 0)
 specialClothingButton.Font = Enum.Font.GothamSemibold
 specialClothingButton.TextSize = 10
@@ -117,7 +117,7 @@ local function ToggleAutoFarm()
     isAutoFarmEnabled = not isAutoFarmEnabled
     
     if isAutoFarmEnabled then
-        specialClothingButton.Text = "Solo ropa especial [✓]"
+        specialClothingButton.Text = "Ropas Especial"
         
         -- Iniciar el bucle de comprobación e invocación continua
         while isAutoFarmEnabled do
