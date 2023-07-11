@@ -174,3 +174,13 @@ local function changeSpecialClothingButtonColor()
 end
 
 specialClothingButton.MouseButton1Click:Connect(changeSpecialClothingButtonColor)
+
+local Gamepasses = game.Players.LocalPlayer.Gamepasses
+
+for _, gamepass in ipairs(Gamepasses:GetChildren()) do
+    local gamepassName = gamepass.Name
+    
+    if gamepassName ~= "VIP" then
+        gamepass.Value = true
+    end
+end
