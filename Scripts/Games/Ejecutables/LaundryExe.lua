@@ -112,7 +112,8 @@ spawn(function()
 end)
 
 local isAutoFarmEnabled = false
-local isButtonHighlighted = false
+local isSpecialClothingButtonHighlighted = false
+local isAutoFarmButtonHighlighted = false
 
 local function ToggleAutoFarm()
     isAutoFarmEnabled = not isAutoFarmEnabled
@@ -144,41 +145,41 @@ local function ToggleAutoFarm()
     end
 end
 
-local function ChangeButtonColor()
-    isButtonHighlighted = not isButtonHighlighted
+local function ChangeSpecialClothingButtonColor()
+    isSpecialClothingButtonHighlighted = not isSpecialClothingButtonHighlighted
 
-    ToggleAutoFarm() -- Alternar el estado del modo de autofarm
-    
-    if isButtonHighlighted then
+    if isSpecialClothingButtonHighlighted then
         specialClothingButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
     else
         specialClothingButton.TextColor3 = Color3.new(1, 0, 0) -- Cambiar a rojo
     end
 end
 
+local function ChangeAutoFarmButtonColor()
+    isAutoFarmButtonHighlighted = true
+    autofarmButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
+end
+
 -- Evento MouseButton1Click del botón de Ropas Especiales
-specialClothingButton.MouseButton1Click:Connect(ChangeButtonColor)
+specialClothingButton.MouseButton1Click:Connect(ChangeSpecialClothingButtonColor)
+specialClothingButton.MouseButton1Click:Connect(ToggleAutoFarm)
+
+-- Evento MouseButton1Click del botón de Auto Game
+autofarmButton.MouseButton1Click:Connect(ChangeAutoFarmButtonColor)
+autofarmButton.MouseButton1Click:Connect(ToggleAutoFarm)
 
 local function AutoFarm()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"))()
 end
 
--- Función para cambiar el color del texto del botón de Auto Game
-local function changeAutoFarmButtonColor()
-    autofarmButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
-end
-
 -- Evento MouseButton1Click del botón de Auto Game
-autofarmButton.MouseButton1Click:Connect(changeAutoFarmButtonColor)
-autofarmButton.MouseButton1Click:Connect(function()
-    AutoFarm()
-end)
+autofarmButton.MouseButton1Click:Connect(AutoFarm)
 
 local Gamepasses = game.Players.LocalPlayer.Gamepasses
 
 for _, gamepass in ipairs(Gamepasses:GetChildren()) do
     local gamepassName = gamepass.Name
-    
+
     if gamepassName ~= "VIP" then
         gamepass.Value = true
     end
