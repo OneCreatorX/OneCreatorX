@@ -112,41 +112,52 @@ spawn(function()
 end)
 
 local isAutoFarmEnabled = false
+local isButtonHighlighted = false
 
 local function ToggleAutoFarm()
     isAutoFarmEnabled = not isAutoFarmEnabled
-    
-    if isAutoFarmEnabled then
-        specialClothingButton.Text = "Ropas Especiales"
-        
-        -- Iniciar el bucle de comprobación e invocación continua
-        while isAutoFarmEnabled do
-            local clothingList = UpdateClothingDirectory()
-            local specialClothingList = {}
 
-            for _, v in ipairs(clothingList) do
-                local SpecialTag = v:FindFirstChild("SpecialTag")
+    if not isAutoFarmEnabled then
+        -- Detener el modo de autofarm
+        return
+    end
 
-                if SpecialTag then
-                    table.insert(specialClothingList, v)
-                end
+    while isAutoFarmEnabled do
+        local clothingList = UpdateClothingDirectory()
+        local specialClothingList = {}
+
+        for _, v in ipairs(clothingList) do
+            local specialTag = v:FindFirstChild("SpecialTag")
+
+            if specialTag then
+                table.insert(specialClothingList, v)
             end
-
-            -- Tomar las prendas especiales
-            for _, v in ipairs(specialClothingList) do
-                InvokeClothing(v)
-                wait(0.2)
-            end
-
-            wait(1)  -- Esperar un segundo antes de realizar la próxima comprobación
         end
-    else
-        specialClothingButton.Text = "Ropas Especiales"
-        
-        -- Detener la función
-        -- Implementa la lógica necesaria para detener la función según tus necesidades
+
+        -- Tomar las prendas especiales
+        for _, v in ipairs(specialClothingList) do
+            InvokeClothing(v)
+            wait(0.2)
+        end
+
+        wait(1)  -- Esperar un segundo antes de realizar la próxima comprobación
     end
 end
+
+local function ChangeButtonColor()
+    isButtonHighlighted = not isButtonHighlighted
+
+    ToggleAutoFarm() -- Alternar el estado del modo de autofarm
+    
+    if isButtonHighlighted then
+        specialClothingButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
+    else
+        specialClothingButton.TextColor3 = Color3.new(1, 0, 0) -- Cambiar a rojo
+    end
+end
+
+-- Evento MouseButton1Click del botón de Ropas Especiales
+specialClothingButton.MouseButton1Click:Connect(ChangeButtonColor)
 
 local function AutoFarm()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"))()
@@ -162,18 +173,6 @@ autofarmButton.MouseButton1Click:Connect(changeAutoFarmButtonColor)
 autofarmButton.MouseButton1Click:Connect(function()
     AutoFarm()
 end)
-
-local function changeSpecialClothingButtonColor()
-    specialClothingButtonState = not specialClothingButtonState -- Invertir el estado
-    if specialClothingButtonState then
-        specialClothingButton.TextColor3 = Color3.new(0, 1, 0) -- Cambiar a verde
-        ToggleAutoFarm() -- Ejecutar función ToggleAutoFarm
-    else
-        specialClothingButton.TextColor3 = Color3.new(1, 0, 0) -- Cambiar a rojo
-    end
-end
-
-specialClothingButton.MouseButton1Click:Connect(changeSpecialClothingButtonColor)
 
 local Gamepasses = game.Players.LocalPlayer.Gamepasses
 
