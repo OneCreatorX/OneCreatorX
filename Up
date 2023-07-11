@@ -1,0 +1,186 @@
+local ClothingService = game:GetService("ReplicatedStorage").Events
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Workspace = game:GetService("Workspace")
+local GuiService = game:GetService("GuiService")
+
+local function UpdateClothingDirectory()
+    return Workspace.Debris.Clothing:GetChildren()
+end
+
+local function InvokeClothing(clothing)
+    ClothingService.GrabClothing:FireServer(clothing)
+end
+
+local function SortClothingByDistance(clothingList)
+    local playerPosition = LocalPlayer.Character.HumanoidRootPart.Position
+
+    table.sort(clothingList, function(a, b)
+        local distanceA = (a.Position - playerPosition).Magnitude
+        local distanceB = (b.Position - playerPosition).Magnitude
+        return distanceA < distanceB
+    end)
+end
+
+local function InvokeSpecialClothing()
+    local clothingList = UpdateClothingDirectory()
+    SortClothingByDistance(clothingList)
+
+    for _, clothing in ipairs(clothingList) do
+        InvokeClothing(clothing)
+        wait(0.01)
+    end
+end
+
+local function ManageWashingMachine(washingMachine)
+    while autoFarmEnabled do
+        ClothingService.LoadWashingMachine:FireServer(washingMachine)
+        ClothingService.UnloadWashingMachine:FireServer(washingMachine)
+        wait(0.8)
+    end
+end
+
+local function InvokeAllClothing()
+    local clothingList = UpdateClothingDirectory()
+    SortClothingByDistance(clothingList)
+
+    for _, clothing in ipairs(clothingList) do
+        InvokeClothing(clothing)
+        wait(0.01)
+    end
+end
+
+local function ManageWashingMachine(washingMachine)
+    while autoFarmEnabled do
+        ClothingService.LoadWashingMachine:FireServer(washingMachine)
+        ClothingService.UnloadWashingMachine:FireServer(washingMachine)
+        wait(0.8)
+    end
+end
+
+local function StartSpam()
+    autoFarmEnabled = not autoFarmEnabled
+    
+    if autoFarmEnabled then
+        local plot = LocalPlayer.NonSaveVars.OwnsPlot.Value
+
+        if not plot then
+            print("No se encontró el Plot del jugador.")
+            return
+        end
+
+        local washingMachines = plot.WashingMachines:GetChildren()
+        for _, washingMachine in ipairs(washingMachines) do
+            spawn(function()
+                ManageWashingMachine(washingMachine)
+            end)
+        end
+    end
+end
+
+-- Variables para controlar el estado de los botones
+local specialClothingEnabled = false
+local allClothingEnabled = false
+local autoFarmEnabled = false
+
+-- Función para activar/desactivar un botón
+local function ToggleButton(button, isEnabled)
+    button.TextColor3 = isEnabled and Color3.new(0, 1, 0) or Color3.new(1, 0, 0)
+    button.Active = not isEnabled
+end
+
+-- Crear la interfaz gráfica (gui)
+local gui = Instance.new("ScreenGui")
+gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+-- Crear el marco principal
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 200, 0, 240)
+mainFrame.Position = UDim2.new(0.5, -100, 0, 0)
+mainFrame.BackgroundTransparency = 0.8
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = gui
+
+-- Crear el título
+local titleText = Instance.new("TextLabel")
+titleText.Size = UDim2.new(1, 0, 0, 40)
+titleText.Position = UDim2.new(0, 0, -0.4, 20)
+titleText.BackgroundTransparency = 0.4
+titleText.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleText.BorderSizePixel = 1
+titleText.Text = "Laundry X"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.Font = Enum.Font.GothamSemibold
+titleText.TextSize = 14
+titleText.TextScaled = true
+titleText.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+titleText.TextStrokeTransparency = 0.5
+titleText.TextTransparency = 0.2
+titleText.ClipsDescendants = true
+titleText.Parent = mainFrame
+
+-- Crear los botones
+local buttons = {}
+
+local buttonData = {
+    {Text = "Ropas Especiales", Color = Color3.new(1, 0, 0), Action = InvokeSpecialClothing},
+    {Text = "Todas las Prendas", Color = Color3.new(1, 0, 0), Action = InvokeAllClothing},
+    {Text = "AutoFarm", Color = Color3.new(1, 0, 0), Action = StartSpam}
+}
+
+local function CreateButton(data, i)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 180, 0, 40)
+    button.Position = UDim2.new(0.5, 0, 0, 52 + (45 * (i - 1)))
+    button.AnchorPoint = Vector2.new(0.5, 0)
+    button.BackgroundTransparency = 0.5
+    button.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    button.BorderSizePixel = 1
+    button.Text = data.Text
+    button.TextColor3 = data.Color
+    button.Font = Enum.Font.GothamSemibold
+    button.TextSize = 15
+    button.TextScaled = true
+    button.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+    button.TextStrokeTransparency = 0.5
+    button.TextTransparency = 0.2
+    button.ClipsDescendants = true
+    button.Parent = mainFrame
+
+    return button
+end
+
+for i, data in ipairs(buttonData) do
+    buttons[i] = CreateButton(data, i)
+end
+
+-- Conectar eventos MouseButton1Click a los botones
+for i, button in ipairs(buttons) do
+    button.MouseButton1Click:Connect(function()
+        if i == 1 then
+            specialClothingEnabled = not specialClothingEnabled
+        elseif i == 2 then
+            allClothingEnabled = not allClothingEnabled
+        end
+        
+        ToggleButton(button, (i == 1 and specialClothingEnabled) or (i == 2 and allClothingEnabled))
+        buttonData[i].Action()
+    end)
+end
+
+-- Gamepasses
+local Gamepasses = LocalPlayer.Gamepasses
+
+for _, gamepass in ipairs(Gamepasses:GetChildren()) do
+    local gamepassName = gamepass.Name
+
+    if gamepassName ~= "VIP" then
+        gamepass.Value = true
+    end
+end
+
+while true do
+    ClothingService.DropClothesInChute:FireServer()
+    wait(0.5)
+end
