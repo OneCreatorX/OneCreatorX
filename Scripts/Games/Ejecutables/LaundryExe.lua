@@ -152,7 +152,7 @@ local textLabel = workspace.Building.NuclearBar.NukeCounter.SurfaceGui.Frame.Tex
 
 local fixedLabel = Instance.new("TextLabel")
 fixedLabel.Size = UDim2.new(1, -20, 1, -20)
-fixedLabel.Position = UDim2.new(0, 10, 0, 25)
+fixedLabel.Position = UDim2.new(0, 10, 0, 10)
 fixedLabel.BackgroundTransparency = 1
 fixedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 fixedLabel.Font = Enum.Font.GothamBold
