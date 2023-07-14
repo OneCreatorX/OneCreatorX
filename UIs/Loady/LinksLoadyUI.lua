@@ -20,9 +20,9 @@
   },
  "6305942109":{
     "Creator": "OneCreatorX",
-    "Status": "90% worked up",
+    "Status": "functional",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/LaundryExe.lua",
-  "Updated": "010/07/2023"
+  "Updated": "014/07/2023"
   },
  "10108131074":{
     "Creator": "OneCreatorX",
