@@ -36,7 +36,7 @@ local function invocarRopasEspecialesCercanas()
         for _, ropa in ipairs(listaRopasEspeciales) do
             if ropa:IsDescendantOf(directorio) then
                 game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(ropa)
-                wait(0.01)
+                wait(0.1)
             end
         end
     end
@@ -68,7 +68,7 @@ local function invocarRopasCercanas()
         for _, ropa in ipairs(listaRopas) do
             if ropa:IsDescendantOf(directorio) then
                 game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(ropa)
-                wait()
+                wait(0.05)
             end
         end
     end
