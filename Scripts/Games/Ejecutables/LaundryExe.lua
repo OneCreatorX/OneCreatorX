@@ -36,7 +36,7 @@ local function invocarRopasEspecialesCercanas()
         for _, ropa in ipairs(listaRopasEspeciales) do
             if ropa:IsDescendantOf(directorio) then
                 game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(ropa)
-                wait()
+                wait(0.01)
             end
         end
     end
@@ -68,7 +68,7 @@ local function invocarRopasCercanas()
         for _, ropa in ipairs(listaRopas) do
             if ropa:IsDescendantOf(directorio) then
                 game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(ropa)
-                wait(0.1)
+                wait()
             end
         end
     end
@@ -93,7 +93,7 @@ frame.Parent = screenGui
 
 local title = Instance.new("TextLabel")
 title.Name = "TitleLabel"
-title.Text = "Laundry @OneCreatorX"
+title.Text = "Laundry | YT:@OneCreatorX"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
 title.TextColor3 = Color3.new(1, 1, 1)
@@ -103,7 +103,7 @@ title.Parent = frame
 
 local specialButton = Instance.new("TextButton")
 specialButton.Name = "SpecialButton"
-specialButton.Text = "Invocar Ropas Especiales (OFF)"
+specialButton.Text = "Ropas Especiales (OFF)"
 specialButton.Size = UDim2.new(0, 200, 0, 50)
 specialButton.Position = UDim2.new(0, 10, 0, 30)
 specialButton.Font = Enum.Font.SourceSans
@@ -115,7 +115,7 @@ specialButton.Parent = frame
 
 local nearbyButton = Instance.new("TextButton")
 nearbyButton.Name = "NearbyButton"
-nearbyButton.Text = "Invocar todas las ropa (OFF)"
+nearbyButton.Text = "Todas la Ropa (OFF)"
 nearbyButton.Size = UDim2.new(0, 200, 0, 50)
 nearbyButton.Position = UDim2.new(0, 10, 0, 85)
 nearbyButton.Font = Enum.Font.SourceSans
@@ -127,7 +127,7 @@ nearbyButton.Parent = frame
 
 local plotButton = Instance.new("TextButton")
 plotButton.Name = "PlotButton"
-plotButton.Text = "Iniciar Process Lavadoras"
+plotButton.Text = "Procesos de Lavadoras"
 plotButton.Size = UDim2.new(0, 200, 0, 50)
 plotButton.Position = UDim2.new(0, 10, 0, 140)
 plotButton.Font = Enum.Font.SourceSans
@@ -137,15 +137,44 @@ plotButton.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
 plotButton.BorderSizePixel = 0
 plotButton.Parent = frame
 
+-- Cuadro de texto fijo
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+local fixedFrame = Instance.new("Frame")
+fixedFrame.Size = UDim2.new(0, 250, 0, 60)
+fixedFrame.Position = UDim2.new(0.5, -125, 0, 10)
+fixedFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+fixedFrame.BorderSizePixel = 0
+fixedFrame.Parent = gui
+
+local textLabel = workspace.Building.NuclearBar.NukeCounter.SurfaceGui.Frame.TextLabel
+
+local fixedLabel = Instance.new("TextLabel")
+fixedLabel.Size = UDim2.new(1, -20, 1, -20)
+fixedLabel.Position = UDim2.new(0, 10, 0, 25)
+fixedLabel.BackgroundTransparency = 1
+fixedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+fixedLabel.Font = Enum.Font.GothamBold
+fixedLabel.TextSize = 24
+fixedLabel.Text = "Progreso del Nuclear: " .. textLabel.Text
+fixedLabel.TextWrapped = true
+fixedLabel.TextScaled = true
+fixedLabel.Parent = fixedFrame
+
+textLabel:GetPropertyChangedSignal("Text"):Connect(function()
+    fixedLabel.Text = "Progreso del Nuclear: " .. textLabel.Text
+end)
+
 -- Funciones para alternar el estado de los scripts
 local function toggleSpecialScriptState()
     scriptActivadoEspecial = not scriptActivadoEspecial
-    specialButton.Text = scriptActivadoEspecial and "Invocar Ropas Especiales (ON)" or "Invocar Ropas Especiales (OFF)"
+    specialButton.Text = scriptActivadoEspecial and "Ropas Especiales (ON)" or "Ropas Especiales (OFF)"
 end
 
 local function toggleNearbyScriptState()
     scriptActivadoCercano = not scriptActivadoCercano
-    nearbyButton.Text = scriptActivadoCercano and "Invocar todas las Ropas (ON)" or "Invocar todas las ropas (OFF)"
+    nearbyButton.Text = scriptActivadoCercano and "Todas las Ropas (ON)" or "Todas las Ropas (OFF)"
 end
 
 specialButton.MouseButton1Click:Connect(toggleSpecialScriptState)
@@ -159,7 +188,7 @@ local function alternarEstadoScriptLavarropas()
         if WashingMachines then
             for _, washingMachine in ipairs(WashingMachines) do
                 game:GetService("ReplicatedStorage").Events.LoadWashingMachine:FireServer(washingMachine)
-                wait(0.8)
+                wait(0.2)
                 game:GetService("ReplicatedStorage").Events.UnloadWashingMachine:FireServer(washingMachine)
                 game:GetService("ReplicatedStorage").Events.DropClothesInChute:FireServer()
             end
@@ -182,6 +211,13 @@ if plotValue.Value then
 else
     plotButton.Visible = false
 end
+
+directorio.ChildRemoved:Connect(function()
+    if plotValue.Value then
+        local Plot = plotValue.Value.Name
+        WashingMachines = workspace.Plots[Plot].WashingMachines:GetChildren()
+    end
+end)
 
 -- Invocar ropas especiales cercanas al jugador
 game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
