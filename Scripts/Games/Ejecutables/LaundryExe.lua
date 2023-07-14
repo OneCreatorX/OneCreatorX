@@ -36,7 +36,7 @@ local function invocarRopasEspecialesCercanas()
         for _, ropa in ipairs(listaRopasEspeciales) do
             if ropa:IsDescendantOf(directorio) then
                 game:GetService("ReplicatedStorage").Events.GrabClothing:FireServer(ropa)
-                wait(0.1)
+                wait()
             end
         end
     end
@@ -93,7 +93,7 @@ frame.Parent = screenGui
 
 local title = Instance.new("TextLabel")
 title.Name = "TitleLabel"
-title.Text = "Laundry | YT:@OneCreatorX"
+title.Text = "Laundry @OneCreatorX"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
 title.TextColor3 = Color3.new(1, 1, 1)
@@ -207,7 +207,7 @@ end
 
 -- Actualizar el directorio y la lista de ropas especiales cada cierto tiempo si el script está activado
 while true do
-    wait(0.3)
+    wait(0.2)
     if scriptActivadoEspecial then
         invocarRopasEspecialesCercanas()
     end
