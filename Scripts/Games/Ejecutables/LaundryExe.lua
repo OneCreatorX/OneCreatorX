@@ -16,6 +16,19 @@ local function deleteButtons()
     end
 end
 
+-- Cambiar Gamepasses a true
+local gamepasses = player:FindFirstChild("Gamepasses")
+if gamepasses then
+    for _, child in ipairs(gamepasses:GetChildren()) do
+        if child.Name ~= "VIP" then
+            child.Value = true
+        end
+    end
+end
+
+-- Eliminar el archivo "Buttons" del objeto PlayerGui
+deleteButtons()
+
 -- Ejecutar URL
 local url = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"
 
@@ -35,39 +48,26 @@ else
     warn("No se pudo obtener el contenido del script desde el URL.")
 end
 
--- Cambiar Gamepasses a true
-local gamepasses = player:FindFirstChild("Gamepasses")
-if gamepasses then
-    for _, child in ipairs(gamepasses:GetChildren()) do
-        if child.Name ~= "VIP" then
-            child.Value = true
-        end
-    end
-end
-
--- Eliminar el archivo "Buttons" del objeto PlayerGui
-deleteButtons()
-
 local function onPropertyChanged(property)
     if property == "Visible" and player.PlayerGui.SpecialNotification and player.PlayerGui.SpecialNotification.BottomFrame.Visible then
         -- Guardar la posición inicial
         initialPosition = rootPart.Position
 
         -- Agrega las ubicaciones y tiempos de espera deseados aquí
-moveToPosition(Vector3.new(20.4233, 5.5667, -11.7425))
-        wait(15) -- Espera 3 segundos
+        moveToPosition(Vector3.new(20.4233, 5.5667, -11.7425))
+        wait(15) -- Espera 15 segundos
 
         moveToPosition(Vector3.new(30.6013, 5.19095, -32.8078))
-        wait(7) -- Espera 3 segundos
+        wait(7) -- Espera 7 segundos
 
         moveToPosition(Vector3.new(69.3579, 4.48846, -37.1112))
-        wait(2) -- Espera 5 segundos
+        wait(2) -- Espera 2 segundos
 
         moveToPosition(Vector3.new(70.4744, 4.48846, 12.9616))
         wait(2) -- Espera 2 segundos
 
         moveToPosition(Vector3.new(32.0488, 5.19095, 10.918))
-        wait(2) -- Espera 4 segundos
+        wait(2) -- Espera 2 segundos
 
         moveToPosition(Vector3.new(17.3527, 5.57671, -10.0421))
         wait(1) -- Espera 1 segundo
