@@ -54,17 +54,20 @@ local function onPropertyChanged(property)
         initialPosition = rootPart.Position
 
         -- Agrega las ubicaciones y tiempos de espera deseados aquí
+moveToPosition(Vector3.new(20.4233, 5.5667, -11.7425))
+        wait(15) -- Espera 3 segundos
+
         moveToPosition(Vector3.new(30.6013, 5.19095, -32.8078))
-        wait(3) -- Espera 3 segundos
+        wait(7) -- Espera 3 segundos
 
         moveToPosition(Vector3.new(69.3579, 4.48846, -37.1112))
-        wait(5) -- Espera 5 segundos
+        wait(3) -- Espera 5 segundos
 
         moveToPosition(Vector3.new(70.4744, 4.48846, 12.9616))
-        wait(2) -- Espera 2 segundos
+        wait(3) -- Espera 2 segundos
 
         moveToPosition(Vector3.new(32.0488, 5.19095, 10.918))
-        wait(4) -- Espera 4 segundos
+        wait(2) -- Espera 4 segundos
 
         moveToPosition(Vector3.new(17.3527, 5.57671, -10.0421))
         wait(1) -- Espera 1 segundo
