@@ -12,7 +12,6 @@ local function invokeIngredient(ingredient)
     remote:FireServer(ingredient.Ingredient_Collider)
 end
 
--- Crear una instancia de ScreenGui para contener los botones
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ButtonContainer"
 screenGui.Parent = game.Players.LocalPlayer.PlayerGui
@@ -20,7 +19,9 @@ screenGui.Parent = game.Players.LocalPlayer.PlayerGui
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 250, 0, 230)
 frame.Position = UDim2.new(0.5, -frame.Size.X.Offset / 2, 0.5, -frame.Size.Y.Offset / 2)
+frame.BackgroundTransparency = 0.5
 frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true
 frame.Parent = screenGui
@@ -28,6 +29,7 @@ frame.Parent = screenGui
 local titleContainer = Instance.new("Frame")
 titleContainer.Size = UDim2.new(1, 0, 0, 40)
 titleContainer.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+titleContainer.BorderSizePixel = 0
 titleContainer.Parent = frame
 
 local title = Instance.new("TextLabel")
@@ -46,27 +48,54 @@ local buttonSpacing = 10
 
 local invokeButton = Instance.new("TextButton")
 invokeButton.Size = buttonSize
-invokeButton.Position = UDim2.new(0.1, 0, 0, 1.5)
+invokeButton.Position = UDim2.new(0.1, 0, 0, 50)
 invokeButton.Text = "Invocar ingredientes"
+invokeButton.Font = Enum.Font.Gotham
+invokeButton.TextColor3 = Color3.new(1, 1, 1)
+invokeButton.TextSize = 16
+invokeButton.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+invokeButton.BorderSizePixel = 0
 invokeButton.Parent = frame
 
 local ovensButton = Instance.new("TextButton")
 ovensButton.Size = buttonSize
-ovensButton.Position = UDim2.new(0.1, 0, 0, 2 + buttonSize.Y.Offset + buttonSpacing)
+ovensButton.Position = UDim2.new(0.1, 0, 0, 50 + buttonSize.Y.Offset + buttonSpacing)
 ovensButton.Text = "Ingre Hornos"
+ovensButton.Font = Enum.Font.Gotham
+ovensButton.TextColor3 = Color3.new(1, 1, 1)
+ovensButton.TextSize = 16
+ovensButton.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+ovensButton.BorderSizePixel = 0
 ovensButton.Parent = frame
 
 local finalButton = Instance.new("TextButton")
 finalButton.Size = buttonSize
-finalButton.Position = UDim2.new(0.1, 0, 0, 0 + (buttonSize.Y.Offset + buttonSpacing) * 2.5)
+finalButton.Position = UDim2.new(0.1, 0, 0, 50 + (buttonSize.Y.Offset + buttonSpacing) * 2)
 finalButton.Text = "Proceso final"
+finalButton.Font = Enum.Font.Gotham
+finalButton.TextColor3 = Color3.new(1, 1, 1)
+finalButton.TextSize = 16
+finalButton.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+finalButton.BorderSizePixel = 0
 finalButton.Parent = frame
 
 local startButton = Instance.new("TextButton")
 startButton.Size = buttonSize
-startButton.Position = UDim2.new(0.1, 0, 0, 0 + (buttonSize.Y.Offset + buttonSpacing) * 3.5)
+startButton.Position = UDim2.new(0.1, 0, 0, 50 + (buttonSize.Y.Offset + buttonSpacing) * 3)
 startButton.Text = "Iniciar cocción"
+startButton.Font = Enum.Font.Gotham
+startButton.TextColor3 = Color3.new(1, 1, 1)
+startButton.TextSize = 16
+startButton.BackgroundColor3 = Color3.fromRGB(128, 128, 128)
+startButton.BorderSizePixel = 0
 startButton.Parent = frame
+
+local buttonState = {
+    invokeButton = false,
+    ovensButton = false,
+    finalButton = false,
+    startButton = false,
+}
 
 local function toggleButtonState(buttonName, button)
     buttonState[buttonName] = not buttonState[buttonName]
