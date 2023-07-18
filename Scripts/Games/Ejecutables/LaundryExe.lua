@@ -9,13 +9,6 @@ local function moveToPosition(position)
     humanoid.MoveToFinished:Wait()
 end
 
-local function deleteButtons()
-    local playerGui = player.PlayerGui
-    if playerGui:FindFirstChild("Buttons") then
-        playerGui.Buttons:Destroy()
-    end
-end
-
 -- Cambiar Gamepasses a true
 local gamepasses = player:FindFirstChild("Gamepasses")
 if gamepasses then
@@ -25,9 +18,6 @@ if gamepasses then
         end
     end
 end
-
--- Eliminar el archivo "Buttons" del objeto PlayerGui
-deleteButtons()
 
 -- Ejecutar URL
 local url = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Scripts/Simulator/Laundry/AutoFarm.lua"
