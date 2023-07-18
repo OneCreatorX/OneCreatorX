@@ -252,7 +252,7 @@ local function startBaking()
                         local currentlyCooking = oven.ConverterData.CurrentlyCooking.Value
 
                         if #converterContents == 0 and not currentlyCooking then
-                            replicatedStorage.Remotes.StartBake:FireServer(oven, "Cookies")
+                            replicatedStorage.Remotes.StartBake:FireServer(oven, "Exotic")
                         end
                     end
                 end
