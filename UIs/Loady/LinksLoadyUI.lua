@@ -16,7 +16,7 @@
     "Creator": "OneCreatorX",
     "Status": "Functional and in Development",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/CoffeShop.lua",
-  "Updated": "04/07/2023"
+  "Updated": "19/07/2023"
   },
  "6305942109":{
     "Creator": "OneCreatorX",
