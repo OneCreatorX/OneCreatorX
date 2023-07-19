@@ -18,3 +18,4 @@ Quitar Colision/NoClip:ParaMejorar/Nocolision
 Infinity Yield/Consola:Final/Consola
 Dex V3:Final/DexV3
 Spy Mobil:Final/Spy
+Tp All Players OneClick:Final/TpAllPS
