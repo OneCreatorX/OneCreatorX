@@ -1,4 +1,4 @@
--- Función para crear y configurar un botón con estilo y centrarlo en el eje X
+ -- Función para crear y configurar un botón con estilo y centrarlo en el eje X
 local function createStyledButton(name, parent, position, size, active)
     local button = Instance.new("TextButton")
     button.Name = name
@@ -10,8 +10,10 @@ local function createStyledButton(name, parent, position, size, active)
     button.TextSize = 14
     button.TextColor3 = Color3.new(1, 1, 1)
     button.BackgroundTransparency = 0.5
-    button.BorderSizePixel = 0
     button.TextWrapped = true
+
+    -- Establecer color rojo por defecto para botones desactivados
+    button.BackgroundColor3 = active and Color3.new(0, 0.7, 0) or Color3.new(0.7, 0, 0) -- Verde o Rojo
 
     -- Cambiar el color del botón cuando es activado/desactivado
     button.Activated:Connect(function()
@@ -67,16 +69,17 @@ gui.DisplayOrder = 10 -- Para que se muestre encima de otros elementos
 -- Título (actualizado con más detalles visuales)
 local title = Instance.new("TextLabel")
 title.Parent = gui
-title.Size = UDim2.new(1, 0, 0, 30)
+title.Size = UDim2.new(1, 0, 0, 60) -- Aumentar el tamaño para que cruce todo lo horizontal
 title.BackgroundColor3 = Color3.new(0, 0, 0)
 title.BackgroundTransparency = 0.7
 title.BorderSizePixel = 0
-title.Text = "Math Wall - OneCreatorX"
+title.Text = "Math Wall | YT:@OneCreatorX"
 title.Font = Enum.Font.SourceSansBold
 title.TextColor3 = Color3.new(1, 1, 1)
-title.TextSize = 18
-title.TextXAlignment = Enum.TextXAlignment.Left -- Alinear el texto a la izquierda
+title.TextSize = 36 -- Aumentar el tamaño del texto para que sea más prominente
+title.TextXAlignment = Enum.TextXAlignment.Center -- Alinear el texto al centro horizontal
 title.TextWrapped = true -- Permitir que el texto se ajuste a varias líneas
+title.TextScaled = true -- Escalar el texto para ajustarse al tamaño del título
 
 -- Calcular la posición vertical del primer botón
 local firstButtonYOffset = title.Size.Y.Offset + 20 -- Espacio entre el título y el primer botón
