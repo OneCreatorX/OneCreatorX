@@ -20,3 +20,4 @@ Dex V3:Final/DexV3
 Spy Mobil:Final/Spy
 Tp All Players OneClick:Final/TpAllPS
 Burbuja Invisible/bubble:Final/Bubble 
+TP Click:Final/TpClick
