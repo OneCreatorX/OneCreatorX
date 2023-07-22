@@ -74,22 +74,18 @@ closeButton.Parent = frame
 local scriptList = {
     {
         name = {
-            english = "Scripts for Games",
             spanish = "Scripts de Juegos"
         },
         description = {
-            english = "Here are all the scripts of the games that I have created so far.",
             spanish = "Aqui se encuentran todos los scripts de los juegos que eh creado hasta el momento"
         },
         url = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/UILoady.lua"
     },
     {
         name = {
-            english = "Useful Scripts",
             spanish = "Scripts Útiles"
         },
         description = {
-            english = "Tools that can make your games more fun and easier.",
             spanish = "Herramientas que pueden hacer tus juegos mas divertidos o fáciles."
         },
         url = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua"
