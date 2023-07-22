@@ -20,7 +20,7 @@ espFolder.Parent = game.Workspace
 local nameMap = {
     ["NmmsRblx"] = {Name = "Esposo de Ann", ColorIndex = 1}, -- Rojo
     ["AnnLuv01"] = {Name = "Esposa de Matías", ColorIndex = 2}, -- Azul
-    ["vicky8931"] = {Name = "Pichoncita de DJ", ColorIndex = 3}, -- Fucsia
+    ["vickycorrea8931"] = {Name = "Pichoncita de DJ", ColorIndex = 3}, -- Fucsia
     ["DJFARERTER"] = {Name = "Esposo de Vicky", ColorIndex = 4}, -- Rojo fuerte
 }
 
