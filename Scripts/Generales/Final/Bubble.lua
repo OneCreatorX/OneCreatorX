@@ -58,9 +58,15 @@ end
 button.MouseButton1Click:Connect(toggleButton)
 
 -- Function to destroy the ScreenGui when the close button is clicked
-closeButton.MouseButton1Click:Connect(function()
+local function destroyGui()
     screenGui:Destroy()
-end)
+    button.MouseButton1Click:Disconnect()
+    closeButton.MouseButton1Click:Disconnect()
+    game:GetService("RunService"):UnbindFromRenderStep("FlightModeUpdate")
+end
+
+-- Connect the destroyGui function to the close button's MouseButton1Click event
+closeButton.MouseButton1Click:Connect(destroyGui)
 
 -- Function to toggle flight mode
 local function toggleFlightMode()
@@ -78,8 +84,11 @@ end
 -- Bind the toggleFlightMode function to button click
 button.MouseButton1Click:Connect(toggleFlightMode)
 
--- Update the BodyVelocity to match the movement input
-game:GetService("RunService").Heartbeat:Connect(function()
+local currentVelocity = Vector3.new(0, 0, 0)
+local acceleration = 50  -- Adjust this value to control the acceleration speed
+
+-- Function to update the BodyVelocity velocity based on user input
+local function updateFlight()
     if flying then
         local moveVector = Vector3.new(
             game:GetService("UserInputService"):GetGamepadState(Enum.UserInputType.Gamepad1).ThumbstickDelta.x,
@@ -87,6 +96,19 @@ game:GetService("RunService").Heartbeat:Connect(function()
             game:GetService("UserInputService"):GetGamepadState(Enum.UserInputType.Gamepad1).ThumbstickDelta.y
         )
         
-        bodyVelocity.Velocity = moveVector * 1000 -- Embrace the ludicrous speed!
+        -- Apply acceleration to the current velocity
+        currentVelocity = currentVelocity:Lerp(moveVector * 1000, acceleration * game:GetService("RunService").Heartbeat)
+        bodyVelocity.Velocity = currentVelocity
     end
+end
+
+-- Connect the updateFlight function to the UserInputService events
+game:GetService("UserInputService").Gamepad2Connected:Connect(function()
+    game:GetService("RunService"):BindToRenderStep("FlightModeUpdate", Enum.RenderPriority.Input.Value, updateFlight)
+end)
+
+game:GetService("UserInputService").Gamepad2Disconnected:Connect(function()
+    game:GetService("RunService"):UnbindFromRenderStep("FlightModeUpdate")
+    bodyVelocity.Velocity = Vector3.new(0, 0, 0) -- Reset velocity when flight is disabled
+    currentVelocity = Vector3.new(0, 0, 0) -- Reset current velocity when flight is disabled
 end)
