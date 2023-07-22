@@ -21,3 +21,4 @@ Spy Mobil:Final/Spy
 Tp All Players OneClick:Final/TpAllPS
 Burbuja Invisible/bubble:Final/Bubble 
 TP Click:Final/TpClick
+ESP Players:Final/Esp
