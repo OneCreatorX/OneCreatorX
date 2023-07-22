@@ -100,4 +100,5 @@ button.MouseButton1Click:Connect(function()
     updateESP()
 end)
 
+-- Llamar a updateESP() inicialmente
 updateESP()
