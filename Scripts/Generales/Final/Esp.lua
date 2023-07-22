@@ -30,6 +30,8 @@ local nameColors = {
     Color3.new(1, 0.2, 0), -- Rojo fuerte
 }
 
+local nameTags = {} -- Para almacenar las etiquetas de nombre creadas
+
 local function getNextColor(index)
     return nameColors[(index - 1) % #nameColors + 1]
 end
@@ -49,14 +51,17 @@ local function createNameTag(playerPart, playerName, nameColor)
     nameLabel.Parent = billboardGui
 
     billboardGui.Parent = playerPart
+
+    -- Agregar la etiqueta de nombre a la lista
+    table.insert(nameTags, nameLabel)
 end
 
 local function updateESP()
-    espFolder:ClearAllChildren()
-
     if espEnabled then
         local localCharacter = game.Players.LocalPlayer.Character
         local localPosition = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart") and localCharacter.HumanoidRootPart.Position
+
+        espFolder:ClearAllChildren()
 
         if localPosition then
             for _, player in ipairs(game.Players:GetPlayers()) do
@@ -91,6 +96,13 @@ local function updateESP()
                 end
             end
         end
+    else
+        espFolder:ClearAllChildren()
+        -- Eliminar las etiquetas de nombre de la lista y desvincularlas de sus padres
+        for _, nameTag in ipairs(nameTags) do
+            nameTag.Parent = nil
+        end
+        nameTags = {} -- Limpiar la lista
     end
 end
 
