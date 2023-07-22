@@ -74,19 +74,23 @@ closeButton.Parent = frame
 local scriptList = {
     {
         name = {
-            spanish = "Scripts de Juegos"
+            ["es-ES"] = "Scripts de Juegos",
+            english = "Game Scripts"
         },
         description = {
-            spanish = "Aqui se encuentran todos los scripts de los juegos que eh creado hasta el momento"
+            ["es-ES"] = "Aquí se encuentran todos los scripts de los juegos que he creado hasta el momento",
+            english = "Here are all the scripts for the games I have created so far"
         },
         url = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Loady/UILoady.lua"
     },
     {
         name = {
-            spanish = "Scripts Útiles"
+            ["es-ES"] = "Scripts Útiles",
+            english = "Useful Scripts"
         },
         description = {
-            spanish = "Herramientas que pueden hacer tus juegos mas divertidos o fáciles."
+            ["es-ES"] = "Herramientas que pueden hacer tus juegos más divertidos o fáciles.",
+            english = "Tools that can make your games more fun or easier."
         },
         url = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua"
     }
@@ -96,7 +100,7 @@ local selectedButton = nil
 local buttonList = {}
 
 for i, scriptInfo in ipairs(scriptList) do
-    local buttonText = scriptInfo.name[player.LocaleId] or scriptInfo.name.english
+    local buttonText = scriptInfo.name[player.LocaleId] or scriptInfo.name["es-ES"] or scriptInfo.name.english
     local button = createButton(buttonText, UDim2.new(0, 10, 0, 40 * (i - 1) + 50), frame)
     buttonList[i] = button
 
@@ -109,7 +113,7 @@ for i, scriptInfo in ipairs(scriptList) do
             end
             selectedButton = button
             button.TextColor3 = Color3.new(0, 1, 0)
-            local description = scriptInfo.description[player.LocaleId] or scriptInfo.description.english
+            local description = scriptInfo.description[player.LocaleId] or scriptInfo.description["es-ES"] or scriptInfo.description.english
             descriptionText.Text = description
             descriptionFrame.Visible = true
         end
