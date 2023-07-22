@@ -1,2 +1,2 @@
 Información de Vicky: 
-edad 18
+edad: 18
