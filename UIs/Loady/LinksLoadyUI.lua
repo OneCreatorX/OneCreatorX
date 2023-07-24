@@ -63,7 +63,7 @@
 "11966456877":{
     "Creator": "OneCreatorX",
     "Status": "functional and in progress",
-"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/RespondeOmuere.lua",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Panik.lua",
   "Updated": "10/07/2023"
   },
   "13958693327":{
@@ -71,5 +71,11 @@
     "Status": "functional and in progress",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/MathWall.lua",
   "Updated": "20/07/2023"
+  },
+ "8511615377":{
+    "Creator": "OneCreatorX",
+    "Status": "functional and in progress",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/MathWall.lua",
+  "Updated": "2E/07/2023"
   }
 }
