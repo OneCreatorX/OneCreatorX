@@ -23,3 +23,4 @@ Burbuja Invisible/bubble:Final/Bubble
 TP Click:Final/TpClick
 ESP Players:Final/Esp
 Alejarse/take distance Pyrs:Beta/Alejarse
+Emotes:Final/Emotes
