@@ -76,6 +76,6 @@
     "Creator": "OneCreatorX",
     "Status": "functional and in progress",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Panik.lua",
-  "Updated": "23/07/2023"
+  "Updated": "24/07/2023"
   }
 }
