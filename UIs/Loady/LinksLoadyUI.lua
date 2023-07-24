@@ -75,7 +75,7 @@
  "8511615377":{
     "Creator": "OneCreatorX",
     "Status": "functional and in progress",
-"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/MathWall.lua",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Panik.lua",
   "Updated": "2E/07/2023"
   }
 }
