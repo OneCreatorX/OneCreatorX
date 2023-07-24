@@ -63,7 +63,7 @@
 "11966456877":{
     "Creator": "OneCreatorX",
     "Status": "functional and in progress",
-"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Panik.lua",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/CortaCesped.lua",
   "Updated": "10/07/2023"
   },
   "13958693327":{
@@ -76,6 +76,6 @@
     "Creator": "OneCreatorX",
     "Status": "functional and in progress",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Panik.lua",
-  "Updated": "2E/07/2023"
+  "Updated": "23/07/2023"
   }
 }
