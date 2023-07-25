@@ -74,8 +74,14 @@
   },
  "8511615377":{
     "Creator": "OneCreatorX",
-    "Status": "functional and in progress",
+    "Status": "in progress Beta v1",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/Panik.lua",
   "Updated": "24/07/2023"
+  },
+"11094279543":{
+    "Creator": "OneCreatorX",
+    "Status": "in progress v1",
+"Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/PetEmpire.lua",
+  "Updated": "25/07/2023"
   }
 }
