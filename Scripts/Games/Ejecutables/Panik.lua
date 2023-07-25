@@ -1,73 +1,71 @@
--- Objetos a referenciar
 local espEnabled = true
 local espFolder = Instance.new("Folder")
-espFolder.Name = "EnemyESP"
+espFolder.Name = "ESPEnemyFolder"
 espFolder.Parent = game.Workspace
 
--- Variable para controlar el estado de los Tp de los Scanners hacia el jugador
-local scannerTpEnabled = true
-
--- Función para crear el nombre de las etiquetas
-local function createNameTag(parent, name, color)
-    local label = Instance.new("BillboardGui")
-    label.Name = "NameTag"
-    label.Size = UDim2.new(0, 100, 0, 30)
-    label.Adornee = parent
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Name = "Text"
-    textLabel.Size = UDim2.new(1, 0, 1, 0)
-    textLabel.Text = name
-    textLabel.TextColor3 = color
-    textLabel.BackgroundTransparency = 1
-    textLabel.Font = Enum.Font.SourceSansBold
-    textLabel.TextSize = 16
-    textLabel.Parent = label
-
-    label.Parent = espFolder
+local function createESPBox(targetPart)
+    local box = Instance.new("BoxHandleAdornment")
+    box.Name = "ESPBox"
+    box.Adornee = targetPart
+    box.Size = Vector3.new(5, 5, 5)
+    box.Color3 = Color3.new(1, 0, 0)
+    box.Transparency = 0.5
+    box.ZIndex = 5
+    box.AlwaysOnTop = true
+    box.Parent = espFolder
 end
 
--- Función para obtener el color de la etiqueta de nombre
-local function getNextColor(colorIndex)
-    local colors = {
-        Color3.new(1, 0, 0),
-        Color3.new(0, 1, 0),
-        Color3.new(0, 0, 1)
-    }
-
-    return colors[(colorIndex % #colors) + 1]
-end
-
--- Función para activar/desactivar la Box de los enemigos
-local function toggleEnemyBox()
-    espEnabled = not espEnabled
+local function updateESPEnemy()
+    espFolder:ClearAllChildren()
     if espEnabled then
-        updateESP()
-    else
-        espFolder:ClearAllChildren()
+        for killerCharacter, espBox in pairs(killerEspBoxes) do
+            if killerCharacter.Parent == game.Workspace.Killers then
+                espBox.Parent = espFolder
+            else
+                killerEspBoxes[killerCharacter] = nil
+                espBox:Destroy()
+            end
+        end
     end
 end
 
--- Función para activar/desactivar los Tp de los Scanners hacia el jugador
-local function toggleScannerTp()
-    scannerTpEnabled = not scannerTpEnabled
-end
+local killerEspBoxes = {} -- Table to keep track of Killer objects and their corresponding ESPBox
 
--- Función para eliminar workspace.Trapdoors.EscapeHatchFake y workspace.Trapdoors.EscapeHatch
-local function deleteEscapeHatchFake()
-    local escapeHatchFake = game.Workspace.Trapdoors.EscapeHatchFake
-    if escapeHatchFake then
-        escapeHatchFake:Destroy()
+local function onChildAdded(child)
+    if child:IsA("Model") and child.Parent == game.Workspace.Killers and not killerEspBoxes[child] then
+        for _, part in ipairs(child:GetDescendants()) do
+            if part:IsA("BasePart") then
+                killerEspBoxes[child] = createESPBox(part)
+                break -- We only need one ESPBox per killerCharacter
+            end
+        end
     end
 end
 
--- Función para cambiar la posición de los Part a la posición del jugador
+game.Workspace.Killers.ChildAdded:Connect(onChildAdded)
+
+local function moveScannersToPlayer()
+    local localCharacter = game.Players.LocalPlayer.Character
+    local localPosition = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart") and localCharacter.HumanoidRootPart.Position
+
+    if localPosition then
+        local scannersFolder = game.Workspace:FindFirstChild("Scanners")
+
+        for _, scanner in ipairs(scannersFolder:GetChildren()) do
+            if scanner:IsA("Model") and scanner:FindFirstChild("Scanner") then
+                local direction = (localPosition - scanner.Scanner.Position).unit
+                scanner.Scanner.Position = scanner.Scanner.Position + direction * 10
+            end
+        end
+    end
+end
+
 local function movePartstoPlayer()
     local localCharacter = game.Players.LocalPlayer.Character
     local localPosition = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart") and localCharacter.HumanoidRootPart.Position
 
     if localPosition then
-        local trapdoors = game.Workspace.Trapdoors
+        local trapdoors = game.Workspace:FindFirstChild("Trapdoors")
         for _, trapdoor in ipairs(trapdoors:GetChildren()) do
             if trapdoor:IsA("Model") then
                 for _, child in ipairs(trapdoor:GetChildren()) do
@@ -80,113 +78,77 @@ local function movePartstoPlayer()
     end
 end
 
--- Función para actualizar el ESP
-local function updateESP()
-    if espEnabled then
-        local localCharacter = game.Players.LocalPlayer.Character
-        local localPosition = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart") and localCharacter.HumanoidRootPart.Position
-
-        espFolder:ClearAllChildren()
-
-        if localPosition then
-            local killersFolder = game.Workspace.Killers
-
-            for _, killer in ipairs(killersFolder:GetChildren()) do
-                if killer:IsA("Folder") then
-                    for _, enemy in ipairs(killer:GetChildren()) do
-                        if enemy:IsA("Model") and enemy:FindFirstChild("HumanoidRootPart") then
-                            local character = enemy
-                            local targetPosition = character.HumanoidRootPart.Position
-
-                            local distance = (targetPosition - localPosition).Magnitude
-                            local minBoxSize = 1
-                            local maxBoxSize = 5
-                            local normalizedDistance = math.clamp((30 - distance) / 30, 0, 1)
-
-                            local boxSize = minBoxSize + (maxBoxSize - minBoxSize) * normalizedDistance
-                            local box = Instance.new("BoxHandleAdornment")
-                            box.Name = "ESPBox"
-                            box.Adornee = character.HumanoidRootPart
-                            box.Size = Vector3.new(boxSize, boxSize, boxSize)
-                            box.Color3 = Color3.new(0, 1 - normalizedDistance, normalizedDistance)
-                            box.Transparency = 0.5
-                            box.ZIndex = 5
-                            box.AlwaysOnTop = true
-                            box.Parent = espFolder
-
-                            local name = enemy.Name
-                            createNameTag(character.HumanoidRootPart, name, Color3.new(1, 1, 1))
-                        end
-                    end
-                end
-            end
-        end
-    else
-        espFolder:ClearAllChildren()
-    end
-end
-
--- Crear ScreenGui y botones
+-- Create ScreenGui and buttons
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "EnemyBoxTpButtons"
+screenGui.Name = "EnemyBoxTpGui"
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local enemyBoxButton = Instance.new("TextButton")
-enemyBoxButton.Name = "EnemyBoxButton"
-enemyBoxButton.Parent = screenGui
-enemyBoxButton.Position = UDim2.new(0, 10, 0, 10)
-enemyBoxButton.Size = UDim2.new(0, 150, 0, 30)
-enemyBoxButton.Text = "Enemy Box: ON"
-enemyBoxButton.MouseButton1Click:Connect(toggleEnemyBox)
+local mainFrame = Instance.new("Frame")
+mainFrame.Name = "MainFrame"
+mainFrame.Size = UDim2.new(0, 220, 0, 140) -- Slightly larger size
+mainFrame.Position = UDim2.new(0.5, -110, 0.5, -70) -- Centered position
+mainFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+mainFrame.BackgroundTransparency = 0.5
+mainFrame.Active = true
+mainFrame.Draggable = true
+mainFrame.Parent = screenGui
 
-local scannerTpButton = Instance.new("TextButton")
-scannerTpButton.Name = "ScannerTpButton"
-scannerTpButton.Parent = screenGui
-scannerTpButton.Position = UDim2.new(0, 10, 0, 50)
-scannerTpButton.Size = UDim2.new(0, 150, 0, 30)
-scannerTpButton.Text = "Scanner TP: ON"
-scannerTpButton.MouseButton1Click:Connect(toggleScannerTp)
+-- Add Title TextLabel
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.new(0, 0, 0)
+title.Text = "Panik | YT:@OneCreatorX"
+title.TextColor3 = Color3.new(1, 1, 1) -- White text color for better visibility
+title.TextSize = 18
+title.Font = Enum.Font.SourceSansBold
+title.Parent = mainFrame
 
-local deleteEscapeHatchFakeButton = Instance.new("TextButton")
-deleteEscapeHatchFakeButton.Name = "DeleteEscapeHatchFakeButton"
-deleteEscapeHatchFakeButton.Parent = screenGui
-deleteEscapeHatchFakeButton.Position = UDim2.new(0, 10, 0, 90)
-deleteEscapeHatchFakeButton.Size = UDim2.new(0, 200, 0, 30)
-deleteEscapeHatchFakeButton.Text = "Delete EscapeHatchFake"
-deleteEscapeHatchFakeButton.MouseButton1Click:Connect(deleteEscapeHatchFake)
+local function createButton(name, text, yPos, callback)
+    local button = Instance.new("TextButton")
+    button.Name = name
+    button.Size = UDim2.new(1, -10, 0, 25) -- Smaller size
+    button.Position = UDim2.new(0, 5, 0, yPos)
+    button.BackgroundColor3 = Color3.new(0, 0, 1)
+    button.TextColor3 = Color3.new(1, 1, 1) -- White text color for better visibility
+    button.Text = text
+    button.Parent = mainFrame
+    button.MouseButton1Click:Connect(callback)
+end
 
-local movePartsToPlayerButton = Instance.new("TextButton")
-movePartsToPlayerButton.Name = "MovePartsToPlayerButton"
-movePartsToPlayerButton.Parent = screenGui
-movePartsToPlayerButton.Position = UDim2.new(0, 10, 0, 130)
-movePartsToPlayerButton.Size = UDim2.new(0, 200, 0, 30)
-movePartsToPlayerButton.Text = "Move Parts to Player"
-movePartsToPlayerButton.MouseButton1Click:Connect(movePartstoPlayer)
-
--- Evento que se ejecuta en cada frame para actualizar el texto de los botones
-game:GetService("RunService").Heartbeat:Connect(function()
-    enemyBoxButton.Text = espEnabled and "Enemy Box: ON" or "Enemy Box: OFF"
-    scannerTpButton.Text = scannerTpEnabled and "Scanner TP: ON" or "Scanner TP: OFF"
+createButton("ESPEnemyButton", "ESP: ON", 40, function() -- Increased yPos for button
+    espEnabled = not espEnabled
+    updateESPEnemy()
 end)
 
--- Evento que se ejecuta en cada frame para mover los Scanners hacia el jugador si está activado el Tp de los Scanners
-game:GetService("RunService").Heartbeat:Connect(function()
-    if scannerTpEnabled then
-        local localCharacter = game.Players.LocalPlayer.Character
-        local localPosition = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart") and localCharacter.HumanoidRootPart.Position
+createButton("ScannerTpButton", "Move Scanners", 70, moveScannersToPlayer) -- Increased yPos for button
 
-        if localPosition then
-            local scannersFolder = game.Workspace.Scanners
+createButton("MovePartsToPlayerButton", "Move Parts", 100, movePartstoPlayer) -- Increased yPos for button
 
-            for _, scanner in ipairs(scannersFolder:GetChildren()) do
-                if scanner:IsA("Model") and scanner:FindFirstChild("Scanner") then
-                    local direction = (localPosition - scanner.Scanner.Position).unit
-                    scanner.Scanner.Position = scanner.Scanner.Position + direction * 10 -- Velocidad de movimiento de los Scanners hacia el jugador (ajusta según tus necesidades)
-                end
-            end
+createButton("DeleteEscapeHatchFakeButton", "Delete Fake", 130, function() -- Increased yPos for button
+    local trapdoors = game.Workspace:FindFirstChild("Trapdoors")
+    for _, trapdoor in ipairs(trapdoors:GetChildren()) do
+        if trapdoor:IsA("Model") and trapdoor.Name:find("Fake") then
+            trapdoor:Destroy()
         end
     end
 end)
 
--- Llamar a updateESP() inicialmente
-updateESP()
+local minimizeMaximizeButton = Instance.new("TextButton")
+minimizeMaximizeButton.Name = "MinimizeMaximizeButton"
+minimizeMaximizeButton.Size = UDim2.new(0, 20, 0, 20)
+minimizeMaximizeButton.Position = UDim2.new(1, -25, 0, 5)
+minimizeMaximizeButton.Text = "X"
+minimizeMaximizeButton.TextSize = 18
+minimizeMaximizeButton.Parent = mainFrame
+
+local function toggleInterfaceVisibility()
+    mainFrame.Visible = not mainFrame.Visible
+    minimizeMaximizeButton.Text = mainFrame.Visible and "X" or "X"
+end
+
+minimizeMaximizeButton.MouseButton1Click:Connect(toggleInterfaceVisibility)
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    minimizeMaximizeButton.Text = mainFrame.Visible and "x" or "x"
+end)
