@@ -2,8 +2,9 @@ local dropperId = 1
 local player = game.Players.LocalPlayer
 
 local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = player.PlayerGui
+screenGui.Name = "DropperGui" -- Añadimos un nombre al ScreenGui
 screenGui.ResetOnSpawn = false
+screenGui.Parent = player.PlayerGui
 
 local centerX = 0.5
 local centerY = 0.5
@@ -26,7 +27,7 @@ title.Name = "Title"
 title.Size = UDim2.new(1, 0, 0, 20)
 title.Position = UDim2.new(0, 0, 0, 5)
 title.BackgroundTransparency = 1
-title.Text = "Pet Empire "
+title.Text = "Pet Empire" -- Se eliminó un espacio extra al final del título
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.SourceSansBold
 title.TextSize = 18
@@ -57,13 +58,14 @@ local function showMessage(message)
     msgLabel.TextSize = 24
     msgLabel.TextColor3 = Color3.new(1, 1, 1)
     msgLabel.Font = Enum.Font.SourceSansBold
-    msgLabel.Parent = textBox.Parent
+    msgLabel.Parent = dragFrame
 
     wait(3)
 
     msgLabel:Destroy()
 end
 
+-- Mostramos un mensaje cuando se crea la GUI
 showMessage("YT:@OneCreatorX")
 
 local function executeServerCode()
@@ -99,7 +101,7 @@ end)
 local rightArrow = Instance.new("TextButton")
 rightArrow.Name = "RightArrow"
 rightArrow.Size = UDim2.new(0, 20, 0, 20)
-rightArrow.Position = UDim2.new(0, 110, 0, 55)
+rightArrow.Position = UDim2.new(0, 110, 0, 40) -- Corregimos la posición del botón derecho
 rightArrow.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 rightArrow.BorderSizePixel = 0
 rightArrow.Text = ">"
@@ -113,8 +115,8 @@ end)
 
 local function executeLoop()
     while true do
-        executeServerCode()
-        wait(0.35)
+workspace.Tycoons["Tycoon_"..dropperId].Purchases.Dropper_0_0.ManualDropper.FireInteractionEvent:FireServer()
+        wait(0.3)
     end
 end
 
@@ -125,6 +127,6 @@ local function collectLoop()
     end
 end
 
--- Iniciar los bucles de ejecución por separado
+-- Ejecutamos el loop de ejecución y el loop de recolección en hilos separados
 spawn(executeLoop)
 spawn(collectLoop)
