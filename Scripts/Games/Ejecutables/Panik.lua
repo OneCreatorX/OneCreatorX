@@ -18,31 +18,16 @@ end
 local function updateESPEnemy()
     espFolder:ClearAllChildren()
     if espEnabled then
-        for killerCharacter, espBox in pairs(killerEspBoxes) do
-            if killerCharacter.Parent == game.Workspace.Killers then
-                espBox.Parent = espFolder
-            else
-                killerEspBoxes[killerCharacter] = nil
-                espBox:Destroy()
+        local killersFolder = game.Workspace:FindFirstChild("Killers")
+        if killersFolder then
+            for _, killerCharacter in ipairs(killersFolder:GetDescendants()) do
+                if killerCharacter:IsA("BasePart") then
+                    createESPBox(killerCharacter)
+                end
             end
         end
     end
 end
-
-local killerEspBoxes = {} -- Table to keep track of Killer objects and their corresponding ESPBox
-
-local function onChildAdded(child)
-    if child:IsA("Model") and child.Parent == game.Workspace.Killers and not killerEspBoxes[child] then
-        for _, part in ipairs(child:GetDescendants()) do
-            if part:IsA("BasePart") then
-                killerEspBoxes[child] = createESPBox(part)
-                break -- We only need one ESPBox per killerCharacter
-            end
-        end
-    end
-end
-
-game.Workspace.Killers.ChildAdded:Connect(onChildAdded)
 
 local function moveScannersToPlayer()
     local localCharacter = game.Players.LocalPlayer.Character
@@ -116,16 +101,19 @@ local function createButton(name, text, yPos, callback)
     button.MouseButton1Click:Connect(callback)
 end
 
-createButton("ESPEnemyButton", "ESP: ON", 40, function() -- Increased yPos for button
+createButton("ESPEnemyButton", "ESP: ON", 40, function()
     espEnabled = not espEnabled
     updateESPEnemy()
+    -- Update the button text based on espEnabled state
+    local buttonText = espEnabled and "ESP: ON" or "ESP: OFF"
+    mainFrame.ESPEnemyButton.Text = buttonText
 end)
 
-createButton("ScannerTpButton", "Move Scanners", 70, moveScannersToPlayer) -- Increased yPos for button
+createButton("ScannerTpButton", "Move Scanners", 70, moveScannersToPlayer)
 
-createButton("MovePartsToPlayerButton", "Move Parts", 100, movePartstoPlayer) -- Increased yPos for button
+createButton("MovePartsToPlayerButton", "Move Parts", 100, movePartstoPlayer)
 
-createButton("DeleteEscapeHatchFakeButton", "Delete Fake", 130, function() -- Increased yPos for button
+createButton("DeleteEscapeHatchFakeButton", "Delete Fake", 130, function()
     local trapdoors = game.Workspace:FindFirstChild("Trapdoors")
     for _, trapdoor in ipairs(trapdoors:GetChildren()) do
         if trapdoor:IsA("Model") and trapdoor.Name:find("Fake") then
@@ -144,7 +132,7 @@ minimizeMaximizeButton.Parent = mainFrame
 
 local function toggleInterfaceVisibility()
     mainFrame.Visible = not mainFrame.Visible
-    minimizeMaximizeButton.Text = mainFrame.Visible and "X" or "X"
+    minimizeMaximizeButton.Text = mainFrame.Visible and "-" or "+"
 end
 
 minimizeMaximizeButton.MouseButton1Click:Connect(toggleInterfaceVisibility)
