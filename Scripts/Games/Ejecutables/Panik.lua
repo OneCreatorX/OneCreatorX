@@ -3,31 +3,56 @@ local espFolder = Instance.new("Folder")
 espFolder.Name = "ESPEnemyFolder"
 espFolder.Parent = game.Workspace
 
+local maxDistance = 1000 -- Distancia máxima para mostrar el ESP en unidades (ajusta según tus necesidades)
+
 local function createESPBox(targetPart)
-    local box = Instance.new("BoxHandleAdornment")
-    box.Name = "ESPBox"
-    box.Adornee = targetPart
-    box.Size = Vector3.new(5, 5, 5)
-    box.Color3 = Color3.new(1, 0, 0)
-    box.Transparency = 0.5
-    box.ZIndex = 5
-    box.AlwaysOnTop = true
-    box.Parent = espFolder
+    local box = targetPart:FindFirstChild("ESPBox")
+    if not box then
+        box = Instance.new("BoxHandleAdornment")
+        box.Name = "ESPBox"
+        box.Adornee = targetPart
+        box.Size = Vector3.new(5, 5, 5)
+        box.Color3 = Color3.new(1, 0, 0)
+        box.Transparency = 0.5
+        box.ZIndex = 5
+        box.AlwaysOnTop = true
+        box.Parent = espFolder
+    end
 end
 
 local function updateESPEnemy()
-    espFolder:ClearAllChildren()
     if espEnabled then
         local killersFolder = game.Workspace:FindFirstChild("Killers")
         if killersFolder then
             for _, killerCharacter in ipairs(killersFolder:GetDescendants()) do
                 if killerCharacter:IsA("BasePart") then
-                    createESPBox(killerCharacter)
+                    local distance = (killerCharacter.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude
+                    if distance <= maxDistance then
+                        createESPBox(killerCharacter)
+                    else
+                        local box = killerCharacter:FindFirstChild("ESPBox")
+                        if box then
+                            box:Destroy()
+                        end
+                    end
                 end
             end
         end
     end
 end
+
+local function onNewKillerAdded(newKiller)
+    if espEnabled then
+        createESPBox(newKiller)
+    end
+end
+
+-- Conectamos el evento para detectar nuevos Killers
+game.Workspace.ChildAdded:Connect(function(child)
+    if child:IsA("Model") and child.Name == "Killers" then
+        child.DescendantAdded:Connect(onNewKillerAdded)
+    end
+end)
 
 local function createBox(part, color, size)
     if part:FindFirstChild("Box") then
@@ -154,7 +179,7 @@ createButton("DeleteEscapeHatchFakeButton", "Delete Fake", 130, function()
         if trapdoor:IsA("Model") and trapdoor.Name:find("Fake") then
             trapdoor:Destroy()
         end
-    endespFolder.Name
+    end
 end)
 
 local minimizeMaximizeButton = Instance.new("TextButton")
