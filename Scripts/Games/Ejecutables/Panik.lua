@@ -29,6 +29,26 @@ local function updateESPEnemy()
     end
 end
 
+local function createBox(part, color, size)
+    if part:FindFirstChild("Box") then
+        part.Box:Destroy()
+    end
+
+    local box = Instance.new("BillboardGui")
+    box.Name = "Box"
+    box.Size = UDim2.new(0, size.X, 0, size.Y)
+    box.Adornee = part
+    box.AlwaysOnTop = true
+
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(1, 0, 1, 0)
+    frame.BackgroundTransparency = 0.5
+    frame.BackgroundColor3 = color
+
+    frame.Parent = box
+    box.Parent = part
+end
+
 local function moveScannersToPlayer()
     local localCharacter = game.Players.LocalPlayer.Character
     local localPosition = localCharacter and localCharacter:FindFirstChild("HumanoidRootPart") and localCharacter.HumanoidRootPart.Position
@@ -38,8 +58,11 @@ local function moveScannersToPlayer()
 
         for _, scanner in ipairs(scannersFolder:GetChildren()) do
             if scanner:IsA("Model") and scanner:FindFirstChild("Scanner") then
-                local direction = (localPosition - scanner.Scanner.Position).unit
-                scanner.Scanner.Position = scanner.Scanner.Position + direction * 10
+                local boxSize = Vector2.new(12, 10) -- Adjust size as needed (width, height)
+                local direction = (scanner.Scanner.Position - localPosition).unit
+                local lookAtCFrame = CFrame.lookAt(localPosition, scanner.Scanner.Position, Vector3.new(0, 1, 0))
+                local rotatedSize = lookAtCFrame:VectorToWorldSpace(Vector3.new(boxSize.X, boxSize.Y, 0))
+                createBox(scanner.Scanner, Color3.new(0, 0, 1), Vector2.new(rotatedSize.X, rotatedSize.Y))
             end
         end
     end
@@ -53,10 +76,22 @@ local function movePartstoPlayer()
         local trapdoors = game.Workspace:FindFirstChild("Trapdoors")
         for _, trapdoor in ipairs(trapdoors:GetChildren()) do
             if trapdoor:IsA("Model") then
+                local nearestPart = nil
+                local nearestDistance = math.huge
+
                 for _, child in ipairs(trapdoor:GetChildren()) do
                     if child:IsA("BasePart") then
-                        child.Position = localPosition
+                        local distance = (localPosition - child.Position).magnitude
+                        if distance < nearestDistance then
+                            nearestDistance = distance
+                            nearestPart = child
+                        end
                     end
+                end
+
+                if nearestPart then
+                    local boxSize = Vector2.new(20, 10) -- Adjust size as needed
+                    createBox(nearestPart, Color3.new(0, 1, 0), boxSize)
                 end
             end
         end
@@ -109,9 +144,9 @@ createButton("ESPEnemyButton", "ESP: ON", 40, function()
     mainFrame.ESPEnemyButton.Text = buttonText
 end)
 
-createButton("ScannerTpButton", "Move Scanners", 70, moveScannersToPlayer)
+createButton("ScannerTpButton", "ESP Scanners", 70, moveScannersToPlayer)
 
-createButton("MovePartsToPlayerButton", "Move Parts", 100, movePartstoPlayer)
+createButton("MovePartsToPlayerButton", "ESP Door Scape", 100, movePartstoPlayer)
 
 createButton("DeleteEscapeHatchFakeButton", "Delete Fake", 130, function()
     local trapdoors = game.Workspace:FindFirstChild("Trapdoors")
@@ -119,7 +154,7 @@ createButton("DeleteEscapeHatchFakeButton", "Delete Fake", 130, function()
         if trapdoor:IsA("Model") and trapdoor.Name:find("Fake") then
             trapdoor:Destroy()
         end
-    end
+    endespFolder.Name
 end)
 
 local minimizeMaximizeButton = Instance.new("TextButton")
