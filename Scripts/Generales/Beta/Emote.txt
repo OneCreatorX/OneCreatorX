@@ -1,0 +1,3 @@
+AddEmote("Emote1", 12639715506)
+AddEmote("Emote2", 13338731182)
+AddEmote("Emote3", 13003691026)
