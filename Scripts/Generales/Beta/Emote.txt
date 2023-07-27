@@ -1,3 +1,19 @@
-AddEmote("Emote1", 12639715506)
-AddEmote("Emote2", 13338731182)
-AddEmote("Emote3", 13003691026)
+{
+  "data": [
+    {
+      "name": "Emote1",
+      "id": 12639715506,
+      "price": null
+    },
+    {
+      "name": "Emote2",
+      "id": 13338731182,
+      "price": null
+    },
+    {
+      "name": "Emote3",
+      "id": 13003691026,
+      "price": null
+    },
+  ]
+}
