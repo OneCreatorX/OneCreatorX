@@ -183,7 +183,7 @@ local function invokeOvens()
                 local ovensFolder = playerPlot:FindFirstChild("Ovens")
                 if ovensFolder then
                     for _, oven in ipairs(ovensFolder:GetChildren()) do
-                        oven.ConverterData.noob:FireServer()
+                        oven.ConverterData.noob:FireServer() -- Nueva línea añadida
                     end
                 end
             end
