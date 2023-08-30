@@ -25,3 +25,4 @@ ESP Players:Final/Esp
 Alejarse/take distance Pyrs:Beta/Alejarse
 Emotes:Final/Emotes
 Tp Name v2:Beta/Tpname2
+Escalar/Climb:Final/Escalar
