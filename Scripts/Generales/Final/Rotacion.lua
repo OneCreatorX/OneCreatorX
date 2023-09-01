@@ -1,25 +1,19 @@
-local player = game.Players.LocalPlayer
-local character = player.Character
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
 
-local isRotating = false
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+
 local rotationSpeed = math.rad(360)  -- Velocidad de rotación en radianes por segundo (360 grados en radianes)
+local isRotating = false
 
-local function rotateCharacter()
-    if not character or not character:FindFirstChild("Humanoid") then
-        return
-    end
-    
-    local humanoid = character:FindFirstChild("Humanoid")
+local function startRotation()
     isRotating = true
-
-    local startTime = tick()
-    local startRotation = humanoid.RootPart.CFrame
-
     while isRotating do
-        local elapsedTime = tick() - startTime
-
-        humanoid.RootPart.CFrame = startRotation * CFrame.Angles(0, rotationSpeed * elapsedTime, 0)
-        wait(0.02)
+        local deltaTime = RunService.RenderStepped:Wait()
+        local rotation = CFrame.Angles(0, rotationSpeed * deltaTime, 0)
+        Character.HumanoidRootPart.CFrame = Character.HumanoidRootPart.CFrame * rotation
     end
 end
 
@@ -27,50 +21,29 @@ local function stopRotation()
     isRotating = false
 end
 
-local function createDraggableFrame(position, size, parent)
-    local frame = Instance.new("Frame")
-    frame.Position = position
-    frame.Size = size
-    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    frame.BackgroundTransparency = 0.7
-    frame.BorderSizePixel = 0
-    frame.Active = true
-    frame.Draggable = true
-    frame.Parent = parent
-    return frame
+local function increaseSpeed()
+    rotationSpeed = rotationSpeed * 1.5
 end
 
-local function onCloseGUIClicked()
-    stopRotation()
-    local screenGui = player.PlayerGui:FindFirstChild("RotationGui")
-    if screenGui then
-        screenGui:Destroy()
-    end
-end
-
-local function onButtonClicked()
-    if not isRotating then
-        rotateCharacter()
-    else
-        stopRotation()
-    end
-end
-
-local function onIncreaseSpeedClicked()
-    rotationSpeed = rotationSpeed * 1.5  -- Aumentar la velocidad en un 50%
-end
-
-local function onDecreaseSpeedClicked()
-    rotationSpeed = rotationSpeed * 0.5  -- Disminuir la velocidad en un 50%
+local function decreaseSpeed()
+    rotationSpeed = rotationSpeed * 0.5
 end
 
 -- Crear un ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "RotationGui"
-screenGui.Parent = player.PlayerGui
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "RotationGui"
+ScreenGui.Parent = LocalPlayer.PlayerGui
 
 -- Crear un Frame draggable dentro del ScreenGui
-local frame = createDraggableFrame(UDim2.new(0.5, -100, 0, 10), UDim2.new(0, 200, 0, 80), screenGui)
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 80)
+frame.Position = UDim2.new(0.5, -100, 0, 10)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.BackgroundTransparency = 0.7
+frame.BorderSizePixel = 0
+frame.Active = true
+frame.Draggable = true
+frame.Parent = ScreenGui
 
 -- Crear botones dentro del Frame
 local mainButton = Instance.new("TextButton")
@@ -102,7 +75,20 @@ decreaseSpeedButton.BackgroundColor3 = Color3.fromRGB(180, 100, 100)
 decreaseSpeedButton.Parent = frame
 
 -- Conexión de eventos
-mainButton.MouseButton1Click:Connect(onButtonClicked)
-closeButton.MouseButton1Click:Connect(onCloseGUIClicked)
-increaseSpeedButton.MouseButton1Click:Connect(onIncreaseSpeedClicked)
-decreaseSpeedButton.MouseButton1Click:Connect(onDecreaseSpeedClicked)
+mainButton.MouseButton1Click:Connect(function()
+    if isRotating then
+        stopRotation()
+    else
+        startRotation()
+    end
+end)
+
+closeButton.MouseButton1Click:Connect(function()
+    stopRotation()
+    ScreenGui:Destroy()
+end)
+
+increaseSpeedButton.MouseButton1Click:Connect(increaseSpeed)
+
+decreaseSpeedButton.MouseButton1Click:Connect(decreaseSpeed)
+
