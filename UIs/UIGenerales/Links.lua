@@ -28,3 +28,5 @@ Tp Name v2:Beta/Tpname2
 Escalar/Climb:Final/Escalar
 Rotacion/Rotation:Final/Rotacion
 Fling/Patear:Final/Fling
+Trolling HUB 1:Final/Trolling1
+No Censure Frases:Final/NoCensure
