@@ -30,3 +30,4 @@ Rotacion/Rotation:Final/Rotacion
 Fling/Patear:Final/Fling
 Trolling HUB 1:Final/Trolling1
 No Censure Frases:Final/NoCensure
+FPS Booster:Final/FPS
