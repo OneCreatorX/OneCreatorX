@@ -31,3 +31,6 @@ Fling/Patear:Final/Fling
 Trolling HUB 1:Final/Trolling1
 No Censure Frases:Final/NoCensure
 FPS Booster:Final/FPS
+Inmortalv2:Beta/Inmortalv2
+Inmortalv3:Beta/Inmortalv3
+inmortalv4:Beta/inmortalv4
