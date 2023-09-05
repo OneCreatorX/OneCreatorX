@@ -88,7 +88,7 @@ local function playAudio(musicID)
     audio.Parent = game.Workspace
     audio.SoundId = "rbxassetid://" .. musicID
     audio.Looped = false
-    audio.Volume = 20
+    audio.Volume = 30
 
     audio:Play()
     wait(audio.TimeLength) -- Reproducir durante la duración de la canción
