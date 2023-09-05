@@ -91,7 +91,7 @@ local function playAudio(musicID)
     audio.Volume = 5
 
     audio:Play()
-    wait(5)
+    wait(audio.TimeLength) -- Reproducir durante la duración de la canción
     audio:Stop()
 end
 
@@ -127,6 +127,13 @@ confirmButton.MouseButton1Click:Connect(function()
         sendMusicID(musicID)
         button.Text = "Reproducir"
         confirmButton.Visible = false
+    end
+end)
+
+-- Reproducir automáticamente al darle reproducir una vez
+button.MouseButton1Click:Connect(function()
+    if currentID then
+        playAudio(currentID)
     end
 end)
 
