@@ -88,10 +88,10 @@ local function playAudio(musicID)
     audio.Parent = game.Workspace
     audio.SoundId = "rbxassetid://" .. musicID
     audio.Looped = false
-    audio.Volume = 1
+    audio.Volume = 5
 
     audio:Play()
-    wait(4)
+    wait(5)
     audio:Stop()
 end
 
