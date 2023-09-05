@@ -88,10 +88,10 @@ local function playAudio(musicID)
     audio.Parent = game.Workspace
     audio.SoundId = "rbxassetid://" .. musicID
     audio.Looped = false
-    audio.Volume = 30
+    audio.Volume = 10
 
     audio:Play()
-    wait(audio.TimeLength) -- Reproducir durante la duración de la canción
+    wait(5)
     audio:Stop()
 end
 
@@ -127,13 +127,6 @@ confirmButton.MouseButton1Click:Connect(function()
         sendMusicID(musicID)
         button.Text = "Reproducir"
         confirmButton.Visible = false
-    end
-end)
-
--- Reproducir automáticamente al darle reproducir una vez
-button.MouseButton1Click:Connect(function()
-    if currentID then
-        playAudio(currentID)
     end
 end)
 
