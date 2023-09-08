@@ -22,9 +22,19 @@ game.Players.PlayerAdded:Connect(function(player)
             if commandURLs[command] and not isCommandExecuted(command) then
                 local script = game:HttpGet(url)
                 if script then
+                    executedCommands[command] = true
                     return loadstring(script)()
                 end
+            elseif command == "help" then
+                local availableCommands = "Comandos disponibles:"
+                for cmd, _ in pairs(commandURLs) do
+                    availableCommands = availableCommands .. " " .. cmd
+                end
+                player:Chat(availableCommands)
             end
         end
     end)
+    
+    -- Mostrar un mensaje de notificación al usuario al unirse
+    player:Chat("¡Hola! Soy OneCreatorX. Para ver la lista de comandos disponibles, escribe '!help'")
 end)
