@@ -103,7 +103,7 @@ end
 local function updateButtons(gameID)
     buttonContainer:ClearAllChildren()
 
-    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua"
+    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/FunUI/Links.lua"
     local response = game:HttpGet(linkURL)
 
     local yOffset = 0
@@ -128,7 +128,7 @@ local function updateButtons(gameID)
                 yOffset = yOffset + 50
 
                 button.MouseButton1Click:Connect(function()
-                    local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Generales/" .. directory .. ".lua"
+                    local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Fun/" .. directory .. ".lua"
                     loadstring(game:HttpGet(scriptUrl))()
                     showNotification("Script executed: " .. name)
                 end)
