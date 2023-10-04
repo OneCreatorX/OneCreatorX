@@ -17,11 +17,14 @@ screenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
 -- Variable para controlar la posición vertical de los botones
 local yOffset = 0
+local resultsCount = 0 -- Contador de resultados encontrados
 
 for line in response:gmatch("[^\r\n]+") do
     local name, filename, id = line:match("([^:]+):([^:]+):([^:]+)")
 
     if name and filename and id and tonumber(id) == gameID then
+        resultsCount = resultsCount + 1
+
         local button = Instance.new("TextButton")
         button.Name = name
         button.Size = UDim2.new(0, 100, 0, 30)
@@ -37,3 +40,25 @@ for line in response:gmatch("[^\r\n]+") do
         end)
     end
 end
+
+-- Agregar notificación de resultados
+local notification = Instance.new("TextLabel")
+notification.Name = "ResultsNotification"
+notification.Size = UDim2.new(0, 200, 0, 30)
+notification.Position = UDim2.new(0.5, -100, 0, 10)
+notification.Text = ""
+notification.Parent = screenGui
+
+-- Agregar notificación de resultados
+if resultsCount > 0 then
+    notification.Text = "Se encontraron " .. resultsCount .. " resultado(s) para este juego."
+else
+    notification.Text = "No se encontraron scripts para este juego."
+end
+
+-- Agregar notificación de resultados
+wait(3)
+notification:Destroy() -- Eliminar la notificación después de 3 segundos
+
+-- Depuración: Imprimir el número de resultados encontrados
+print("Resultados encontrados:", resultsCount)
