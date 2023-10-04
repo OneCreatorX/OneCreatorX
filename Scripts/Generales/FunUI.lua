@@ -128,7 +128,7 @@ local function updateButtons(gameID)
                 yOffset = yOffset + 50
 
                 button.MouseButton1Click:Connect(function()
-                    local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Fun/" .. directory .. ".lua"
+                    local scriptUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Fun/" .. directory ..""
                     loadstring(game:HttpGet(scriptUrl))()
                     showNotification("Script executed: " .. name)
                 end)
