@@ -1,6 +1,15 @@
 -- Obtén el ID del juego en tiempo real
 local gameID = game.GameId
 
+-- Obtén el ID del juego actual del jugador
+local player = game.Players.LocalPlayer
+local playerGameID = player:GetAttribute("GameID") -- Asumiendo que has configurado un atributo "GameID" para el jugador
+
+-- Si el jugador tiene un atributo "GameID" configurado, usa ese valor como ID del juego
+if playerGameID then
+    gameID = playerGameID
+end
+
 -- Formato correcto para el archivo "Links.lua":
 -- "Nombre del Juego:Nombre del Archivo:ID del Juego"
 -- Ejemplo:
@@ -20,6 +29,8 @@ local yOffset = 0
 local resultsCount = 0 -- Contador de resultados encontrados
 
 for line in response:gmatch("[^\r\n]+") do
+    print("Línea completa:", line)
+    
     local name, filename, id = line:match("([^:]+):([^:]+):([^:]+)")
 
     if name and filename and id and tonumber(id) == gameID then
@@ -62,3 +73,11 @@ notification:Destroy() -- Eliminar la notificación después de 3 segundos
 
 -- Depuración: Imprimir el número de resultados encontrados
 print("Resultados encontrados:", resultsCount)
+
+-- Mostrar el ID del juego actual
+local gameIDLabel = Instance.new("TextLabel")
+gameIDLabel.Name = "GameIDLabel"
+gameIDLabel.Size = UDim2.new(0, 200, 0, 30)
+gameIDLabel.Position = UDim2.new(0.5, -100, 0, 200)
+gameIDLabel.Text = "ID del juego actual: " .. gameID
+gameIDLabel.Parent = screenGui
