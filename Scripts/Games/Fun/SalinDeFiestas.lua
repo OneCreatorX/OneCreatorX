@@ -17,7 +17,7 @@ local colors = {
 }
 
 local lastColor = nil
-local colorChangeSpeed = 0.1  -- Velocidad de cambio de colores inicial
+local colorChangeSpeed = 0.4  -- Velocidad de cambio de colores inicial
 
 -- Crear un ScreenGui
 local player = game.Players.LocalPlayer
