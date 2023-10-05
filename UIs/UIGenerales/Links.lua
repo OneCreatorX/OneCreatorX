@@ -39,3 +39,4 @@ Evita caída/ no fall:Beta/EvitaCaida
 Obtener Herramientas/give me tools:Final/Tools
 Auto Caminar/AutoRun:Final/AutoRun
 Gogo v1:Beta/Gogov1
+ID Game:Final/IDGame
