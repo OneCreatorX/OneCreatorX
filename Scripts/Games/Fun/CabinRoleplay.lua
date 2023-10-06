@@ -1,12 +1,10 @@
 local touchPart = game.Workspace:WaitForChild("Outside"):WaitForChild("Campfire"):WaitForChild("TouchPart")
-local nombreJugador = "NmmsRblx" -- Reemplaza con el nombre del jugador
 
 function ActualizarTouchPart()
-    local jugador = game.Workspace:FindFirstChild(nombreJugador)
-
-    if jugador then
-        local cabeza = jugador:FindFirstChild("Head")
-        local torso = jugador:FindFirstChild("Torso") or jugador:FindFirstChild("UpperTorso")
+    local jugadorLocal = game.Players.LocalPlayer
+    if jugadorLocal then
+        local cabeza = jugadorLocal.Character:FindFirstChild("Head")
+        local torso = jugadorLocal.Character:FindFirstChild("Torso") or jugadorLocal.Character:FindFirstChild("UpperTorso")
 
         if cabeza and torso then
             local puntoMedio = (cabeza.Position + torso.Position) / 2
