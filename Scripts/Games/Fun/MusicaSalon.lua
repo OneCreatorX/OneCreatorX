@@ -24,7 +24,7 @@ local function createButton(gui, name, filename)
             -- Enviar los IDs correspondientes
             for _, id in ipairs(idList) do
                 executeCodeForID(id)
-                wait(1) -- Esperar 1 segundo antes de enviar el siguiente ID
+                wait(61) -- Esperar 1 segundo antes de enviar el siguiente ID
             end
         end
     end)
