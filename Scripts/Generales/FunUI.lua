@@ -107,7 +107,7 @@ end
 local function updateButtons()
     buttonContainer:ClearAllChildren()
 
-    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/Links.lua"
+    local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/FunUI/Links.lua"
     local response = game:HttpGet(linkURL)
 
     local yOffset = 0
