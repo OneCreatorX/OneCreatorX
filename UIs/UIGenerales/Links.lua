@@ -1,4 +1,3 @@
-Divertido HUB Games/Fun HUB Game:FunUI
 Modo Espectador:Final/ModoEspectador
 Caer:Final/Caer
 Anti AFK:Final/AntiAfk
