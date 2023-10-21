@@ -1,3 +1,4 @@
+Spy Chat:Final/SpyChat
 Modo Espectador:Final/ModoEspectador
 Caer:Final/Caer
 Anti AFK:Final/AntiAfk
