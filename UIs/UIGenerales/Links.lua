@@ -42,4 +42,4 @@ Gogo v1:Beta/Gogov1
 ID Game:Final/IDGame
 Equipar +1 Item BackPack/Mochila:Final/EquiparItem
 Equipar todos los items BackPack/Mochila:Final/EquiparAll
-Saltar Dropbear item(el comportamiento vaeia según el juego):Final/Dropbear
+Saltar Dropbear item(el comportamiento varía según el juego, probar):Final/Dropbear
