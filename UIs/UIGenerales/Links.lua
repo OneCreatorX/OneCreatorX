@@ -38,6 +38,7 @@ inmortalv4:Beta/inmortalv4
 Evita caída/ no fall:Beta/EvitaCaida
 Obtener Herramientas/give me tools:Final/Tools
 Auto Caminar/AutoRun:Final/AutoRun
+Translate:Final/Traductor
 Gogo v1:Beta/Gogov1
 ID Game:Final/IDGame
 Equipar +1 Item BackPack/Mochila:Final/EquiparItem
