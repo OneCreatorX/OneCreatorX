@@ -1431,7 +1431,7 @@ GhostAnim_Button.BorderSizePixel = 0
 GhostAnim_Button.Position = UDim2.new(0, 25, 0, 125)
 GhostAnim_Button.Size = UDim2.new(0, 150, 0, 30)
 GhostAnim_Button.Font = Enum.Font.Oswald
-GhostAnim_Button.Text = "Ghost"
+GhostAnim_Button.Text = "My Edit"
 GhostAnim_Button.TextColor3 = Color3.fromRGB(0, 0, 0)
 GhostAnim_Button.TextScaled = true
 GhostAnim_Button.TextSize = 14.000
@@ -3045,12 +3045,12 @@ GhostAnim_Button.MouseButton1Click:Connect(function()
 	Animate.Disabled = true
 	StopAnim()
 	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=1149612882"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=616008087"
-	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=616010382"
-	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=616013216"
+	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=1150842221"
+	Animate.walk.WalkAnim.AnimationId = "http://www.roblox.com/asset/?id=1151231493"
+	Animate.run.RunAnim.AnimationId = "http://www.roblox.com/asset/?id=1150967949"
 	Animate.jump.JumpAnim.AnimationId = "http://www.roblox.com/asset/?id=616008936"
 	Animate.climb.ClimbAnim.AnimationId = "http://www.roblox.com/asset/?id=616003713"
-	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=616005863"
+	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=707829716"
 	plr.Character.Humanoid:ChangeState(3)
 	Animate.Disabled = false
 end)
