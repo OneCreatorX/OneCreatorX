@@ -412,7 +412,7 @@ TitleBarLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 TitleBarLabel.BorderSizePixel = 0
 TitleBarLabel.Size = UDim2.new(1, 0, 0, 30)
 TitleBarLabel.Font = Enum.Font.Unknown
-TitleBarLabel.Text = "____/SYSTEMBROKEN\\___"
+TitleBarLabel.Text = "____/SYSTEMBROKEN V2\\___"
 TitleBarLabel.TextColor3 = Color3.fromRGB(0, 255, 255)
 TitleBarLabel.TextScaled = true
 TitleBarLabel.TextSize = 14.000
@@ -922,7 +922,7 @@ Welcome_Label.BorderSizePixel = 0
 Welcome_Label.Position = UDim2.new(0, 150, 0, 25)
 Welcome_Label.Size = UDim2.new(0, 200, 0, 100)
 Welcome_Label.Font = Enum.Font.SourceSans
-Welcome_Label.Text = ("¡Hello @"..plr.Name.."!\nPress [B] to open/close gui.")
+Welcome_Label.Text = ("¡Hola @"..plr.Name.."!\nPreciona [B] para abrir/cerrar gui.")
 Welcome_Label.TextColor3 = Color3.fromRGB(0, 255, 255)
 Welcome_Label.TextSize = 24.000
 Welcome_Label.TextWrapped = true
@@ -937,7 +937,7 @@ Announce_Label.BorderSizePixel = 0
 Announce_Label.Position = UDim2.new(0, 25, 0, 150)
 Announce_Label.Size = UDim2.new(0, 350, 0, 150)
 Announce_Label.Font = Enum.Font.SourceSans
-Announce_Label.Text = loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBroken/main/announce"))()
+Announce_Label.Text = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/Notice"))()
 Announce_Label.TextColor3 = Color3.fromRGB(0, 255, 255)
 Announce_Label.TextSize = 24.000
 Announce_Label.TextWrapped = true
@@ -3589,6 +3589,4 @@ task.spawn(function()
 	end
 end)
 
-SendNotify("System Broken","Gui developed by MalwareHub - Discord in your clipboard",10)
-setclipboard("https://discord.gg/RkhpySwNR9")
-loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBroken/main/premium"))() -- load the premium
+SendNotify("System Broken","GUI v2 Edit, by: CreatorX",10)
