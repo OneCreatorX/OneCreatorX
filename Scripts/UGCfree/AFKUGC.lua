@@ -94,14 +94,14 @@ labelText.Text = "OneCreatorX"
 labelText.Size = UDim2.new(0, 100, 0, 20)
 labelText.Position = UDim2.new(0, 0, 0, -25)
 labelText.TextColor3 = Color3.new(1, 1, 1)  -- Texto blanco
-labelText.FontSize = Enum.FontSize.Size14
+labelText.FontSize = Enum.FontSize.Size12
 labelText.Parent = frame
 
 -- Flecha "↑"
 local buttonUp = Instance.new("TextButton")
 buttonUp.Text = "↑"
 buttonUp.Size = UDim2.new(0, 50, 0, 50)
-buttonUp.Position = UDim2.new(0.25, 0, 0.2, 0)
+buttonUp.Position = UDim2.new(0.25, 0, 0.4, 0)
 buttonUp.BackgroundColor3 = Color3.new(0, 1, 0)  -- Color verde
 buttonUp.TextColor3 = Color3.new(1, 1, 1)  -- Texto blanco
 buttonUp.FontSize = Enum.FontSize.Size24
@@ -109,7 +109,7 @@ buttonUp.Parent = frame
 buttonUp.MouseButton1Click:Connect(aumentarVelocidad)
 
 local antiAfkText = Instance.new("TextLabel")
-antiAfkText.Text = "AntiAFK: ON"
+antiAfkText.Text = "AntiAFK:ON"
 antiAfkText.Size = UDim2.new(0, 100, 0, 20)
 antiAfkText.Position = UDim2.new(0, 0, 0, 0)
 antiAfkText.TextColor3 = Color3.new(1, 0, 0)  -- Color rojo
