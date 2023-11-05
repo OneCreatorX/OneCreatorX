@@ -9,7 +9,7 @@ local currentClicks = 0
 local isIncreasing = true
 
 -- Variable para rastrear el arrastre de la interfaz
-local isDragging = false
+local isDragging = true
 local dragStart = nil
 
 -- Función para actualizar la posición de los botones
