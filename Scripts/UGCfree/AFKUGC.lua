@@ -52,15 +52,6 @@ local function aumentarVelocidad()
     end
 end
 
--- Función para disminuir la velocidad
-local function disminuirVelocidad()
-    if currentClicks < maxClicks or isIncreasing then
-        h.WalkSpeed = math.max(0, h.WalkSpeed - 2)
-        currentClicks = currentClicks + 1
-        isIncreasing = false
-    end
-end
-
 -- Crear una nueva ScreenGui
 local playerGui = p:WaitForChild("PlayerGui")
 local screenGui = Instance.new("ScreenGui")
@@ -97,7 +88,16 @@ end)
 
 frame.Parent = screenGui
 
--- Crear botones dentro del Frame
+-- Texto "OneCreatorX" encima de los botones
+local labelText = Instance.new("TextLabel")
+labelText.Text = "OneCreatorX"
+labelText.Size = UDim2.new(0, 100, 0, 20)
+labelText.Position = UDim2.new(0, 0, 0, -25)
+labelText.TextColor3 = Color3.new(1, 1, 1)  -- Texto blanco
+labelText.FontSize = Enum.FontSize.Size14
+labelText.Parent = frame
+
+-- Flecha "↑"
 local buttonUp = Instance.new("TextButton")
 buttonUp.Text = "↑"
 buttonUp.Size = UDim2.new(0, 50, 0, 50)
@@ -108,14 +108,13 @@ buttonUp.FontSize = Enum.FontSize.Size24
 buttonUp.Parent = frame
 buttonUp.MouseButton1Click:Connect(aumentarVelocidad)
 
--- Texto "OneCreatorX" encima de los botones
-local labelText = Instance.new("TextLabel")
-labelText.Text = "OneCreatorX"
-labelText.Size = UDim2.new(0, 100, 0, 20)
-labelText.Position = UDim2.new(0, 0, 0, -25)
-labelText.TextColor3 = Color3.new(1, 1, 1)  -- Texto blanco
-labelText.FontSize = Enum.FontSize.Size14
-labelText.Parent = frame
+local antiAfkText = Instance.new("TextLabel")
+antiAfkText.Text = "AntiAFK: ON"
+antiAfkText.Size = UDim2.new(0, 100, 0, 20)
+antiAfkText.Position = UDim2.new(0, 0, 0, 0)
+antiAfkText.TextColor3 = Color3.new(1, 0, 0)  -- Color rojo
+antiAfkText.FontSize = Enum.FontSize.Size14
+antiAfkText.Parent = frame
 
 -- Función para seguir caminando
 local function seguirCaminando()
@@ -133,6 +132,11 @@ local function seguirCaminando()
         end
     end
 end
+
+-- Conectar Anti-AFK
+local VirtualUser = game:GetService('VirtualUser')
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
 
 -- Inicia la función de seguir caminando
 actualizarPos()
