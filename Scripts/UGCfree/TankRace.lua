@@ -1,11 +1,13 @@
 local player = game.Players.LocalPlayer
 local velocityValue = 900000
 local updateInterval = 1
+local rewardInterval = 180 -- 3 minutos en segundos
 local playerName = player.Name
 local racePower
 
 local replicatedStorage = game:GetService("ReplicatedStorage")
-local remoteEvent = replicatedStorage:WaitForChild("GameClient"):WaitForChild("Events"):WaitForChild("RemoteEvent")
+local remoteEvent = replicatedStorage.GameClient.Events.RemoteEvent
+local claimGiftRemote = replicatedStorage.GameClient.Events.RemoteEvent:WaitForChild("ClaimGift")
 
 local function adjustVelocity(newVelocity)
     if racePower and racePower:IsA("BodyVelocity") then
@@ -28,6 +30,33 @@ local function findRacePower()
     end
 end
 
+local function trueno()
+local player = game.Players.LocalPlayer
+
+local function setBoolValuesToTrue(obj)
+    if obj:IsA("BoolValue") then
+        obj.Value = true
+    end
+    for _, child in ipairs(obj:GetChildren()) do
+        setBoolValuesToTrue(child)
+    end
+end
+
+for _, child in ipairs(player:GetChildren()) do
+    setBoolValuesToTrue(child)
+end
+end
+
+local function claimRewards()
+    while true do
+        wait(rewardInterval)
+        for _, rewardNumber in ipairs({1, 3, 5, 6, 8, 9, 10, 11, 12}) do
+            local args = {"Reward" .. rewardNumber}
+            claimGiftRemote:FireServer(unpack(args))
+        end
+    end
+end
+
 local function createOrFindGUI()
     local playerGui = player:WaitForChild("PlayerGui")
     local screenGui = playerGui:FindFirstChild("VelocityGUI") or Instance.new("ScreenGui")
@@ -44,40 +73,34 @@ local function createOrFindGUI()
         frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
         frame.Parent = screenGui
 
-        local velocityTextBox = Instance.new("TextBox")
-        velocityTextBox.Size = UDim2.new(0, 150, 0, 30)
-        velocityTextBox.Position = UDim2.new(0, 25, 0, 20)
-        velocityTextBox.PlaceholderText = "Velocidad"
-        velocityTextBox.Parent = frame
+        local function createTextBox(name, posY)
+            local textBox = Instance.new("TextBox")
+            textBox.Size = UDim2.new(0, 150, 0, 30)
+            textBox.Position = UDim2.new(0, 25, 0, posY)
+            textBox.PlaceholderText = name
+            textBox.Parent = frame
 
-        local intervalTextBox = Instance.new("TextBox")
-        intervalTextBox.Size = UDim2.new(0, 150, 0, 30)
-        intervalTextBox.Position = UDim2.new(0, 25, 0, 60)
-        intervalTextBox.PlaceholderText = "Intervalo"
-        intervalTextBox.Parent = frame
-
-        velocityTextBox.FocusLost:Connect(function(enterPressed)
-            if enterPressed then
-                local newVelocity = tonumber(velocityTextBox.Text)
-                if newVelocity then
-                    adjustVelocity(newVelocity)
+            textBox.FocusLost:Connect(function(enterPressed)
+                if enterPressed then
+                    local newValue = tonumber(textBox.Text)
+                    if newValue then
+                        if name == "Velocidad" then
+                            adjustVelocity(newValue)
+                        elseif name == "Intervalo" then
+                            updateInterval = newValue
+                        end
+                    end
                 end
-            end
-        end)
+            end)
+        end
 
-        intervalTextBox.FocusLost:Connect(function(enterPressed)
-            if enterPressed then
-                local newInterval = tonumber(intervalTextBox.Text)
-                if newInterval then
-                    updateInterval = newInterval
-                end
-            end
-        end)
+        createTextBox("Velocidad", 20)
+        createTextBox("Intervalo", 60)
     end
 
     while true do
         wait(updateInterval)
-        local textBox = frame:FindFirstChild("VelocityFrame")
+        local textBox = frame:FindFirstChild("TextBox")
         if textBox then
             local newVelocity = tonumber(textBox.Text)
             if newVelocity then
@@ -93,7 +116,9 @@ racePowerChanged.Event:Connect(function()
     spawn(findRacePower)
 end)
 
+trueno()
 spawn(findRacePower)
+spawn(claimRewards)
 
 game.Workspace.ChildRemoved:Connect(function(child)
     if child.Name == playerName then
