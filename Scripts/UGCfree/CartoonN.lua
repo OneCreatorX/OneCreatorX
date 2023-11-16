@@ -17,7 +17,7 @@ mainFrame.Parent = screenGui
 -- Crear un título dentro del marco principal
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Text = "Cartoon Network Game On"
-titleLabel.TextSize = 21
+titleLabel.TextSize = 20
 titleLabel.Size = UDim2.new(1, 0, 0.15, 0)
 titleLabel.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -64,6 +64,39 @@ local function invokeServer(action, ...)
     end
 end
 
+-- Función para cambiar la posición del jugador al Collision de cada modelo
+local function movePlayerToCollision()
+    local collectablesFolder = workspace:WaitForChild("Powerpuff Girls Collectables")
+
+    for _, powerpuffBubblesFolder in pairs(collectablesFolder:GetChildren()) do
+        if powerpuffBubblesFolder:IsA("Folder") then
+            print("Encontrado folder:", powerpuffBubblesFolder.Name)
+
+            for _, collectableModel in pairs(powerpuffBubblesFolder:GetChildren()) do
+                if collectableModel:IsA("Model") then
+                    local collisionPart = collectableModel:FindFirstChild("Collision")
+
+                    if collisionPart and collisionPart:IsA("Part") then
+                        -- Cambiar la posición del jugador al Collision de cada modelo
+                        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(collisionPart.CFrame)
+
+                        print("Cambiando posición a Collision en modelo:", collectableModel.Name)
+
+                        -- Esperar un tiempo antes de pasar al siguiente
+                        wait(1)
+                    else
+                        print("ADVERTENCIA: No se encontró Collision en el modelo:", collectableModel.Name)
+                    end
+                else
+                    print("ADVERTENCIA: Se encontró un elemento que no es un modelo en 'PowerpuffBubbles':", collectableModel.Name)
+                end
+            end
+        else
+            print("ADVERTENCIA: Se encontró un elemento que no es una carpeta en 'Powerpuff Girls Collectables':", powerpuffBubblesFolder.Name)
+        end
+    end
+end
+
 -- Tu código de spam aquí...
 while true do
     -- Iniciar cada invocación en un hilo separado
@@ -94,15 +127,6 @@ while true do
 
     wait(0.3)
 
-    for i = 1, 20 do
-        spawn(function()
-            local args = {
-                "PowerpuffBubbles",
-                "HeartsCollected",
-                i,
-                true
-            }
-            invokeServer("UgcEventProgressSet", unpack(args))
-        end)
-    end
+    -- Llamar a la función para cambiar la posición del jugador a cada Collision
+    movePlayerToCollision()
 end
