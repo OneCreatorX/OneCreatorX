@@ -17,7 +17,7 @@ mainFrame.Parent = screenGui
 -- Crear un título dentro del marco principal
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Text = "Cartoon Network Game On"
-titleLabel.TextSize = 20
+titleLabel.TextSize = 21
 titleLabel.Size = UDim2.new(1, 0, 0.15, 0)
 titleLabel.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -119,7 +119,7 @@ while true do
         invokeServer("GiveExp", 1, "TTG")
     end)
 
-    for i = 1, 20 do
+    for i = 1000, 200000 do
         spawn(function()
             invokeServer("EventCollectableCollected", "PPG_ChemicalX_PowerpuffBubbles", i, false)
         end)
