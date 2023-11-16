@@ -119,7 +119,7 @@ while true do
         invokeServer("GiveExp", 1, "TTG")
     end)
 
-    for i = 1000, 200000 do
+    for i = 1000, 2000000 do
         spawn(function()
             invokeServer("EventCollectableCollected", "PPG_ChemicalX_PowerpuffBubbles", i, false)
         end)
