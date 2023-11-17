@@ -7,17 +7,28 @@ local collectablesFolder = workspace:WaitForChild("Powerpuff Girls Collectables"
 local isUGCButtonActive = false
 
 -- Function to create buttons
-local function createButton(text, position, size, callback)
+local function createButton(text, position, callback)
     local button = Instance.new("TextButton")
-    button.Size = 18
+    button.Size = UDim2.new(1, 0, 0.2, 0)
     button.Position = position
     button.Text = text
     button.TextColor3 = Color3.new(1, 1, 1)
-    button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)  -- Color azul claro
+    button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
     button.BorderSizePixel = 0
     button.Font = Enum.Font.SourceSansBold
+    button.TextSize = 18  -- Ajustar el tamaño del texto
     button.Parent = background
     button.MouseButton1Click:Connect(callback)
+
+    -- Cambiar color al estar activado (también compatible con dispositivos táctiles)
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = Color3.new(0.4, 0.8, 1)
+    end)
+
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
+    end)
+
     return button
 end
 
@@ -84,54 +95,30 @@ background.Parent = screenGui
 
 -- Configuración de colores y apariencia
 local titleText = Instance.new("TextLabel")
-titleText.Size = UDim2.new(1, 0, 0.2, 0)  -- Ajuste de la altura
+titleText.Size = UDim2.new(1, 0, 0.2, 0)
 titleText.Position = UDim2.new(0, 0, 0, 0)
 titleText.Text = "UGC Cartoon Network Game On"
 titleText.Font = Enum.Font.SourceSansBold
 titleText.TextSize = 16
 titleText.TextColor3 = Color3.new(1, 1, 1)
-titleText.BackgroundTransparency = 0.5  -- Fondo semi-transparente
+titleText.BackgroundTransparency = 0.5
 titleText.Parent = background
 
 local smallText = Instance.new("TextLabel")
 smallText.Size = UDim2.new(0, 100, 0, 20)
-smallText.Position = UDim2.new(0.25, 2, 0.8, 0)
+smallText.Position = UDim2.new(0.25, 2, 0.75, 0)
 smallText.Text = "YT: OneCreatorX"
 smallText.Font = Enum.Font.SourceSans
 smallText.TextSize = 14
 smallText.TextColor3 = Color3.new(1, 1, 1)
-smallText.BackgroundTransparency = 0.5  -- Fondo semi-transparente
+smallText.BackgroundTransparency = 0.5
 smallText.Parent = background
 
 -- Función para crear botones con tamaño ajustado
-local function createButton(text, position, callback)
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(1, 0, 0.2, 0)  -- Ajuste de la altura
-    button.Position = position
-    button.Text = text
-    button.TextColor3 = Color3.new(1, 1, 1)
-    button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
-    button.BorderSizePixel = 0
-    button.Font = Enum.Font.SourceSansBold
-    button.Parent = background
-    button.MouseButton1Click:Connect(callback)
-
-    -- Cambiar color al estar activado
-    button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = Color3.new(0.4, 0.8, 1)
-    end)
-
-    button.MouseLeave:Connect(function()
-        button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
-    end)
-
-    return button
-end
-
 createButton("Auto Collect UGC", UDim2.new(0, 0, 0.2, 0), function()
-    print("Ejecutar Funciones button clicked")
+    print("Auto Collect UGC button clicked")
     movePlayerToCollision()
-    wait()
+    wait(0.5)
     teleportPlayerToCollectableRootParts(collectablesFolder)
 end)
 
