@@ -113,5 +113,5 @@ end
 local collectablesFolder = workspace:WaitForChild("Powerpuff Girls Collectables")
 
     movePlayerToCollision()
-wait(1)
+wait(5)
 teleportPlayerToCollectableRootParts(collectablesFolder)
