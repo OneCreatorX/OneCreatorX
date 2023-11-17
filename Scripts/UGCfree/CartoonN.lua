@@ -9,7 +9,7 @@ local isUGCButtonActive = false
 -- Function to create buttons
 local function createButton(text, position, size, callback)
     local button = Instance.new("TextButton")
-    button.Size = 12
+    button.Size = 18
     button.Position = position
     button.Text = text
     button.TextColor3 = Color3.new(1, 1, 1)
@@ -30,7 +30,7 @@ local function movePlayerToCollision()
                     local collisionPart = collectableModel:FindFirstChild("Collision")
                     if collisionPart and collisionPart:IsA("Part") then
                         player.Character:SetPrimaryPartCFrame(collisionPart.CFrame)
-                        wait(1)
+                        wait(0.5)
                     end
                 end
             end
@@ -45,7 +45,7 @@ local function teleportPlayerToCollectableRootParts(folder)
             local collectableRootPart = child:FindFirstChild("CollectableRootPart")
             if collectableRootPart and collectableRootPart:IsA("Part") then
                 player.Character:SetPrimaryPartCFrame(collectableRootPart.CFrame)
-                wait(1)
+                wait(0.5)
             end
         elseif child:IsA("Folder") then
             teleportPlayerToCollectableRootParts(child)
@@ -128,10 +128,10 @@ local function createButton(text, position, callback)
     return button
 end
 
-createButton("Ejecutar Funciones", UDim2.new(0, 0, 0.2, 0), function()
+createButton("Auto Collect UGC", UDim2.new(0, 0, 0.2, 0), function()
     print("Ejecutar Funciones button clicked")
     movePlayerToCollision()
-    wait(1)
+    wait()
     teleportPlayerToCollectableRootParts(collectablesFolder)
 end)
 
