@@ -119,6 +119,7 @@ createButton("Auto Spam para reclamar UGC", UDim2.new(0, 0, 0.4, 0), function()
     isUGCButtonActive = not isUGCButtonActive
     while isUGCButtonActive do
         claimUGC()
-        wait(0.1)
+            print("Try claim ugc")
+        wait(0.2)
     end
 end)
