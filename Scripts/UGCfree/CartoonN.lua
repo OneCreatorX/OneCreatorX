@@ -16,7 +16,7 @@ local function createButton(text, position, callback)
     button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
     button.BorderSizePixel = 0
     button.Font = Enum.Font.SourceSansBold
-    button.TextSize = 18  -- Ajustar el tamaño del texto
+    button.TextSize = 18
     button.Parent = background
     button.MouseButton1Click:Connect(callback)
 
@@ -97,7 +97,7 @@ background.Parent = screenGui
 local titleText = Instance.new("TextLabel")
 titleText.Size = UDim2.new(1, 0, 0.2, 0)
 titleText.Position = UDim2.new(0, 0, 0, 0)
-titleText.Text = "UGC Cartoon Network Game On"
+titleText.Text = "[UGC] Cartoon Network Game"
 titleText.Font = Enum.Font.SourceSansBold
 titleText.TextSize = 16
 titleText.TextColor3 = Color3.new(1, 1, 1)
@@ -122,8 +122,8 @@ createButton("Auto Collect UGC", UDim2.new(0, 0, 0.2, 0), function()
     teleportPlayerToCollectableRootParts(collectablesFolder)
 end)
 
-createButton("Spam para reclamar UGC", UDim2.new(0, 0, 0.4, 0), function()
-    print("Spam para reclamar UGC button clicked")
+createButton("Auto Spam para reclamar UGC", UDim2.new(0, 0, 0.4, 0), function()
+    print("Auto Spam para reclamar UGC button clicked")
     isUGCButtonActive = not isUGCButtonActive
     while isUGCButtonActive do
         claimUGC()
