@@ -44,3 +44,4 @@ ID Game:Final/IDGame
 Equipar +1 Item BackPack/Mochila:Final/EquiparItem
 Equipar todos los items BackPack/Mochila:Final/EquiparAll
 Saltar/Dropbear item(el comportamiento varía según el juego):Final/Dropbear
+Animaciones:Final/Animaciones
