@@ -97,7 +97,7 @@ titleText.Parent = background
 
 local smallText = Instance.new("TextLabel")
 smallText.Size = UDim2.new(0, 100, 0, 20)
-smallText.Position = UDim2.new(0.8, 0, 0.9, 0)
+smallText.Position = UDim2.new(8, 0, 7, 0)
 smallText.Text = "YT: OneCreatorX"
 smallText.Font = Enum.Font.SourceSans
 smallText.TextSize = 12
