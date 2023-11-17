@@ -71,6 +71,8 @@ local function claimUGC()
     end
 end
 
+-- ... (código previo)
+
 -- Setup GUI
 screenGui.Parent = playerGui
 background.Size = UDim2.new(0, 200, 0, 120)
@@ -84,12 +86,13 @@ background.Parent = screenGui
 
 -- Configuración de colores y apariencia
 local titleText = Instance.new("TextLabel")
-titleText.Size = UDim2.new(1, 0, 0.4, 0)
+titleText.Size = UDim2.new(1, 0, 0.2, 0)  -- Ajuste de la altura
 titleText.Position = UDim2.new(0, 0, 0, 0)
 titleText.Text = "UGC Cartoon Network Game On"
 titleText.Font = Enum.Font.SourceSansBold
 titleText.TextSize = 16
 titleText.TextColor3 = Color3.new(1, 1, 1)
+titleText.BackgroundTransparency = 0.5  -- Fondo semi-transparente
 titleText.Parent = background
 
 local smallText = Instance.new("TextLabel")
@@ -99,16 +102,42 @@ smallText.Text = "YT: OneCreatorX"
 smallText.Font = Enum.Font.SourceSans
 smallText.TextSize = 12
 smallText.TextColor3 = Color3.new(1, 1, 1)
+smallText.BackgroundTransparency = 0.5  -- Fondo semi-transparente
 smallText.Parent = background
 
-createButton("Ejecutar Funciones", UDim2.new(0.5, -50, 0.7, -15), UDim2.new(0, 100, 0, 30), function()
+-- Función para crear botones con tamaño ajustado
+local function createButton(text, position, callback)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(1, 0, 0.2, 0)  -- Ajuste de la altura
+    button.Position = position
+    button.Text = text
+    button.TextColor3 = Color3.new(1, 1, 1)
+    button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
+    button.BorderSizePixel = 0
+    button.Font = Enum.Font.SourceSansBold
+    button.Parent = background
+    button.MouseButton1Click:Connect(callback)
+
+    -- Cambiar color al estar activado
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = Color3.new(0.4, 0.8, 1)
+    end)
+
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = Color3.new(0.2, 0.6, 1)
+    end)
+
+    return button
+end
+
+createButton("Ejecutar Funciones", UDim2.new(0, 0, 0.2, 0), function()
     print("Ejecutar Funciones button clicked")
     movePlayerToCollision()
     wait(1)
     teleportPlayerToCollectableRootParts(collectablesFolder)
 end)
 
-createButton("Spam para reclamar UGC", UDim2.new(0.5, -50, 0.5, -15), UDim2.new(0, 100, 0, 30), function()
+createButton("Spam para reclamar UGC", UDim2.new(0, 0, 0.4, 0), function()
     print("Spam para reclamar UGC button clicked")
     isUGCButtonActive = not isUGCButtonActive
     while isUGCButtonActive do
