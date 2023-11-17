@@ -9,7 +9,7 @@ local isUGCButtonActive = false
 -- Function to create buttons
 local function createButton(text, position, size, callback)
     local button = Instance.new("TextButton")
-    button.Size = size
+    button.Size = 12
     button.Position = position
     button.Text = text
     button.TextColor3 = Color3.new(1, 1, 1)
@@ -71,8 +71,6 @@ local function claimUGC()
     end
 end
 
--- ... (código previo)
-
 -- Setup GUI
 screenGui.Parent = playerGui
 background.Size = UDim2.new(0, 200, 0, 120)
@@ -97,10 +95,10 @@ titleText.Parent = background
 
 local smallText = Instance.new("TextLabel")
 smallText.Size = UDim2.new(0, 100, 0, 20)
-smallText.Position = UDim2.new(8, 0, 7, 0)
+smallText.Position = UDim2.new(0.25, 2, 0.8, 0)
 smallText.Text = "YT: OneCreatorX"
 smallText.Font = Enum.Font.SourceSans
-smallText.TextSize = 12
+smallText.TextSize = 14
 smallText.TextColor3 = Color3.new(1, 1, 1)
 smallText.BackgroundTransparency = 0.5  -- Fondo semi-transparente
 smallText.Parent = background
