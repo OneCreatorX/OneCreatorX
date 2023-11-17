@@ -67,19 +67,11 @@ end
 -- Function to claim UGC (safe version)
 local function claimUGC()
     local args = {
-        [1] = "PowerpuffBubbles",
-        [2] = 1700204402
-    }
+    [1] = "PowerpuffBubbles",
+    [2] = 1700204402
+}
 
-    local success, result = pcall(function()
-        return game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("ProgressionDataService"):WaitForChild("RF"):WaitForChild("CheckUGCAward"):InvokeServer(unpack(args))
-    end)
-
-    if success then
-        print("UGC reclamado exitosamente:", result)
-    else
-        warn("Error al reclamar UGC:", result)
-    end
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("ProgressionDataService"):WaitForChild("RF"):WaitForChild("CheckUGCAward"):InvokeServer(unpack(args))
 end
 
 -- Setup GUI
