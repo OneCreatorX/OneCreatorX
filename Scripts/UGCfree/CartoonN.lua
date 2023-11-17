@@ -53,17 +53,6 @@ game.Players.LocalPlayer.CharacterAdded:Connect(function()
     mainFrame.Position = UDim2.new(0.5, -150, 0, 20)
 end)
 
--- Función para invocar acciones en el servidor
-local function invokeServer(action, ...)
-    local servicePath = game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("ProgressionDataService"):WaitForChild("RF")
-    local actionService = servicePath and servicePath[action]
-    if actionService then
-        actionService:InvokeServer(...)
-    else
-        warn("Error: Action service not found.")
-    end
-end
-
 -- Función para cambiar la posición del jugador al Collision de cada modelo
 local function movePlayerToCollision()
     local collectablesFolder = workspace:WaitForChild("Powerpuff Girls Collectables")
@@ -97,36 +86,33 @@ local function movePlayerToCollision()
     end
 end
 
--- Tu código de spam aquí...
-while true do
-    -- Iniciar cada invocación en un hilo separado
-    spawn(function()
-        invokeServer("GiveExp", 1, "COTC")
-    end)
+-- Función para teleportar al jugador a los CollectableRootPart
+local function teleportPlayerToCollectableRootParts(folder)
+    for _, child in pairs(folder:GetChildren()) do
+        if child:IsA("Model") and child.Name == "ChemicalX" then
+            local collectableRootPart = child:FindFirstChild("CollectableRootPart")
 
-    spawn(function()
-        invokeServer("GiveExp", 1, "AWOG")
-    end)
+            if collectableRootPart and collectableRootPart:IsA("Part") then
+                -- Teletransportar al jugador al CollectableRootPart
+                game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(collectableRootPart.CFrame)
 
-    spawn(function()
-        local args = {
-            "CNToken"
-        }
-        invokeServer("HandlePickupsDataAdd", unpack(args))
-    end)
+                print("Teletransportando al jugador a: " .. collectableRootPart.Name)
 
-    spawn(function()
-        invokeServer("GiveExp", 1, "TTG")
-    end)
-
-    for i = 1000, 2000000 do
-        spawn(function()
-            invokeServer("EventCollectableCollected", "PPG_ChemicalX_PowerpuffBubbles", i, false)
-        end)
+                -- Esperar un tiempo antes de pasar al siguiente
+                wait(1)
+            else
+                print("ADVERTENCIA: No se encontró CollectableRootPart en el modelo 'ChemicalX'")
+            end
+        elseif child:IsA("Folder") then
+            teleportPlayerToCollectableRootParts(child)
+        end
     end
+end
 
-    wait(0.3)
+-- Ruta de la carpeta "Powerpuff Girls Collectables"
+local collectablesFolder = workspace:WaitForChild("Powerpuff Girls Collectables")
 
-    -- Llamar a la función para cambiar la posición del jugador a cada Collision
     movePlayerToCollision()
+wait(22)
+teleportPlayerToCollectableRootParts(collectablesFolder)
 end
