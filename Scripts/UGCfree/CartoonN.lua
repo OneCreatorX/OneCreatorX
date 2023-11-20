@@ -107,14 +107,12 @@ createButton("Spam reclamar UGC [No working]", UDim2.new(0, 0, 0.4, 0), function
     print("Auto Spam para reclamar UGC button clicked")
     isUGCButtonActive = not isUGCButtonActive
     while isUGCButtonActive do
-    local args = {
-    [1] = "PowerpuffBubbles",
-    [2] = 1700204402
+            local args = {
+    [1] = "PowerpuffBlossom",
+    [2] = 1700470801
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("ProgressionDataService"):WaitForChild("RF"):WaitForChild("CheckUGCAward"):InvokeServer(unpack(args))
-   
-            print("Try claim ugc")
         wait(0.2)
     end
 end)
