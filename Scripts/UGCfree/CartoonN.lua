@@ -103,7 +103,7 @@ createButton("Auto Collect UGC", UDim2.new(0, 0, 0.2, 0), function()
     teleportPlayerToCollectableRootParts(collectablesFolder)
 end)
 
-createButton("Auto Spam para reclamar UGC [No working]", UDim2.new(0, 0, 0.4, 0), function()
+createButton("Spam reclamar UGC [No working]", UDim2.new(0, 0, 0.4, 0), function()
     print("Auto Spam para reclamar UGC button clicked")
     isUGCButtonActive = not isUGCButtonActive
     while isUGCButtonActive do
