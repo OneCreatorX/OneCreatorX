@@ -78,6 +78,13 @@ local function parseValue(value)
     end
 end
 
+-- Inicializa una bandera para controlar si se ha registrado al menos un tiempo estimado
+local hasLowestEstimatedTime = false
+
+local function updateLowestEstimatedTimeGUI(timeString)
+    timeLabel.Text = "Tiempo estimado más bajo: " .. timeString
+end
+
 while wait(1) do
     parseValue(getValue(path))
     counter = counter + 1
@@ -93,7 +100,16 @@ while wait(1) do
             -- Ajuste en el cálculo del tiempo estimado
             local totalTime = estimatedTime * #intervals / counter
 
+            -- Actualiza el GUI principal
             updateGUI(finalProgress, string.format("%02d:%02d:%02d", totalTime / 3600, totalTime % 3600 / 60, totalTime % 60))
+
+            -- Actualiza el tiempo estimado más bajo si es el primero o es más bajo que el registrado anteriormente
+            if not hasLowestEstimatedTime or totalTime < lowestEstimatedTime then
+                lowestEstimatedTime = totalTime
+                hasLowestEstimatedTime = true
+                -- Actualiza el GUI del tiempo estimado más bajo si es necesario
+                updateLowestEstimatedTimeGUI(string.format("%02d:%02d:%02d", lowestEstimatedTime / 3600, lowestEstimatedTime % 3600 / 60, lowestEstimatedTime % 60))
+            end
         else
             warn("No hay cambio de progreso en el último intervalo de tiempo. No se actualizó la estimación.")
         end
