@@ -89,11 +89,11 @@ local function updateGUI(progress, time)
     timeLabel.Text = "Tiempo estimado: " .. time
 end
 
-while wait(1) do
+while wait(0.5) do
     parseValue(getValue(path))
     counter = counter + 1
 
-    if counter % 10 == 0 and #intervals > 1 then
+    if counter % 5 == 0 and #intervals > 1 then
         local initialProgress, finalProgress = intervals[1].progressRemaining, intervals[#intervals].progressRemaining
 
         -- Asegurémonos de que haya habido un cambio de progreso antes de calcular el tiempo estimado
