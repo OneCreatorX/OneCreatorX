@@ -82,7 +82,11 @@ end
 local hasLowestEstimatedTime = false
 
 local function updateLowestEstimatedTimeGUI(timeString)
-    timeLabel.Text = "Tiempo estimado más bajo: " .. timeString
+    progressLabel.Text = "Tiempo estimado más bajo: " .. timeString
+end
+
+local function updateGUI(progress, time)
+    timeLabel.Text = "Tiempo estimado: " .. time
 end
 
 while wait(1) do
@@ -100,18 +104,29 @@ while wait(1) do
             -- Ajuste en el cálculo del tiempo estimado
             local totalTime = estimatedTime * #intervals / counter
 
-            -- Actualiza el GUI principal
-            updateGUI(finalProgress, string.format("%02d:%02d:%02d", totalTime / 3600, totalTime % 3600 / 60, totalTime % 60))
-
             -- Actualiza el tiempo estimado más bajo si es el primero o es más bajo que el registrado anteriormente
             if not hasLowestEstimatedTime or totalTime < lowestEstimatedTime then
                 lowestEstimatedTime = totalTime
                 hasLowestEstimatedTime = true
-                -- Actualiza el GUI del tiempo estimado más bajo si es necesario
+
+                -- Actualiza el GUI del tiempo estimado más bajo
                 updateLowestEstimatedTimeGUI(string.format("%02d:%02d:%02d", lowestEstimatedTime / 3600, lowestEstimatedTime % 3600 / 60, lowestEstimatedTime % 60))
             end
+
+            -- Actualiza el tiempo estimado
+            updateGUI(finalProgress, string.format("%02d:%02d:%02d", totalTime / 3600, totalTime % 3600 / 60, totalTime % 60))
         else
             warn("No hay cambio de progreso en el último intervalo de tiempo. No se actualizó la estimación.")
+
+            -- Comprueba si ha habido un renacimiento (valores de progreso y total han cambiado)
+            local currentProgress, currentTotal = getValue(path):match("(%d+%.?%d*)(%a*)/(%d+%.?%d*)(%a*)")
+            currentProgress, currentTotal = tonumber(currentProgress) or 0, tonumber(currentTotal) or 1
+
+            if currentProgress < initialProgress and currentTotal > initialTotal then
+                -- Ha habido un renacimiento, resetea el tiempo estimado más bajo
+                lowestEstimatedTime = math.huge
+                hasLowestEstimatedTime = false
+            end
         end
 
         counter, intervals = 0, {}
