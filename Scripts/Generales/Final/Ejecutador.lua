@@ -13,12 +13,12 @@ local ActivadoDict = {
 }
 
 local codeTextBox = Instance.new("TextBox")
-codeTextBox.Text, codeTextBox.Size, codeTextBox.Position, codeTextBox.BackgroundColor3, codeTextBox.Parent = "Código aquí", UDim2.new(0, 100, 0, 20), UDim2.new(0, 10, 0, 10), Color3.new(0.4, 0.4, 0.4), Frame
+codeTextBox.Text, codeTextBox.Size, codeTextBox.Position, codeTextBox.BackgroundColor3, codeTextBox.Parent = "      Código aquí", UDim2.new(0, 100, 0, 20), UDim2.new(0, 10, 0, 10), Color3.new(0.4, 0.4, 0.4), Frame
 codeTextBox.TextWrapped = true
 codeTextBox.TextXAlignment = Enum.TextXAlignment.Left
 
 local timeTextBox = Instance.new("TextBox")
-timeTextBox.Text, timeTextBox.Size, timeTextBox.Position, timeTextBox.BackgroundColor3, timeTextBox.Parent = "Tiempo de bucle (segundos)", UDim2.new(0, 100, 0, 20), UDim2.new(0, 10, 0, 40), Color3.new(0.4, 0.4, 0.4), Frame
+timeTextBox.Text, timeTextBox.Size, timeTextBox.Position, timeTextBox.BackgroundColor3, timeTextBox.Parent = "..Tiempo (seg 1)", UDim2.new(0, 100, 0, 20), UDim2.new(0, 10, 0, 40), Color3.new(0.4, 0.4, 0.4), Frame
 
 local function autoClickFight()
     while wait(tonumber(timeTextBox.Text) or 1) do
@@ -32,7 +32,7 @@ local function autoClickFight()
 end
 
 local startButton = Instance.new("TextButton")
-startButton.Text, startButton.Size, startButton.Position, startButton.BackgroundColor3, startButton.Parent = "Detener Bucle", UDim2.new(0, 80, 0, 20), UDim2.new(0, 10, 0, 70), Color3.new(0.2, 0.8, 0.2), Frame
+startButton.Text, startButton.Size, startButton.Position, startButton.BackgroundColor3, startButton.Parent = "Detener Bucle", UDim2.new(0, 80, 0, 15), UDim2.new(0.05, 10, 0, 60), Color3.new(0.2, 0.8, 0.2), Frame
 
 startButton.MouseButton1Click:Connect(function()
     ActivadoDict.AutoClickFight = not (ActivadoDict.AutoClickFight or false)
