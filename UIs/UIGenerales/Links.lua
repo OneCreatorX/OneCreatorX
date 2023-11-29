@@ -1,6 +1,7 @@
 Spy Chat:Final/SpyChat
 Modo Espectador:Final/ModoEspectador
 Caer:Final/Caer
+Ejcutador en Bucle:Final/Ejecutador.lua
 Anti AFK:Final/AntiAfk
 Caminar sobre una plataforma:Final/CaminarPlataforma
 Fullbright/Brillo aumentado:Final/Fullbright
