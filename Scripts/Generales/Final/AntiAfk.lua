@@ -1,4 +1,4 @@
-wait(5)
+wait(1)
 local ba = Instance.new("ScreenGui")
 local ca = Instance.new("Frame")
 local ab = Instance.new("TextLabel")
