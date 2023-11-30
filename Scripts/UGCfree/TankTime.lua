@@ -1,134 +1,105 @@
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = game.Workspace.CurrentCamera
 
+local currentPlayerIndex = 1
+local teleportCooldown = false
+
+local textbox
+
+-- Definir frame antes de configurar sus propiedades
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "ProgressScreenGui"
+screenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 screenGui.ResetOnSpawn = false
-screenGui.Parent = playerGui
 
-local frame = Instance.new("Frame", screenGui)
-frame.Size, frame.Position, frame.BackgroundColor3, frame.BorderSizePixel, frame.Draggable = UDim2.new(0.2, 0, 0.2, 0), UDim2.new(0.5, 0, 0.4, 0), Color3.new(0.2, 0.2, 0.2), 4, true
-
-local progressLabel = Instance.new("TextLabel", frame)
-progressLabel.Size = UDim2.new(1, 0, 0.4, 0)
-progressLabel.Position = UDim2.new(0, 0, 0, 0)
-progressLabel.Text = "Progreso restante: "
-progressLabel.TextScaled = true
-progressLabel.TextColor3 = Color3.new(1, 0.7, 0)
-
--- Ajusta la propiedad BackgroundTransparency para hacer el fondo del texto transparente
-progressLabel.BackgroundTransparency = 1
-
-local timeLabel = Instance.new("TextLabel", frame)
-timeLabel.Size = UDim2.new(1, 0, 0.4, 0)
-timeLabel.Position = UDim2.new(0, 0, 0.4, 0)
-timeLabel.Text = "Tiempo estimado: "
-timeLabel.TextScaled = true
-timeLabel.TextColor3 = Color3.new(0.7, 0.7, 1)
-
--- Ajusta la propiedad BackgroundTransparency para hacer el fondo del texto transparente
-timeLabel.BackgroundTransparency = 1
-
+local frame = Instance.new("Frame")
+frame.Position = UDim2.new(0, 10, 0, 10)
+frame.Size = UDim2.new(0, 330, 0, 40)
+frame.BackgroundColor3 = Color3.fromRGB(44, 62, 80)
+frame.BorderSizePixel = 0
 frame.Draggable = true
+frame.Parent = screenGui
 frame.Active = true
-local dragStart, startPos, offset
 
-frame.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragStart = input.Position
-        startPos = frame.Position
-        offset = startPos - UDim2.new(0, dragStart.X, 0, dragStart.Y)
+local buttonSizeX = 50
+local buttonSizeY = 30
+
+local function createButton(name, position, func)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, buttonSizeX, 0, buttonSizeY)
+    button.Position = UDim2.new(0, position, 0, 5)
+    button.BackgroundTransparency = 0.5
+    button.BackgroundColor3 = Color3.fromRGB(52, 152, 219)
+    button.BorderSizePixel = 0
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 14
+    button.Text = name
+    button.Parent = frame
+    button.MouseButton1Click:Connect(func)
+    return button
+end
+
+local function teleportToSelectedPlayer()
+    if teleportCooldown then
+        return
     end
-end)
 
-frame.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        local delta = input.Position - dragStart
-        frame.Position = offset + UDim2.new(0, delta.X, 0, delta.Y)
-    end
-end)
-
-local function updateGUI(progress, time)
-    progressLabel.Text, timeLabel.Text = "Progreso restante: " .. progress, "Tiempo estimado: " .. time
-end
-
-local path = "PlayerGui.MainUI.UI_Group.RebirthFrame.Frames.AddPets.Bar.Rebirths"
-local intervals = {}
-local counter = 0
-
-local function getValue(path)
-    local current = game.Players.LocalPlayer
-    for part in path:gmatch("[^%.]+") do
-        current = current:FindFirstChild(part)
-        if not current then
-            warn("Error al acceder a la ruta:", path)
-            return
-        end
-    end
-    local value = current:IsA("TextLabel") and current.Text
-    return value:match("%d+%.?%d*%a*/%d+%.?%d*%a*")
-end
-
-local function parseValue(value)
-    local start, unit, finish, unitFinish = value:match("(%d+%.?%d*)(%a*)/(%d+%.?%d*)(%a*)")
-    if start and finish then
-        start, finish = tonumber(start) or 0, tonumber(finish) or 1
-        local remainingProgress = finish - start
-        table.insert(intervals, {progressRemaining = remainingProgress, time = os.time()})
-    end
-end
-
--- Inicializa una bandera para controlar si se ha registrado al menos un tiempo estimado
-local hasLowestEstimatedTime = false
-
-local function updateLowestEstimatedTimeGUI(timeString)
-    progressLabel.Text = "Tiempo estimado más bajo: " .. timeString
-end
-
-local function updateGUI(progress, time)
-    timeLabel.Text = "Tiempo estimado: " .. time
-end
-
-while wait(0.5) do
-    parseValue(getValue(path))
-    counter = counter + 1
-
-    if counter % 5 == 0 and #intervals > 1 then
-        local initialProgress, finalProgress = intervals[1].progressRemaining, intervals[#intervals].progressRemaining
-
-        -- Asegurémonos de que haya habido un cambio de progreso antes de calcular el tiempo estimado
-        if initialProgress ~= finalProgress then
-            local progressRate = (initialProgress - finalProgress) / counter
-            local estimatedTime = finalProgress / progressRate
-
-            -- Ajuste en el cálculo del tiempo estimado
-            local totalTime = estimatedTime * #intervals / counter
-
-            -- Actualiza el tiempo estimado más bajo si es el primero o es más bajo que el registrado anteriormente
-            if not hasLowestEstimatedTime or totalTime < lowestEstimatedTime then
-                lowestEstimatedTime = totalTime
-                hasLowestEstimatedTime = true
-
-                -- Actualiza el GUI del tiempo estimado más bajo
-                updateLowestEstimatedTimeGUI(string.format("%02d:%02d:%02d", lowestEstimatedTime / 3600, lowestEstimatedTime % 3600 / 60, lowestEstimatedTime % 60))
-            end
-
-            -- Actualiza el tiempo estimado
-            updateGUI(finalProgress, string.format("%02d:%02d:%02d", totalTime / 3600, totalTime % 3600 / 60, totalTime % 60))
+    local selectedPlayer = Players:GetPlayers()[currentPlayerIndex]
+    if selectedPlayer then
+        local seconds = tonumber(textbox.Text)
+        if seconds then
+            local originalPosition = LocalPlayer.Character.HumanoidRootPart.CFrame
+            LocalPlayer.Character:SetPrimaryPartCFrame(selectedPlayer.Character.HumanoidRootPart.CFrame)
+            wait(seconds)
+            LocalPlayer.Character:SetPrimaryPartCFrame(originalPosition)
         else
-            warn("No hay cambio de progreso en el último intervalo de tiempo. No se actualizó la estimación.")
-
-            -- Comprueba si ha habido un renacimiento (valores de progreso y total han cambiado)
-            local currentProgress, currentTotal = getValue(path):match("(%d+%.?%d*)(%a*)/(%d+%.?%d*)(%a*)")
-            currentProgress, currentTotal = tonumber(currentProgress) or 0, tonumber(currentTotal) or 1
-
-            if currentProgress < initialProgress and currentTotal > initialTotal then
-                -- Ha habido un renacimiento, resetea el tiempo estimado más bajo
-                lowestEstimatedTime = math.huge
-                hasLowestEstimatedTime = false
-            end
+            LocalPlayer.Character:SetPrimaryPartCFrame(selectedPlayer.Character.HumanoidRootPart.CFrame)
         end
 
-        counter, intervals = 0, {}
+        teleportCooldown = true
+        wait(5)
+        teleportCooldown = false
     end
 end
+
+local function selectPlayer(index)
+    local playerCount = #Players:GetPlayers()
+    if playerCount > 0 then
+        currentPlayerIndex = (index - 1) % playerCount + 1
+        Camera.CameraSubject = Players:GetPlayers()[currentPlayerIndex].Character.Humanoid
+    end
+end
+
+local function resetCamera()
+    Camera.CameraSubject = LocalPlayer.Character.Humanoid
+end
+
+createButton("<", 0, function()
+    selectPlayer(currentPlayerIndex - 1)
+end)
+
+createButton(">", 60, function()
+    selectPlayer(currentPlayerIndex + 1)
+end)
+
+createButton("[∆]", 120, function()
+    resetCamera()
+end)
+
+local teleportButton = createButton("TP", 180, teleportToSelectedPlayer)
+
+textbox = Instance.new("TextBox")
+textbox.Size = UDim2.new(0, 59, 0, 30)
+textbox.Position = UDim2.new(0, 260, 0, 5)
+textbox.BackgroundTransparency = 0.8
+textbox.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+textbox.BorderSizePixel = 0
+textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textbox.Font = Enum.Font.SourceSans
+textbox.TextSize = 14
+textbox.Text = "Seg tp"
+textbox.Parent = frame
+
+resetCamera()
