@@ -27,8 +27,8 @@ local function createButton(parent, text, position, color)
     return button
 end
 
-local saveButton = createButton(frame, "Guardar Posición", UDim2.new(0.5, -37.5, 0, 10), Color3.new(0.2, 0.6, 0.2))
-local playButton = createButton(frame, "Reproducir", UDim2.new(0.5, -37.5, 0, 50), Color3.new(0.6, 0, 0.6))
+local saveButton = createButton(frame, "Guardar P", UDim2.new(0.5, -37.5, 0, 10), Color3.new(0.2, 0.6, 0.2))
+local playButton = createButton(frame, "Teleports", UDim2.new(0.5, -37.5, 0, 50), Color3.new(0.6, 0, 0.6))
 local walkButton = createButton(frame, "Caminar", UDim2.new(0.5, -37.5, 0, 90), Color3.new(0.6, 0, 0.6))
 
 local walking = false
@@ -42,7 +42,7 @@ local function reproducirPosiciones()
     while reproducing do
         for _, position in ipairs(savedPositions) do
             player.Character:SetPrimaryPartCFrame(CFrame.new(position))
-            wait(3)
+            wait(1.5)
         end
     end
 
