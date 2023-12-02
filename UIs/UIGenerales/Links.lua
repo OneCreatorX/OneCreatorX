@@ -1,6 +1,7 @@
 Spy Chat:Final/SpyChat
 Modo Espectador:Final/ModoEspectador
 Caer:Final/Caer
+Tp/Caminar puntos guardados:ParaMejorar/Moverguardado
 Ejcutador en Bucle:Final/Ejecutador
 Anti AFK:Final/AntiAfk
 Caminar sobre una plataforma:Final/CaminarPlataforma
