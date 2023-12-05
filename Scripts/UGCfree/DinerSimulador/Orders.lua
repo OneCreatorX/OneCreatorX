@@ -1,4 +1,3 @@
-local dataTable = {}
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = player.PlayerGui
@@ -48,53 +47,22 @@ local function markAsProcessed(npcModel)
     processedMarker.Parent = npcModel
 end
 
-local function updateTableAndButtons()
-    local buttonsToDestroy = {}
+local function createButton(textValue, npcModel)
+    local notificationButton = Instance.new("TextButton")
+    notificationButton.Parent = screenGui
+    notificationButton.Size = UDim2.new(0, 150, 0, 30)
+    notificationButton.Position = UDim2.new(0.5, -75, 0, 0)
+    notificationButton.Text = tostring(textValue)
+    notificationButton.ZIndex = #screenGui:GetChildren() + 1
 
-    for textValue, button in pairs(dataTable) do
-        if not button:IsA("GuiObject") or not button.Parent then
-            buttonsToDestroy[textValue] = true
-        end
-    end
+    notificationButton.MouseButton1Click:Connect(function()
+        notificationButton:Destroy()
+        markAsProcessed(npcModel)  -- Marcar el NPC como procesado
+        local args = { [1] = tostring(textValue), [2] = "CreatePlate" }
+        ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(unpack(args))
+    end)
 
-    for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
-        local trackerObj = npcModel:FindFirstChild("TrackerObj")
-        local processedMarker = npcModel:FindFirstChild("Processed")
-
-        if trackerObj and trackerObj:IsA("ObjectValue") and not processedMarker then
-            local textValue = trackerObj.Value
-
-            if not dataTable[textValue] or buttonsToDestroy[textValue] then
-                -- Esperar antes de procesar para permitir que lleguen otros NPC
-                processedMarker = npcModel:FindFirstChild("Processed")  -- Verificar nuevamente después del retraso
-                if not processedMarker then
-                    local notificationButton = Instance.new("TextButton")
-                    notificationButton.Parent = screenGui
-                    notificationButton.Size = UDim2.new(0, 150, 0, 30)
-                    notificationButton.Position = UDim2.new(0.5, -75, 0, 0)
-                    notificationButton.Text = tostring(textValue)
-                    notificationButton.ZIndex = #dataTable
-
-                    notificationButton.MouseButton1Click:Connect(function()
-                        notificationButton:Destroy()
-                        trackerObj:Destroy()
-                        markAsProcessed(npcModel)  -- Marcar el NPC como procesado
-                        local args = { [1] = tostring(textValue), [2] = "CreatePlate" }
-                        game:GetService("ReplicatedStorage").Remotes.ChangeMenu:InvokeServer(unpack(args))
-                    end)
-
-                    dataTable[textValue] = notificationButton
-                end
-            end
-        end
-    end
-
-    for textValue, shouldDestroy in pairs(buttonsToDestroy) do
-        if shouldDestroy and dataTable[textValue] and dataTable[textValue]:IsA("GuiObject") then
-            dataTable[textValue]:Destroy()
-            dataTable[textValue] = nil
-        end
-    end
+    return notificationButton
 end
 
 local function processIngredients()
@@ -115,12 +83,22 @@ local function processIngredients()
     end
 end
 
--- Llamar a la función para generar el ScreenGUI
-updateTableAndButtons()
+local function onNPCAdded(npcModel)
+    local trackerObj = npcModel:FindFirstChild("TrackerObj")
+    local processedMarker = npcModel:FindFirstChild("Processed")
 
--- Conectar funciones a eventos
-workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
-workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
+    if trackerObj and trackerObj:IsA("ObjectValue") and not processedMarker then
+        local textValue = trackerObj.Value
+
+        local existingButton = screenGui:FindFirstChild(tostring(textValue))
+        if not existingButton then
+            local notificationButton = createButton(textValue, npcModel)
+        end
+    end
+end
+
+-- Llamar a la función para generar el ScreenGUI
+workspace.NPCS.Active.ChildAdded:Connect(onNPCAdded)
 
 -- Lanzar la función para procesar ingredientes en un hilo separado
 spawn(processIngredients)
