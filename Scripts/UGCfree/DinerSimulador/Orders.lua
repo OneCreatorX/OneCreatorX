@@ -65,7 +65,7 @@ local function updateTableAndButtons()
             local textValue = trackerObj.Value
 
             if not dataTable[textValue] or buttonsToDestroy[textValue] then
-                wait(0.5)  -- Esperar antes de procesar para permitir que lleguen otros NPC
+                -- Esperar antes de procesar para permitir que lleguen otros NPC
                 processedMarker = npcModel:FindFirstChild("Processed")  -- Verificar nuevamente después del retraso
                 if not processedMarker then
                     local notificationButton = Instance.new("TextButton")
