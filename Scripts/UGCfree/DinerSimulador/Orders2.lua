@@ -134,81 +134,67 @@ local function createPlaceOnTableButton()
                 wait(0.2)
                 ReplicatedStorage.Remotes.Plating:InvokeServer({PlateShelf = workspace.DinerPlaceHolder.PlateShelves.PlateShelf, Position = foodPosition})
                 wait(0.2)
-                player.Character.HumanoidRootPart.CFrame = CFrame.new(playerPosition)
-                print("[INFO] Plato colocado en la mesa en posición:", foodPosition)
-            else
-                warn("[WARN] No se encontró el HumanoidRootPart en el personaje del jugador.")
-            end
-        else
-            warn("[WARN] No se encontró la posición para el plato seleccionado.")
-        end
-    end)
-end
-
-local function buscarIngredient(parent)
+                player.Character.Humanoilocal function buscarIngredient(parent)
     local storages = parent.Workspace.DinerPlaceHolder.Storages
 
     if storages then
-        -- Función para procesar un ingrediente
+        local remotes = game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
+        local purchaseRemote = remotes:WaitForChild("Purchase")
+
         local function procesarIngrediente(descendant)
             if descendant:IsA("TextLabel") and descendant.Name == "Ingredient_Quantity" then
-                local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name")
-                if ingredientName then
+                local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name", true)
+
+                if ingredientName and ingredientName:IsA("TextLabel") then
                     local cantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
 
-                    if cantidad then
-                        print("Encontrado", descendant.Parent.Name, "-", ingredientName.Text, "-", cantidad)
+                    if cantidad and cantidad < 2 then
+                        local args = {
+                            ["Ingredient_Name"] = ingredientName.Text,
+                            ["Quantity"] = 2
+                        }
 
-                        if cantidad < 2 then
+                        local success, errorOrResult = pcall(function()
+                            purchaseRemote:InvokeServer("Ingredient", args)
+                        end)
+
+                        if success then
+                            print("Ejecutado el script para el ingrediente:", ingredientName.Text)
+                        else
+                            warn("Error al ejecutar el script para el ingrediente:", ingredientName.Text, "-", errorOrResult)
+                        end
+                    end
+
+                    descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                        local nuevaCantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
+
+                        if nuevaCantidad and nuevaCantidad < 2 then
                             local args = {
-                                [1] = "Ingredient",
-                                [2] = {
-                                    ["Ingredient_Name"] = ingredientName.Text,
-                                    ["Quantity"] = 2
-                                }
+                                ["Ingredient_Name"] = ingredientName.Text,
+                                ["Quantity"] = 2
                             }
 
-                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Purchase"):InvokeServer(unpack(args))
-                            print("Ejecutado el script para el ingrediente:", ingredientName.Text)
-                        end
+                            local success, errorOrResult = pcall(function()
+                                purchaseRemote:InvokeServer("Ingredient", args)
+                            end)
 
-                        descendant:GetPropertyChangedSignal("Text"):Connect(function()
-                            local nuevaCantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
-
-                            if nuevaCantidad then
-                                print("Actualizado", descendant.Parent.Name, "-", ingredientName.Text, "-", nuevaCantidad)
-
-                                if nuevaCantidad < 2 then
-                                    local args = {
-                                        [1] = "Ingredient",
-                                        [2] = {
-                                            ["Ingredient_Name"] = ingredientName.Text,
-                                            ["Quantity"] = 2
-                                        }
-                                    }
-
-                                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Purchase"):InvokeServer(unpack(args))
-                                    print("Ejecutado el script para el ingrediente:", ingredientName.Text)
-                                end
+                            if success then
+                                print("Ejecutado el script para el ingrediente:", ingredientName.Text)
                             else
-                                warn("Cantidad no válida para el ingrediente:", ingredientName.Text)
+                                warn("Error al ejecutar el script para el ingrediente:", ingredientName.Text, "-", errorOrResult)
                             end
-                        end)
-                    else
-                        warn("Cantidad no válida para el ingrediente:", ingredientName.Text)
-                    end
+                        end
+                    end)
                 else
-                    warn("No se encontró Ingredient_Name en el modelo:", descendant.Parent.Name)
+                    warn("No se encontró o no es un TextLabel válido para Ingredient_Name en el modelo:", descendant.Parent.Name)
                 end
             end
         end
 
-        -- Buscar ingredientes existentes
         for _, descendant in pairs(storages:GetDescendants()) do
             procesarIngrediente(descendant)
         end
 
-        -- Conectar el evento ChildAdded para detectar nuevos ingredientes
         storages.ChildAdded:Connect(function(newIngredient)
             procesarIngrediente(newIngredient)
         end)
@@ -218,7 +204,7 @@ local function buscarIngredient(parent)
 end
 
 buscarIngredient(game)
-
+                    
 createPlaceOnTableButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
