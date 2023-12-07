@@ -145,6 +145,69 @@ local function createPlaceOnTableButton()
     end)
 end
 
+local function buscarIngredient(parent)
+    local storages = parent.Workspace.DinerPlaceHolder.Storages
+
+    if storages then
+        for _, descendant in pairs(storages:GetDescendants()) do
+            if descendant:IsA("TextLabel") and descendant.Name == "Ingredient_Quantity" then
+                local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name")
+                if ingredientName then
+                    local cantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
+
+                    if cantidad then
+                        print("Encontrado", descendant.Parent.Name, "-", ingredientName.Text, "-", cantidad)
+
+                        if cantidad < 2 then
+                            local args = {
+                                [1] = "Ingredient",
+                                [2] = {
+                                    ["Ingredient_Name"] = ingredientName.Text,
+                                    ["Quantity"] = 2
+                                }
+                            }
+
+                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+                            print("Ejecutado el script para el ingrediente:", ingredientName.Text)
+                        end
+
+                        descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                            local nuevaCantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
+
+                            if nuevaCantidad then
+                                print("Actualizado", descendant.Parent.Name, "-", ingredientName.Text, "-", nuevaCantidad)
+
+                                if nuevaCantidad < 2 then
+                                    local args = {
+                                        [1] = "Ingredient",
+                                        [2] = {
+                                            ["Ingredient_Name"] = ingredientName.Text,
+                                            ["Quantity"] = 2
+                                        }
+                                    }
+
+                                    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+                                    print("Ejecutado el script para el ingrediente:", ingredientName.Text)
+                                end
+                            else
+                                warn("Cantidad no válida para el ingrediente:", ingredientName.Text)
+                            end
+                        end)
+                    else
+                        warn("Cantidad no válida para el ingrediente:", ingredientName.Text)
+                    end
+                else
+                    warn("No se encontró Ingredient_Name en el modelo:", descendant.Parent.Name)
+                end
+            end
+        end
+    else
+        warn("No se encontró Workspace.DinerPlaceHolder.Storages. Asegúrate de que la jerarquía sea correcta.")
+    end
+end
+
+buscarIngredient(game)
+
 createPlaceOnTableButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
@@ -152,4 +215,3 @@ workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
 
 -- Imprimir la tabla completa de posiciones de comida
 print("[INFO] Tabla de posiciones de comida:", foodPositions)
-
