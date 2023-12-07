@@ -149,7 +149,8 @@ local function buscarIngredient(parent)
     local storages = parent.Workspace.DinerPlaceHolder.Storages
 
     if storages then
-        for _, descendant in pairs(storages:GetDescendants()) do
+        -- Función para procesar un ingrediente
+        local function procesarIngrediente(descendant)
             if descendant:IsA("TextLabel") and descendant.Name == "Ingredient_Quantity" then
                 local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name")
                 if ingredientName then
@@ -201,6 +202,16 @@ local function buscarIngredient(parent)
                 end
             end
         end
+
+        -- Buscar ingredientes existentes
+        for _, descendant in pairs(storages:GetDescendants()) do
+            procesarIngrediente(descendant)
+        end
+
+        -- Conectar el evento ChildAdded para detectar nuevos ingredientes
+        storages.ChildAdded:Connect(function(newIngredient)
+            procesarIngrediente(newIngredient)
+        end)
     else
         warn("No se encontró Workspace.DinerPlaceHolder.Storages. Asegúrate de que la jerarquía sea correcta.")
     end
