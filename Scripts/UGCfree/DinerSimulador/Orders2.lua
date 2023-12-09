@@ -54,7 +54,7 @@ local function deliverFoodToNPC(npc, platePosition)
     if npcHeadPosition then
         ReplicatedStorage.Remotes.Plating:InvokeServer({
             PlateShelf = workspace.DinerPlaceHolder.PlateShelves.PlateShelf,
-            Position = npcHeadPosition + Vector3.new(0, 4, 0)
+            Position = npcHeadPosition + Vector3.new(0, 2.7, 0)
         })
         wait(0.2)
         teleportToNPCPosition(originalPlayerPosition)
