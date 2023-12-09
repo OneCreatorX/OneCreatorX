@@ -88,6 +88,8 @@ local function createDeliverButton()
 end
 
 local function updateTableAndButtons()
+    local orderIndex = 1
+
     for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
         local trackerObj, processedMarker = npcModel:FindFirstChild("TrackerObj"), npcModel:FindFirstChild("Processed")
 
@@ -98,7 +100,11 @@ local function updateTableAndButtons()
 
             button.Parent = screenGui
             button.Size = UDim2.new(0, 150, 0, 30)
-            button.Position = UDim2.new(0.07, -75, 0, 40)
+
+            -- Ajustar la posición vertical alternativamente entre las filas 1 y 2
+            local buttonPosY = (orderIndex % 2 == 0) and 10 or 40
+            button.Position = UDim2.new(0.07, -75, 0, buttonPosY)
+
             button.Text = tostring(textValue)
             button.TextScaled = true
 
@@ -113,6 +119,7 @@ local function updateTableAndButtons()
             end)
 
             markAsProcessed(npcModel)
+            orderIndex = orderIndex + 1
         end
     end
 end
