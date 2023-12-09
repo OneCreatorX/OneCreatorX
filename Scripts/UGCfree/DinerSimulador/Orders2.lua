@@ -89,6 +89,7 @@ end
 
 local function updateTableAndButtons()
     local orderIndex = 1
+    local lastAssignedRow = 2 -- Comenzar con la fila 2
 
     for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
         local trackerObj, processedMarker = npcModel:FindFirstChild("TrackerObj"), npcModel:FindFirstChild("Processed")
@@ -102,7 +103,7 @@ local function updateTableAndButtons()
             button.Size = UDim2.new(0, 150, 0, 30)
 
             -- Ajustar la posición vertical alternativamente entre las filas 1 y 2
-            local buttonPosY = (orderIndex % 2 == 0) and 10 or 40
+            local buttonPosY = ((orderIndex % 2 == 0) and 40 or 10)
             button.Position = UDim2.new(0.07, -75, 0, buttonPosY)
 
             button.Text = tostring(textValue)
@@ -120,6 +121,9 @@ local function updateTableAndButtons()
 
             markAsProcessed(npcModel)
             orderIndex = orderIndex + 1
+
+            -- Alternar entre las filas 1 y 2
+            lastAssignedRow = (lastAssignedRow == 1) and 2 or 1
         end
     end
 end
