@@ -168,6 +168,22 @@ local function buscarIngredient(parent)
     end
 end
 
+local function onNewModelDetected(newModel)
+local args = {
+            [1] = "PutPlateInSink",
+            [2] = workspace.DinerPlaceHolder.Stations.Dish_Sink
+        }
+
+        game.ReplicatedStorage.Remotes.UseSink:InvokeServer(unpack(args))
+    print("Nuevo modelo detectado:", newModel.Name)
+end
+
+workspace.ChildAdded:Connect(function(newChild)
+    if newChild:IsA("Model") then
+        onNewModelDetected(newChild)
+    end
+end)
+
 buscarIngredient(game)
 createDeliverButton()
 
