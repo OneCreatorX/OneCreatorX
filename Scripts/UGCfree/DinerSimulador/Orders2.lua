@@ -103,10 +103,13 @@ local function updateTableAndButtons()
             button.TextScaled = true
 
             button.MouseButton1Click:Connect(function()
+                -- Destruir el botón primero
+                button:Destroy()
+
+                -- Realizar otras acciones después de la destrucción
                 lastSelectedFood = tostring(textValue)
                 markAsProcessed(npcModel)
                 ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(tostring(textValue), "CreatePlate")
-                button:Destroy()
             end)
 
             markAsProcessed(npcModel)
