@@ -189,7 +189,7 @@ asegurarMarcadorFoodDeliveredEnTodosNPCs()
             if buttonText ~= "Served_Wait_To_Destroy" then
                 local button = Instance.new("TextButton", screenGui)
                 button.Size = UDim2.new(0, 150, 0, 30)
-                button.Position = UDim2.new(0.03, -75, 0, 40)
+                button.Position = UDim2.new(0.038, -75, 0, 40)
                 button.Text = buttonText
 
                 button.MouseButton1Click:Connect(function()
