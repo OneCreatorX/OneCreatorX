@@ -41,16 +41,16 @@ local function findNextNPCByName(npcName)
             local foodName = npcObj.Value.Name:lower()
 
             if foodName == npcName:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
-                return npc
+                return npc, foodDeliveredMarker
             elseif foodDeliveredMarker and foodDeliveredMarker.Value then
                 warn("[WARN] Este NPC ya ha recibido la entrega.")
             end
         end
     end
-    return nil
+    return nil, nil
 end
 
-local function deliverFoodToNPC(npc, platePosition)
+local function deliverFoodToNPC(npc, foodDeliveredMarker, platePosition)
     local npcHeadPosition = npc:FindFirstChild("Head") and npc.Head.Position
 
     if npcHeadPosition then
@@ -61,7 +61,11 @@ local function deliverFoodToNPC(npc, platePosition)
         wait(0.2)
         teleportToNPCPosition(originalPlayerPosition)
 
-        npc:FindFirstChild("FoodDelivered").Value = true
+        if foodDeliveredMarker then
+            foodDeliveredMarker.Value = true
+        else
+            warn("[WARN] No se encontró el marcador FoodDelivered en el NPC.")
+        end
     else
         warn("[WARN] No se encontró la cabeza del NPC para la posición de entrega.")
     end
@@ -128,6 +132,18 @@ local function updateTableAndButtons()
     wait(0.2)
 
     for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
+        print("Procesando NPC:", npcModel.Name)
+
+        local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
+
+        if not foodDeliveredMarker then
+            print("Creando FoodDelivered para NPC:", npcModel.Name)
+            foodDeliveredMarker = Instance.new("BoolValue")
+            foodDeliveredMarker.Name = "FoodDelivered"
+            foodDeliveredMarker.Value = false
+            foodDeliveredMarker.Parent = npcModel
+        end
+
         local trackerObj, selectedMarker = npcModel:FindFirstChild("TrackerObj"), npcModel:FindFirstChild("SelectedMarker")
 
         if trackerObj and trackerObj:IsA("ObjectValue") and (not selectedMarker or not selectedMarker.Value) then
@@ -137,15 +153,13 @@ local function updateTableAndButtons()
             if buttonText ~= "Served_Wait_To_Destroy" then
                 local button = Instance.new("TextButton", screenGui)
                 button.Size = UDim2.new(0, 150, 0, 30)
-                button.Position = UDim2.new(0.08, -75, 0, 40)
+                button.Position = UDim2.new(0.03, -75, 0, 40)
                 button.Text = buttonText
 
                 button.MouseButton1Click:Connect(function()
                     button:Destroy()
                     lastSelectedFood = buttonText
                     ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(buttonText, "CreatePlate")
-
-                    markAsProcessed(npcModel)  -- Asegúrate de llamar a markAsProcessed aquí
 
                     local selectedMarker = Instance.new("BoolValue", npcModel)
                     selectedMarker.Name = "SelectedMarker"
@@ -220,3 +234,4 @@ createDeliverButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
 workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
+
