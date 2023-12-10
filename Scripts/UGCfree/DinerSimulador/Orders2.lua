@@ -1,9 +1,7 @@
 local player = game.Players.LocalPlayer
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local lastSelectedFood = nil
-local originalPlayerPosition = nil
-
+local lastSelectedFood, originalPlayerPosition
 local screenGui = player.PlayerGui:FindFirstChild("MyScreenGui") or Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "MyScreenGui"
 
@@ -13,20 +11,20 @@ local function markAsProcessed(npcModel)
     processedMarker.Value = true
     processedMarker.Parent = npcModel
 
-    local foodDeliveredMarker = Instance.new("BoolValue")
-    foodDeliveredMarker.Name = "FoodDelivered"
-    foodDeliveredMarker.Value = false
-    foodDeliveredMarker.Parent = npcModel
+    local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
+    if not foodDeliveredMarker then
+        foodDeliveredMarker = Instance.new("BoolValue")
+        foodDeliveredMarker.Name = "FoodDelivered"
+        foodDeliveredMarker.Value = false
+        foodDeliveredMarker.Parent = npcModel
+    end
 end
 
 local function teleportToNPCPosition(npcPosition)
     local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
 
     if playerPosition then
-        if not originalPlayerPosition then
-            originalPlayerPosition = playerPosition
-        end
-
+        originalPlayerPosition = originalPlayerPosition or playerPosition
         print("[DEBUG] Posición del jugador:", playerPosition)
         player.Character.HumanoidRootPart.CFrame = CFrame.new(npcPosition)
         wait(0.2)
@@ -35,18 +33,18 @@ local function teleportToNPCPosition(npcPosition)
     end
 end
 
-local function findNPCByName(npcName)
+local function findNextNPCByName(npcName)
     for _, npc in pairs(workspace.NPCS.Active:GetChildren()) do
-        local npcObj = npc:FindFirstChild("TrackerObj")
-        local foodDeliveredMarker = npc:FindFirstChild("FoodDelivered")
+        local npcObj, foodDeliveredMarker = npc:FindFirstChild("TrackerObj"), npc:FindFirstChild("FoodDelivered")
 
-        if npcObj and npcObj:IsA("ObjectValue") and npcObj.Value and typeof(npcObj.Value) == "Instance" then
-            local foodName = npcObj.Value.Name
+        if npcObj and npcObj:IsA("ObjectValue") and npcObj.Value and npcObj.Value:IsA("Instance") then
+            local foodName = npcObj.Value.Name:lower()
 
-            if foodName:lower() == npcName:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
+            if foodName == npcName:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
                 return npc
+            elseif foodDeliveredMarker and foodDeliveredMarker.Value then
+                warn("[WARN] Este NPC ya ha recibido la entrega.")
             end
-        else
         end
     end
     return nil
@@ -71,60 +69,90 @@ end
 
 local function handleDeliverButtonClick()
     if lastSelectedFood then
-        local npc = findNPCByName(lastSelectedFood)
+        local npc = findNextNPCByName(lastSelectedFood)
         if npc then
             local npcPosition = npc:FindFirstChild("HumanoidRootPart") and npc.HumanoidRootPart.Position
             if npcPosition then
-            teleportToNPCPosition(npcPosition)
+                teleportToNPCPosition(npcPosition)
                 wait(0.2)
                 deliverFoodToNPC(npc)
-
-            else
             end
         else
-            warn("[WARN] No se encontró el HumanoidRootPart en el NPC.")
+            warn("[WARN] No hay más NPCs que necesiten la comida. Entregando en la posición actual del jugador.")
+
+            local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
+            if playerPosition then
+                deliverFoodToPlayerPosition(playerPosition)
+            else
+                warn("[WARN] No se encontró el HumanoidRootPart en el personaje del jugador.")
+            end
         end
     else
         warn("[WARN] No hay comida seleccionada.")
     end
 end
 
-local function createDeliverButton()
-    local deliverButton = Instance.new("TextButton")
-    deliverButton.Parent = screenGui
-    deliverButton.Size = UDim2.new(0, 150, 0, 30)
-    deliverButton.Position = UDim2.new(0.95, -75, 0, 60)
-    deliverButton.Text = "Entregar Comida"
+local function deliverFoodToPlayerPosition(playerPosition)
+    ReplicatedStorage.Remotes.Plating:InvokeServer({
+        PlateShelf = workspace.DinerPlaceHolder.PlateShelves.PlateShelf,
+        Position = playerPosition
+    })
+    wait(0.2)
+    teleportToNPCPosition(originalPlayerPosition)
+end
 
-    deliverButton.MouseButton1Click:Connect(handleDeliverButtonClick)
+local deliveryScreenGui = player.PlayerGui:FindFirstChild("DeliveryScreenGui") or Instance.new("ScreenGui", player.PlayerGui)
+deliveryScreenGui.Name = "DeliveryScreenGui"
+
+local deliverButtonName, deliverButton = "DeliverButton"
+local function createDeliverButton()
+    if not deliverButton then
+        deliverButton = Instance.new("TextButton", deliveryScreenGui)
+        deliverButton.Size = UDim2.new(0, 150, 0, 30)
+        deliverButton.Position = UDim2.new(0.94, -75, 0, 60)
+        deliverButton.Text = "Entregar Comida"
+        deliverButton.Name = deliverButtonName
+
+        deliverButton.MouseButton1Click:Connect(handleDeliverButtonClick)
+    end
 end
 
 local function updateTableAndButtons()
-    for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
-        local trackerObj, processedMarker = npcModel:FindFirstChild("TrackerObj"), npcModel:FindFirstChild("Processed")
-
-        if trackerObj and trackerObj:IsA("ObjectValue") and not processedMarker then
-            wait(0.2)
-
-            local textValue, button = trackerObj.Value, Instance.new("TextButton")
-
-            button.Parent = screenGui
-            button.Size = UDim2.new(0, 150, 0, 30)
-            button.Position = UDim2.new(0.1, -75, 0, 40)
-            button.Text = tostring(textValue)
-
-            button.MouseButton1Click:Connect(function()
-                lastSelectedFood = tostring(textValue)
-                markAsProcessed(npcModel)
-               button:Destroy() ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(tostring(textValue), "CreatePlate")
-            end)
-            markAsProcessed(npcModel)
+    for _, existingButton in pairs(screenGui:GetChildren()) do
+        if existingButton:IsA("TextButton") and existingButton.Name ~= deliverButtonName then
+            existingButton:Destroy()
         end
     end
 
-    for _, npc in pairs(workspace.NPCS.Active:GetChildren()) do
-        local npcName = npc:FindFirstChild("TrackerObj") and npc.TrackerObj.Value
-        print("  - NPC:", npcName)
+    createDeliverButton()
+    wait(0.2)
+
+    for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
+        local trackerObj, selectedMarker = npcModel:FindFirstChild("TrackerObj"), npcModel:FindFirstChild("SelectedMarker")
+
+        if trackerObj and trackerObj:IsA("ObjectValue") and (not selectedMarker or not selectedMarker.Value) then
+            local textValue = trackerObj.Value
+            local buttonText = tostring(textValue)
+
+            if buttonText ~= "Served_Wait_To_Destroy" then
+                local button = Instance.new("TextButton", screenGui)
+                button.Size = UDim2.new(0, 150, 0, 30)
+                button.Position = UDim2.new(0.08, -75, 0, 40)
+                button.Text = buttonText
+
+                button.MouseButton1Click:Connect(function()
+                    button:Destroy()
+                    lastSelectedFood = buttonText
+                    ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(buttonText, "CreatePlate")
+
+                    markAsProcessed(npcModel)  -- Asegúrate de llamar a markAsProcessed aquí
+
+                    local selectedMarker = Instance.new("BoolValue", npcModel)
+                    selectedMarker.Name = "SelectedMarker"
+                    selectedMarker.Value = true
+                end)
+            end
+        end
     end
 end
 
@@ -135,6 +163,7 @@ local function buscarIngredient(parent)
         local function procesarIngrediente(descendant)
             if descendant:IsA("TextLabel") and descendant.Name == "Ingredient_Quantity" then
                 local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name")
+
                 if ingredientName then
                     local cantidadInicial = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
 
@@ -144,11 +173,11 @@ local function buscarIngredient(parent)
                                 [1] = "Ingredient",
                                 [2] = {
                                     ["Ingredient_Name"] = ingredientName.Text,
-                                    ["Quantity"] = 2
+                                    ["Quantity"] = 4
                                 }
                             }
 
-                            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Purchase"):InvokeServer(unpack(args))
+                            ReplicatedStorage.Remotes.Purchase:InvokeServer(unpack(args))
                         end
                     end
 
@@ -176,20 +205,8 @@ local function buscarIngredient(parent)
 end
 
 local function onNewModelDetected(newModel)
-local args = {
-            [1] = "PutPlateInSink",
-            [2] = workspace.DinerPlaceHolder.Stations.Dish_Sink
-        }
-
-        game.ReplicatedStorage.Remotes.UseSink:InvokeServer(unpack(args))
-
-local args = {
-    [1] = "PutPlateInSink",
-    [2] = workspace:WaitForChild("DinerPlaceHolder"):WaitForChild("Stations"):WaitForChild("Dish_Washer")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UseSink"):InvokeServer(unpack(args))
-
+    ReplicatedStorage.Remotes.UseSink:InvokeServer("PutPlateInSink", workspace.DinerPlaceHolder.Stations.Dish_Sink)
+    ReplicatedStorage.Remotes.UseSink:InvokeServer("PutPlateInSink", workspace.DinerPlaceHolder.Stations.Dish_Washer)
 end
 
 workspace.ChildAdded:Connect(function(newChild)
@@ -203,5 +220,3 @@ createDeliverButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
 workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
-
-
