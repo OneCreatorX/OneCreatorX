@@ -5,11 +5,28 @@ local lastSelectedFood, originalPlayerPosition
 local screenGui = player.PlayerGui:FindFirstChild("MyScreenGui") or Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "MyScreenGui"
 
+local function asegurarMarcadorFoodDeliveredEnTodosNPCs()
+    for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
+        local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
+
+        if not foodDeliveredMarker then
+            print("Creando FoodDelivered para NPC:", npcModel.Name)
+            foodDeliveredMarker = Instance.new("BoolValue")
+            foodDeliveredMarker.Name = "FoodDelivered"
+            foodDeliveredMarker.Value = false
+            foodDeliveredMarker.Parent = npcModel
+        end
+    end
+end
+
 local function markAsProcessed(npcModel)
-    local processedMarker = Instance.new("BoolValue")
-    processedMarker.Name = "Processed"
-    processedMarker.Value = true
-    processedMarker.Parent = npcModel
+    local processedMarker = npcModel:FindFirstChild("Processed")
+    if not processedMarker then
+        processedMarker = Instance.new("BoolValue")
+        processedMarker.Name = "Processed"
+        processedMarker.Value = true
+        processedMarker.Parent = npcModel
+    end
 
     local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
     if not foodDeliveredMarker then
@@ -41,13 +58,20 @@ local function findNextNPCByName(npcName)
             local foodName = npcObj.Value.Name:lower()
 
             if foodName == npcName:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
-                return npc, foodDeliveredMarker
+                if not foodDeliveredMarker then
+                    print("Creando FoodDelivered para NPC:", npc.Name)
+                    foodDeliveredMarker = Instance.new("BoolValue")
+                    foodDeliveredMarker.Name = "FoodDelivered"
+                    foodDeliveredMarker.Value = false
+                    foodDeliveredMarker.Parent = npc
+                end
+                return npc
             elseif foodDeliveredMarker and foodDeliveredMarker.Value then
                 warn("[WARN] Este NPC ya ha recibido la entrega.")
             end
         end
     end
-    return nil, nil
+    return nil
 end
 
 local function deliverFoodToNPC(npc, foodDeliveredMarker, platePosition)
@@ -74,15 +98,26 @@ end
 local function handleDeliverButtonClick()
     if lastSelectedFood then
         local npc = findNextNPCByName(lastSelectedFood)
+
         if npc then
+            local foodDeliveredMarker = npc:FindFirstChild("FoodDelivered")
             local npcPosition = npc:FindFirstChild("HumanoidRootPart") and npc.HumanoidRootPart.Position
-            if npcPosition then
-                teleportToNPCPosition(npcPosition)
-                wait(0.2)
-                deliverFoodToNPC(npc)
+
+            if foodDeliveredMarker then
+                if not foodDeliveredMarker.Value then
+                    teleportToNPCPosition(npcPosition)
+                    wait(0.2)
+                    deliverFoodToNPC(npc, foodDeliveredMarker)
+                else
+                    warn("[WARN] Este NPC ya ha recibido la entrega. Buscando otro NPC...")
+                    handleDeliverButtonClick()  -- Buscar otro NPC
+                end
+            else
+                warn("[WARN] No se encontró el marcador FoodDelivered en el NPC. Buscando otro NPC...")
+                handleDeliverButtonClick()  -- Buscar otro NPC
             end
         else
-            warn("[WARN] No hay más NPCs que necesiten la comida. Entregando en la posición actual del jugador.")
+            warn("[WARN] No hay NPCs que necesiten la comida. Dejando la comida en la posición actual del jugador.")
 
             local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
             if playerPosition then
@@ -122,6 +157,7 @@ local function createDeliverButton()
 end
 
 local function updateTableAndButtons()
+asegurarMarcadorFoodDeliveredEnTodosNPCs()
     for _, existingButton in pairs(screenGui:GetChildren()) do
         if existingButton:IsA("TextButton") and existingButton.Name ~= deliverButtonName then
             existingButton:Destroy()
