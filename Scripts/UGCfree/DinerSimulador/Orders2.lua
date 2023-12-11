@@ -5,12 +5,26 @@ local lastSelectedFood, originalPlayerPosition
 local screenGui = player.PlayerGui:FindFirstChild("MyScreenGui") or Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "MyScreenGui"
 
+local npcCounter = 0
+
+local function createNPCIdentifierFile(npc)
+    npcCounter = npcCounter + 1
+    local identifierFile = Instance.new("StringValue")
+    identifierFile.Name = "NPCIdentifier"
+    identifierFile.Value = npcCounter
+    identifierFile.Parent = npc
+end
+
+local function getNPCIdentifier(npc)
+    local identifierFile = npc:FindFirstChild("NPCIdentifier")
+    return identifierFile and identifierFile.Value or nil
+end
+
 local function asegurarMarcadorFoodDeliveredEnTodosNPCs()
     for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
         local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
 
         if not foodDeliveredMarker then
-            print("Creando FoodDelivered para NPC:", npcModel.Name)
             foodDeliveredMarker = Instance.new("BoolValue")
             foodDeliveredMarker.Name = "FoodDelivered"
             foodDeliveredMarker.Value = false
@@ -20,14 +34,6 @@ local function asegurarMarcadorFoodDeliveredEnTodosNPCs()
 end
 
 local function markAsProcessed(npcModel)
-    local processedMarker = npcModel:FindFirstChild("Processed")
-    if not processedMarker then
-        processedMarker = Instance.new("BoolValue")
-        processedMarker.Name = "Processed"
-        processedMarker.Value = true
-        processedMarker.Parent = npcModel
-    end
-
     local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
     if not foodDeliveredMarker then
         foodDeliveredMarker = Instance.new("BoolValue")
@@ -42,7 +48,6 @@ local function teleportToNPCPosition(npcPosition)
 
     if playerPosition then
         originalPlayerPosition = originalPlayerPosition or playerPosition
-        print("[DEBUG] Posición del jugador:", playerPosition)
         player.Character.HumanoidRootPart.CFrame = CFrame.new(npcPosition)
         wait(0.2)
     else
@@ -59,7 +64,6 @@ local function findNextNPCByName(npcName)
 
             if foodName == npcName:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
                 if not foodDeliveredMarker then
-                    print("Creando FoodDelivered para NPC:", npc.Name)
                     foodDeliveredMarker = Instance.new("BoolValue")
                     foodDeliveredMarker.Name = "FoodDelivered"
                     foodDeliveredMarker.Value = false
@@ -97,9 +101,36 @@ end
 
 local function handleDeliverButtonClick()
     if lastSelectedFood then
-        local npc = findNextNPCByName(lastSelectedFood)
+        local candidateNPCs = {}
 
-        if npc then
+        for _, npc in pairs(workspace.NPCS.Active:GetChildren()) do
+            local npcObj, foodDeliveredMarker = npc:FindFirstChild("TrackerObj"), npc:FindFirstChild("FoodDelivered")
+
+            if npcObj and npcObj:IsA("ObjectValue") and npcObj.Value and npcObj.Value:IsA("Instance") then
+                local foodName = npcObj.Value.Name:lower()
+
+                if foodName == lastSelectedFood:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
+                    if not foodDeliveredMarker then
+                        foodDeliveredMarker = Instance.new("BoolValue")
+                        foodDeliveredMarker.Name = "FoodDelivered"
+                        foodDeliveredMarker.Value = false
+                        foodDeliveredMarker.Parent = npc
+                    end
+
+                    table.insert(candidateNPCs, npc)
+                elseif foodDeliveredMarker and foodDeliveredMarker.Value then
+                    warn("[WARN] Este NPC ya ha recibido la entrega.")
+                end
+            end
+        end
+
+        table.sort(candidateNPCs, function(a, b)
+            local idA = getNPCIdentifier(a)
+            local idB = getNPCIdentifier(b)
+            return idA < idB
+        end)
+
+        for _, npc in ipairs(candidateNPCs) do
             local foodDeliveredMarker = npc:FindFirstChild("FoodDelivered")
             local npcPosition = npc:FindFirstChild("HumanoidRootPart") and npc.HumanoidRootPart.Position
 
@@ -108,22 +139,12 @@ local function handleDeliverButtonClick()
                     teleportToNPCPosition(npcPosition)
                     wait(0.2)
                     deliverFoodToNPC(npc, foodDeliveredMarker)
+                    break  -- Detén el bucle después de entregar la comida al primer NPC que cumple las condiciones
                 else
                     warn("[WARN] Este NPC ya ha recibido la entrega. Buscando otro NPC...")
-                    handleDeliverButtonClick()  -- Buscar otro NPC
                 end
             else
                 warn("[WARN] No se encontró el marcador FoodDelivered en el NPC. Buscando otro NPC...")
-                handleDeliverButtonClick()  -- Buscar otro NPC
-            end
-        else
-            warn("[WARN] No hay NPCs que necesiten la comida. Dejando la comida en la posición actual del jugador.")
-
-            local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
-            if playerPosition then
-                deliverFoodToPlayerPosition(playerPosition)
-            else
-                warn("[WARN] No se encontró el HumanoidRootPart en el personaje del jugador.")
             end
         end
     else
@@ -157,52 +178,61 @@ local function createDeliverButton()
 end
 
 local function updateTableAndButtons()
-asegurarMarcadorFoodDeliveredEnTodosNPCs()
     for _, existingButton in pairs(screenGui:GetChildren()) do
         if existingButton:IsA("TextButton") and existingButton.Name ~= deliverButtonName then
             existingButton:Destroy()
         end
     end
 
-    createDeliverButton()
-    wait(0.2)
+    asegurarMarcadorFoodDeliveredEnTodosNPCs()
+
+    local npcList = {}
 
     for _, npcModel in pairs(workspace.NPCS.Active:GetChildren()) do
-        print("Procesando NPC:", npcModel.Name)
-
-        local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
-
-        if not foodDeliveredMarker then
-            print("Creando FoodDelivered para NPC:", npcModel.Name)
-            foodDeliveredMarker = Instance.new("BoolValue")
-            foodDeliveredMarker.Name = "FoodDelivered"
-            foodDeliveredMarker.Value = false
-            foodDeliveredMarker.Parent = npcModel
+        if not npcModel:FindFirstChild("NPCIdentifier") then
+            createNPCIdentifierFile(npcModel)
         end
 
         local trackerObj, selectedMarker = npcModel:FindFirstChild("TrackerObj"), npcModel:FindFirstChild("SelectedMarker")
+        local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
 
         if trackerObj and trackerObj:IsA("ObjectValue") and (not selectedMarker or not selectedMarker.Value) then
+            wait(0.05)
+
             local textValue = trackerObj.Value
             local buttonText = tostring(textValue)
+            local npcIdentifier = getNPCIdentifier(npcModel)
 
-            if buttonText ~= "Served_Wait_To_Destroy" then
-                local button = Instance.new("TextButton", screenGui)
-                button.Size = UDim2.new(0, 150, 0, 30)
-                button.Position = UDim2.new(0.05, -75, 0, 40)
-                button.Text = buttonText
-
-                button.MouseButton1Click:Connect(function()
-                    button:Destroy()
-                    lastSelectedFood = buttonText
-                    ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(buttonText, "CreatePlate")
-
-                    local selectedMarker = Instance.new("BoolValue", npcModel)
-                    selectedMarker.Name = "SelectedMarker"
-                    selectedMarker.Value = true
-                end)
+            if buttonText ~= "Served_Wait_To_Destroy" and foodDeliveredMarker and not foodDeliveredMarker.Value then           
+                table.insert(npcList, { model = npcModel, identifier = npcIdentifier, button = buttonText })
             end
         end
+    end
+
+   -- Ordena la lista de NPCs según el identificador en orden descendente
+table.sort(npcList, function(a, b)
+    return tonumber(a.identifier) > tonumber(b.identifier)
+end)
+
+    for _, npcData in ipairs(npcList) do
+        local npcModel = npcData.model
+        local buttonText = npcData.button
+
+        -- Ahora, genera el botón
+        local button = Instance.new("TextButton", screenGui)
+        button.Size = UDim2.new(0, 150, 0, 30)
+        button.Position = UDim2.new(0.06, -75, 0, 40)
+        button.Text = buttonText
+
+        button.MouseButton1Click:Connect(function()
+            button:Destroy()
+            lastSelectedFood = buttonText
+            ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(buttonText, "CreatePlate")
+
+            local selectedMarker = Instance.new("BoolValue", npcModel)
+            selectedMarker.Name = "SelectedMarker"
+            selectedMarker.Value = true
+        end)
     end
 end
 
@@ -270,4 +300,3 @@ createDeliverButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
 workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
-
