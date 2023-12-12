@@ -71,7 +71,6 @@ local function findNextNPCByName(npcName)
                 end
                 return npc
             elseif foodDeliveredMarker and foodDeliveredMarker.Value then
-                warn("[WARN] Este NPC ya ha recibido la entrega.")
             end
         end
     end
@@ -117,20 +116,19 @@ local function handleDeliverButtonClick()
                         foodDeliveredMarker.Parent = npc
                     end
 
-                    table.insert(candidateNPCs, npc)
+                    local npcIdentifier = getNPCIdentifier(npc)
+                    table.insert(candidateNPCs, { model = npc, identifier = npcIdentifier })
                 elseif foodDeliveredMarker and foodDeliveredMarker.Value then
-                    warn("[WARN] Este NPC ya ha recibido la entrega.")
                 end
             end
         end
 
         table.sort(candidateNPCs, function(a, b)
-            local idA = getNPCIdentifier(a)
-            local idB = getNPCIdentifier(b)
-            return idA < idB
+            return tonumber(a.identifier) < tonumber(b.identifier)
         end)
 
-        for _, npc in ipairs(candidateNPCs) do
+        for _, npcData in ipairs(candidateNPCs) do
+            local npc = npcData.model
             local foodDeliveredMarker = npc:FindFirstChild("FoodDelivered")
             local npcPosition = npc:FindFirstChild("HumanoidRootPart") and npc.HumanoidRootPart.Position
 
@@ -139,18 +137,17 @@ local function handleDeliverButtonClick()
                     teleportToNPCPosition(npcPosition)
                     wait(0.2)
                     deliverFoodToNPC(npc, foodDeliveredMarker)
-                    break  -- Detén el bucle después de entregar la comida al primer NPC que cumple las condiciones
+                    break
                 else
-                    warn("[WARN] Este NPC ya ha recibido la entrega. Buscando otro NPC...")
                 end
             else
-                warn("[WARN] No se encontró el marcador FoodDelivered en el NPC. Buscando otro NPC...")
             end
         end
     else
         warn("[WARN] No hay comida seleccionada.")
     end
 end
+
 
 local function deliverFoodToPlayerPosition(playerPosition)
     ReplicatedStorage.Remotes.Plating:InvokeServer({
@@ -177,13 +174,55 @@ local function createDeliverButton()
     end
 end
 
-local function updateTableAndButtons()
-    for _, existingButton in pairs(screenGui:GetChildren()) do
-        if existingButton:IsA("TextButton") and existingButton.Name ~= deliverButtonName then
-            existingButton:Destroy()
-        end
+local npcOrders = {}
+local takeOrderButton
+local orderCountLabel
+local originalButtonText = "Tomar Orden"
+
+local function createOrUpdateTakeOrderButton()
+    if not takeOrderButton then
+        takeOrderButton = Instance.new("TextButton", screenGui)
+        takeOrderButton.Name = "TakeOrderButton"
+        takeOrderButton.Size = UDim2.new(0, 150, 0, 30)
+        takeOrderButton.Position = UDim2.new(0.05, -75, 0, 30)
+        takeOrderButton.Text = originalButtonText
+        takeOrderButton.MouseButton1Click:Connect(function()
+            if #npcOrders > 0 then
+                lastSelectedFood = npcOrders[1]
+                ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(npcOrders[1], "CreatePlate")
+
+                table.remove(npcOrders, 1)
+
+                if orderCountLabel then
+                    orderCountLabel.Text = #npcOrders
+                end
+            else
+                takeOrderButton.Text = "No hay ordenes"
+                wait(1)
+                takeOrderButton.Text = originalButtonText
+            end
+        end)
     end
 
+    if not orderCountLabel then
+        orderCountLabel = Instance.new("TextLabel", screenGui)
+        orderCountLabel.Size = UDim2.new(0, 30, 0, 20)
+        orderCountLabel.Position = UDim2.new(0.16, -40, 0, 35)
+    end
+
+    orderCountLabel.Text = #npcOrders
+end
+
+    if not orderCountLabel then
+        orderCountLabel = Instance.new("TextLabel", screenGui)
+        orderCountLabel.Size = UDim2.new(0, 30, 0, 20)
+        orderCountLabel.Position = UDim2.new(0.16, -40, 0, 35)
+    end
+
+    orderCountLabel.Text = #npcOrders
+end
+
+local function updateTableAndButtons()
     asegurarMarcadorFoodDeliveredEnTodosNPCs()
 
     local npcList = {}
@@ -197,90 +236,56 @@ local function updateTableAndButtons()
         local foodDeliveredMarker = npcModel:FindFirstChild("FoodDelivered")
 
         if trackerObj and trackerObj:IsA("ObjectValue") and (not selectedMarker or not selectedMarker.Value) then
-            wait(0.05)
+            wait(0.1)
 
             local textValue = trackerObj.Value
             local buttonText = tostring(textValue)
             local npcIdentifier = getNPCIdentifier(npcModel)
 
-            if buttonText ~= "Served_Wait_To_Destroy" and foodDeliveredMarker and not foodDeliveredMarker.Value then           
+            if buttonText ~= "Served_Wait_To_Destroy" and foodDeliveredMarker and not foodDeliveredMarker.Value then
                 table.insert(npcList, { model = npcModel, identifier = npcIdentifier, button = buttonText })
             end
         end
     end
 
-   -- Ordena la lista de NPCs según el identificador en orden descendente
-table.sort(npcList, function(a, b)
-    return tonumber(a.identifier) > tonumber(b.identifier)
-end)
+    table.sort(npcList, function(a, b)
+        return tonumber(a.identifier) < tonumber(b.identifier)
+    end)
 
+    npcOrders = {}
     for _, npcData in ipairs(npcList) do
-        local npcModel = npcData.model
-        local buttonText = npcData.button
-
-        -- Ahora, genera el botón
-        local button = Instance.new("TextButton", screenGui)
-        button.Size = UDim2.new(0, 150, 0, 30)
-        button.Position = UDim2.new(0.06, -75, 0, 40)
-        button.Text = buttonText
-
-        button.MouseButton1Click:Connect(function()
-            button:Destroy()
-            lastSelectedFood = buttonText
-            ReplicatedStorage.Remotes.ChangeMenu:InvokeServer(buttonText, "CreatePlate")
-
-            local selectedMarker = Instance.new("BoolValue", npcModel)
-            selectedMarker.Name = "SelectedMarker"
-            selectedMarker.Value = true
-        end)
+        table.insert(npcOrders, npcData.button)
     end
+
+    createOrUpdateTakeOrderButton()
 end
 
 local function buscarIngredient(parent)
-    local storages = parent.Workspace.DinerPlaceHolder.Storages
+    local storages = parent:WaitForChild("Workspace").DinerPlaceHolder.Storages
 
     if storages then
-        local function procesarIngrediente(descendant)
+        storages.DescendantAdded:Connect(function(descendant)
             if descendant:IsA("TextLabel") and descendant.Name == "Ingredient_Quantity" then
                 local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name")
 
                 if ingredientName then
-                    local cantidadInicial = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
-
-                    local function comprarIngredientes(cantidad)
-                        if cantidad and cantidad < 2 then
-                            local args = {
-                                [1] = "Ingredient",
-                                [2] = {
-                                    ["Ingredient_Name"] = ingredientName.Text,
-                                    ["Quantity"] = 4
-                                }
-                            }
-
-                            ReplicatedStorage.Remotes.Purchase:InvokeServer(unpack(args))
-                        end
-                    end
-
-                    comprarIngredientes(cantidadInicial)
+                    local cantidadInicial = tonumber(descendant.Text:match("%d+")) or 0
 
                     descendant:GetPropertyChangedSignal("Text"):Connect(function()
-                        local nuevaCantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
+                        local nuevaCantidad = tonumber(descendant.Text:match("%d+")) or 0
 
                         if nuevaCantidad < cantidadInicial then
-                            comprarIngredientes(nuevaCantidad)
+                            game:GetService("ReplicatedStorage").Remotes.Purchase:InvokeServer("Ingredient", {
+                                Ingredient_Name = ingredientName.Text,
+                                Quantity = nuevaCantidad
+                            })
                         end
 
                         cantidadInicial = nuevaCantidad
                     end)
                 end
             end
-        end
-
-        storages.DescendantAdded:Connect(procesarIngrediente)
-
-        for _, descendant in pairs(storages:GetDescendants()) do
-            procesarIngrediente(descendant)
-        end
+        end)
     end
 end
 
