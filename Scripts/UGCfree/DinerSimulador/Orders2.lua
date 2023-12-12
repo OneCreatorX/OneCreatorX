@@ -165,8 +165,8 @@ local deliverButtonName, deliverButton = "DeliverButton"
 local function createDeliverButton()
     if not deliverButton then
         deliverButton = Instance.new("TextButton", deliveryScreenGui)
-        deliverButton.Size = UDim2.new(0, 150, 0, 30)
-        deliverButton.Position = UDim2.new(0.94, -75, 0, 60)
+        deliverButton.Size = UDim2.new(0, 100, 0, 30)
+        deliverButton.Position = UDim2.new(0.97, -75, 0, 40)
         deliverButton.Text = "Entregar Comida"
         deliverButton.Name = deliverButtonName
 
@@ -183,8 +183,8 @@ local function createOrUpdateTakeOrderButton()
     if not takeOrderButton then
         takeOrderButton = Instance.new("TextButton", screenGui)
         takeOrderButton.Name = "TakeOrderButton"
-        takeOrderButton.Size = UDim2.new(0, 150, 0, 30)
-        takeOrderButton.Position = UDim2.new(0.05, -75, 0, 30)
+        takeOrderButton.Size = UDim2.new(0, 90, 0, 30)
+        takeOrderButton.Position = UDim2.new(0.06, -75, 0, 30)
         takeOrderButton.Text = originalButtonText
         takeOrderButton.MouseButton1Click:Connect(function()
             if #npcOrders > 0 then
@@ -197,7 +197,7 @@ local function createOrUpdateTakeOrderButton()
                     orderCountLabel.Text = #npcOrders
                 end
             else
-                takeOrderButton.Text = "No hay ordenes"
+takeOrderButton.Text = "No hay ordenes"
                 wait(1)
                 takeOrderButton.Text = originalButtonText
             end
@@ -207,16 +207,7 @@ local function createOrUpdateTakeOrderButton()
     if not orderCountLabel then
         orderCountLabel = Instance.new("TextLabel", screenGui)
         orderCountLabel.Size = UDim2.new(0, 30, 0, 20)
-        orderCountLabel.Position = UDim2.new(0.16, -40, 0, 35)
-    end
-
-    orderCountLabel.Text = #npcOrders
-end
-
-    if not orderCountLabel then
-        orderCountLabel = Instance.new("TextLabel", screenGui)
-        orderCountLabel.Size = UDim2.new(0, 30, 0, 20)
-        orderCountLabel.Position = UDim2.new(0.16, -40, 0, 35)
+        orderCountLabel.Position = UDim2.new(0.12, -40, 0, 35)
     end
 
     orderCountLabel.Text = #npcOrders
@@ -261,31 +252,50 @@ local function updateTableAndButtons()
 end
 
 local function buscarIngredient(parent)
-    local storages = parent:WaitForChild("Workspace").DinerPlaceHolder.Storages
+    local storages = parent.Workspace.DinerPlaceHolder.Storages
 
     if storages then
-        storages.DescendantAdded:Connect(function(descendant)
+        local function procesarIngrediente(descendant)
             if descendant:IsA("TextLabel") and descendant.Name == "Ingredient_Quantity" then
                 local ingredientName = descendant.Parent:FindFirstChild("Ingredient_Name")
 
                 if ingredientName then
-                    local cantidadInicial = tonumber(descendant.Text:match("%d+")) or 0
+                    local cantidadInicial = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
+
+                    local function comprarIngredientes(cantidad)
+                        if cantidad and cantidad < 2 then
+                            local args = {
+                                [1] = "Ingredient",
+                                [2] = {
+                                    ["Ingredient_Name"] = ingredientName.Text,
+                                    ["Quantity"] = 4
+                                }
+                            }
+
+                            ReplicatedStorage.Remotes.Purchase:InvokeServer(unpack(args))
+                        end
+                    end
+
+                    comprarIngredientes(cantidadInicial)
 
                     descendant:GetPropertyChangedSignal("Text"):Connect(function()
-                        local nuevaCantidad = tonumber(descendant.Text:match("%d+")) or 0
+                        local nuevaCantidad = tonumber(descendant.Text and descendant.Text:match("%d+")) or 0
 
                         if nuevaCantidad < cantidadInicial then
-                            game:GetService("ReplicatedStorage").Remotes.Purchase:InvokeServer("Ingredient", {
-                                Ingredient_Name = ingredientName.Text,
-                                Quantity = nuevaCantidad
-                            })
+                            comprarIngredientes(nuevaCantidad)
                         end
 
                         cantidadInicial = nuevaCantidad
                     end)
                 end
             end
-        end)
+        end
+
+        storages.DescendantAdded:Connect(procesarIngrediente)
+
+        for _, descendant in pairs(storages:GetDescendants()) do
+            procesarIngrediente(descendant)
+        end
     end
 end
 
@@ -296,7 +306,11 @@ end
 
 workspace.ChildAdded:Connect(function(newChild)
     if newChild:IsA("Model") then
-        onNewModelDetected(newChild)
+        -- Utilizar pcall para manejar posibles errores sin imprimir en la consola
+        local success, error_message = pcall(onNewModelDetected, newChild)
+        if not success then
+            warn("Error al procesar nuevo modelo:", error_message)
+        end
     end
 end)
 
@@ -305,3 +319,5 @@ createDeliverButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
 workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
+
+
