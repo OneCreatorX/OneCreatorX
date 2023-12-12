@@ -71,6 +71,7 @@ local function findNextNPCByName(npcName)
                 end
                 return npc
             elseif foodDeliveredMarker and foodDeliveredMarker.Value then
+                warn("[WARN] Este NPC ya ha recibido la entrega.")
             end
         end
     end
@@ -100,35 +101,9 @@ end
 
 local function handleDeliverButtonClick()
     if lastSelectedFood then
-        local candidateNPCs = {}
+        local npc = findNextNPCByName(lastSelectedFood)
 
-        for _, npc in pairs(workspace.NPCS.Active:GetChildren()) do
-            local npcObj, foodDeliveredMarker = npc:FindFirstChild("TrackerObj"), npc:FindFirstChild("FoodDelivered")
-
-            if npcObj and npcObj:IsA("ObjectValue") and npcObj.Value and npcObj.Value:IsA("Instance") then
-                local foodName = npcObj.Value.Name:lower()
-
-                if foodName == lastSelectedFood:lower() and not (foodDeliveredMarker and foodDeliveredMarker.Value) then
-                    if not foodDeliveredMarker then
-                        foodDeliveredMarker = Instance.new("BoolValue")
-                        foodDeliveredMarker.Name = "FoodDelivered"
-                        foodDeliveredMarker.Value = false
-                        foodDeliveredMarker.Parent = npc
-                    end
-
-                    local npcIdentifier = getNPCIdentifier(npc)
-                    table.insert(candidateNPCs, { model = npc, identifier = npcIdentifier })
-                elseif foodDeliveredMarker and foodDeliveredMarker.Value then
-                end
-            end
-        end
-
-        table.sort(candidateNPCs, function(a, b)
-            return tonumber(a.identifier) < tonumber(b.identifier)
-        end)
-
-        for _, npcData in ipairs(candidateNPCs) do
-            local npc = npcData.model
+        if npc then
             local foodDeliveredMarker = npc:FindFirstChild("FoodDelivered")
             local npcPosition = npc:FindFirstChild("HumanoidRootPart") and npc.HumanoidRootPart.Position
 
@@ -137,17 +112,28 @@ local function handleDeliverButtonClick()
                     teleportToNPCPosition(npcPosition)
                     wait(0.2)
                     deliverFoodToNPC(npc, foodDeliveredMarker)
-                    break
                 else
+                    warn("[WARN] Este NPC ya ha recibido la entrega. Buscando otro NPC...")
+                    handleDeliverButtonClick()
                 end
             else
+                warn("[WARN] No se encontró el marcador FoodDelivered en el NPC. Buscando otro NPC...")
+                handleDeliverButtonClick() 
+            end
+        else
+            warn("[WARN] No hay NPCs que necesiten la comida. Dejando la comida en la posición actual del jugador.")
+
+            local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
+            if playerPosition then
+                deliverFoodToPlayerPosition(playerPosition)
+            else
+                warn("[WARN] No se encontró el HumanoidRootPart en el personaje del jugador.")
             end
         end
     else
         warn("[WARN] No hay comida seleccionada.")
     end
 end
-
 
 local function deliverFoodToPlayerPosition(playerPosition)
     ReplicatedStorage.Remotes.Plating:InvokeServer({
@@ -319,5 +305,6 @@ createDeliverButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
 workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
+
 
 
