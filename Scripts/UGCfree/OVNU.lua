@@ -40,6 +40,17 @@ local coroutineTransacciones = coroutine.create(spamTransacciones)
 coroutine.resume(coroutineLimitedPickups)
 coroutine.resume(coroutineTransacciones)
 
+game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(205.243, 51.4019, 194.182)))
+task.wait(2)
+local args = {
+    [1] = 2,
+    [2] = 142,
+    [3] = 1,
+    [4] = true
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Shopping"):WaitForChild("Remotes"):WaitForChild("ToServer"):WaitForChild("RequestTransaction"):FireServer(unpack(args))
+task.wait(10)
 local NPCsFolder = workspace:WaitForChild("GAMEPLAY"):WaitForChild("NPCs"):WaitForChild("ActiveNPCs")
 
 for _, npc in ipairs(NPCsFolder:GetChildren()) do
@@ -62,22 +73,11 @@ game:GetService("ReplicatedStorage"):WaitForChild("LoginCalendar"):WaitForChild(
 game:GetService("ReplicatedStorage"):WaitForChild("LoginCalendar"):WaitForChild("Remotes"):WaitForChild("ToServer"):WaitForChild("ClaimDailyRewards"):FireServer()
 
 local gui = Instance.new("ScreenGui")
-gui.IgnoreGuiInset = true  -- Evita el ajuste de la interfaz para dispositivos móviles
 gui.Parent = game.Players.LocalPlayer.PlayerGui
-
--- Fondo más pequeño
-local fondo = Instance.new("Frame")
-fondo.Size = UDim2.new(0.5, 0, 0.2, 0)  -- Ajusta el tamaño del fondo
-fondo.Position = UDim2.new(0.25, 0, 0.75, 0)  -- Ajusta la posición del fondo
-fondo.BackgroundColor3 = Color3.new(0, 0, 0)  -- Color del fondo (negro)
-fondo.BackgroundTransparency = 0.5  -- Transparencia del fondo
 
 local texto = Instance.new("TextLabel")
 texto.Size = UDim2.new(1, 0, 1, 0)
 texto.Position = UDim2.new(0, 0, 0, 0)
 texto.Text = "Reset Character"
 texto.TextSize = 40
-texto.TextColor3 = Color3.new(1, 1, 1)  -- Color blanco
-texto.BackgroundTransparency = 1  -- Sin fondo
-texto.Parent = fondo  -- Asocia el texto al fondo
-fondo.Parent = gui
+texto.Parent = gui
