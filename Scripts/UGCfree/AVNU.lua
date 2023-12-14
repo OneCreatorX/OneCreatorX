@@ -1,3 +1,4 @@
+-- YT:@OneCreatorX 
 -- UGC 1
 
 local args = {
@@ -9,7 +10,8 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Shopping"):WaitForChild("Remotes"):WaitForChild("ToServer"):WaitForChild("RequestTransaction"):FireServer(unpack(args))
 
-task.wait(10)
+-- espera 15 segundos antes ze intentar reclamar el siguiente 
+task.wait(15)
 
 -- UGC 2
 local args = {
