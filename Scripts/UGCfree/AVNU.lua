@@ -10,8 +10,8 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("Shopping"):WaitForChild("Remotes"):WaitForChild("ToServer"):WaitForChild("RequestTransaction"):FireServer(unpack(args))
 
--- espera 15 segundos antes ze intentar reclamar el siguiente 
-task.wait(15)
+-- espera 20 segundos antes de intentar reclamar el siguiente 
+task.wait(20)
 
 -- UGC 2
 local args = {
