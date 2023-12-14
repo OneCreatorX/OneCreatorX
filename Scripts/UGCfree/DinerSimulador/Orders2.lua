@@ -38,8 +38,10 @@ local function markAsProcessed(npcModel)
     if not foodDeliveredMarker then
         foodDeliveredMarker = Instance.new("BoolValue")
         foodDeliveredMarker.Name = "FoodDelivered"
-        foodDeliveredMarker.Value = false
+        foodDeliveredMarker.Value = true
         foodDeliveredMarker.Parent = npcModel
+    else
+        foodDeliveredMarker.Value = true
     end
 end
 
@@ -112,13 +114,16 @@ local function handleDeliverButtonClick()
                     teleportToNPCPosition(npcPosition)
                     wait(0.2)
                     deliverFoodToNPC(npc, foodDeliveredMarker)
+                    
+                    -- Eliminar el pedido entregado de la tabla
+                    removeFromNpcOrders(lastSelectedFood)
                 else
                     warn("[WARN] Este NPC ya ha recibido la entrega. Buscando otro NPC...")
                     handleDeliverButtonClick()
                 end
             else
                 warn("[WARN] No se encontró el marcador FoodDelivered en el NPC. Buscando otro NPC...")
-                handleDeliverButtonClick() 
+                handleDeliverButtonClick()
             end
         else
             warn("[WARN] No hay NPCs que necesiten la comida. Dejando la comida en la posición actual del jugador.")
@@ -132,6 +137,16 @@ local function handleDeliverButtonClick()
         end
     else
         warn("[WARN] No hay comida seleccionada.")
+    end
+end
+
+-- Nueva función para eliminar un pedido de la tabla
+local function removeFromNpcOrders(foodName)
+    for i, npcOrder in ipairs(npcOrders) do
+        if npcOrder == foodName then
+            table.remove(npcOrders, i)
+            break
+        end
     end
 end
 
@@ -225,6 +240,7 @@ local function updateTableAndButtons()
         end
     end
 
+    -- Cambiamos la lógica de ordenamiento por identificador
     table.sort(npcList, function(a, b)
         return tonumber(a.identifier) < tonumber(b.identifier)
     end)
@@ -305,6 +321,5 @@ createDeliverButton()
 
 workspace.NPCS.Active.ChildAdded:Connect(updateTableAndButtons)
 workspace.NPCS.Active.ChildRemoved:Connect(updateTableAndButtons)
-
 
 
