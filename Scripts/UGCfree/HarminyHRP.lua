@@ -19,7 +19,7 @@ titleLabel.Text = "YT:@OneCreatorX"
 titleLabel.TextSize = 20
 titleLabel.Font = Enum.Font.SourceSansBold
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLabel.BackgroundColor3 = Color3.fromRGB(75, 75, 75) -- Color de fondo del título
+titleLabel.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
 titleLabel.Parent = mainFrame
 
 local autoGiftsBool = Instance.new("BoolValue")
@@ -56,7 +56,7 @@ autoCollectToggle.Name = "AutoCollectToggle"
 autoCollectToggle.Text = "AutoCollect"
 autoCollectToggle.Position = UDim2.new(0, 10, 0, 80)
 autoCollectToggle.Size = UDim2.new(0, 180, 0, 30)
-autoCollectToggle.BackgroundColor3 = Color3.fromRGB(60, 120, 216) -- Color de fondo del botón
+autoCollectToggle.BackgroundColor3 = Color3.fromRGB(60, 120, 216)
 autoCollectToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
 autoCollectToggle.Parent = mainFrame
 
