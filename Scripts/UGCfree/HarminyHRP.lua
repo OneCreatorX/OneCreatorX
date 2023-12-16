@@ -6,10 +6,10 @@ local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
 mainFrame.Size = UDim2.new(0, 200, 0, 150)
 mainFrame.Position = UDim2.new(0.5, -100, 0.5, -75)
-mainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45) -- Color de fondo
+mainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 mainFrame.BorderSizePixel = 0
 mainFrame.Active = true
-mainFrame.Draggable = true -- Permite arrastrar el frame
+mainFrame.Draggable = true
 mainFrame.Parent = screenGui
 
 local titleLabel = Instance.new("TextLabel")
@@ -18,11 +18,10 @@ titleLabel.Size = UDim2.new(1, 0, 0, 30)
 titleLabel.Text = "YT:@OneCreatorX"
 titleLabel.TextSize = 20
 titleLabel.Font = Enum.Font.SourceSansBold
-titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- Color del texto
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.BackgroundColor3 = Color3.fromRGB(75, 75, 75) -- Color de fondo del título
 titleLabel.Parent = mainFrame
 
--- Crear las BoolValues
 local autoGiftsBool = Instance.new("BoolValue")
 autoGiftsBool.Name = "AutoGifts"
 autoGiftsBool.Parent = mainFrame
@@ -31,21 +30,20 @@ local autoCollectBool = Instance.new("BoolValue")
 autoCollectBool.Name = "AutoCollect"
 autoCollectBool.Parent = mainFrame
 
--- AutoRegalos Toggle
 local autoGiftsToggle = Instance.new("TextButton")
 autoGiftsToggle.Name = "AutoGiftsToggle"
 autoGiftsToggle.Text = "AutoRegalos"
 autoGiftsToggle.Position = UDim2.new(0, 10, 0, 40)
 autoGiftsToggle.Size = UDim2.new(0, 180, 0, 30)
-autoGiftsToggle.BackgroundColor3 = Color3.fromRGB(60, 120, 216) -- Color de fondo del botón
-autoGiftsToggle.TextColor3 = Color3.fromRGB(255, 255, 255) -- Color del texto del botón
+autoGiftsToggle.BackgroundColor3 = Color3.fromRGB(60, 120, 216)
+autoGiftsToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
 autoGiftsToggle.Parent = mainFrame
 
 local autoGiftsIndicator = Instance.new("Frame")
 autoGiftsIndicator.Name = "AutoGiftsIndicator"
 autoGiftsIndicator.Size = UDim2.new(0, 20, 0, 20)
 autoGiftsIndicator.Position = UDim2.new(1, -30, 0, 5)
-autoGiftsIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Color del indicador (rojo para no seleccionado)
+autoGiftsIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 autoGiftsIndicator.Parent = autoGiftsToggle
 
 autoGiftsToggle.MouseButton1Click:Connect(function()
@@ -59,14 +57,14 @@ autoCollectToggle.Text = "AutoCollect"
 autoCollectToggle.Position = UDim2.new(0, 10, 0, 80)
 autoCollectToggle.Size = UDim2.new(0, 180, 0, 30)
 autoCollectToggle.BackgroundColor3 = Color3.fromRGB(60, 120, 216) -- Color de fondo del botón
-autoCollectToggle.TextColor3 = Color3.fromRGB(255, 255, 255) -- Color del texto del botón
+autoCollectToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
 autoCollectToggle.Parent = mainFrame
 
 local autoCollectIndicator = Instance.new("Frame")
 autoCollectIndicator.Name = "AutoCollectIndicator"
 autoCollectIndicator.Size = UDim2.new(0, 20, 0, 20)
 autoCollectIndicator.Position = UDim2.new(1, -30, 0, 5)
-autoCollectIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Color del indicador (rojo para no seleccionado)
+autoCollectIndicator.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 autoCollectIndicator.Parent = autoCollectToggle
 
 autoCollectToggle.MouseButton1Click:Connect(function()
