@@ -82,7 +82,7 @@ local function invokeDelivery(service, location)
     local deliveryService = game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.5.3"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("CherEventService"):WaitForChild("RF"):WaitForChild(service)
 
     deliveryService:InvokeServer(unpack(args))
-    task.wait(1.5)
+    task.wait(1.3)
 end
 
 local function autoGifts()
