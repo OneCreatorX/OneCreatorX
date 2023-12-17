@@ -4,13 +4,6 @@ local a = {}
 
 local function t(c)
     local h = p.Character and p.Character:FindFirstChild("HumanoidRootPart")
-    local cam = workspace.CurrentCamera
-
-    if h then
-        h.CFrame = c * CFrame.new(0, 0, 0)
-        local lv = (c.Position - h.Position).Unit
-        cam.CFrame = CFrame.new(h.Position, h.Position + lv)
-    end
 end
 
 local function v(hitbox)
@@ -44,7 +37,7 @@ end
 
 local function ae(model)
     m(model)
-    wait(3)
+    task.wait(3)
     eq()
 end
 
@@ -59,7 +52,7 @@ local function disableCollisionExceptFloor()
 end
 
 local function md()
-    while wait(0.2) do
+    while task.wait(0.2) do
         for _, model in ipairs(d:GetChildren()) do
             disableCollisionExceptFloor()
             m(model)
