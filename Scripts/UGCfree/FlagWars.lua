@@ -7,7 +7,7 @@ local function t(c)
     local cam = workspace.CurrentCamera
 
     if h then
-        h.CFrame = c * CFrame.new(0, 0, -2)
+        h.CFrame = c * CFrame.new(0, 0, 0)
         local lv = (c.Position - h.Position).Unit
         cam.CFrame = CFrame.new(h.Position, h.Position + lv)
     end
