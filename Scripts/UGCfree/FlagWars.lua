@@ -4,6 +4,9 @@ local a = {}
 
 local function t(c)
     local h = p.Character and p.Character:FindFirstChild("HumanoidRootPart")
+    if h then
+        h.CFrame = CFrame.new(c.Position)
+    end
 end
 
 local function v(hitbox)
