@@ -117,7 +117,7 @@ local function autoCollect()
         remotes:WaitForChild("UpgradeRemote"):InvokeServer(unpack(upgradeArgs))
 
         for i = 1, 12 do
-            local giftArgs = i
+            local giftArgs = {5}
             remotes:WaitForChild("GiftHandler"):FireServer(unpack(giftArgs))
         end
     end
