@@ -99,7 +99,7 @@ local function autoGifts()
             end
         end
 
-        task.wait(0.3)
+        task.wait(0.5)
     end
 end
 
