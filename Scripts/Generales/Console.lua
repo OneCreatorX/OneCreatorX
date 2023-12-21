@@ -11378,13 +11378,24 @@ addcmd('invisfling',{},function(args, speaker)
 			invisflingStepped:Disconnect()
 		end
 	end)
-	sFLY()
+	function sFLY()
 	workspace.CurrentCamera.CameraSubject = root
-	local bambam = Instance.new("BodyThrust")
-	bambam.Parent = getRoot(speaker.Character)
-	bambam.Force = Vector3.new(99999,99999*10,99999)
-	bambam.Location = getRoot(speaker.Character).Position
-end)
+
+	-- Definir las posiciones predefinidas
+	local positions = {
+		Vector3.new(0, 10, 0),  -- Ejemplo de posición 1
+		Vector3.new(0, 20, 0),  -- Ejemplo de posición 2
+		Vector3.new(0, 30, 0)   -- Ejemplo de posición 3
+	}
+
+	for _, position in pairs(positions) do
+		local bambam = Instance.new("BodyThrust")
+		bambam.Parent = getRoot(speaker.Character)
+		bambam.Force = Vector3.new(99999, 99999 * 10, 99999)
+		bambam.Location = position
+		wait(1)  -- Esperar 1 segundo entre cada posición
+	end
+		end
 
 function attach(speaker,target)
 	if tools(speaker) then
