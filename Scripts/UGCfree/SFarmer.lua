@@ -69,7 +69,6 @@ local function Fly()
         p.Character.Humanoid.PlatformStand = true
         bv.velocity = (p:GetMouse().Hit.p - tor.Position).unit * 50
         bg.cframe = CFrame.new(tor.Position, p:GetMouse().Hit.p)
-        print("Flying...")
     until not flying
 
     bg:Destroy()
@@ -97,7 +96,6 @@ local function TpToRandomHitbox()
             local rh = hb[math.random(1, #hb)]
             game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(rh.Position))
             wait(1.5)
-            print("Teleported to Hitbox.")
         end
 
         wait(1)
@@ -116,7 +114,6 @@ local function ToggleFunctions()
         spawn(TpToRandomHitbox)
     end
 
-    print(flying and teleporting and "Both functions activated." or "Both functions deactivated.")
 end
 
 toggleButton.MouseButton1Click:Connect(ToggleFunctions)
