@@ -1,4 +1,3 @@
-
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
 gui.Parent = player.PlayerGui
@@ -29,7 +28,7 @@ minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
     frame.Size = isMinimized and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 200, 0, 350)
     minimizeButton.Text = isMinimized and "+" or "-"
-    
+
     for _, element in ipairs(frame:GetChildren()) do
         if element:IsA("TextButton") or element:IsA("TextBox") then
             if element ~= minimizeButton then
@@ -39,7 +38,7 @@ minimizeButton.MouseButton1Click:Connect(function()
     end
 end)
 
-local buttonText = "Auto Farming Dugeons OFF"
+local buttonText = "Auto Farming Dungeons OFF"
 local toggleButton = Instance.new("TextButton")
 toggleButton.Text = buttonText
 toggleButton.Size = UDim2.new(0, 180, 0, 20)
@@ -47,11 +46,7 @@ toggleButton.Position = UDim2.new(0.5, -90, 0, 300)
 toggleButton.Parent = frame
 
 toggleButton.MouseButton1Click:Connect(function()
-    if buttonText == "Auto Farming Dugeons OFF" then
-        buttonText = "Aplicado-AutoFarm ON"
-    else
-        buttonText = "Auto Farming Dugeons OFF"
-    end
+    buttonText = buttonText == "Auto Farming Dungeons OFF" and "Applied-AutoFarm ON" or "Auto Farming Dungeons OFF"
     toggleButton.Text = buttonText
 end)
 
@@ -62,7 +57,7 @@ end
 local buttons = {
     {"Auto Click", 'game:GetService("ReplicatedStorage").Events.DamageIncreaseOnClickEvent:FireServer()', 0.1},
     {"Auto Sell", 'game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()', 2},
-    {"Auto Egg Anim(off)", 'game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("{userInput}")', 1},
+    {"Auto Egg Anim(off)", 'game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("{userInput}")', 2.05},
     {"Auto Ascender", 'game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)', 2},
     {
         "Auto Mejoras Trac",
@@ -88,15 +83,30 @@ local function createButton(buttonData, index)
         userInputField.Parent = button
     end
 
+    local executionCountTextBox = Instance.new("TextBox")
+    executionCountTextBox.PlaceholderText = "Cantidad de ejecuciones"
+    executionCountTextBox.Size = UDim2.new(0, 20, 0, 20)
+    executionCountTextBox.Position = UDim2.new(0.2, -40, 0, 0)
+    executionCountTextBox.Parent = button
+
     button.MouseButton1Click:Connect(function()
         local userInput = userInputField and userInputField.Text or nil
+        local executionCount = tonumber(executionCountTextBox.Text) or math.huge
+
         buttonData.isLooping = not buttonData.isLooping
         button.Text = buttonData[1] .. (buttonData.isLooping and " - ON" or " - OFF")
 
-        while buttonData.isLooping do
+        for _ = 1, executionCount do
             executeCode(userInput and buttonData[2]:gsub('"{userInput}"', '"' .. userInput .. '"') or buttonData[2])
             task.wait(buttonData[3])
+
+            if not buttonData.isLooping then
+                break
+            end
         end
+
+        buttonData.isLooping = false
+        button.Text = buttonData[1] .. " - OFF"
     end)
 end
 
@@ -150,7 +160,7 @@ local function checkDisabled()
     end
 end
 
-    checkDisabled()
+checkDisabled()
 
 onScreenButtons:GetPropertyChangedSignal("Enabled"):Connect(function()
     if not onScreenButtons.Enabled then
