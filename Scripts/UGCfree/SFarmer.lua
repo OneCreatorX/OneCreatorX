@@ -138,7 +138,6 @@ local petHandler = player.PlayerScripts.PlayerPetHandler
 local signal = Instance.new("BindableEvent")
 local wasDisabled = petHandler.Disabled
 
--- Establecer Disabled en true al inicio
 petHandler.Disabled = true
 
 local function checkDisabled()
@@ -151,15 +150,10 @@ local function checkDisabled()
     end
 end
 
-while true do
     checkDisabled()
-    wait(10)
-end
 
 onScreenButtons:GetPropertyChangedSignal("Enabled"):Connect(function()
     if not onScreenButtons.Enabled then
         onScreenButtons.Enabled = true
     end
 end)
-
-
