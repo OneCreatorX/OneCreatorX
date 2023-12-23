@@ -4,7 +4,7 @@ screenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 200, 0, 150)
+mainFrame.Size = UDim2.new(0, 200, 0, 160)
 mainFrame.Position = UDim2.new(0.5, -100, 0.5, -75)
 mainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 mainFrame.BorderSizePixel = 0
@@ -70,6 +70,30 @@ autoCollectIndicator.Parent = autoCollectToggle
 autoCollectToggle.MouseButton1Click:Connect(function()
     autoCollectBool.Value = not autoCollectBool.Value
     autoCollectIndicator.BackgroundColor3 = autoCollectBool.Value and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
+end)
+
+local extraButton = Instance.new("TextButton")
+extraButton.Name = "ExtraButton"
+extraButton.Text = "3 task: Instant"
+extraButton.Position = UDim2.new(0, 10, 0, 120)
+extraButton.Size = UDim2.new(0, 180, 0, 30)
+extraButton.BackgroundColor3 = Color3.fromRGB(60, 120, 216)
+extraButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+extraButton.Parent = mainFrame
+
+local function invokeServer(service, method, args)
+    game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.5.3"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("CherEventService"):WaitForChild("RF")[method]:InvokeServer(unpack(args))
+end
+
+extraButton.MouseButton1Click:Connect(function()
+    local args = {[1] = 3}
+
+    invokeServer("CherEventService", "StartTask", args)
+    invokeServer("CherEventService", "GetProgress", args)
+    invokeServer("CherEventService", "GetProgress", args)
+    invokeServer("CherEventService", "CompleteParkour", {})
+    wait(2)
+    invokeServer("CherEventService", "ClaimReward", args)
 end)
 
 local function invokeDelivery(service, location)
