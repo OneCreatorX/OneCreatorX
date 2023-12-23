@@ -1,3 +1,4 @@
+
 local player = game.Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
 gui.Parent = player.PlayerGui
@@ -38,95 +39,35 @@ minimizeButton.MouseButton1Click:Connect(function()
     end
 end)
 
-local buttonText = "Auto Farming Dugeons OFF/ON"
+local buttonText = "Auto Farming Dugeons OFF"
 local toggleButton = Instance.new("TextButton")
 toggleButton.Text = buttonText
 toggleButton.Size = UDim2.new(0, 180, 0, 20)
 toggleButton.Position = UDim2.new(0.5, -90, 0, 300)
 toggleButton.Parent = frame
 
+toggleButton.MouseButton1Click:Connect(function()
+    if buttonText == "Auto Farming Dugeons OFF" then
+        buttonText = "Aplicado-AutoFarm ON"
+    else
+        buttonText = "Auto Farming Dugeons OFF"
+    end
+    toggleButton.Text = buttonText
+end)
 
 local function executeCode(code)
     loadstring(code)()
 end
 
-local flying = false
-local teleporting = false
-
-local function Fly()
-    local p = game.Players.LocalPlayer
-    local tor = p.Character:WaitForChild("HumanoidRootPart")
-    local bg = Instance.new("BodyGyro", tor)
-    bg.P = 9e4
-    bg.maxTorque = Vector3.new(9e9, 9e9, 9e9)
-    bg.cframe = tor.CFrame
-    local bv = Instance.new("BodyVelocity", tor)
-    bv.velocity = Vector3.new(0, 0.1, 0)
-    bv.maxForce = Vector3.new(9e9, 9e9, 9e9)
-
-    repeat
-        wait()
-        p.Character.Humanoid.PlatformStand = true
-        bv.velocity = (p:GetMouse().Hit.p - tor.Position).unit * 50
-        bg.cframe = CFrame.new(tor.Position, p:GetMouse().Hit.p)
-    until not flying
-
-    bg:Destroy()
-    bv:Destroy()
-    p.Character.Humanoid.PlatformStand = false
-    print("Stopped Flying.")
-end
-
-local function TpToRandomHitbox()
-    while teleporting do
-        local df = workspace.Crops.DungeonCrops
-        local hb = {}
-
-        for _, m in ipairs(df:GetChildren()) do
-            if m:IsA("Model") then
-                for _, p in ipairs(m:GetDescendants()) do
-                    if p:IsA("Part") and p.Name == "Hitbox" then
-                        table.insert(hb, p)
-                    end
-                end
-            end
-        end
-
-        if #hb > 0 then
-            local rh = hb[math.random(1, #hb)]
-            game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(rh.Position))
-            wait(1.5)
-        end
-
-        wait(1)
-    end
-end
-
-local function ToggleFunctions()
-    flying = not flying
-    teleporting = not teleporting
-
-    if flying then
-        spawn(Fly)
-    end
-
-    if teleporting then
-        spawn(TpToRandomHitbox)
-    end
-
-end
-
-toggleButton.MouseButton1Click:Connect(ToggleFunctions)
-
 local buttons = {
     {"Auto Click", 'game:GetService("ReplicatedStorage").Events.DamageIncreaseOnClickEvent:FireServer()', 0.1},
     {"Auto Sell", 'game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()', 0.5},
-    {"Auto Open Egg", 'game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("{userInput}")', 0.3},
+    {"Auto Egg Anim(off)", 'game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("{userInput}")', 1},
     {"Auto Ascender", 'game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)', 2},
     {
         "Auto Mejoras Trac",
         'game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("HarvestRange")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorSpeed")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorPower")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorEvolution")',
-        2
+        1.5
     },
 }
 
@@ -139,7 +80,7 @@ local function createButton(buttonData, index)
 
     local userInputField
 
-    if buttonData[1] == "Auto Open Egg" then
+    if buttonData[1] == "Auto Egg Anim(off)" then
         userInputField = Instance.new("TextBox")
         userInputField.PlaceholderText = "1"
         userInputField.Size = UDim2.new(0, 20, 0, 20)
@@ -162,13 +103,13 @@ end
 local changeWorldButton = Instance.new("TextButton")
 changeWorldButton.Text = "TP World Desblock"
 changeWorldButton.Size = UDim2.new(0, 180, 0, 20)
-changeWorldButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons - 0.3) + 30)
+changeWorldButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons + 0.7) + 30)
 changeWorldButton.Parent = frame
 
 local worldNumberInput = Instance.new("TextBox")
 worldNumberInput.PlaceholderText = "1"
 worldNumberInput.Size = UDim2.new(0, 20, 0, 20)
-worldNumberInput.Position = UDim2.new(1.30, -90, 0, 40 * (#buttons - 0.3) + 30)
+worldNumberInput.Position = UDim2.new(1.05, -40, 0, 40 * (#buttons + 1.46))
 worldNumberInput.Parent = frame
 
 changeWorldButton.MouseButton1Click:Connect(function()
@@ -179,9 +120,9 @@ changeWorldButton.MouseButton1Click:Connect(function()
 end)
 
 local startDungeonButton = Instance.new("TextButton")
-startDungeonButton.Text = "Iniciar Dungeons"
+startDungeonButton.Text = "Iniciar Mazmorra"
 startDungeonButton.Size = UDim2.new(0, 180, 0, 20)
-startDungeonButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons + 0.7) + 30)
+startDungeonButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons - 0.3) + 30)
 startDungeonButton.Parent = frame
 
 startDungeonButton.MouseButton1Click:Connect(function()
@@ -192,8 +133,33 @@ for i, btnData in ipairs(buttons) do
     createButton(btnData, i)
 end
 
+local player = game.Players.LocalPlayer
+local petHandler = player.PlayerScripts.PlayerPetHandler
+local signal = Instance.new("BindableEvent")
+local wasDisabled = petHandler.Disabled
+
+-- Establecer Disabled en true al inicio
+petHandler.Disabled = true
+
+local function checkDisabled()
+    if petHandler.Disabled ~= wasDisabled then
+        wasDisabled = petHandler.Disabled
+        if not wasDisabled then
+            signal:Fire()
+            petHandler.Disabled = true
+        end
+    end
+end
+
+while true do
+    checkDisabled()
+    wait(10)
+end
+
 onScreenButtons:GetPropertyChangedSignal("Enabled"):Connect(function()
     if not onScreenButtons.Enabled then
         onScreenButtons.Enabled = true
     end
 end)
+
+
