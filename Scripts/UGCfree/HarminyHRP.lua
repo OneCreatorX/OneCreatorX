@@ -92,7 +92,7 @@ extraButton.MouseButton1Click:Connect(function()
     invokeServer("CherEventService", "GetProgress", args)
     invokeServer("CherEventService", "GetProgress", args)
     invokeServer("CherEventService", "CompleteParkour", {})
-    wait(2)
+    wait(0.5)
     invokeServer("CherEventService", "ClaimReward", args)
 end)
 
