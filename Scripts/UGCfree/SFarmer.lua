@@ -42,7 +42,7 @@ local nombreMeshPartEnCrops = "Crop"
 local nombreUsuario = game.Players.LocalPlayer.Name
 local nombreModeloTractor = nombreUsuario .. " Tractor"
 
-local rutaModeloTractor = game.Workspace:FindFirstChild(nombreModeloTractor)
+local rutaModeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
 local rutaCrops = game.Workspace.Crops.DungeonCrops
 
 local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
@@ -64,7 +64,7 @@ end
 local function onTransparenciaCambiada(meshPart)
     if meshPart.Transparency == 1 then
         local nuevoMeshPart = buscarMeshPartEnModelo(rutaCrops, nombreMeshPartEnCrops)
-        if nuevoMeshPart and (rutaModeloTractor:IsA("Model") and rutaCrops:IsA("Folder")) then
+        if nuevoMeshPart and rutaModeloTractor:IsA("Model") then
             local distancia = (rutaModeloTractor.PrimaryPart.Position - nuevoMeshPart.Position).Magnitude
             if distancia <= 400 then
                 moverTractorAPosicion(nuevoMeshPart)
@@ -75,8 +75,18 @@ local function onTransparenciaCambiada(meshPart)
                     if hit:IsA("Part") then hit.CollisionGroupId = 2 end
                 end)
             end
+        else
+            warn("No se encontró el modelo del tractor o la carpeta DungeonCrops.")
         end
     end
+end
+
+-- Verificar si se encontró el modelo del tractor
+if rutaModeloTractor and rutaModeloTractor:IsA("Model") and rutaModeloTractor.PrimaryPart then
+    print("Se encontró el modelo del tractor:", nombreModeloTractor)
+    -- Resto del código aquí
+else
+    warn("El modelo del tractor no es válido o no tiene una parte principal.")
 end
 
 local autoFarmActive = false
