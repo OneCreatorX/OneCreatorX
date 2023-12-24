@@ -39,7 +39,10 @@ minimizeButton.MouseButton1Click:Connect(function()
 end)
 
 local nombreMeshPartEnCrops = "Crop"
-local rutaModeloTractor = game.Workspace.Tractors["NmmsRblx Tractor"]
+local nombreUsuario = game.Players.LocalPlayer.Name
+local nombreModeloTractor = nombreUsuario .. " Tractor"
+
+local rutaModeloTractor = game.Workspace:FindFirstChild(nombreModeloTractor)
 local rutaCrops = game.Workspace.Crops.DungeonCrops
 
 local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
