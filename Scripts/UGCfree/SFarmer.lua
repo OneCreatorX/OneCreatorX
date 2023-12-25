@@ -4,12 +4,22 @@ local playerGui = player:WaitForChild("PlayerGui")
 local onScreenButtons = playerGui:WaitForChild("OnScreenButtons")
 
 local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 200, 0, 290)
+frame.Size = UDim2.new(0, 200, 0, 310)
 frame.Position = UDim2.new(0.85, -200, 0.1, 0)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true
+
+local creatorText = Instance.new("TextLabel", frame)
+creatorText.Text = "YT:@OneCreatorX"
+creatorText.Size = UDim2.new(0, 180, 0, 20)
+creatorText.Position = UDim2.new(0.5, -90, 1, -20)
+creatorText.TextColor3 = Color3.new(1, 1, 1)
+creatorText.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
+creatorText.BorderSizePixel = 0
+creatorText.Font = Enum.Font.SourceSans
+creatorText.TextSize = 14
 
 local minimizeButton = Instance.new("TextButton", frame)
 minimizeButton.Text = "-"
@@ -196,6 +206,7 @@ changeWorldButton.Size = UDim2.new(0, 180, 0, 20)
 changeWorldButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons) + 18)
 
 local worldNumberInput = Instance.new("TextBox", frame)
+worldNumberInput.Text = "World"
 worldNumberInput.PlaceholderText = "1"
 worldNumberInput.Size = UDim2.new(0, 20, 0, 20)
 worldNumberInput.Position = UDim2.new(1.05, -40, 0, 40 * (#buttons + 0.46))
