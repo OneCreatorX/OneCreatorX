@@ -1,125 +1,123 @@
-local player = game.Players.LocalPlayer
-local gui = Instance.new("ScreenGui", player.PlayerGui)
-local playerGui = player:WaitForChild("PlayerGui")
-local onScreenButtons = playerGui:WaitForChild("OnScreenButtons")
+local p = game.Players.LocalPlayer
+local g = Instance.new("ScreenGui", p.PlayerGui)
+local pg = p:WaitForChild("PlayerGui")
+local osb = pg:WaitForChild("OnScreenButtons")
 
-local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 200, 0, 310)
-frame.Position = UDim2.new(0.85, -200, 0.1, 0)
-frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-frame.BorderSizePixel = 0
-frame.Active = true
-frame.Draggable = true
+local f = Instance.new("Frame", g)
+f.Size = UDim2.new(0, 200, 0, 310)
+f.Position = UDim2.new(0.85, -200, 0.1, 0)
+f.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+f.BorderSizePixel = 0
+f.Active = true
+f.Draggable = true
 
-local creatorText = Instance.new("TextLabel", frame)
-creatorText.Text = "YT:@OneCreatorX"
-creatorText.Size = UDim2.new(0, 180, 0, 20)
-creatorText.Position = UDim2.new(0.5, -90, 1, -20)
-creatorText.TextColor3 = Color3.new(1, 1, 1)
-creatorText.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
-creatorText.BorderSizePixel = 0
-creatorText.Font = Enum.Font.SourceSans
-creatorText.TextSize = 14
+local ct = Instance.new("TextLabel", f)
+ct.Text = "YT:@OneCreatorX"
+ct.Size = UDim2.new(0, 180, 0, 20)
+ct.Position = UDim2.new(0.5, -90, 1, -20)
+ct.TextColor3 = Color3.new(1, 1, 1)
+ct.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
+ct.BorderSizePixel = 0
+ct.Font = Enum.Font.SourceSans
+ct.TextSize = 14
 
-local minimizeButton = Instance.new("TextButton", frame)
-minimizeButton.Text = "-"
-minimizeButton.Size = UDim2.new(0, 20, 0, 20)
-minimizeButton.Position = UDim2.new(1, -20, 0, 0)
-minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-minimizeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-minimizeButton.BorderSizePixel = 0
+local mb = Instance.new("TextButton", f)
+mb.Text = "-"
+mb.Size = UDim2.new(0, 20, 0, 20)
+mb.Position = UDim2.new(1, -20, 0, 0)
+mb.TextColor3 = Color3.fromRGB(255, 255, 255)
+mb.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+mb.BorderSizePixel = 0
 
-local isMinimized = false
+local mi = false
 
-minimizeButton.MouseButton1Click:Connect(function()
-    isMinimized = not isMinimized
-    frame.Size = isMinimized and UDim2.new(0.5, 20, 0, 20) or UDim2.new(0, 200, 0, 300)
-    minimizeButton.Text = isMinimized and "+" or "-"
-    
-    for _, element in ipairs(frame:GetChildren()) do
-        if element:IsA("TextButton") or element:IsA("TextBox") then
-            if element ~= minimizeButton then
-                element.Visible = not isMinimized
+mb.MouseButton1Click:Connect(function()
+    mi = not mi
+    f.Size = mi and UDim2.new(0.5, 20, 0, 20) or UDim2.new(0, 200, 0, 300)
+    mb.Text = mi and "+" or "-"
+
+    for _, el in ipairs(f:GetChildren()) do
+        if el:IsA("TextButton") or el:IsA("TextBox") then
+            if el ~= mb then
+                el.Visible = not mi
             end
         end
     end
 end)
 
-local nombreMeshPartEnCrops = "Crop"
-local nombreUsuario = player.Name
-local nombreModeloTractor = nombreUsuario .. " Tractor"
+local nMC = "Crop"
+local nU = p.Name
+local nMT = nU .. " Tractor"
 
-local rutaModeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
-local rutaCrops = game.Workspace.Crops.DungeonCrops
+local rMT = game.Workspace.Tractors:FindFirstChild(nMT)
+local rC = game.Workspace.Crops.DungeonCrops
 
-local tractorAnclado = false 
+local tA = false
 
-local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
-    for _, objeto in ipairs(modelo:GetChildren()) do
-        if objeto:IsA("MeshPart") and objeto.Name == nombreMeshPart and objeto.Transparency < 1 then
-            return objeto
-        elseif objeto:IsA("Model") or objeto:IsA("Folder") then
-            local resultado = buscarMeshPartEnModelo(objeto, nombreMeshPart)
-            if resultado then return resultado end
+local function bMPM(m, nMP)
+    for _, o in ipairs(m:GetChildren()) do
+        if o:IsA("MeshPart") and o.Name == nMP and o.Transparency < 1 then
+            return o
+        elseif o:IsA("Model") or o:IsA("Folder") then
+            local r = bMPM(o, nMP)
+            if r then return r end
         end
     end
 end
 
-local function moverTractorAPosicion(meshPart)
-    if tractorAnclado then
+local function mTAP(mp)
+    if tA then
         return
     end
     
-    rutaModeloTractor:SetPrimaryPartCFrame(CFrame.new(meshPart.Position + Vector3.new(13, 0, 3)))
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 0, 3)))
 end
 
-local function onTransparenciaCambiada(meshPart)
-    if meshPart.Transparency == 1 then
-        local nuevoMeshPart = buscarMeshPartEnModelo(rutaCrops, nombreMeshPartEnCrops)
-        if nuevoMeshPart and rutaModeloTractor:IsA("Model") then
-            local distancia = (rutaModeloTractor.PrimaryPart.Position - nuevoMeshPart.Position).Magnitude
-            if distancia <= 200 then
-                moverTractorAPosicion(nuevoMeshPart)
+local function oTC(mP)
+    if mP.Transparency == 1 then
+        local nMP = bMPM(rC, nMC)
+        if nMP and rMT:IsA("Model") then
+            local d = (rMT.PrimaryPart.Position - nMP.Position).Magnitude
+            if d <= 200 then
+                mTAP(nMP)
                 
-                nuevoMeshPart:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    onTransparenciaCambiada(nuevoMeshPart)
+                nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+                    oTC(nMP)
                 end)
                 
-                nuevoMeshPart.Touched:Connect(function(hit)
+                nMP.Touched:Connect(function(hit)
                     if hit:IsA("Part") then hit.CollisionGroupId = 2 end
                 end)
             end
         end
     else
-        -- Si el MeshPart se vuelve invisible, ancla el tractor
-        tractorAnclado = true
+        tA = true
     end
 end
 
-if rutaModeloTractor and rutaModeloTractor:IsA("Model") and rutaModeloTractor.PrimaryPart then
-    print("Se encontró el modelo del tractor:", nombreModeloTractor)
+if rMT and rMT:IsA("Model") and rMT.PrimaryPart then
+    print("Se encontró el modelo del tractor:", nMT)
 end
 
+local aFA = false
+local tB = Instance.new("TextButton", f)
+tB.Text = "AutoFarm Dungeon OFF"
+tB.Size = UDim2.new(0, 180, 0, 20)
+tB.Position = UDim2.new(0.5, -90, 0, 255)
 
-local autoFarmActive = false
-local toggleButton = Instance.new("TextButton", frame)
-toggleButton.Text = "AutoFarm Dungeon OFF"
-toggleButton.Size = UDim2.new(0, 180, 0, 20)
-toggleButton.Position = UDim2.new(0.5, -90, 0, 255)
+local function tAF()
+    aFA = not aFA
+    tB.Text = aFA and "AutoFarm Dugeon ON" or "AutoFarm Dungeon OFF"
 
-local function toggleAutoFarm()
-    autoFarmActive = not autoFarmActive
-    toggleButton.Text = autoFarmActive and "AutoFarm Dugeon ON" or "AutoFarm Dungeon OFF"
-
-    while autoFarmActive do
+    while aFA do
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
         task.wait(2)
-        if rutaModeloTractor and rutaCrops and rutaModeloTractor:IsA("Model") and rutaCrops:IsA("Folder") then
-            local posicionMeshPart = buscarMeshPartEnModelo(rutaCrops, nombreMeshPartEnCrops)
-            if posicionMeshPart then
-                moverTractorAPosicion(posicionMeshPart)
-                posicionMeshPart:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    onTransparenciaCambiada(posicionMeshPart)
+        if rMT and rC and rMT:IsA("Model") and rC:IsA("Folder") then
+            local pMP = bMPM(rC, nMC)
+            if pMP then
+                mTAP(pMP)
+                pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+                    oTC(pMP)
                 end)
             end
         end
@@ -127,13 +125,13 @@ local function toggleAutoFarm()
     end
 end
 
-toggleButton.MouseButton1Click:Connect(toggleAutoFarm)
+tB.MouseButton1Click:Connect(tAF)
 
-local function executeCode(code)
-    loadstring(code)()
+local function eC(c)
+    loadstring(c)()
 end
 
-local buttons = {
+local b = {
     {"Auto Click", 'game:GetService("ReplicatedStorage").Events.DamageIncreaseOnClickEvent:FireServer()', 0.1},
     {"Auto Sell", 'game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()', 2},
     {"Auto Ascender", 'game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)', 15},
@@ -144,125 +142,111 @@ local buttons = {
     },
 }
 
-local openEggButton = Instance.new("TextButton", frame)
-openEggButton.Text = "Open Egg (Anim Off) - OFF"
-openEggButton.Size = UDim2.new(0, 180, 0, 20)
-openEggButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons + 1) + 18)
+local oEB = Instance.new("TextButton", f)
+oEB.Text = "Open Egg (Anim Off) - OFF"
+oEB.Size = UDim2.new(0, 180, 0, 20)
+oEB.Position = UDim2.new(0.5, -90, 0, 40 * (#b + 1) + 18)
 
-local openEggCountInput = Instance.new("TextBox", frame)
-openEggCountInput.Text = "Count"
-openEggCountInput.Size = UDim2.new(0, 23, 0, 20)
-openEggCountInput.Position = UDim2.new(1.05, -40, 0, 40 * (#buttons + 1.43))
-openEggCountInput.TextColor3 = Color3.new(0.5, 0, 0)
+local oECI = Instance.new("TextBox", f)
+oECI.Text = "Count"
+oECI.Size = UDim2.new(0, 23, 0, 20)
+oECI.Position = UDim2.new(1.05, -40, 0, 40 * (#b + 1.43))
+oECI.TextColor3 = Color3.new(0.5, 0, 0)
 
-local userInputValueInput = Instance.new("TextBox", frame)
-userInputValueInput.Text = "World"
-userInputValueInput.Size = UDim2.new(0, 23, 0, 20)
-userInputValueInput.Position = UDim2.new(0.6, -110, 0, 40 * (#buttons + 1.43))
-userInputValueInput.TextColor3 = Color3.new(0.5, 0, 0) 
+local uIVI = Instance.new("TextBox", f)
+uIVI.Text = "World"
+uIVI.Size = UDim2.new(0, 23, 0, 20)
+uIVI.Position = UDim2.new(0.6, -110, 0, 40 * (#b + 1.43))
+uIVI.TextColor3 = Color3.new(0.5, 0, 0) 
 
-local isLoopingOpenEgg = false
+local iLE = false
 
-local function setOpenEggButtonText()
-    openEggButton.Text = "Open Egg (Anim Off) - " .. (isLoopingOpenEgg and "ON" or "OFF")
+local function oEBT()
+    oEB.Text = "Open Egg (Anim Off) - " .. (iLE and "ON" or "OFF")
 end
 
-openEggButton.MouseButton1Click:Connect(function()
-    local openEggCount = tonumber(openEggCountInput.Text) or 1
-    local userInputValue = userInputValueInput.Text or ""
+oEB.MouseButton1Click:Connect(function()
+    local oEC = tonumber(oECI.Text) or 1
+    local uIV = uIVI.Text or ""
 
-    isLoopingOpenEgg = not isLoopingOpenEgg
-    setOpenEggButtonText()
+    iLE = not iLE
+    oEBT()
 
-    local function openEggLoop()
-        for i = 1, openEggCount do
-            if not isLoopingOpenEgg then
+    local function oEL()
+        for i = 1, oEC do
+            if not iLE then
                 break
             end
 
-            executeCode('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. userInputValue .. '")')
+            eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
             task.wait(2.1)
         end
 
-        isLoopingOpenEgg = false
-        setOpenEggButtonText()
+        iLE = false
+        oEBT()
     end
 
-    coroutine.wrap(openEggLoop)()
+    coroutine.wrap(oEL)()
 end)
 
-local function createButton(buttonData, index)
-    local button = Instance.new("TextButton", frame)
-    button.Text = buttonData[1] .. " - OFF"
-    button.Size = UDim2.new(0, 180, 0, 20)
-    button.Position = UDim2.new(0.5, -90, 0, 40 * (index - 1) + 20)
+local function cB(bD, i)
+    local b = Instance.new("TextButton", f)
+    b.Text = bD[1] .. " - OFF"
+    b.Size = UDim2.new(0, 180, 0, 20)
+    b.Position = UDim2.new(0.5, -90, 0, 40 * (i - 1) + 20)
 
-    button.MouseButton1Click:Connect(function()
-        buttonData.isLooping = not buttonData.isLooping
-        button.Text = buttonData[1] .. (buttonData.isLooping and " - ON" or " - OFF")
+    b.MouseButton1Click:Connect(function()
+        bD.isLooping = not bD.isLooping
+        b.Text = bD[1] .. (bD.isLooping and " - ON" or " - OFF")
 
-        while buttonData.isLooping do
-            executeCode(buttonData[2])
-            task.wait(buttonData[3])
+        while bD.isLooping do
+            eC(bD[2])
+            task.wait(bD[3])
         end
     end)
 end
 
-for index, buttonData in ipairs(buttons) do
-    createButton(buttonData, index)
+for i, bD in ipairs(b) do
+    cB(bD, i)
 end
 
-local changeWorldButton = Instance.new("TextButton", frame)
-changeWorldButton.Text = "TP World Desblock"
-changeWorldButton.Size = UDim2.new(0, 180, 0, 20)
-changeWorldButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons) + 18)
+local cWB = Instance.new("TextButton", f)
+cWB.Text = "TP ALL World (1-11)"
+cWB.Size = UDim2.new(0, 180, 0, 20)
+cWB.Position = UDim2.new(0.5, -90, 0, 40 * (#b) + 18)
 
-local worldNumberInput = Instance.new("TextBox", frame)
-worldNumberInput.Text = "World"
-worldNumberInput.PlaceholderText = "1"
-worldNumberInput.Size = UDim2.new(0, 20, 0, 20)
-worldNumberInput.Position = UDim2.new(1.05, -40, 0, 40 * (#buttons + 0.46))
+local wNI = Instance.new("TextBox", f)
+wNI.Text = "World"
+wNI.PlaceholderText = "1"
+wNI.Size = UDim2.new(0, 20, 0, 20)
+wNI.Position = UDim2.new(1.05, -40, 0, 40 * (#b + 0.46))
 
-changeWorldButton.MouseButton1Click:Connect(function()
-    local worldNumber = tonumber(worldNumberInput.Text)
-    if worldNumber then
-        executeCode('game:GetService("ReplicatedStorage").Events.TeleportEvent:InvokeServer("Teleport", ' .. worldNumber .. ')')
-    end
-end)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TeleportLocations = ReplicatedStorage:WaitForChild("TeleportLocations")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 
-local petHandler = player.PlayerScripts.PlayerPetHandler
-local signal = Instance.new("BindableEvent")
-local wasDisabled = petHandler.Disabled
+local nombreUsuario = LocalPlayer.Name
+local nombreModeloTractor = nombreUsuario .. " Tractor"
 
-petHandler.Disabled = true
+local modeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
 
-local function checkDisabled()
-    if petHandler.Disabled ~= wasDisabled then
-        wasDisabled = petHandler.Disabled
-        if not wasDisabled then
-            signal:Fire()
-            petHandler.Disabled = true
+local function moverTractorAPosicion(posicion)
+    modeloTractor:SetPrimaryPartCFrame(CFrame.new(posicion + Vector3.new(13, 5, 3)))
+end
+
+local function onBotonClic()
+    local numeroPart = tonumber(wNI.Text)
+    if numeroPart then
+        local partDeseado = TeleportLocations:FindFirstChild(tostring(numeroPart))
+        if partDeseado then
+            moverTractorAPosicion(partDeseado.Position)
+        else
+            warn("No se encontró el Part con el número:", numeroPart)
         end
+    else
+        warn("Ingresa un número válido en el TextBox.")
     end
 end
 
-    checkDisabled()
-
-onScreenButtons:GetPropertyChangedSignal("Enabled"):Connect(function()
-    if not onScreenButtons.Enabled then
-        onScreenButtons.Enabled = true
-    end
-end)
-
-local workspace = game:GetService("Workspace")
-local cropsFolder = workspace.Crops.DungeonCrops
-
-cropsFolder.ChildAdded:Connect(function(child)
-    if child:IsA("Model") then
-        wait(0.3)
-        local hitbox = child:FindFirstChild("Hitbox", true)
-        if hitbox then
-            hitbox:Destroy()
-        end
-    end
-end)
+cWB.MouseButton1Click:Connect(onBotonClic)
