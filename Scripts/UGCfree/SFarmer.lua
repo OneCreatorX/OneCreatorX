@@ -22,7 +22,7 @@ end
     checkDisabled()
 
 local f = Instance.new("Frame", g)
-f.Size = UDim2.new(0, 200, 0, 310)
+f.Size = UDim2.new(0, 220, 0, 310)
 f.Position = UDim2.new(0.85, -200, 0.1, 0)
 f.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 f.BorderSizePixel = 0
@@ -31,13 +31,13 @@ f.Draggable = true
 
 local ct = Instance.new("TextLabel", f)
 ct.Text = "YT:@OneCreatorX"
-ct.Size = UDim2.new(0, 180, 0, 20)
+ct.Size = UDim2.new(0, 200, 0, 20)
 ct.Position = UDim2.new(0.5, -90, 1, -20)
 ct.TextColor3 = Color3.new(1, 1, 1)
 ct.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 ct.BorderSizePixel = 0
 ct.Font = Enum.Font.SourceSans
-ct.TextSize = 14
+ct.TextSize = 18
 
 local gText = Instance.new("TextLabel", f)
 gText.Size = UDim2.new(0, 200, 0, 20)
@@ -45,19 +45,17 @@ gText.Position = UDim2.new(0, 0, 0, 0)
 gText.TextColor3 = Color3.new(1, 1, 1)
 gText.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 gText.BorderSizePixel = 0
-gText.Text = "For Legendary: Cargando..."
+gText.Text = "Egg For Legendary: Loading..."
 gText.Visible = false
 
 local GuaranteedNumber = p.PlayerGui.PetsPopup.Frame.GuaranteedLegendary:WaitForChild("GuaranteedNumber")
 
 local function updateText()
-    gText.Text = "For Legendary: " .. tostring(GuaranteedNumber.Text)
+    gText.Text = "Egg For Legendary: " .. tostring(GuaranteedNumber.Text)
 end
 
--- Muestra "Cargando..." antes de que la señal se reciba
 gText.Visible = true
 
--- Espera la señal para actualizar el texto
 GuaranteedNumber:GetPropertyChangedSignal("Text"):Connect(function()
     updateText()
     -- Oculta "Cargando..." después de recibir la señal
@@ -76,9 +74,8 @@ local mi = false
 
 mb.MouseButton1Click:Connect(function()
     mi = not mi
-    f.Size = mi and UDim2.new(0.5, 20, 0, 20) or UDim2.new(0, 200, 0, 300)
+    f.Size = mi and UDim2.new(0.5, 20, 0, 20) or UDim2.new(0, 220, 0, 300)
     mb.Text = mi and "+" or "-"
-    gText.Visible = mi
     for _, el in ipairs(f:GetChildren()) do
         if el:IsA("TextButton") or el:IsA("TextBox") then
             if el ~= mb then
@@ -192,14 +189,14 @@ oEB.Position = UDim2.new(0.5, -90, 0, 40 * (#b + 1) + 18)
 
 local oECI = Instance.new("TextBox", f)
 oECI.Text = "Count"
-oECI.Size = UDim2.new(0, 23, 0, 20)
-oECI.Position = UDim2.new(1.05, -40, 0, 40 * (#b + 1.43))
+oECI.Size = UDim2.new(0, 26, 0, 20)
+oECI.Position = UDim2.new(1.04, -40, 0, 40 * (#b + 1.43))
 oECI.TextColor3 = Color3.new(0.5, 0, 0)
 
 local uIVI = Instance.new("TextBox", f)
 uIVI.Text = "World"
-uIVI.Size = UDim2.new(0, 23, 0, 20)
-uIVI.Position = UDim2.new(0.6, -110, 0, 40 * (#b + 1.43))
+uIVI.Size = UDim2.new(0, 26, 0, 20)
+uIVI.Position = UDim2.new(0.56, -110, 0, 40 * (#b + 1.439))
 uIVI.TextColor3 = Color3.new(0.5, 0, 0) 
 
 local iLE = false
@@ -261,8 +258,8 @@ cWB.Position = UDim2.new(0.5, -90, 0, 40 * (#b) + 18)
 local wNI = Instance.new("TextBox", f)
 wNI.Text = "World"
 wNI.PlaceholderText = "1"
-wNI.Size = UDim2.new(0, 20, 0, 20)
-wNI.Position = UDim2.new(1.05, -40, 0, 40 * (#b + 0.46))
+wNI.Size = UDim2.new(0, 26, 0, 20)
+wNI.Position = UDim2.new(1.04, -40, 0, 40 * (#b + 0.46))
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local TeleportLocations = ReplicatedStorage:WaitForChild("TeleportLocations")
