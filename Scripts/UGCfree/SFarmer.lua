@@ -108,7 +108,7 @@ local function mTAP(mp)
         return
     end
     
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 0, 3)))
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 0.1, 3)))
 end
 
 local function oTC(mP)
@@ -149,7 +149,7 @@ local function tAF()
 
     while aFA do
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
-        task.wait(4)
+        task.wait(0.5)
         if rMT and rC and rMT:IsA("Model") and rC:IsA("Folder") then
             local pMP = bMPM(rC, nMC)
             if pMP then
