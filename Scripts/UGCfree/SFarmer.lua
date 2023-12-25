@@ -118,7 +118,7 @@ local function oTC(mP)
         local nMP = bMPM(rC, nMC)
         if nMP and rMT:IsA("Model") then
             local d = (rMT.PrimaryPart.Position - nMP.Position).Magnitude
-            if d <= 200 then
+            if d <= 50 then
                 mTAP(nMP)
                 
                 nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
@@ -151,7 +151,7 @@ local function tAF()
 
     while aFA do
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
-        task.wait(2)
+        task.wait(4)
         if rMT and rC and rMT:IsA("Model") and rC:IsA("Folder") then
             local pMP = bMPM(rC, nMC)
             if pMP then
@@ -161,7 +161,6 @@ local function tAF()
                 end)
             end
         end
-        task.wait(2)
     end
 end
 
@@ -176,7 +175,7 @@ local b = {
     {"Auto Sell", 'game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()', 4},
     {"Auto Ascender", 'game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)', 15},
     {
-        "Auto Mejoras Trac",
+        "AutoBuy Tractor",
         'game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("HarvestRange")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorSpeed")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorPower")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorEvolution")',
         10
     },
@@ -196,7 +195,7 @@ oECI.TextColor3 = Color3.new(0.5, 0, 0)
 local uIVI = Instance.new("TextBox", f)
 uIVI.Text = "World"
 uIVI.Size = UDim2.new(0, 26, 0, 20)
-uIVI.Position = UDim2.new(0.56, -110, 0, 40 * (#b + 1.439))
+uIVI.Position = UDim2.new(0.56, -110, 0, 40 * (#b + 1.438))
 uIVI.TextColor3 = Color3.new(0.5, 0, 0) 
 
 local iLE = false
