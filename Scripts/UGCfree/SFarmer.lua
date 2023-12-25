@@ -197,9 +197,16 @@ uIVI.Position = UDim2.new(0.56, -110, 0, 40 * (#b + 1.438))
 uIVI.TextColor3 = Color3.new(0.5, 0, 0) 
 
 local iLE = false
+local runningCoroutine = nil
 
 local function oEBT()
     oEB.Text = "Open Egg (Anim Off) - " .. (iLE and "ON" or "OFF")
+end
+
+local function stopCoroutine()
+    if runningCoroutine then
+        runningCoroutine = nil
+    end
 end
 
 oEB.MouseButton1Click:Connect(function()
@@ -207,7 +214,7 @@ oEB.MouseButton1Click:Connect(function()
     local uIV = uIVI.Text or ""
 
     if uIV == "" or tonumber(uIV) == nil or (tonumber(uIV) < 1 or tonumber(uIV) > 11) then
-        oEB.Text = "World not valid (1-11)"
+        oEB.Text = "World not valid (Worlds 1-11)"
         task.wait(5)
         oEBT()
         return
@@ -216,21 +223,30 @@ oEB.MouseButton1Click:Connect(function()
     iLE = not iLE
     oEBT()
 
-    local function oEL()
-        while iLE or oEC == 0 do
-            eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
-            task.wait(2.1)
-            if oEC > 0 then
-                oEC = oEC - 1
+    if iLE then
+        runningCoroutine = coroutine.create(function()
+            while iLE or oEC == 0 do
+                eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
+                task.wait(2.1)
+                if oEC > 0 then
+                    oEC = oEC - 1
+                end
             end
-        end
-
-        iLE = false
-        oEBT()
+            iLE = false
+            oEBT()
+        end)
+        coroutine.resume(runningCoroutine)
+    else
+        stopCoroutine()
     end
-
-    coroutine.wrap(oEL)()
 end)
+
+oEB.MouseButton2Click:Connect(function()
+    iLE = false
+    stopCoroutine()
+    oEBT()
+end)
+
 
 local function cB(bD, i)
     local b = Instance.new("TextButton", f)
