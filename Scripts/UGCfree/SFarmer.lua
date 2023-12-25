@@ -23,7 +23,7 @@ end
 
 local f = Instance.new("Frame", g)
 f.Size = UDim2.new(0, 220, 0, 310)
-f.Position = UDim2.new(0.85, -200, 0.1, 0)
+f.Position = UDim2.new(0.23, 0, 0, -34)
 f.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 f.BorderSizePixel = 0
 f.Active = true
