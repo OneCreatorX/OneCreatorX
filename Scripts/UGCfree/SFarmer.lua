@@ -1,32 +1,29 @@
 local player = game.Players.LocalPlayer
-local gui = Instance.new("ScreenGui")
-gui.Parent = player.PlayerGui
+local gui = Instance.new("ScreenGui", player.PlayerGui)
 local playerGui = player:WaitForChild("PlayerGui")
 local onScreenButtons = playerGui:WaitForChild("OnScreenButtons")
 
-local frame = Instance.new("Frame")
+local frame = Instance.new("Frame", gui)
 frame.Size = UDim2.new(0, 200, 0, 290)
 frame.Position = UDim2.new(0.85, -200, 0.1, 0)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 0
-frame.Parent = gui
 frame.Active = true
 frame.Draggable = true
 
-local minimizeButton = Instance.new("TextButton")
+local minimizeButton = Instance.new("TextButton", frame)
 minimizeButton.Text = "-"
 minimizeButton.Size = UDim2.new(0, 20, 0, 20)
 minimizeButton.Position = UDim2.new(1, -20, 0, 0)
 minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 minimizeButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 minimizeButton.BorderSizePixel = 0
-minimizeButton.Parent = frame
 
 local isMinimized = false
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    frame.Size = isMinimized and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 200, 0, 350)
+    frame.Size = isMinimized and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 200, 0, 290)
     minimizeButton.Text = isMinimized and "+" or "-"
     
     for _, element in ipairs(frame:GetChildren()) do
@@ -39,7 +36,7 @@ minimizeButton.MouseButton1Click:Connect(function()
 end)
 
 local nombreMeshPartEnCrops = "Crop"
-local nombreUsuario = game.Players.LocalPlayer.Name
+local nombreUsuario = player.Name
 local nombreModeloTractor = nombreUsuario .. " Tractor"
 
 local rutaModeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
@@ -54,11 +51,10 @@ local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
             if resultado then return resultado end
         end
     end
-    return nil
 end
 
 local function moverTractorAPosicion(meshPart)
-    rutaModeloTractor:SetPrimaryPartCFrame(CFrame.new(meshPart.Position + Vector3.new(13, 6, 3)))
+    rutaModeloTractor:SetPrimaryPartCFrame(CFrame.new(meshPart.Position + Vector3.new(13, 0, 3)))
 end
 
 local function onTransparenciaCambiada(meshPart)
@@ -66,7 +62,7 @@ local function onTransparenciaCambiada(meshPart)
         local nuevoMeshPart = buscarMeshPartEnModelo(rutaCrops, nombreMeshPartEnCrops)
         if nuevoMeshPart and rutaModeloTractor:IsA("Model") then
             local distancia = (rutaModeloTractor.PrimaryPart.Position - nuevoMeshPart.Position).Magnitude
-            if distancia <= 400 then
+            if distancia <= 200 then
                 moverTractorAPosicion(nuevoMeshPart)
                 nuevoMeshPart:GetPropertyChangedSignal("Transparency"):Connect(function()
                     onTransparenciaCambiada(nuevoMeshPart)
@@ -75,26 +71,19 @@ local function onTransparenciaCambiada(meshPart)
                     if hit:IsA("Part") then hit.CollisionGroupId = 2 end
                 end)
             end
-        else
-            warn("No se encontró el modelo del tractor o la carpeta DungeonCrops.")
         end
     end
 end
 
--- Verificar si se encontró el modelo del tractor
 if rutaModeloTractor and rutaModeloTractor:IsA("Model") and rutaModeloTractor.PrimaryPart then
     print("Se encontró el modelo del tractor:", nombreModeloTractor)
-    -- Resto del código aquí
-else
-    warn("El modelo del tractor no es válido o no tiene una parte principal.")
 end
 
 local autoFarmActive = false
-local toggleButton = Instance.new("TextButton")
+local toggleButton = Instance.new("TextButton", frame)
 toggleButton.Text = "Auto Farming Dungeons OFF"
 toggleButton.Size = UDim2.new(0, 180, 0, 20)
 toggleButton.Position = UDim2.new(0.5, -90, 0, 255)
-toggleButton.Parent = frame
 
 local function toggleAutoFarm()
     autoFarmActive = not autoFarmActive
@@ -102,7 +91,7 @@ local function toggleAutoFarm()
 
     while autoFarmActive do
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
-        wait(3)
+        task.wait(2)
         if rutaModeloTractor and rutaCrops and rutaModeloTractor:IsA("Model") and rutaCrops:IsA("Folder") then
             local posicionMeshPart = buscarMeshPartEnModelo(rutaCrops, nombreMeshPartEnCrops)
             if posicionMeshPart then
@@ -112,7 +101,7 @@ local function toggleAutoFarm()
                 end)
             end
         end
-        wait(3)
+        task.wait(2)
     end
 end
 
@@ -133,25 +122,23 @@ local buttons = {
     },
 }
 
-local openEggButton = Instance.new("TextButton")
+local openEggButton = Instance.new("TextButton", frame)
 openEggButton.Text = "Open Egg (Anim Off) - OFF"
 openEggButton.Size = UDim2.new(0, 180, 0, 20)
 openEggButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons + 1) + 18)
-openEggButton.Parent = frame
 
-local openEggCountInput = Instance.new("TextBox")
+local openEggCountInput = Instance.new("TextBox", frame)
 openEggCountInput.Text = "Count"
 openEggCountInput.Size = UDim2.new(0, 23, 0, 20)
 openEggCountInput.Position = UDim2.new(1.05, -40, 0, 40 * (#buttons + 1.43))
 openEggCountInput.TextColor3 = Color3.new(0.5, 0, 0)
-openEggCountInput.Parent = frame
 
-local userInputValueInput = Instance.new("TextBox")
+local userInputValueInput = Instance.new("TextBox", frame)
 userInputValueInput.Text = "World"
 userInputValueInput.Size = UDim2.new(0, 23, 0, 20)
 userInputValueInput.Position = UDim2.new(0.6, -110, 0, 40 * (#buttons + 1.43))
 userInputValueInput.TextColor3 = Color3.new(0.5, 0, 0) 
-userInputValueInput.Parent = frame
+
 local isLoopingOpenEgg = false
 
 local function setOpenEggButtonText()
@@ -172,7 +159,7 @@ openEggButton.MouseButton1Click:Connect(function()
             end
 
             executeCode('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. userInputValue .. '")')
-            wait(2.1)
+            task.wait(2.1)
         end
 
         isLoopingOpenEgg = false
@@ -183,11 +170,10 @@ openEggButton.MouseButton1Click:Connect(function()
 end)
 
 local function createButton(buttonData, index)
-    local button = Instance.new("TextButton")
+    local button = Instance.new("TextButton", frame)
     button.Text = buttonData[1] .. " - OFF"
     button.Size = UDim2.new(0, 180, 0, 20)
     button.Position = UDim2.new(0.5, -90, 0, 40 * (index - 1) + 20)
-    button.Parent = frame
 
     button.MouseButton1Click:Connect(function()
         buttonData.isLooping = not buttonData.isLooping
@@ -204,17 +190,15 @@ for index, buttonData in ipairs(buttons) do
     createButton(buttonData, index)
 end
 
-local changeWorldButton = Instance.new("TextButton")
+local changeWorldButton = Instance.new("TextButton", frame)
 changeWorldButton.Text = "TP World Desblock"
 changeWorldButton.Size = UDim2.new(0, 180, 0, 20)
 changeWorldButton.Position = UDim2.new(0.5, -90, 0, 40 * (#buttons) + 18)
-changeWorldButton.Parent = frame
 
-local worldNumberInput = Instance.new("TextBox")
+local worldNumberInput = Instance.new("TextBox", frame)
 worldNumberInput.PlaceholderText = "1"
 worldNumberInput.Size = UDim2.new(0, 20, 0, 20)
 worldNumberInput.Position = UDim2.new(1.05, -40, 0, 40 * (#buttons + 0.46))
-worldNumberInput.Parent = frame
 
 changeWorldButton.MouseButton1Click:Connect(function()
     local worldNumber = tonumber(worldNumberInput.Text)
@@ -239,13 +223,23 @@ local function checkDisabled()
     end
 end
 
-while true do
     checkDisabled()
-    wait(10)
-end
 
 onScreenButtons:GetPropertyChangedSignal("Enabled"):Connect(function()
     if not onScreenButtons.Enabled then
         onScreenButtons.Enabled = true
+    end
+end)
+
+local workspace = game:GetService("Workspace")
+local cropsFolder = workspace.Crops.DungeonCrops
+
+cropsFolder.ChildAdded:Connect(function(child)
+    if child:IsA("Model") then
+        wait(0.3)
+        local hitbox = child:FindFirstChild("Hitbox", true)
+        if hitbox then
+            hitbox:Destroy()
+        end
     end
 end)
