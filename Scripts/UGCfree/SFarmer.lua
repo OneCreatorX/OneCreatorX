@@ -205,20 +205,26 @@ local function oEBT()
 end
 
 oEB.MouseButton1Click:Connect(function()
-    local oEC = tonumber(oECI.Text) or 1
+    local oEC = tonumber(oECI.Text) or 0
     local uIV = uIVI.Text or ""
+
+    if uIV == "" or tonumber(uIV) == nil or (tonumber(uIV) < 1 or tonumber(uIV) > 11) then
+        oEB.Text = "World not valid (1-11)"
+        task.wait(5)
+        oEBT()
+        return
+    end
 
     iLE = not iLE
     oEBT()
 
     local function oEL()
-        for i = 1, oEC do
-            if not iLE then
-                break
-            end
-
+        while iLE or oEC == 0 do
             eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
             task.wait(2.1)
+            if oEC > 0 then
+                oEC = oEC - 1
+            end
         end
 
         iLE = false
@@ -276,15 +282,18 @@ end
 
 local function onBotonClic()
     local numeroPart = tonumber(wNI.Text)
-    if numeroPart then
-        local partDeseado = TeleportLocations:FindFirstChild(tostring(numeroPart))
-        if partDeseado then
-            moverTractorAPosicion(partDeseado.Position)
-        else
-            warn("No se encontró el Part con el número:", numeroPart)
-        end
+    if not numeroPart or numeroPart < 1 or numeroPart > 11 then
+        cWB.Text = "World not valid (Worlds 1-11)"
+        task.wait(5)
+        cWB.Text = "TP ALL World (1-11)"
+        return
+    end
+
+    local partDeseado = TeleportLocations:FindFirstChild(tostring(numeroPart))
+    if partDeseado then
+        moverTractorAPosicion(partDeseado.Position)
     else
-        warn("Ingresa un número válido en el TextBox.")
+        warn("No se encontró el Part con el número:", numeroPart)
     end
 end
 
