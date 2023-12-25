@@ -3,6 +3,25 @@ local g = Instance.new("ScreenGui", p.PlayerGui)
 local pg = p:WaitForChild("PlayerGui")
 local osb = pg:WaitForChild("OnScreenButtons")
 
+    local player = game.Players.LocalPlayer
+local petHandler = player.PlayerScripts.PlayerPetHandler
+local signal = Instance.new("BindableEvent")
+local wasDisabled = petHandler.Disabled
+
+petHandler.Disabled = true
+
+local function checkDisabled()
+    if petHandler.Disabled ~= wasDisabled then
+        wasDisabled = petHandler.Disabled
+        if not wasDisabled then
+            signal:Fire()
+            petHandler.Disabled = true
+        end
+    end
+end
+
+    checkDisabled()
+
 local f = Instance.new("Frame", g)
 f.Size = UDim2.new(0, 200, 0, 310)
 f.Position = UDim2.new(0.85, -200, 0.1, 0)
@@ -21,6 +40,23 @@ ct.BorderSizePixel = 0
 ct.Font = Enum.Font.SourceSans
 ct.TextSize = 14
 
+local gText = Instance.new("TextLabel", f)
+gText.Size = UDim2.new(0, 200, 0, 20)
+gText.Position = UDim2.new(0, 0, 0, 0)
+gText.TextColor3 = Color3.new(1, 1, 1)
+gText.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
+gText.BorderSizePixel = 0
+gText.Text = "For Legendary: N/A"
+gText.Visible = false
+
+local function updateText()
+    if rMT and rMT:IsA("Model") and rMT.PrimaryPart then
+        gText.Text = "For Legendary: " .. tostring(rMT.PrimaryPart.Name)
+    else
+        gText.Text = "For Legendary: N/A"
+    end
+end
+
 local mb = Instance.new("TextButton", f)
 mb.Text = "-"
 mb.Size = UDim2.new(0, 20, 0, 20)
@@ -35,7 +71,7 @@ mb.MouseButton1Click:Connect(function()
     mi = not mi
     f.Size = mi and UDim2.new(0.5, 20, 0, 20) or UDim2.new(0, 200, 0, 300)
     mb.Text = mi and "+" or "-"
-
+    gText.Visible = mi
     for _, el in ipairs(f:GetChildren()) do
         if el:IsA("TextButton") or el:IsA("TextBox") then
             if el ~= mb then
