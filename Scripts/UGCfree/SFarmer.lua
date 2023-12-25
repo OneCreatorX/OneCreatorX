@@ -33,7 +33,7 @@ local isMinimized = false
 
 minimizeButton.MouseButton1Click:Connect(function()
     isMinimized = not isMinimized
-    frame.Size = isMinimized and UDim2.new(0, 20, 0, 20) or UDim2.new(0, 200, 0, 290)
+    frame.Size = isMinimized and UDim2.new(0.5, 20, 0, 20) or UDim2.new(0, 200, 0, 300)
     minimizeButton.Text = isMinimized and "+" or "-"
     
     for _, element in ipairs(frame:GetChildren()) do
@@ -52,6 +52,8 @@ local nombreModeloTractor = nombreUsuario .. " Tractor"
 local rutaModeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
 local rutaCrops = game.Workspace.Crops.DungeonCrops
 
+local tractorAnclado = false 
+
 local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
     for _, objeto in ipairs(modelo:GetChildren()) do
         if objeto:IsA("MeshPart") and objeto.Name == nombreMeshPart and objeto.Transparency < 1 then
@@ -64,6 +66,10 @@ local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
 end
 
 local function moverTractorAPosicion(meshPart)
+    if tractorAnclado then
+        return
+    end
+    
     rutaModeloTractor:SetPrimaryPartCFrame(CFrame.new(meshPart.Position + Vector3.new(13, 0, 3)))
 end
 
@@ -74,20 +80,26 @@ local function onTransparenciaCambiada(meshPart)
             local distancia = (rutaModeloTractor.PrimaryPart.Position - nuevoMeshPart.Position).Magnitude
             if distancia <= 200 then
                 moverTractorAPosicion(nuevoMeshPart)
+                
                 nuevoMeshPart:GetPropertyChangedSignal("Transparency"):Connect(function()
                     onTransparenciaCambiada(nuevoMeshPart)
                 end)
+                
                 nuevoMeshPart.Touched:Connect(function(hit)
                     if hit:IsA("Part") then hit.CollisionGroupId = 2 end
                 end)
             end
         end
+    else
+        -- Si el MeshPart se vuelve invisible, ancla el tractor
+        tractorAnclado = true
     end
 end
 
 if rutaModeloTractor and rutaModeloTractor:IsA("Model") and rutaModeloTractor.PrimaryPart then
     print("Se encontró el modelo del tractor:", nombreModeloTractor)
 end
+
 
 local autoFarmActive = false
 local toggleButton = Instance.new("TextButton", frame)
