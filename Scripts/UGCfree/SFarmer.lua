@@ -45,8 +45,6 @@ gText.Position = UDim2.new(0, 0, 0, 0)
 gText.TextColor3 = Color3.new(1, 1, 1)
 gText.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 gText.BorderSizePixel = 0
-gText.Text = "Egg For Legendary: Loading..."
-gText.Visible = false
 
 local GuaranteedNumber = p.PlayerGui.PetsPopup.Frame.GuaranteedLegendary:WaitForChild("GuaranteedNumber")
 
@@ -54,12 +52,12 @@ local function updateText()
     gText.Text = "Egg For Legendary: " .. tostring(GuaranteedNumber.Text)
 end
 
-gText.Visible = true
+-- Mostrar el mensaje de carga inicialmente
+gText.Text = "Egg For Legendary: Loading..."
 
 GuaranteedNumber:GetPropertyChangedSignal("Text"):Connect(function()
+    -- Cambiar el texto solo cuando cambie la propiedad Text
     updateText()
-    -- Oculta "Cargando..." después de recibir la señal
-    gText.Visible = false
 end)
 
 local mb = Instance.new("TextButton", f)
