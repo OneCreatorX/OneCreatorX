@@ -173,7 +173,7 @@ end
 local b = {
     {"Auto Click", 'game:GetService("ReplicatedStorage").Events.DamageIncreaseOnClickEvent:FireServer()', 0.1},
     {"Auto Sell", 'game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()', 4},
-    {"Auto Ascender", 'game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)', 15},
+    {"Auto Ascend", 'game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)', 15},
     {
         "AutoBuy Tractor",
         'game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("HarvestRange")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorSpeed")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorPower")\nwait(1)\ngame:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorEvolution")',
