@@ -2,8 +2,7 @@ local p = game.Players.LocalPlayer
 local g = Instance.new("ScreenGui", p.PlayerGui)
 local pg = p:WaitForChild("PlayerGui")
 local osb = pg:WaitForChild("OnScreenButtons")
-
-    local player = game.Players.LocalPlayer
+local player = game.Players.LocalPlayer
 local petHandler = player.PlayerScripts.PlayerPetHandler
 local signal = Instance.new("BindableEvent")
 local wasDisabled = petHandler.Disabled
@@ -46,16 +45,24 @@ gText.Position = UDim2.new(0, 0, 0, 0)
 gText.TextColor3 = Color3.new(1, 1, 1)
 gText.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 gText.BorderSizePixel = 0
-gText.Text = "For Legendary: N/A"
+gText.Text = "For Legendary: Cargando..."
 gText.Visible = false
 
+local GuaranteedNumber = p.PlayerGui.PetsPopup.Frame.GuaranteedLegendary:WaitForChild("GuaranteedNumber")
+
 local function updateText()
-    if rMT and rMT:IsA("Model") and rMT.PrimaryPart then
-        gText.Text = "For Legendary: " .. tostring(rMT.PrimaryPart.Name)
-    else
-        gText.Text = "For Legendary: N/A"
-    end
+    gText.Text = "For Legendary: " .. tostring(GuaranteedNumber.Text)
 end
+
+-- Muestra "Cargando..." antes de que la señal se reciba
+gText.Visible = true
+
+-- Espera la señal para actualizar el texto
+GuaranteedNumber:GetPropertyChangedSignal("Text"):Connect(function()
+    updateText()
+    -- Oculta "Cargando..." después de recibir la señal
+    gText.Visible = false
+end)
 
 local mb = Instance.new("TextButton", f)
 mb.Text = "-"
@@ -268,7 +275,7 @@ local nombreModeloTractor = nombreUsuario .. " Tractor"
 local modeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
 
 local function moverTractorAPosicion(posicion)
-    modeloTractor:SetPrimaryPartCFrame(CFrame.new(posicion + Vector3.new(13, 5, 3)))
+    modeloTractor:SetPrimaryPartCFrame(CFrame.new(posicion + Vector3.new(13, 15, 3)))
 end
 
 local function onBotonClic()
