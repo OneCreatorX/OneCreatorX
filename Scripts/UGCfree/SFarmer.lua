@@ -58,7 +58,7 @@ local function buscarMeshPartEnModelo(modelo, nombreMeshPart)
 end
 
 local function moverTractorAPosicion(meshPart)
-    rutaModeloTractor:SetPrimaryPartCFrame(CFrame.new(meshPart.Position + Vector3.new(13, 5, 3)))
+    rutaModeloTractor:SetPrimaryPartCFrame(CFrame.new(meshPart.Position + Vector3.new(13, 6, 3)))
 end
 
 local function onTransparenciaCambiada(meshPart)
