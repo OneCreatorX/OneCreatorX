@@ -81,13 +81,13 @@ end
 
 local autoFarmActive = false
 local toggleButton = Instance.new("TextButton", frame)
-toggleButton.Text = "Auto Farming Dungeons OFF"
+toggleButton.Text = "AutoFarm Dungeon OFF"
 toggleButton.Size = UDim2.new(0, 180, 0, 20)
 toggleButton.Position = UDim2.new(0.5, -90, 0, 255)
 
 local function toggleAutoFarm()
     autoFarmActive = not autoFarmActive
-    toggleButton.Text = autoFarmActive and "Applied-AutoFarm ON" or "Auto Farming Dungeons OFF"
+    toggleButton.Text = autoFarmActive and "AutoFarm Dugeon ON" or "AutoFarm Dungeon OFF"
 
     while autoFarmActive do
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
