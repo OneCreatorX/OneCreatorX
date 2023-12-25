@@ -209,35 +209,30 @@ local function stopCoroutine()
     end
 end
 
-oEB.MouseButton1Click:Connect(function()
+local function eggLoop()
     local oEC = tonumber(oECI.Text) or 0
     local uIV = uIVI.Text or ""
 
-    if uIV == "" or tonumber(uIV) == nil or (tonumber(uIV) < 1 or tonumber(uIV) > 11) then
-        oEB.Text = "World not valid (Worlds 1-11)"
-        task.wait(5)
-        oEBT()
-        return
+    while iLE or oEC > 0 do
+        eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
+        task.wait(2.1)
+        if oEC > 0 then
+            oEC = oEC - 1
+        end
     end
-
-    iLE = not iLE
+    iLE = false
     oEBT()
+end
 
+oEB.MouseButton1Click:Connect(function()
     if iLE then
-        runningCoroutine = coroutine.create(function()
-            while iLE or oEC == 0 do
-                eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
-                task.wait(2.1)
-                if oEC > 0 then
-                    oEC = oEC - 1
-                end
-            end
-            iLE = false
-            oEBT()
-        end)
-        coroutine.resume(runningCoroutine)
-    else
+        iLE = false
         stopCoroutine()
+    else
+        iLE = true
+        oEBT()
+        runningCoroutine = coroutine.create(eggLoop)
+        coroutine.resume(runningCoroutine)
     end
 end)
 
