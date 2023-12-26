@@ -117,7 +117,7 @@ local function oTC(mP)
         local nMP = bMPM(rC, nMC)
         if nMP and rMT:IsA("Model") then
             local d = (rMT.PrimaryPart.Position - nMP.Position).Magnitude
-            if d <= 50 then
+            if d <= 900 then
                 mTAP(nMP)
                 
                 nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
