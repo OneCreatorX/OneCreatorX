@@ -91,6 +91,7 @@ local rMT = game.Workspace.Tractors:FindFirstChild(nMT)
 local rC = game.Workspace.Crops.DungeonCrops
 
 local tA = false
+local aFA = false
 
 local function bMPM(m, nMP)
     for _, o in ipairs(m:GetChildren()) do
@@ -133,11 +134,26 @@ local function oTC(mP)
     end
 end
 
-if rMT and rMT:IsA("Model") and rMT.PrimaryPart then
-    print("Se encontró el modelo del tractor:", nMT)
+local function onFileChanged(child, added)
+    if aFA then
+        local pMP = bMPM(rC, nMC)
+        if pMP then
+            mTAP(pMP)
+            pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+                oTC(pMP)
+            end)
+        end
+    end
 end
 
-local aFA = false
+game.Workspace.Crops.DungeonCrops.ChildAdded:Connect(function(child)
+    onFileChanged(child, true)
+end)
+
+game.Workspace.Crops.DungeonCrops.ChildRemoved:Connect(function(child)
+    onFileChanged(child, false)
+end)
+
 local tB = Instance.new("TextButton", f)
 tB.Text = "AutoFarm Dungeon OFF"
 tB.Size = UDim2.new(0, 180, 0, 20)
@@ -145,24 +161,23 @@ tB.Position = UDim2.new(0.5, -90, 0, 255)
 
 local function tAF()
     aFA = not aFA
-    tB.Text = aFA and "AutoFarm Dugeon ON" or "AutoFarm Dungeon OFF"
-
-    while aFA do
+    tB.Text = aFA and "AutoFarm Dungeon ON" or "AutoFarm Dungeon OFF"
+    
+    if aFA then
+        -- Llamada al remote "StartDungeon" cuando el botón se activa
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
-        task.wait(0.5)
-        if rMT and rC and rMT:IsA("Model") and rC:IsA("Folder") then
-            local pMP = bMPM(rC, nMC)
-            if pMP then
-                mTAP(pMP)
-                pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    oTC(pMP)
-                end)
-            end
-        end
+    else
+        -- Llamada al remote "Exit" cuando el botón se desactiva
+        local args = {
+            [1] = "Exit"
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
     end
 end
 
 tB.MouseButton1Click:Connect(tAF)
+
 
 local function eC(c)
     loadstring(c)()
