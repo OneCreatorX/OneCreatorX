@@ -127,7 +127,15 @@ local function mTAP(mp)
         return
     end
     
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -0.5, 3)))
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 0.5, 3)))
+
+    -- Anclar el Part "Body" dentro del Model del tractor
+    local bodyPart = rMT:FindFirstChild("Body")
+    if bodyPart and bodyPart:IsA("BasePart") then
+        bodyPart.Anchored = true
+        wait(0.05)
+        bodyPart.Anchored = false
+    end
 end
 
 local function oTC(mP)
@@ -139,11 +147,10 @@ local function oTC(mP)
                 mTAP(nMP)
                 
                 nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+                        applyAnchoredToBody()
                     oTC(nMP)
                 end)
-                nMP.Anchored = true
-                wait(0.05)
-                nMP.Anchored = false
+
                 nMP.Touched:Connect(function(hit)
                     if hit:IsA("Part") then hit.CollisionGroupId = 2 end
                 end)
@@ -154,12 +161,20 @@ local function oTC(mP)
     end
 end
 
+local function applyAnchoredToBody()
+    -- Anclar el Part "Body" dentro del Model del tractor
+    local bodyPart = rMT:FindFirstChild("Body")
+    if bodyPart and bodyPart:IsA("Part") then
+        bodyPart.Anchored = true
+        wait(0.05)
+        bodyPart.Anchored = false
+    end
+end
+
 local function onFileChanged(child, added)
     if aFA then
-        nMP.Anchored = true
-                wait(0.05)
-           nMP.Anchored = false
-        task.wait(0.4)
+        task.wait(0.2)
+        applyAnchoredToBody()
         local pMP = bMPM(rC, nMC)
         if pMP then
             mTAP(pMP)
