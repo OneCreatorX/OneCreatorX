@@ -72,11 +72,9 @@ local function updateText()
     gText.Text = "Egg For Legendary: " .. tostring(GuaranteedNumber.Text)
 end
 
--- Mostrar el mensaje de carga inicialmente
 gText.Text = "Egg For Legendary: Loading..."
 
 GuaranteedNumber:GetPropertyChangedSignal("Text"):Connect(function()
-    -- Cambiar el texto solo cuando cambie la propiedad Text
     updateText()
 end)
 
@@ -156,6 +154,7 @@ end
 
 local function onFileChanged(child, added)
     if aFA then
+        task.wait(0.2)
         local pMP = bMPM(rC, nMC)
         if pMP then
             mTAP(pMP)
@@ -175,12 +174,12 @@ game.Workspace.Crops.DungeonCrops.ChildRemoved:Connect(function(child)
 end)
 
 local tB = Instance.new("TextButton", f)
-tB.Text = "AutoFarm Dungeon OFF"
+tB.Text = "Beta Auto Dungeon OFF"
 tB.Size = UDim2.new(0, 180, 0, 20)
 tB.Position = UDim2.new(0.5, -90, 0, 255)
 local function tAF()
     aFA = not aFA
-    tB.Text = aFA and "AutoFarm Dungeon ON" or "AutoFarm Dungeon OFF"
+    tB.Text = aFA and "Beta Auto Dungeon ON" or "Beta Auto Dungeon OFF"
     
     if aFA then
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
