@@ -158,23 +158,47 @@ local tB = Instance.new("TextButton", f)
 tB.Text = "AutoFarm Dungeon OFF"
 tB.Size = UDim2.new(0, 180, 0, 20)
 tB.Position = UDim2.new(0.5, -90, 0, 255)
-
 local function tAF()
     aFA = not aFA
     tB.Text = aFA and "AutoFarm Dungeon ON" or "AutoFarm Dungeon OFF"
     
     if aFA then
-        -- Llamada al remote "StartDungeon" cuando el botón se activa
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
     else
-        -- Llamada al remote "Exit" cuando el botón se desactiva
-        local args = {
-            [1] = "Exit"
-        }
-
+        local args = {[1] = "Exit"}
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
     end
 end
+
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local dungeonMain = playerGui:WaitForChild("DungeonMain")
+local frame = dungeonMain:WaitForChild("Frame")
+local waveLabel = frame:WaitForChild("Wave")
+local waveText = waveLabel:WaitForChild("WaveNumber")
+
+local textBox = Instance.new("TextBox", f)
+textBox.Text = "Wave"
+textBox.Size = UDim2.new(0, 25, 0, 20)
+textBox.Position = UDim2.new(0.3, -50, 0, 255)
+textBox.TextColor3 = Color3.new(0.5, 0, 0)
+textBox.PlaceholderText = "Wave"
+
+local function onTextBoxChanged()
+    local textBoxValue = textBox.Text
+    local _, _, waveNumber = string.find(game.Players.LocalPlayer.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text, "Wave: (%d+)")
+
+    if tonumber(textBoxValue) == tonumber(waveNumber) then
+        print("[OUTPUT] El valor del TextBox coincide con el número actual. Realizando acciones...")
+
+       local args = {[1] = "Exit"}
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+        wait(5)
+        game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
+    end
+end
+
+waveText:GetPropertyChangedSignal("Text"):Connect(onTextBoxChanged)
 
 tB.MouseButton1Click:Connect(tAF)
 
