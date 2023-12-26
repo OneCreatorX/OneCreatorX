@@ -227,6 +227,23 @@ waveText:GetPropertyChangedSignal("Text"):Connect(onTextBoxChanged)
 
 tB.MouseButton1Click:Connect(tAF)
 
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+local dungeonFinishUI = playerGui:WaitForChild("DungeonFinishUI")
+
+local dungeonFinishUISignal
+dungeonFinishUISignal = dungeonFinishUI:GetPropertyChangedSignal("Enabled"):Connect(function()
+    if dungeonFinishUI.Enabled and aFA then
+        if tB.Text == "Beta Auto Dungeon ON" then
+            task.wait(1)
+        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = true
+       game.Players.LocalPlayer.PlayerScripts.CropFarmingEffects.Disabled = true
+        game.Players.LocalPlayer.PlayerGui.DungeonFinishUI.Enabled = false
+        task.wait(5)
+        game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
+        end
+    end
+end)
 
 local function eC(c)
     loadstring(c)()
