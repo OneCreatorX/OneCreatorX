@@ -214,9 +214,6 @@ local function onTextBoxChanged()
        local args = {[1] = "Exit"}
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
         task.wait(5)
-        local args = {[1] = "LeaveParty"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
-        task.wait(1)
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
     end
 end
