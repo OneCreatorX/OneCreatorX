@@ -220,19 +220,19 @@ local function eggLoop()
         end
     end
 
-    if oEC == 0 then
-        while iLE do
-            executeOnce()
+    while iLE do
+        executeOnce()
+        if oEC > 0 then
+            oEC = oEC - 1
+            if oEC == 0 then
+                break
+            end
         end
-    else
-        for _ = 1, oEC - 1 do
-            executeOnce()
-        end
-        iLE = false
-        stopCoroutine()
-        oEBT(false)
-        executeOnce()  -- Realiza el último paso inmediatamente antes de finalizar
     end
+
+    iLE = false
+    stopCoroutine()
+    oEBT(false)
 end
 
 oEB.MouseButton1Click:Connect(function()
@@ -253,6 +253,7 @@ oEB.MouseButton2Click:Connect(function()
     stopCoroutine()
     oEBT(false)
 end)
+
 
 
 local function cB(bD, i)
