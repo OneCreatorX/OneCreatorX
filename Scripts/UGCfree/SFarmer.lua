@@ -127,7 +127,7 @@ local function mTAP(mp)
         return
     end
     
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 0.5, 3)))
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -0.5, 3)))
 end
 
 local function oTC(mP)
@@ -141,7 +141,9 @@ local function oTC(mP)
                 nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
                     oTC(nMP)
                 end)
-                
+                nMP.Anchored = true
+                wait(0.05)
+                nMP.Anchored = false
                 nMP.Touched:Connect(function(hit)
                     if hit:IsA("Part") then hit.CollisionGroupId = 2 end
                 end)
@@ -154,7 +156,10 @@ end
 
 local function onFileChanged(child, added)
     if aFA then
-        task.wait(0.2)
+        nMP.Anchored = true
+                wait(0.05)
+           nMP.Anchored = false
+        task.wait(0.4)
         local pMP = bMPM(rC, nMC)
         if pMP then
             mTAP(pMP)
@@ -401,6 +406,22 @@ local function onBotonClic()
 end
 
 cWB.MouseButton1Click:Connect(onBotonClic)
+
+local workspace = game:GetService("Workspace")
+local modelName = "Dungeon"
+
+local function onObjectAdded(object)
+    if object:IsA("Model") and object.Name == modelName then
+        wait(1)
+        for _, child in pairs(object:GetChildren()) do
+            if not child:IsA("Baseplate") then
+                child:Destroy()
+            end
+        end
+    end
+end
+
+workspace.ChildAdded:Connect(onObjectAdded)
 
 LocalPlayer.Idled:Connect(function()
     local VirtualUser = game:GetService('VirtualUser')
