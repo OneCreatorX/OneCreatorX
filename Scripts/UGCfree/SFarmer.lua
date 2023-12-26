@@ -211,9 +211,9 @@ local function onTextBoxChanged()
 
        local args = {[1] = "Exit"}
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
-        task.wait(0.5)
+        task.wait(1)
         game.Players.LocalPlayer.PlayerGui.DungeonFinishUI.Enabled = false
-        task.wait(6)
+        task.wait(5)
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
     end
 end
