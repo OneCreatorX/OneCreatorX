@@ -174,10 +174,11 @@ end
 local function onFileChanged(child, added)
     if aFA then
         task.wait(0.2)
-        applyAnchoredToBody()
         local pMP = bMPM(rC, nMC)
+        applyAnchoredToBody()
         if pMP then
             mTAP(pMP)
+            applyAnchoredToBody()
             pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
                 oTC(pMP)
             end)
