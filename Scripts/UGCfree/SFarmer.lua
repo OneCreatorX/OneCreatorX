@@ -19,7 +19,7 @@ local function checkDisabled()
     end
 end
 
-    checkDisabled()
+checkDisabled()
 
 local f = Instance.new("Frame", g)
 f.Size = UDim2.new(0, 220, 0, 310)
@@ -32,12 +32,32 @@ f.Draggable = true
 local ct = Instance.new("TextLabel", f)
 ct.Text = "YT:@OneCreatorX"
 ct.Size = UDim2.new(0, 200, 0, 20)
-ct.Position = UDim2.new(0.5, -90, 1, -20)
+ct.Position = UDim2.new(0.45, -90, 1, -20)
 ct.TextColor3 = Color3.new(1, 1, 1)
 ct.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 ct.BorderSizePixel = 0
 ct.Font = Enum.Font.SourceSans
 ct.TextSize = 18
+
+local playerGui = player:WaitForChild("PlayerGui")
+local templeUI = playerGui:WaitForChild("TempleUI")
+local frame = templeUI:WaitForChild("Frame")
+local button = Instance.new("TextButton", f)
+button.Name = "SecretButton"
+button.Size = UDim2.new(0, 50, 0, 20)
+button.Position = UDim2.new(0.35, 10, 0, 40)
+button.BackgroundTransparency = 1
+button.Text = "Secret"
+button.TextColor3 = Color3.new(1, 1, 1)
+button.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
+button.BorderSizePixel = 0
+button.Font = Enum.Font.SourceSans
+button.TextSize = 14
+
+button.MouseButton1Click:Connect(function()
+    templeUI.Enabled = true
+    frame.Visible = true
+end)
 
 local gText = Instance.new("TextLabel", f)
 gText.Size = UDim2.new(0, 200, 0, 20)
