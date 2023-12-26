@@ -336,6 +336,12 @@ for i, bD in ipairs(b) do
     cB(bD, i)
 end
 
+LocalPlayer.Idled:Connect(function()
+    local VirtualUser = game:GetService('VirtualUser')
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
 local cWB = Instance.new("TextButton", f)
 cWB.Text = "TP ALL World (1-11)"
 cWB.Size = UDim2.new(0, 180, 0, 20)
