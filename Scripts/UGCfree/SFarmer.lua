@@ -199,8 +199,8 @@ uIVI.TextColor3 = Color3.new(0.5, 0, 0)
 local iLE = false
 local runningCoroutine = nil
 
-local function oEBT()
-    oEB.Text = "Open Egg (Anim Off) - " .. (iLE and "ON" or "OFF")
+local function oEBT(running)
+    oEB.Text = "Open Egg (Anim Off) - " .. (running and "ON" or "OFF")
 end
 
 local function stopCoroutine()
@@ -213,24 +213,36 @@ local function eggLoop()
     local oEC = tonumber(oECI.Text) or 0
     local uIV = uIVI.Text or ""
 
-    while iLE or oEC > 0 do
-        eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
-        task.wait(2.1)
-        if oEC > 0 then
-            oEC = oEC - 1
+    local function executeOnce()
+        if iLE then
+            eC('game:GetService("ReplicatedStorage").Events.PlayerPressedKeyOnEgg:FireServer("' .. uIV .. '")')
+            task.wait(2.1)
         end
     end
-    iLE = false
-    oEBT()
+
+    if oEC == 0 then
+        while iLE do
+            executeOnce()
+        end
+    else
+        for _ = 1, oEC - 1 do
+            executeOnce()
+        end
+        iLE = false
+        stopCoroutine()
+        oEBT(false)
+        executeOnce()  -- Realiza el último paso inmediatamente antes de finalizar
+    end
 end
 
 oEB.MouseButton1Click:Connect(function()
     if iLE then
         iLE = false
         stopCoroutine()
+        oEBT(false)
     else
         iLE = true
-        oEBT()
+        oEBT(true)
         runningCoroutine = coroutine.create(eggLoop)
         coroutine.resume(runningCoroutine)
     end
@@ -239,7 +251,7 @@ end)
 oEB.MouseButton2Click:Connect(function()
     iLE = false
     stopCoroutine()
-    oEBT()
+    oEBT(false)
 end)
 
 
