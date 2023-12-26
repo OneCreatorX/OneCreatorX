@@ -208,10 +208,11 @@ local function onTextBoxChanged()
     local _, _, waveNumber = string.find(game.Players.LocalPlayer.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text, "Wave: (%d+)")
 
     if tonumber(textBoxValue) == tonumber(waveNumber) then
-        print("[OUTPUT] El valor del TextBox coincide con el número actual. Realizando acciones...")
 
        local args = {[1] = "Exit"}
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+        task.wait(0.5)
+        game.Players.LocalPlayer.PlayerGui.DungeonFinishUI.Enabled = false
         task.wait(6)
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
     end
