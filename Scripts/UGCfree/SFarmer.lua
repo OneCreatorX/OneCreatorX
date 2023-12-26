@@ -182,11 +182,14 @@ local function tAF()
     tB.Text = aFA and "Beta Auto Dungeon ON" or "Beta Auto Dungeon OFF"
     
     if aFA then
+        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = true
+game.Players.LocalPlayer.PlayerScripts.CropFarmingEffects.Disabled = true
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
     else
         local args = {[1] = "Exit"}
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
-    end
+        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = false
+    end 
 end
 
 local player = game.Players.LocalPlayer
@@ -212,6 +215,8 @@ local function onTextBoxChanged()
        local args = {[1] = "Exit"}
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
         task.wait(1)
+        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = true
+game.Players.LocalPlayer.PlayerScripts.CropFarmingEffects.Disabled = true
         game.Players.LocalPlayer.PlayerGui.DungeonFinishUI.Enabled = false
         task.wait(5)
         game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
