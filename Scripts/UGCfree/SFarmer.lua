@@ -127,7 +127,8 @@ local function mTAP(mp)
         return
     end
     
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -2, 3)))
+    local tractorHeight = rMT.PrimaryPart.Position.Y
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position.x, tractorHeight + 12, mp.Position.z))
 end
 
 local function oTC(mP)
@@ -152,22 +153,21 @@ local function oTC(mP)
     end
 end
 
-local function onFileChanged(child, added)
-    if aFA then
-        task.wait(0.2)
-        local pMP = bMPM(rC, nMC)
-        if pMP then
-            mTAP(pMP)
-            pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
-                oTC(pMP)
-            end)
-        end
+local function onWaveNumberChanged()
+    task.wait(3)
+    local pMP = bMPM(rC, nMC)
+    if pMP then
+        mTAP(pMP)
+        pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+            oTC(pMP)
+        end)
     end
 end
 
-game.Workspace.Crops.DungeonCrops.ChildAdded:Connect(function(child)
-    onFileChanged(child, true)
+game.Players.LocalPlayer.PlayerGui.DungeonMain.Frame.Wave.WaveNumber:GetPropertyChangedSignal("Text"):Connect(function()
+    onWaveNumberChanged()
 end)
+
 
 local tB = Instance.new("TextButton", f)
 tB.Text = "Beta Auto Dungeon OFF"
