@@ -376,7 +376,19 @@ local nombreModeloTractor = nombreUsuario .. " Tractor"
 local modeloTractor = game.Workspace.Tractors:FindFirstChild(nombreModeloTractor)
 
 local function moverTractorAPosicion(posicion)
-    modeloTractor:SetPrimaryPartCFrame(CFrame.new(posicion + Vector3.new(13, 15, 3)))
+    if modeloTractor then
+        modeloTractor:SetPrimaryPartCFrame(CFrame.new(posicion + Vector3.new(13, 15, 3)))
+        local basePart = modeloTractor:FindFirstChild("Body")
+        if basePart and basePart:IsA("Part") then
+            basePart.Anchored = true
+            task.wait(2)
+            basePart.Anchored = false
+        else
+            warn("No se encontró el Part 'Base' en el modelo del Tractor o no es un BasePart.")
+        end
+    else
+        warn("No se encontró el modelo del Tractor.")
+    end
 end
 
 local function onBotonClic()
