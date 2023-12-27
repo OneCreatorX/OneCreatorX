@@ -133,7 +133,7 @@ local function mTAP(mp)
     -- Ajustar la altura de los objetivos según la altura del tractor
     local newTargetHeight = tractorHeight
 
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -2, 3)))
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 1, 3)))
 end
 
 local function oTC(mP)
