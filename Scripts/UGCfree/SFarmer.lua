@@ -123,12 +123,8 @@ local function bMPM(m, nMP)
 end
 
 local function mTAP(mp)
-    if tA then
-        return
-    end
-    
-    local tractorHeight = rMT.PrimaryPart.Position.Y
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position.x, tractorHeight + 12, mp.Position.z))
+    if tA then return end
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(0, 0, 12)))
 end
 
 local function oTC(mP)
@@ -138,14 +134,8 @@ local function oTC(mP)
             local d = (rMT.PrimaryPart.Position - nMP.Position).Magnitude
             if d <= 900 then
                 mTAP(nMP)
-                
-                nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    oTC(nMP)
-                end)
-
-                nMP.Touched:Connect(function(hit)
-                    if hit:IsA("Part") then hit.CollisionGroupId = 2 end
-                end)
+                nMP:GetPropertyChangedSignal("Transparency"):Connect(function() oTC(nMP) end)
+                nMP.Touched:Connect(function(hit) if hit:IsA("Part") then hit.CollisionGroupId = 2 end end)
             end
         end
     else
@@ -154,7 +144,7 @@ local function oTC(mP)
 end
 
 local function onWaveNumberChanged()
-    task.wait(3)
+    task.wait(3.1)
     local pMP = bMPM(rC, nMC)
     if pMP then
         mTAP(pMP)
@@ -167,7 +157,6 @@ end
 game.Players.LocalPlayer.PlayerGui.DungeonMain.Frame.Wave.WaveNumber:GetPropertyChangedSignal("Text"):Connect(function()
     onWaveNumberChanged()
 end)
-
 
 local tB = Instance.new("TextButton", f)
 tB.Text = "Beta Auto Dungeon OFF"
