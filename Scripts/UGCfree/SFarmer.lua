@@ -127,7 +127,7 @@ local function mTAP(mp)
         return
     end
     
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -1, 3)))
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -2, 3)))
 end
 
 local function oTC(mP)
