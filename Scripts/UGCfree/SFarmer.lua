@@ -404,6 +404,8 @@ local modelName = "Dungeon"
 local function destroyModelsInside(model)
     for _, child in pairs(model:GetChildren()) do
         if child:IsA("Model") then
+            destroyModelsInside(child)
+        elseif child:IsA("MeshPart") then
             child:Destroy()
         end
     end
