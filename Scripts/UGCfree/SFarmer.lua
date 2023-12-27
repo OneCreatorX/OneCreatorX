@@ -127,15 +127,7 @@ local function mTAP(mp)
         return
     end
     
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 0.5, 3)))
-
-    -- Anclar el Part "Body" dentro del Model del tractor
-    local bodyPart = rMT:FindFirstChild("Body")
-    if bodyPart and bodyPart:IsA("BasePart") then
-        bodyPart.Anchored = true
-        wait(0.05)
-        bodyPart.Anchored = false
-    end
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -1, 3)))
 end
 
 local function oTC(mP)
@@ -147,7 +139,6 @@ local function oTC(mP)
                 mTAP(nMP)
                 
                 nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
-                        applyAnchoredToBody()
                     oTC(nMP)
                 end)
 
@@ -161,24 +152,12 @@ local function oTC(mP)
     end
 end
 
-local function applyAnchoredToBody()
-    -- Anclar el Part "Body" dentro del Model del tractor
-    local bodyPart = rMT:FindFirstChild("Body")
-    if bodyPart and bodyPart:IsA("Part") then
-        bodyPart.Anchored = true
-        wait(0.05)
-        bodyPart.Anchored = false
-    end
-end
-
 local function onFileChanged(child, added)
     if aFA then
         task.wait(0.2)
         local pMP = bMPM(rC, nMC)
-        applyAnchoredToBody()
         if pMP then
             mTAP(pMP)
-            applyAnchoredToBody()
             pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
                 oTC(pMP)
             end)
@@ -188,10 +167,6 @@ end
 
 game.Workspace.Crops.DungeonCrops.ChildAdded:Connect(function(child)
     onFileChanged(child, true)
-end)
-
-game.Workspace.Crops.DungeonCrops.ChildRemoved:Connect(function(child)
-    onFileChanged(child, false)
 end)
 
 local tB = Instance.new("TextButton", f)
@@ -421,11 +396,28 @@ local function onBotonClic()
     end
 end
 
-cWB.MouseButton1Click:Connect(onBotonClic)
+local workspace = game:GetService("Workspace")
+local modelName = "Dungeon"
+local function destroyModelsInside(model)
+    for _, child in pairs(model:GetChildren()) do
+        if child:IsA("Model") then
+            destroyModelsInside(child)
+        elseif child:IsA("MeshPart") then
+            child:Destroy()
+        end
+    end
+end
+
+local function onObjectAdded(object)
+    if object:IsA("Model") and object.Name == modelName then
+        task.wait()
+        destroyModelsInside(object)
+    end
+end
+workspace.DescendantAdded:Connect(onObjectAdded)
 
 LocalPlayer.Idled:Connect(function()
     local VirtualUser = game:GetService('VirtualUser')
     VirtualUser:CaptureController()
     VirtualUser:ClickButton2(Vector2.new())
 end)
-
