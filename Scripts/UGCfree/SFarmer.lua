@@ -398,11 +398,10 @@ end
 
 local workspace = game:GetService("Workspace")
 local modelName = "Dungeon"
+
 local function destroyModelsInside(model)
     for _, child in pairs(model:GetChildren()) do
         if child:IsA("Model") then
-            destroyModelsInside(child)
-        elseif child:IsA("MeshPart") then
             child:Destroy()
         end
     end
@@ -414,7 +413,6 @@ local function onObjectAdded(object)
         destroyModelsInside(object)
     end
 end
-workspace.DescendantAdded:Connect(onObjectAdded)
 
 LocalPlayer.Idled:Connect(function()
     local VirtualUser = game:GetService('VirtualUser')
