@@ -423,22 +423,6 @@ end
 
 cWB.MouseButton1Click:Connect(onBotonClic)
 
-local workspace = game:GetService("Workspace")
-local modelName = "Dungeon"
-
-local function onObjectAdded(object)
-    if object:IsA("Model") and object.Name == modelName then
-        wait(1)
-        for _, child in pairs(object:GetChildren()) do
-            if not child:IsA("Baseplate") then
-                child:Destroy()
-            end
-        end
-    end
-end
-
-workspace.ChildAdded:Connect(onObjectAdded)
-
 LocalPlayer.Idled:Connect(function()
     local VirtualUser = game:GetService('VirtualUser')
     VirtualUser:CaptureController()
