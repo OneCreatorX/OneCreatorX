@@ -123,8 +123,11 @@ local function bMPM(m, nMP)
 end
 
 local function mTAP(mp)
-    if tA then return end
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(0, 0, 12)))
+    if tA then
+        return
+    end
+    
+    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -2, 3)))
 end
 
 local function oTC(mP)
@@ -132,10 +135,16 @@ local function oTC(mP)
         local nMP = bMPM(rC, nMC)
         if nMP and rMT:IsA("Model") then
             local d = (rMT.PrimaryPart.Position - nMP.Position).Magnitude
-            if d <= 900 then
+            if d <= 9000 then
                 mTAP(nMP)
-                nMP:GetPropertyChangedSignal("Transparency"):Connect(function() oTC(nMP) end)
-                nMP.Touched:Connect(function(hit) if hit:IsA("Part") then hit.CollisionGroupId = 2 end end)
+                
+                nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+                    oTC(nMP)
+                end)
+
+                nMP.Touched:Connect(function(hit)
+                    if hit:IsA("Part") then hit.CollisionGroupId = 2 end
+                end)
             end
         end
     else
@@ -145,18 +154,20 @@ end
 
 local function onFileChanged(child, added)
     if aFA then
-        task.wait(0.2)
-        local pMP = findMeshPartInModel(child)
+        task.wait()
+        local pMP = bMPM(rC, nMC)
         if pMP then
-            local tractorHeight = rMT.PrimaryPart.Position.Y
-            pMP.Position = Vector3.new(pMP.Position.X, tractorHeight, pMP.Position.Z)
             mTAP(pMP)
-            pMP:GetPropertyChangedSignal("Transparency"):Connect(function() oTC(pMP) end)
+            pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
+                oTC(pMP)
+            end)
         end
     end
 end
 
-game.Workspace.Crops.DungeonCrops.ChildAdded:Connect(function(child) onFileChanged(child, true) end)
+game.Workspace.Crops.DungeonCrops.ChildAdded:Connect(function(child)
+    onFileChanged(child, true)
+end)
 
 local tB = Instance.new("TextButton", f)
 tB.Text = "Beta Auto Dungeon OFF"
@@ -414,7 +425,7 @@ end
 
 local function onObjectAdded(object)
     if object:IsA("Model") and object.Name == modelName then
-        task.wait(2)
+        task.wait(3)
         destroyModelsInside(object)
     end
 end
