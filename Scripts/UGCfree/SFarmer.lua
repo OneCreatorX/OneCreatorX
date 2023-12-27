@@ -396,7 +396,7 @@ local function onBotonClic()
     end
 end
 
-onBotonClic.MouseButton2Click:Connect(function()
+cWB.MouseButton1Click:Connect(onBotonClic)
 
 local workspace = game:GetService("Workspace")
 local modelName = "Dungeon"
