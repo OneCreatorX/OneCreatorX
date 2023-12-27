@@ -127,6 +127,12 @@ local function mTAP(mp)
         return
     end
     
+    -- Obtener la altura actual del tractor
+    local tractorHeight = rMT.PrimaryPart.Position.Y
+
+    -- Ajustar la altura de los objetivos según la altura del tractor
+    local newTargetHeight = tractorHeight
+
     rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, -2, 3)))
 end
 
@@ -154,7 +160,7 @@ end
 
 local function onFileChanged(child, added)
     if aFA then
-        task.wait()
+        task.wait(0.1)  -- Esperar 0.05 segundos antes de realizar el cambio
         local pMP = bMPM(rC, nMC)
         if pMP then
             mTAP(pMP)
