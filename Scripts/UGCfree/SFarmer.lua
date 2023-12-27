@@ -411,7 +411,7 @@ end
 
 local function onObjectAdded(object)
     if object:IsA("Model") and object.Name == modelName then
-        task.wait()
+        task.wait(2)
         destroyModelsInside(object)
     end
 end
