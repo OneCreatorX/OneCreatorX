@@ -396,6 +396,8 @@ local function onBotonClic()
     end
 end
 
+onBotonClic.MouseButton2Click:Connect(function()
+
 local workspace = game:GetService("Workspace")
 local modelName = "Dungeon"
 
@@ -413,6 +415,7 @@ local function onObjectAdded(object)
         destroyModelsInside(object)
     end
 end
+workspace.DescendantAdded:Connect(onObjectAdded)
 
 LocalPlayer.Idled:Connect(function()
     local VirtualUser = game:GetService('VirtualUser')
