@@ -121,23 +121,24 @@ local function moveTractorAndCrop(meshPart)
         local newX, newZ
 
         if tractorType == 1 then
-            newX = meshPart.Position.X + 12
-            newZ = meshPart.Position.Z + 3
-        elseif tractorType == 2 then
             newX = meshPart.Position.X
             newZ = meshPart.Position.Z + 13
+        elseif tractorType == 2 then
+            newX = meshPart.Position.X + 13
+            newZ = meshPart.Position.Z + 3
         end
 
         local distance = (tractor.PrimaryPart.Position - meshPart.Position).Magnitude
 
-        if distance <= 350 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
+        if distance <= 900 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
             tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
         else
-            for _, objective in ipairs(crops:GetChildren()) do
+            for _, objective in ipairs(rC:GetChildren()) do
                 if objective:IsA("MeshPart") then
-                    local d = (tractor.PrimaryPart.Position - objective.Position).Magnitude
-                    if d <= 350 and math.abs(objective.Position.Y - currentHeight) <= 20 then
+                    local d = (rMT.PrimaryPart.Position - objective.Position).Magnitude
+                    if d <= 900 and math.abs(objective.Position.Y - currentHeight) <= 20 then
                         moveTractorAndCrop(objective)
+                        return
                     end
                 end
             end
