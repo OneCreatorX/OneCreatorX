@@ -403,12 +403,12 @@ local function moverTractorAPosicion(posicion)
     if modeloTractor then
         modeloTractor:SetPrimaryPartCFrame(CFrame.new(posicion + Vector3.new(13, 15, 3)))
         local basePart = modeloTractor:FindFirstChild("Body")
-        if basePart and basePart:IsA("Part") then
+        if basePart and (basePart:IsA("Part") or basePart:IsA("MeshPart")) then
             basePart.Anchored = true
             task.wait(2)
             basePart.Anchored = false
         else
-            warn("No se encontró el Part 'Base' en el modelo del Tractor o no es un BasePart.")
+            warn("No se encontró el Part o MeshPart 'Body' en el modelo del Tractor o no es un BasePart.")
         end
     else
         warn("No se encontró el modelo del Tractor.")
