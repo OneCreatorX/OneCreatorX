@@ -113,6 +113,8 @@ local autoDungeonEnabled = false
 local tractor = workspace.Tractors:FindFirstChild(tractorName)
 local crops = workspace.Crops.DungeonCrops
 
+local tractorType = 1
+
 local function findMeshPart(model, name)
     for _, part in ipairs(model:GetChildren()) do
         if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
@@ -127,9 +129,31 @@ end
 local function moveTractorAndCrop(meshPart)
     if autoDungeonEnabled then
         local currentHeight = tractor.PrimaryPart.Position.Y
-        local newX = meshPart.Position.X + 12
-        local newZ = meshPart.Position.Z + 3
-        tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
+        local newX, newZ
+
+        if tractorType == 1 then
+            newX = meshPart.Position.X
+            newZ = meshPart.Position.Z + 13
+        elseif tractorType == 2 then
+            newX = meshPart.Position.X + 13
+            newZ = meshPart.Position.Z + 3
+        end
+
+        local distance = (tractor.PrimaryPart.Position - meshPart.Position).Magnitude
+
+        if distance <= 9000 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
+            tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
+        else
+            for _, objective in ipairs(rC:GetChildren()) do
+                if objective:IsA("MeshPart") then
+                    local d = (rMT.PrimaryPart.Position - objective.Position).Magnitude
+                    if d <= 9000 and math.abs(objective.Position.Y - currentHeight) <= 20 then
+                        moveTractorAndCrop(objective)
+                        return
+                    end
+                end
+            end
+        end
     end
 end
 
@@ -199,6 +223,23 @@ toggleButton.MouseButton1Click:Connect(toggleAutoDungeon)
 local dungeonMain = playerGui:WaitForChild("DungeonMain")
 local waveText = dungeonMain.Frame.Wave.WaveNumber
 
+local tractorTypeTextBox = Instance.new("TextBox", f)
+tractorTypeTextBox.Text = "1"
+tractorTypeTextBox.Size = UDim2.new(0, 25, 0, 20)
+tractorTypeTextBox.Position = UDim2.new(1.04, -50, 0, 255)
+tractorTypeTextBox.TextColor3 = Color3.new(0.5, 0, 0)
+tractorTypeTextBox.PlaceholderText = "1-2"
+
+tractorTypeTextBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local userInput = tonumber(tractorTypeTextBox.Text)
+    if userInput and (userInput == 1 or userInput == 2) then
+        tractorType = userInput
+        print("Tractor Type set to: " .. tractorType)
+    else
+        print("Invalid input. Please enter either 1 or 2.")
+    end
+end)
+
 local textBox = Instance.new("TextBox", f)
 textBox.Text = "Wave"
 textBox.Size = UDim2.new(0, 25, 0, 20)
@@ -223,7 +264,6 @@ local function onTextBoxChanged()
 end
 
 waveText:GetPropertyChangedSignal("Text"):Connect(onTextBoxChanged)
-
 
 local function eC(c)
     loadstring(c)()
