@@ -3,6 +3,11 @@ local g = Instance.new("ScreenGui", p.PlayerGui)
 local pg = p:WaitForChild("PlayerGui")
 local osb = pg:WaitForChild("OnScreenButtons")
 local player = game.Players.LocalPlayer
+local workspace = game.Workspace
+local playerScripts = player.PlayerScripts
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local playerGui = player:WaitForChild("PlayerGui")
+
 local petHandler = player.PlayerScripts.PlayerPetHandler
 local signal = Instance.new("BindableEvent")
 local wasDisabled = petHandler.Disabled
@@ -101,105 +106,98 @@ mb.MouseButton1Click:Connect(function()
     end
 end)
 
-local nMC = "Crop"
-local nU = p.Name
-local nMT = nU .. " Tractor"
+local tractorName = player.Name .. " Tractor"
+local cropName = "Crop"
+local autoDungeonEnabled = false
 
-local rMT = game.Workspace.Tractors:FindFirstChild(nMT)
-local rC = game.Workspace.Crops.DungeonCrops
+local tractor = workspace.Tractors:FindFirstChild(tractorName)
+local crops = workspace.Crops.DungeonCrops
 
-local tA = false
-local aFA = false
-
-local function bMPM(m, nMP)
-    for _, o in ipairs(m:GetChildren()) do
-        if o:IsA("MeshPart") and o.Name == nMP and o.Transparency < 1 then
-            return o
-        elseif o:IsA("Model") or o:IsA("Folder") then
-            local r = bMPM(o, nMP)
-            if r then return r end
+local function findMeshPart(model, name)
+    for _, part in ipairs(model:GetChildren()) do
+        if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
+            return part
+        elseif part:IsA("Model") or part:IsA("Folder") then
+            local result = findMeshPart(part, name)
+            if result then return result end
         end
     end
 end
 
-local function mTAP(mp)
-    if tA then
-        return
+local function moveTractorAndCrop(meshPart)
+    if autoDungeonEnabled then
+        local currentHeight = tractor.PrimaryPart.Position.Y
+        local newX = meshPart.Position.X
+        local newZ = meshPart.Position.Z + 13
+        tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
     end
-    
-    -- Obtener la altura actual del tractor
-    local tractorHeight = rMT.PrimaryPart.Position.Y
-
-    -- Ajustar la altura de los objetivos según la altura del tractor
-    local newTargetHeight = tractorHeight
-
-    rMT:SetPrimaryPartCFrame(CFrame.new(mp.Position + Vector3.new(13, 1, 3)))
 end
 
-local function oTC(mP)
-    if mP.Transparency == 1 then
-        local nMP = bMPM(rC, nMC)
-        if nMP and rMT:IsA("Model") then
-            local d = (rMT.PrimaryPart.Position - nMP.Position).Magnitude
-            if d <= 9000 then
-                mTAP(nMP)
-                
-                nMP:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    oTC(nMP)
+local function onTouch(meshPart)
+    if meshPart.Transparency == 1 then
+        local cropPart = findMeshPart(crops, cropName)
+        if cropPart and tractor:IsA("Model") then
+            local distance = (tractor.PrimaryPart.Position - cropPart.Position).Magnitude
+            if distance <= 9000 then
+                moveTractorAndCrop(cropPart)
+
+                cropPart:GetPropertyChangedSignal("Transparency"):Connect(function()
+                    onTouch(cropPart)
                 end)
 
-                nMP.Touched:Connect(function(hit)
-                    if hit:IsA("Part") then hit.CollisionGroupId = 2 end
+                cropPart.Touched:Connect(function(hit)
+                    if hit:IsA("Part") then
+                        hit.CollisionGroupId = 2
+                    end
                 end)
             end
         end
     else
-        tA = true
+        autoDungeonEnabled = true
     end
 end
 
 local function onFileChanged(child, added)
-    if aFA then
-        task.wait(0.1)  -- Esperar 0.05 segundos antes de realizar el cambio
-        local pMP = bMPM(rC, nMC)
-        if pMP then
-            mTAP(pMP)
-            pMP:GetPropertyChangedSignal("Transparency"):Connect(function()
-                oTC(pMP)
+    if autoDungeonEnabled then
+        task.wait(0.1)
+        local part = findMeshPart(crops, cropName)
+        if part then
+            moveTractorAndCrop(part)
+            part:GetPropertyChangedSignal("Transparency"):Connect(function()
+                onTouch(part)
             end)
         end
     end
 end
 
-game.Workspace.Crops.DungeonCrops.ChildAdded:Connect(function(child)
+crops.ChildAdded:Connect(function(child)
     onFileChanged(child, true)
 end)
 
-local tB = Instance.new("TextButton", f)
-tB.Text = "Beta Auto Dungeon OFF"
-tB.Size = UDim2.new(0, 180, 0, 20)
-tB.Position = UDim2.new(0.5, -90, 0, 255)
-local function tAF()
-    aFA = not aFA
-    tB.Text = aFA and "Beta Auto Dungeon ON" or "Beta Auto Dungeon OFF"
-    
-    if aFA then
-        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = true
-game.Players.LocalPlayer.PlayerScripts.CropFarmingEffects.Disabled = true
-        game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
+local toggleButton = Instance.new("TextButton", f)
+toggleButton.Text = "Beta Auto Dungeon OFF"
+toggleButton.Size = UDim2.new(0, 180, 0, 20)
+toggleButton.Position = UDim2.new(0.5, -90, 0, 255)
+
+local function toggleAutoDungeon()
+    autoDungeonEnabled = not autoDungeonEnabled
+    toggleButton.Text = autoDungeonEnabled and "Beta Auto Dungeon ON" or "Beta Auto Dungeon OFF"
+
+    if autoDungeonEnabled then
+        playerScripts.TankController.Disabled = true
+        playerScripts.CropFarmingEffects.Disabled = true
+        replicatedStorage.Events.DungeonEvent:FireServer("StartDungeon")
     else
         local args = {[1] = "Exit"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
-        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = false
-    end 
+        replicatedStorage.Events.DungeonEvent:FireServer(unpack(args))
+        playerScripts.TankController.Disabled = false
+    end
 end
 
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+toggleButton.MouseButton1Click:Connect(toggleAutoDungeon)
+
 local dungeonMain = playerGui:WaitForChild("DungeonMain")
-local frame = dungeonMain:WaitForChild("Frame")
-local waveLabel = frame:WaitForChild("Wave")
-local waveText = waveLabel:WaitForChild("WaveNumber")
+local waveText = dungeonMain.Frame.Wave.WaveNumber
 
 local textBox = Instance.new("TextBox", f)
 textBox.Text = "Wave"
@@ -209,43 +207,23 @@ textBox.TextColor3 = Color3.new(0.5, 0, 0)
 textBox.PlaceholderText = "Wave"
 
 local function onTextBoxChanged()
-    local textBoxValue = textBox.Text
-    local _, _, waveNumber = string.find(game.Players.LocalPlayer.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text, "Wave: (%d+)")
+    local textBoxValue = tonumber(textBox.Text)
+    local _, _, waveNumber = string.find(waveText.Text, "Wave: (%d+)")
 
-    if tonumber(textBoxValue) == tonumber(waveNumber) then
-
-       local args = {[1] = "Exit"}
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+    if textBoxValue == tonumber(waveNumber) then
+        local args = {[1] = "Exit"}
+        replicatedStorage.Events.DungeonEvent:FireServer(unpack(args))
         task.wait(1)
-        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = true
-game.Players.LocalPlayer.PlayerScripts.CropFarmingEffects.Disabled = true
-        game.Players.LocalPlayer.PlayerGui.DungeonFinishUI.Enabled = false
+        playerScripts.TankController.Disabled = true
+        playerScripts.CropFarmingEffects.Disabled = true
+        playerGui.DungeonFinishUI.Enabled = false
         task.wait(5)
-        game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
+        replicatedStorage.Events.DungeonEvent:FireServer("StartDungeon")
     end
 end
 
 waveText:GetPropertyChangedSignal("Text"):Connect(onTextBoxChanged)
 
-tB.MouseButton1Click:Connect(tAF)
-
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-local dungeonFinishUI = playerGui:WaitForChild("DungeonFinishUI")
-
-local dungeonFinishUISignal
-dungeonFinishUISignal = dungeonFinishUI:GetPropertyChangedSignal("Enabled"):Connect(function()
-    if dungeonFinishUI.Enabled and aFA then
-        if tB.Text == "Beta Auto Dungeon ON" then
-            task.wait(1)
-        game.Players.LocalPlayer.PlayerScripts.TankController.Disabled = true
-       game.Players.LocalPlayer.PlayerScripts.CropFarmingEffects.Disabled = true
-        game.Players.LocalPlayer.PlayerGui.DungeonFinishUI.Enabled = false
-        task.wait(5)
-        game:GetService("ReplicatedStorage").Events.DungeonEvent:FireServer("StartDungeon")
-        end
-    end
-end)
 
 local function eC(c)
     loadstring(c)()
