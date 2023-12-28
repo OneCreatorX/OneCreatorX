@@ -121,27 +121,23 @@ local function moveTractorAndCrop(meshPart)
         local newX, newZ
 
         if tractorType == 1 then
+            newX = meshPart.Position.X + 12
+            newZ = meshPart.Position.Z + 3
+        elseif tractorType == 2 then
             newX = meshPart.Position.X
             newZ = meshPart.Position.Z + 13
-        elseif tractorType == 2 then
-            newX = meshPart.Position.X + 13
-            newZ = meshPart.Position.Z + 3
         end
 
         local distance = (tractor.PrimaryPart.Position - meshPart.Position).Magnitude
 
-        if distance <= 500 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
+        if distance <= 350 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
             tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
         else
-            if rC and rC:IsA("Model") and rC:FindFirstChild("PrimaryPart") then
-                for _, objective in ipairs(rC:GetChildren()) do
-                    if objective:IsA("MeshPart") then
-                        pcall(function()
-                            local d = (rMT.PrimaryPart.Position - objective.Position).Magnitude
-                            if d <= 500 and math.abs(objective.Position.Y - currentHeight) <= 20 then
-                                moveTractorAndCrop(objective)
-                            end
-                        end)
+            for _, objective in ipairs(crops:GetChildren()) do
+                if objective:IsA("MeshPart") then
+                    local d = (tractor.PrimaryPart.Position - objective.Position).Magnitude
+                    if d <= 350 and math.abs(objective.Position.Y - currentHeight) <= 20 then
+                        moveTractorAndCrop(objective)
                     end
                 end
             end
@@ -149,35 +145,27 @@ local function moveTractorAndCrop(meshPart)
     end
 end
 
-
 local function onTouch(meshPart)
-    local success, children = pcall(function()
-        return rC:GetChildren()
-    end)
+    if meshPart.Transparency == 1 then
+        local cropPart = findMeshPart(crops, cropName)
+        if cropPart and tractor:IsA("Model") then
+            local distance = (tractor.PrimaryPart.Position - cropPart.Position).Magnitude
+            if distance <= 9000 then
+                moveTractorAndCrop(cropPart)
 
-    if success then
-        if meshPart.Transparency == 1 then
-            local cropPart = findMeshPart(crops, cropName)
-            if cropPart and tractor:IsA("Model") then
-                local distance = (tractor.PrimaryPart.Position - cropPart.Position).Magnitude
-                if distance <= 500 then
-                    moveTractorAndCrop(cropPart)
+                cropPart:GetPropertyChangedSignal("Transparency"):Connect(function()
+                    onTouch(cropPart)
+                end)
 
-                    cropPart:GetPropertyChangedSignal("Transparency"):Connect(function()
-                        onTouch(cropPart)
-                    end)
-
-                    cropPart.Touched:Connect(function(hit)
-                        if hit:IsA("Part") then
-                            hit.CollisionGroupId = 2
-                        end
-                    end)
-                end
+                cropPart.Touched:Connect(function(hit)
+                    if hit:IsA("Part") then
+                        hit.CollisionGroupId = 2
+                    end
+                end)
             end
-        else
-            autoDungeonEnabled = true
         end
     else
+        autoDungeonEnabled = true
     end
 end
 
