@@ -115,6 +115,17 @@ local crops = workspace.Crops.DungeonCrops
 
 local tractorType = 1
 
+local function findMeshPart(model, name)
+    for _, part in ipairs(model:GetChildren()) do
+        if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
+            return part
+        elseif part:IsA("Model") or part:IsA("Folder") then
+            local result = findMeshPart(part, name)
+            if result then return result end
+        end
+    end
+end
+
 local function moveTractorAndCrop(meshPart)
     if autoDungeonEnabled then
         local currentHeight = tractor.PrimaryPart.Position.Y
@@ -130,13 +141,13 @@ local function moveTractorAndCrop(meshPart)
 
         local distance = (tractor.PrimaryPart.Position - meshPart.Position).Magnitude
 
-        if distance <= 900 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
+        if distance <= 9000 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
             tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
         else
-            for _, objective in ipairs(rC:GetChildren()) do
+            for _, objective in ipairs(crops:GetChildren()) do
                 if objective:IsA("MeshPart") then
-                    local d = (rMT.PrimaryPart.Position - objective.Position).Magnitude
-                    if d <= 900 and math.abs(objective.Position.Y - currentHeight) <= 20 then
+                    local d = (tractor.PrimaryPart.Position - objective.Position).Magnitude
+                    if d <= 9000 and math.abs(objective.Position.Y - currentHeight) <= 20 then
                         moveTractorAndCrop(objective)
                         return
                     end
@@ -170,20 +181,9 @@ local function onTouch(meshPart)
     end
 end
 
-local function findMeshPart(model, name)
-    for _, part in ipairs(model:GetChildren()) do
-        if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
-            return part
-        elseif part:IsA("Model") or part:IsA("Folder") then
-            local result = findMeshPart(part, name)
-            if result then return result end
-        end
-    end
-end
-
-
 local function onFileChanged(child, added)
     if autoDungeonEnabled then
+        task.wait(0.1)
         local part = findMeshPart(crops, cropName)
         if part then
             moveTractorAndCrop(part)
