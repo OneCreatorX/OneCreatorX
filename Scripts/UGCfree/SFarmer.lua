@@ -127,8 +127,8 @@ end
 local function moveTractorAndCrop(meshPart)
     if autoDungeonEnabled then
         local currentHeight = tractor.PrimaryPart.Position.Y
-        local newX = meshPart.Position.X
-        local newZ = meshPart.Position.Z + 13
+        local newX = meshPart.Position.X + 12
+        local newZ = meshPart.Position.Z + 3
         tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
     end
 end
