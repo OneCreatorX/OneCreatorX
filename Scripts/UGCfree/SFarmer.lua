@@ -183,7 +183,7 @@ end
 
 local function onFileChanged(child, added)
     if autoDungeonEnabled then
-        task.wait(0.1)
+        task.wait()
         local part = findMeshPart(crops, cropName)
         if part then
             moveTractorAndCrop(part)
