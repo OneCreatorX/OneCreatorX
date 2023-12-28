@@ -141,13 +141,13 @@ local function moveTractorAndCrop(meshPart)
 
         local distance = (tractor.PrimaryPart.Position - meshPart.Position).Magnitude
 
-        if distance <= 100 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
+        if distance <= 200 and math.abs(meshPart.Position.Y - currentHeight) <= 20 then
             tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
         else
             for _, objective in ipairs(rC:GetChildren()) do
                 if objective:IsA("MeshPart") then
                     local d = (rMT.PrimaryPart.Position - objective.Position).Magnitude
-                    if d <= 100 and math.abs(objective.Position.Y - currentHeight) <= 20 then
+                    if d <= 200 and math.abs(objective.Position.Y - currentHeight) <= 20 then
                         moveTractorAndCrop(objective)
                         return
                     end
@@ -162,7 +162,7 @@ local function onTouch(meshPart)
         local cropPart = findMeshPart(crops, cropName)
         if cropPart and tractor:IsA("Model") then
             local distance = (tractor.PrimaryPart.Position - cropPart.Position).Magnitude
-            if distance <= 9000 then
+            if distance <= 200 then
                 moveTractorAndCrop(cropPart)
 
                 cropPart:GetPropertyChangedSignal("Transparency"):Connect(function()
