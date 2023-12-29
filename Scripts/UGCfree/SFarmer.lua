@@ -131,6 +131,13 @@ local function findAndMoveTractor(model, name)
     for _, part in ipairs(model:GetChildren()) do
         if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
             if autoDungeonEnabled then
+                -- Desactivar colisión para todos los archivos Part y MeshPart dentro del modelo
+                for _, subPart in ipairs(part:GetChildren()) do
+                    if subPart:IsA("Part") or subPart:IsA("MeshPart") then
+                        subPart.CanCollide = false
+                    end
+                end
+
                 local currentHeight = tractor.PrimaryPart.Position.Y
                 local distance = (tractor.PrimaryPart.Position - part.Position).Magnitude
 
@@ -143,7 +150,7 @@ local function findAndMoveTractor(model, name)
                     newZ = part.Position.Z
                 end
 
-                if distance <= 9000 then
+                if distance <= 200 then
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
