@@ -128,7 +128,7 @@ local function findAndMoveTractor(model, name)
                     newZ = part.Position.Z + 13
                 elseif tractorType == 2 then
                     newX = part.Position.X + 12
-                    newZ = part.Position.Z + 3
+                    newZ = part.Position.Z
                 end
 
                 if distance <= 9000 then
