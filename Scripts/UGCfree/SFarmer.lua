@@ -131,7 +131,7 @@ local function findAndMoveTractor(model, name)
     for _, part in ipairs(model:GetChildren()) do
         if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
             if autoDungeonEnabled then
-
+                -- Desactivar colisión para todos los archivos Part y MeshPart dentro del modelo
                 for _, subPart in ipairs(part:GetChildren()) do
                     if subPart:IsA("Part") or subPart:IsA("MeshPart") then
                         subPart.CanCollide = false
@@ -140,6 +140,7 @@ local function findAndMoveTractor(model, name)
 
                 local currentHeight = tractor.PrimaryPart.Position.Y
                 local distance = (tractor.PrimaryPart.Position - part.Position).Magnitude
+                local partHeight = part.Position.Y
 
                 local newX, newZ
                 if tractorType == 1 then
@@ -150,11 +151,12 @@ local function findAndMoveTractor(model, name)
                     newZ = part.Position.Z
                 end
 
-                if distance <= 350 then
+                -- Agregar condición de altura
+                if distance <= 350 and math.abs(currentHeight - partHeight) <= 100 then
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
-                        task.wait()
+                        wait(0.1)
                     until part.Transparency >= 1
 
                     findAndMoveTractor(model, name)
@@ -169,7 +171,7 @@ end
 
 local function onFileChanged(child, added)
     if autoDungeonEnabled then
-        task.wait(1)
+        task.wait(0.1)
         findAndMoveTractor(crops, cropName)
     end
 end
