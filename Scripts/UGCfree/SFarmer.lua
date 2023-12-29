@@ -117,11 +117,11 @@ local function getTractorType(tractor)
     local body = tractor:FindFirstChild("Body")
 
     if body and body:IsA("MeshPart") then
-        return 1
+        return 1 -- Tipo 1 para MeshPart
     elseif body and body:IsA("Part") then
-        return 2
+        return 2 -- Tipo 2 para Part
     else
-        return 1
+        return 1 -- Tipo predeterminado si no se encuentra o no es MeshPart ni Part
     end
 end
 
@@ -143,10 +143,11 @@ local function findAndMoveTractor(model, name)
                     newZ = part.Position.Z
                 end
 
-                if distance <= 400 then
+                if distance <= 9000 then
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
+                        wait(0.1)
                     until part.Transparency >= 1
 
                     findAndMoveTractor(model, name)
@@ -161,7 +162,7 @@ end
 
 local function onFileChanged(child, added)
     if autoDungeonEnabled then
-        task.wait()
+        task.wait(0.1)
         findAndMoveTractor(crops, cropName)
     end
 end
@@ -169,6 +170,7 @@ end
 crops.ChildAdded:Connect(function(child)
     onFileChanged(child, true)
 end)
+
 
 local toggleButton = Instance.new("TextButton", f)
 toggleButton.Text = "Auto Dungeon V.2 OFF"
