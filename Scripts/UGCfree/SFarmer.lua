@@ -113,7 +113,19 @@ local autoDungeonEnabled = false
 local tractor = workspace.Tractors:FindFirstChild(tractorName)
 local crops = workspace.Crops.DungeonCrops
 
-local tractorType = 1
+local function getTractorType(tractor)
+    local body = tractor:FindFirstChild("Body")
+
+    if body and body:IsA("MeshPart") then
+        return 1 -- Tipo 1 para MeshPart
+    elseif body and body:IsA("Part") then
+        return 2 -- Tipo 2 para Part
+    else
+        return 1 -- Tipo predeterminado si no se encuentra o no es MeshPart ni Part
+    end
+end
+
+local tractorType = getTractorType(tractor)
 
 local function findAndMoveTractor(model, name)
     for _, part in ipairs(model:GetChildren()) do
@@ -131,11 +143,10 @@ local function findAndMoveTractor(model, name)
                     newZ = part.Position.Z
                 end
 
-                if distance <= 9000 then
+                if distance <= 400 then
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
-                        wait(0.1)
                     until part.Transparency >= 1
 
                     findAndMoveTractor(model, name)
@@ -150,7 +161,7 @@ end
 
 local function onFileChanged(child, added)
     if autoDungeonEnabled then
-        task.wait(0.1)
+        task.wait()
         findAndMoveTractor(crops, cropName)
     end
 end
