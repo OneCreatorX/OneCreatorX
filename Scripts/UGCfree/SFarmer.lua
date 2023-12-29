@@ -150,11 +150,11 @@ local function findAndMoveTractor(model, name)
                     newZ = part.Position.Z
                 end
 
-                if distance <= 200 then
+                if distance <= 350 then
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
-                        wait(0.1)
+                        task.wait()
                     until part.Transparency >= 1
 
                     findAndMoveTractor(model, name)
