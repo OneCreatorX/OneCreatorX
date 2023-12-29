@@ -117,11 +117,11 @@ local function getTractorType(tractor)
     local body = tractor:FindFirstChild("Body")
 
     if body and body:IsA("MeshPart") then
-        return 1 -- Tipo 1 para MeshPart
+        return 1
     elseif body and body:IsA("Part") then
-        return 2 -- Tipo 2 para Part
+        return 2
     else
-        return 1 -- Tipo predeterminado si no se encuentra o no es MeshPart ni Part
+        return 1
     end
 end
 
@@ -171,13 +171,13 @@ crops.ChildAdded:Connect(function(child)
 end)
 
 local toggleButton = Instance.new("TextButton", f)
-toggleButton.Text = "Beta Auto Dungeon OFF"
+toggleButton.Text = "Auto Dungeon V.2 OFF"
 toggleButton.Size = UDim2.new(0, 180, 0, 20)
 toggleButton.Position = UDim2.new(0.5, -90, 0, 255)
 
 local function toggleAutoDungeon()
     autoDungeonEnabled = not autoDungeonEnabled
-    toggleButton.Text = autoDungeonEnabled and "Beta Auto Dungeon ON" or "Beta Auto Dungeon OFF"
+    toggleButton.Text = autoDungeonEnabled and "Auto Dungeon V.2 ON" or "Auto Dungeon V.2 OFF"
 
     if autoDungeonEnabled then
         playerScripts.TankController.Disabled = true
@@ -194,23 +194,6 @@ toggleButton.MouseButton1Click:Connect(toggleAutoDungeon)
 
 local dungeonMain = playerGui:WaitForChild("DungeonMain")
 local waveText = dungeonMain.Frame.Wave.WaveNumber
-
-local tractorTypeTextBox = Instance.new("TextBox", f)
-tractorTypeTextBox.Text = "1"
-tractorTypeTextBox.Size = UDim2.new(0, 25, 0, 20)
-tractorTypeTextBox.Position = UDim2.new(1.04, -50, 0, 255)
-tractorTypeTextBox.TextColor3 = Color3.new(0.5, 0, 0)
-tractorTypeTextBox.PlaceholderText = "1-2"
-
-tractorTypeTextBox:GetPropertyChangedSignal("Text"):Connect(function()
-    local userInput = tonumber(tractorTypeTextBox.Text)
-    if userInput and (userInput == 1 or userInput == 2) then
-        tractorType = userInput
-        print("Tractor Type set to: " .. tractorType)
-    else
-        print("Invalid input. Please enter either 1 or 2.")
-    end
-end)
 
 local textBox = Instance.new("TextBox", f)
 textBox.Text = "Wave"
