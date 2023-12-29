@@ -152,7 +152,7 @@ local function findAndMoveTractor(model, name)
                 end
 
                 -- Agregar condición de altura
-                if distance <= 350 and math.abs(currentHeight - partHeight) <= 100 then
+                if distance <= 350 and math.abs(currentHeight - partHeight) <= 50 then
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
