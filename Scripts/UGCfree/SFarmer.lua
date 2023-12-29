@@ -131,7 +131,7 @@ local function findAndMoveTractor(model, name)
     for _, part in ipairs(model:GetChildren()) do
         if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
             if autoDungeonEnabled then
-                -- Desactivar colisión para todos los archivos Part y MeshPart dentro del modelo
+
                 for _, subPart in ipairs(part:GetChildren()) do
                     if subPart:IsA("Part") or subPart:IsA("MeshPart") then
                         subPart.CanCollide = false
@@ -169,7 +169,7 @@ end
 
 local function onFileChanged(child, added)
     if autoDungeonEnabled then
-        task.wait(0.1)
+        task.wait(1)
         findAndMoveTractor(crops, cropName)
     end
 end
