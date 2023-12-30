@@ -4,7 +4,7 @@ screenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
 local mainFrame = Instance.new("Frame")
 mainFrame.Name = "MainFrame"
-mainFrame.Size = UDim2.new(0, 200, 0, 160)
+mainFrame.Size = UDim2.new(0, 200, 0, 200)
 mainFrame.Position = UDim2.new(0.5, -100, 0.5, -75)
 mainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 mainFrame.BorderSizePixel = 0
@@ -72,6 +72,35 @@ autoCollectToggle.MouseButton1Click:Connect(function()
     autoCollectIndicator.BackgroundColor3 = autoCollectBool.Value and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0)
 end)
 
+local runCodeButton = Instance.new("TextButton")
+runCodeButton.Name = "RunCodeButton"
+runCodeButton.Text = "Ejecutar Código"
+runCodeButton.Position = UDim2.new(0, 10, 0, 160)
+runCodeButton.Size = UDim2.new(0, 180, 0, 30)
+runCodeButton.BackgroundColor3 = Color3.fromRGB(60, 120, 216)
+runCodeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+runCodeButton.Parent = mainFrame
+
+runCodeButton.MouseButton1Click:Connect(function()
+    local Players = game:GetService("Players")
+
+    local function getRandomPlayer()
+        local players = Players:GetPlayers()
+        return players[math.random(1, #players)]
+    end
+
+    for i = 1, 9000 do
+        local randomPlayer = getRandomPlayer()
+        local args = {
+            [1] = randomPlayer
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.5.3"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("CherEventService"):WaitForChild("RF"):WaitForChild("OnSnowballHit"):InvokeServer(unpack(args))
+
+        task.wait()  -- Asegúrate de completar esta línea con la duración de espera deseada
+    end
+end)
+
 local extraButton = Instance.new("TextButton")
 extraButton.Name = "ExtraButton"
 extraButton.Text = "3 task: Instant"
@@ -92,7 +121,7 @@ extraButton.MouseButton1Click:Connect(function()
     invokeServer("CherEventService", "GetProgress", args)
     invokeServer("CherEventService", "GetProgress", args)
     invokeServer("CherEventService", "CompleteParkour", {})
-    wait(0.5)
+    wait(2)
     invokeServer("CherEventService", "ClaimReward", args)
 end)
 
@@ -179,3 +208,4 @@ autoCollectBool.Changed:Connect(function()
         autoCollect()
     end
 end)
+
