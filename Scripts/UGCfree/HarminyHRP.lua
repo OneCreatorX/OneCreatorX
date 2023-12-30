@@ -74,7 +74,7 @@ end)
 
 local runCodeButton = Instance.new("TextButton")
 runCodeButton.Name = "RunCodeButton"
-runCodeButton.Text = "Ejecutar Código"
+runCodeButton.Text = "Hit Plyrs"
 runCodeButton.Position = UDim2.new(0, 10, 0, 160)
 runCodeButton.Size = UDim2.new(0, 180, 0, 30)
 runCodeButton.BackgroundColor3 = Color3.fromRGB(60, 120, 216)
