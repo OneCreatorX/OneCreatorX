@@ -47,15 +47,16 @@ local function playRobloxianHighSchool()
 
     modules:WaitForChild("ObjectCode"):WaitForChild("Seat"):WaitForChild("Sit"):FireServer(unpack(args))
 
-    wait(20)
+    task.wait(17)
     activateJump()
 
     modules:WaitForChild("ObjectCode"):WaitForChild("BlingObby"):WaitForChild("EventClassroomKey"):WaitForChild("PickUp"):InvokeServer()
 
     teleportTo(Vector3.new(145, 8, -337))
-    wait(1)
+    task.wait(2)
     teleportTo(Vector3.new(882, -286, 7984))
-    wait(2)
+    task.wait(2)
+    teleportTo(Vector3.new(882, -286, 7984))
 
     wait(15)
     showFinishNotification("¡Secuencia completada!")
