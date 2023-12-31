@@ -47,7 +47,7 @@ local function playRobloxianHighSchool()
 
     modules:WaitForChild("ObjectCode"):WaitForChild("Seat"):WaitForChild("Sit"):FireServer(unpack(args))
 
-    wait(11)
+    wait(20)
     activateJump()
 
     modules:WaitForChild("ObjectCode"):WaitForChild("BlingObby"):WaitForChild("EventClassroomKey"):WaitForChild("PickUp"):InvokeServer()
