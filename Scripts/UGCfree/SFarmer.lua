@@ -191,7 +191,7 @@ end)
 
 local checkbox = Instance.new("TextButton", f)
 checkbox.Size = UDim2.new(0, 20, 0, 20)
-checkbox.Position = UDim2.new(1.14, -50, 0, 255)
+checkbox.Position = UDim2.new(1.04, -50, 0, 255)
 checkbox.Text = ""
 
 local specialCaseValue = tractor:FindFirstChild("SpecialCase")
@@ -206,7 +206,7 @@ end)
 
 local toggleButton = Instance.new("TextButton", f)
 toggleButton.Text = "Auto Dungeon V.2 OFF"
-toggleButton.Size = UDim2.new(0, 180, 0, 20)
+toggleButton.Size = UDim2.new(0, 165, 0, 20)
 toggleButton.Position = UDim2.new(0.5, -90, 0, 255)
 
 local function toggleAutoDungeon()
