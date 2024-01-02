@@ -22,13 +22,13 @@
     "Creator": "OneCreatorX",
     "Status": "functional",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/LaundryExe.lua",
-  "Updated": "014/07/2023"
+  "Updated": "02/01/2024"
   },
  "10108131074":{
     "Creator": "OneCreatorX",
     "Status": "Functional from 1-8 worlds",
 "Url": "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Games/Ejecutables/CortaCesped.lua",
-  "Updated": "04/07/2023"
+  "Updated": "02/07/2023"
   },
  "6915291292":{
     "Creator": "OneCreatorX",
