@@ -113,15 +113,26 @@ local autoDungeonEnabled = false
 local tractor = workspace.Tractors:FindFirstChild(tractorName)
 local crops = workspace.Crops.DungeonCrops
 
+local tractor = workspace.Tractors:FindFirstChild(tractorName)
+
+local specialCaseValue = tractor:FindFirstChild("SpecialCase")
+if not specialCaseValue then
+    specialCaseValue = Instance.new("BoolValue")
+    specialCaseValue.Name = "SpecialCase"
+    specialCaseValue.Parent = tractor
+    print("SpecialCaseValue Initial:", specialCaseValue and specialCaseValue.Value)
+end
+
 local function getTractorType(tractor)
     local body = tractor:FindFirstChild("Body")
+    local specialCaseValue = tractor:FindFirstChild("SpecialCase")
 
-    if body and body:IsA("MeshPart") then
-        return 1 -- Tipo 1 para MeshPart
-    elseif body and body:IsA("Part") then
-        return 2 -- Tipo 2 para Part
+    if specialCaseValue and specialCaseValue:IsA("BoolValue") and specialCaseValue.Value then
+        return 2
+    elseif body and (body:IsA("MeshPart") or body:IsA("Part")) then
+        return 2
     else
-        return 1 -- Tipo predeterminado si no se encuentra o no es MeshPart ni Part
+        return 1
     end
 end
 
@@ -131,7 +142,6 @@ local function findAndMoveTractor(model, name)
     for _, part in ipairs(model:GetChildren()) do
         if part:IsA("MeshPart") and part.Name == name and part.Transparency < 1 then
             if autoDungeonEnabled then
-                -- Desactivar colisión para todos los archivos Part y MeshPart dentro del modelo
                 for _, subPart in ipairs(part:GetChildren()) do
                     if subPart:IsA("Part") or subPart:IsA("MeshPart") then
                         subPart.CanCollide = false
@@ -141,18 +151,17 @@ local function findAndMoveTractor(model, name)
                 local currentHeight = tractor.PrimaryPart.Position.Y
                 local distance = (tractor.PrimaryPart.Position - part.Position).Magnitude
                 local partHeight = part.Position.Y
-
-                local newX, newZ
-                if tractorType == 1 then
-                    newX = part.Position.X
-                    newZ = part.Position.Z + 13
-                elseif tractorType == 2 then
-                    newX = part.Position.X + 12
-                    newZ = part.Position.Z
+local newX, newZ
+if tractorType == 1 or (tractorType == 2 and not specialCaseValue.Value) then
+    newX = part.Position.X
+    newZ = part.Position.Z + 13
+elseif tractorType == 2 and specialCaseValue.Value then
+    newX = part.Position.X + 12
+    newZ = part.Position.Z
                 end
-
-                -- Agregar condición de altura
+                
                 if distance <= 350 and math.abs(currentHeight - partHeight) <= 30 then
+                   
                     tractor:SetPrimaryPartCFrame(CFrame.new(Vector3.new(newX, currentHeight, newZ)))
 
                     repeat
@@ -178,6 +187,20 @@ end
 
 crops.ChildAdded:Connect(function(child)
     onFileChanged(child, true)
+end)
+
+local checkbox = Instance.new("TextButton", f)
+checkbox.Size = UDim2.new(0, 20, 0, 20)
+checkbox.Position = UDim2.new(1.14, -50, 0, 255)
+checkbox.Text = ""
+
+local specialCaseValue = tractor:FindFirstChild("SpecialCase")
+
+checkbox.MouseButton1Click:Connect(function()
+    if specialCaseValue then
+        specialCaseValue.Value = not specialCaseValue.Value
+        checkbox.Text = specialCaseValue.Value and "✓" or ""
+    end
 end)
 
 
