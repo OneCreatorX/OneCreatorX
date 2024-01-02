@@ -154,9 +154,9 @@ local function findAndMoveTractor(model, name)
 local newX, newZ
 if tractorType == 1 or (tractorType == 2 and not specialCaseValue.Value) then
     newX = part.Position.X
-    newZ = part.Position.Z + 13
+    newZ = part.Position.Z + 11
 elseif tractorType == 2 and specialCaseValue.Value then
-    newX = part.Position.X + 12
+    newX = part.Position.X + 11
     newZ = part.Position.Z
                 end
                 
