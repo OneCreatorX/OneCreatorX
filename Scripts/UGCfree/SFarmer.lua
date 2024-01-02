@@ -74,10 +74,10 @@ gText.BorderSizePixel = 0
 local GuaranteedNumber = p.PlayerGui.PetsPopup.Frame.GuaranteedLegendary:WaitForChild("GuaranteedNumber")
 
 local function updateText()
-    gText.Text = "Egg For Legendary: " .. tostring(GuaranteedNumber.Text)
+    gText.Text = "Legendary: " .. tostring(GuaranteedNumber.Text)
 end
 
-gText.Text = "Egg For Legendary: Loading..."
+gText.Text = "Legendary: Click Pets"
 
 GuaranteedNumber:GetPropertyChangedSignal("Text"):Connect(function()
     updateText()
