@@ -65,7 +65,7 @@ function toggleAnchored(hrp)
 end
 
 function teleportToPart(hrp, part)
-    hrp.CFrame = CFrame.new(part.Position + Vector3.new(0, 3, 0))
+    hrp.CFrame = CFrame.new(part.Position + Vector3.new(0, 5, 0))
 end
 
 function createBtn()
@@ -75,9 +75,9 @@ function createBtn()
 
     local btn = Instance.new("TextButton")
     btn.Name = "ToggleButton"
-    btn.Text = "Anclar / Teleport"
+    btn.Text = "Toggle / Teleport"
     btn.Size = UDim2.new(0, 150, 0, 30)
-    btn.Position = UDim2.new(0.3, 10, 0, 10)
+    btn.Position = UDim2.new(0, 10, 0, 10)
     btn.Parent = gui
 
     btn.MouseButton1Click:Connect(onBtnClicked)
@@ -93,10 +93,11 @@ end
 createBtn()
 workspace.ChildAdded:Connect(onModelAdded)
 
-
-local npcConnection
-        npcConnection = hrp:GetPropertyChangedSignal("Position"):Connect(function()
-            if btnActivated then
+-- Conectar eventos GetPropertyChangedSignal para seguir al personaje y a los NPC
+p.CharacterAdded:Connect(function(character)
+    hrp = character:WaitForChild("HumanoidRootPart")
+    hrp:GetPropertyChangedSignal("Position"):Connect(function()
+        if btnActivated then
             local npc = findNearestNPC()
             if npc then
                 local head = npc:FindFirstChild("Head")
