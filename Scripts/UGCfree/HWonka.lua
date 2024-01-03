@@ -2,7 +2,7 @@ local p = game.Players.LocalPlayer
 local hrp = p.Character and p.Character:WaitForChild("HumanoidRootPart")
 local btnActivated = false
 
-local function proximityInteract(model)
+function proximityInteract(model)
     if fireclickdetector then
         local character = p.Character or p.CharacterAdded:Wait()
         local humanoid = character:WaitForChild("Humanoid")
@@ -19,7 +19,7 @@ local function proximityInteract(model)
     end
 end
 
-local function onBtnClicked()
+function onBtnClicked()
     btnActivated = not btnActivated
 
     if btnActivated and hrp then
@@ -35,7 +35,7 @@ local function onBtnClicked()
     toggleAnchored(hrp)
 end
 
-local function findNearestNPC()
+function findNearestNPC()
     local npcDistThresh = 50
     local closestNPC, closestDist = nil, npcDistThresh
 
@@ -51,7 +51,7 @@ local function findNearestNPC()
     return closestNPC
 end
 
-local function toggleAnchored(hrp)
+function toggleAnchored(hrp)
     hrp.Anchored = not hrp.Anchored
 
     if hrp.Anchored then
@@ -64,11 +64,11 @@ local function toggleAnchored(hrp)
     end
 end
 
-local function teleportToPart(hrp, part)
-    hrp.CFrame = CFrame.new(part.Position + Vector3.new(0, 5, 0))
+function teleportToPart(hrp, part)
+    hrp.CFrame = CFrame.new(part.Position + Vector3.new(0, 3, 0))
 end
 
-local function createBtn()
+function createBtn()
     local gui = Instance.new("ScreenGui")
     gui.Name = "ButtonGui"
     gui.Parent = p.PlayerGui
@@ -76,8 +76,8 @@ local function createBtn()
     local btn = Instance.new("TextButton")
     btn.Name = "ToggleButton"
     btn.Text = "Anclar / Teleport"
-    btn.Size = UDim2.new(0.4, 150, 0, 30)
-    btn.Position = UDim2.new(0, 10, 0, 10)
+    btn.Size = UDim2.new(0, 150, 0, 30)
+    btn.Position = UDim2.new(0.3, 10, 0, 10)
     btn.Parent = gui
 
     btn.MouseButton1Click:Connect(onBtnClicked)
@@ -93,27 +93,17 @@ end
 createBtn()
 workspace.ChildAdded:Connect(onModelAdded)
 
--- Conectar eventos GetPropertyChangedSignal para seguir al personaje y a los NPC
-p.CharacterAdded:Connect(function(character)
-    hrp = character:WaitForChild("HumanoidRootPart")
-    local positionChangedConnection
 
-    positionChangedConnection = hrp:GetPropertyChangedSignal("Position"):Connect(function()
-        if btnActivated then
+local npcConnection
+        npcConnection = hrp:GetPropertyChangedSignal("Position"):Connect(function()
+            if btnActivated then
             local npc = findNearestNPC()
             if npc then
                 local head = npc:FindFirstChild("Head")
                 if head then
-                    hrp.CFrame = CFrame.new(head.Position + Vector3.new(0, 2, 0))
+                    hrp.CFrame = CFrame.new(head.Position + Vector3.new(0, 4, 0))
                 end
             end
-        end
-    end)
-
-    hrp.AncestryChanged:Connect(function()
-        if not hrp.Parent then
-            -- El personaje fue eliminado, desconectar la conexión
-            positionChangedConnection:Disconnect()
         end
     end)
 end)
