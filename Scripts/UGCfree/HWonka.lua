@@ -80,8 +80,8 @@ function onModelAdded(model)
     end
 end
 
-createBtn("ToggleBtnGui", "ToggleBtn", "Anclar / Teleport", onToggleBtnClicked, UDim2.new(0.1, 10, 0, 10))
-createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equipar Arma", onEquipArmaBtnClicked, UDim2.new(0.2, 10, 0, 10))
+createBtn("ToggleBtnGui", "ToggleBtn", "Anclar / Teleport", onToggleBtnClicked, UDim2.new(0.13, 10, 0, 10))
+createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equip Fire", onEquipArmaBtnClicked, UDim2.new(0.22, 10, 0, 10))
 
 workspace.ChildAdded:Connect(onModelAdded)
 
@@ -100,4 +100,4 @@ local function curarEquipo()
     equiparItem("Medkit")  
 end
 
-createBtn("CurarEquipoGui", "CurarEquipoButton", "Equipar Medikit", curarEquipo, UDim2.new(0.03, 10, 0, 10))
+createBtn("CurarEquipoGui", "CurarEquipoButton", "Equip Medikit", curarEquipo, UDim2.new(0.03, 10, 0, 10))
