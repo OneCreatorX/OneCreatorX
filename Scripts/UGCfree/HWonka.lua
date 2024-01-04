@@ -35,10 +35,6 @@ function onToggleBtnClicked()
     toggleAnchored(hrp)
 end
 
-function onEquipArmaBtnClicked()
-    equiparItem("Flamethrower")
-end
-
 function createBtn(guiName, btnName, btnText, btnFunction, btnPosition)
     local gui = Instance.new("ScreenGui")
     gui.Name = guiName
@@ -102,7 +98,6 @@ function equiparItem(nombre)
 end
 
 createBtn("ToggleBtnGui", "ToggleBtn", "Anclar/Tp", onToggleBtnClicked, UDim2.new(0.2, 10, 0, 10))
-createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equip", onEquipArmaBtnClicked, UDim2.new(0.5, 10, 0, 360))
 
 workspace.ChildAdded:Connect(onModelAdded)
 
@@ -129,6 +124,11 @@ local function batEquipo()
     equiparItem("Spiked Bat")  
 end
 
-createBtn("CurarEquipoGui", "CurarEquipoButton", "Equip", curarEquipo, UDim2.new(0.37, 10, 0, 360))
-createBtn("flashEquipoGui", "flashEquipoButton", "Equip", flashEquipo, UDim2.new(0.323, 10, 0, 360))
-createBtn("batEquipoGui", "batEquipoButton", "Equip", batEquipo, UDim2.new(0.62, 10, 0, 360))
+function onEquipArmaBtnClicked()
+    equiparItem("Flamethrower")
+end
+
+createBtn("flashEquipoGui", "flashEquipoButton", "Equip", flashEquipo, UDim2.new(0.37, 10, 0, 360))
+createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equip", onEquipArmaBtnClicked, UDim2.new(0.43, 10, 0, 360))
+createBtn("CurarEquipoGui", "CurarEquipoButton", "Equip", curarEquipo, UDim2.new(0.5, 10, 0, 360))
+createBtn("batEquipoGui", "batEquipoButton", "Equip", batEquipo, UDim2.new(0.55, 10, 0, 360))
