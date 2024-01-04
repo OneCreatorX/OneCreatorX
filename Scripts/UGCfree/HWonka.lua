@@ -29,6 +29,10 @@ function onBtnClicked()
             if head then
                 hrp.CFrame = CFrame.new(head.Position + Vector3.new(0, 2, 0))
             end
+        else
+            -- Si no hay NPC cerca o el directorio NPC no existe, simplemente ancla al personaje en su posición actual
+            toggleAnchored(hrp)
+            return
         end
     end
 
@@ -39,7 +43,13 @@ function findNearestNPC()
     local npcDistThresh = 50
     local closestNPC, closestDist = nil, npcDistThresh
 
-    for _, npc in ipairs(workspace.NPC:GetChildren()) do
+    local npcFolder = workspace:FindFirstChild("NPC")
+    if not npcFolder or not npcFolder:IsA("Folder") then
+        -- Si el directorio NPC no existe, devuelve nil
+        return nil
+    end
+
+    for _, npc in ipairs(npcFolder:GetChildren()) do
         if npc:IsA("Model") and npc:FindFirstChild("Head") then
             local dist = (npc.Head.Position - hrp.Position).Magnitude
             if dist < closestDist then
@@ -50,6 +60,7 @@ function findNearestNPC()
 
     return closestNPC
 end
+
 
 function toggleAnchored(hrp)
     hrp.Anchored = not hrp.Anchored
