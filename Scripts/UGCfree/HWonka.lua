@@ -29,10 +29,6 @@ function onBtnClicked()
             if head then
                 hrp.CFrame = CFrame.new(head.Position + Vector3.new(0, 2, 0))
             end
-        else
-            -- Si no hay NPC cerca o el directorio NPC no existe, simplemente ancla al personaje en su posición actual
-            toggleAnchored(hrp)
-            return
         end
     end
 
@@ -43,13 +39,7 @@ function findNearestNPC()
     local npcDistThresh = 50
     local closestNPC, closestDist = nil, npcDistThresh
 
-    local npcFolder = workspace:FindFirstChild("NPC")
-    if not npcFolder or not npcFolder:IsA("Folder") then
-        -- Si el directorio NPC no existe, devuelve nil
-        return nil
-    end
-
-    for _, npc in ipairs(npcFolder:GetChildren()) do
+    for _, npc in ipairs(workspace.NPC:GetChildren()) do
         if npc:IsA("Model") and npc:FindFirstChild("Head") then
             local dist = (npc.Head.Position - hrp.Position).Magnitude
             if dist < closestDist then
@@ -60,7 +50,6 @@ function findNearestNPC()
 
     return closestNPC
 end
-
 
 function toggleAnchored(hrp)
     hrp.Anchored = not hrp.Anchored
@@ -85,9 +74,9 @@ function createBtn()
 
     local btn = Instance.new("TextButton")
     btn.Name = "ToggleButton"
-    btn.Text = "Anclar / Teleport"
+    btn.Text = "Toggle / Teleport"
     btn.Size = UDim2.new(0, 150, 0, 30)
-    btn.Position = UDim2.new(0.2, 10, 0, 10)
+    btn.Position = UDim2.new(0, 10, 0, 10)
     btn.Parent = gui
 
     btn.MouseButton1Click:Connect(onBtnClicked)
@@ -111,8 +100,27 @@ hrp:GetPropertyChangedSignal("Position"):Connect(function()
             local head = npc:FindFirstChild("Head")
             if head then
                 local newCFrame = CFrame.new(head.Position + Vector3.new(0, 4, 0))
-                hrp.CFrame = newCFrame * CFrame.Angles(math.rad(180), 0, 0)
+                hrp.CFrame = newCFrame * CFrame.Angles(math.rad(100), 0, 0)
             end
         end
     end
 end)
+
+function callHealFunctionForPlayers()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local playerName = player.Name
+            local medkit = workspace.NmmsRblx.Medkit.Handle_F
+
+            if medkit and medkit:FindFirstChild("Heal_Player_RF") then
+                local healFunction = medkit.Heal_Player_RF
+
+                healFunction:InvokeServer(playerName)
+            end
+        end
+    end
+end
+
+while wait(0.2) do
+    callHealFunctionForPlayers()
+end
