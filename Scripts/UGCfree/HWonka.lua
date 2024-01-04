@@ -123,21 +123,11 @@ hrp:GetPropertyChangedSignal("Position"):Connect(function()
     end
 end)
 
-function callHealFunctionForPlayers()
+-- Llama a la función cada 0.2 segundos para los demás jugadores
+while wait(0.2) do
     for _, player in pairs(game.Players:GetPlayers()) do
-        if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-            local playerName = player.Name
-            local medkit = workspace.NmmsRblx.Medkit.Handle_F
-
-            if medkit and medkit:FindFirstChild("Heal_Player_RF") then
-                local healFunction = medkit.Heal_Player_RF
-
-                healFunction:InvokeServer(playerName)
-            end
+        if player ~= game.Players.LocalPlayer then
+            workspace[game.Players.LocalPlayer.Name].Medkit.Handle_F.Heal_Player_RF:InvokeServer(player.Name)
         end
     end
-end
-
-while wait(0.2) do
-    callHealFunctionForPlayers()
 end
