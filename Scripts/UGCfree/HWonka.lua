@@ -92,7 +92,7 @@ function createEquipArmaBtn()
     btn.Name = "EquipArmaBtn"
     btn.Text = "Equipar Arma"
     btn.Size = UDim2.new(0, 150, 0, 30)
-    btn.Position = UDim2.new(0.15, 10, 0, 50) -- Ajusta la posición según sea necesario
+    btn.Position = UDim2.new(0.2, 10, 0, 10) -- Ajusta la posición según sea necesario
     btn.Parent = gui
 
     btn.MouseButton1Click:Connect(onEquipArmaBtnClicked)
