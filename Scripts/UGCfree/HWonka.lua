@@ -1,6 +1,7 @@
 local p = game.Players.LocalPlayer
 local hrp = p.Character and p.Character:WaitForChild("HumanoidRootPart")
-local btnActivated = false
+local btnToggleActivated = false
+local btnEquipArmaActivated = false
 
 function proximityInteract(model)
     if fireclickdetector then
@@ -19,10 +20,37 @@ function proximityInteract(model)
     end
 end
 
-function onBtnClicked()
-    btnActivated = not btnActivated
+function toggleAnchored(hrp)
+    hrp.Anchored = not hrp.Anchored
 
-    if btnActivated and hrp then
+    if hrp.Anchored then
+        if btnToggleActivated then
+            hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
+        end
+    else
+        hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
+    end
+end
+
+function teleportToPart(hrp, part)
+    hrp.CFrame = CFrame.new(part.Position + Vector3.new(0, 5, 0))
+end
+
+function equiparItem(nombre)
+    local mochila = p:FindFirstChild("Backpack")
+    if mochila then
+        local item = mochila:FindFirstChild(nombre)
+        if item then
+            item.Parent = p.Character
+            item:SetPrimaryPartCFrame(p.Character:WaitForChild("RightHand").CFrame)
+        end
+    end
+end
+
+function onToggleBtnClicked()
+    btnToggleActivated = not btnToggleActivated
+
+    if btnToggleActivated and hrp then
         local npc = findNearestNPC()
         if npc then
             local head = npc:FindFirstChild("Head")
@@ -35,66 +63,55 @@ function onBtnClicked()
     toggleAnchored(hrp)
 end
 
-function findNearestNPC()
-    local npcDistThresh = 50
-    local closestNPC, closestDist = nil, npcDistThresh
-
-    for _, npc in ipairs(workspace.NPC:GetChildren()) do
-        if npc:IsA("Model") and npc:FindFirstChild("Head") then
-            local dist = (npc.Head.Position - hrp.Position).Magnitude
-            if dist < closestDist then
-                closestNPC, closestDist = npc, dist
-            end
-        end
-    end
-
-    return closestNPC
+function onEquipArmaBtnClicked()
+    btnEquipArmaActivated = not btnEquipArmaActivated
+    equiparItem("Flamethrower") -- Cambia el nombre del ítem según tu estructura
 end
 
-function toggleAnchored(hrp)
-    hrp.Anchored = not hrp.Anchored
-
-    if hrp.Anchored then
-        if btnActivated then
-            hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
-        end
-    else
-        hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
-    end
-end
-
-function teleportToPart(hrp, part)
-    hrp.CFrame = CFrame.new(part.Position + Vector3.new(0, 5, 0))
-end
-
-function createBtn()
+function createToggleBtn()
     local gui = Instance.new("ScreenGui")
-    gui.Name = "ButtonGui"
+    gui.Name = "ToggleBtnGui"
     gui.Parent = p.PlayerGui
 
     local btn = Instance.new("TextButton")
-    btn.Name = "ToggleButton"
-    btn.Text = "Toggle / Teleport"
+    btn.Name = "ToggleBtn"
+    btn.Text = "Anclar / Teleport"
     btn.Size = UDim2.new(0, 150, 0, 30)
-    btn.Position = UDim2.new(0, 10, 0, 10)
+    btn.Position = UDim2.new(0.1, 10, 0, 10)
     btn.Parent = gui
 
-    btn.MouseButton1Click:Connect(onBtnClicked)
+    btn.MouseButton1Click:Connect(onToggleBtnClicked)
+end
+
+function createEquipArmaBtn()
+    local gui = Instance.new("ScreenGui")
+    gui.Name = "EquipArmaBtnGui"
+    gui.Parent = p.PlayerGui
+
+    local btn = Instance.new("TextButton")
+    btn.Name = "EquipArmaBtn"
+    btn.Text = "Equipar Arma"
+    btn.Size = UDim2.new(0, 150, 0, 30)
+    btn.Position = UDim2.new(0.15, 10, 0, 50) -- Ajusta la posición según sea necesario
+    btn.Parent = gui
+
+    btn.MouseButton1Click:Connect(onEquipArmaBtnClicked)
 end
 
 local function onModelAdded(model)
     if model.Name == "Wonka_Bars_M" then
         proximityInteract(model)
-        local part = -- TODO: Define the appropriate part here
+        local part = -- TODO: Define la parte apropiada aquí
         teleportToPart(hrp, part)
     end
 end
 
-createBtn()
+createToggleBtn()
+createEquipArmaBtn()
 workspace.ChildAdded:Connect(onModelAdded)
 
 hrp:GetPropertyChangedSignal("Position"):Connect(function()
-    if btnActivated then
+    if btnToggleActivated then
         local npc = findNearestNPC()
         if npc then
             local head = npc:FindFirstChild("Head")
