@@ -101,7 +101,7 @@ function equiparItem(nombre)
     end
 end
 
-createBtn("ToggleBtnGui", "ToggleBtn", "Anclar/TpNPC", onToggleBtnClicked, UDim2.new(0.2, 10, 0, 10))
+createBtn("ToggleBtnGui", "ToggleBtn", "Anclar/Tp", onToggleBtnClicked, UDim2.new(0.2, 10, 0, 10))
 createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equip", onEquipArmaBtnClicked, UDim2.new(0.5, 10, 0, 360))
 
 workspace.ChildAdded:Connect(onModelAdded)
@@ -130,5 +130,5 @@ local function batEquipo()
 end
 
 createBtn("CurarEquipoGui", "CurarEquipoButton", "Equip", curarEquipo, UDim2.new(0.37, 10, 0, 360))
-createBtn("flashEquipoGui", "flashEquipoButton", "Equip", flashEquipo, UDim2.new(0.32, 10, 0, 360))
-createBtn("batEquipoGui", "batEquipoButton", "Equip", batEquipo, UDim2.new(0.63, 10, 0, 360))
+createBtn("flashEquipoGui", "flashEquipoButton", "Equip", flashEquipo, UDim2.new(0.327, 10, 0, 360))
+createBtn("batEquipoGui", "batEquipoButton", "Equip", batEquipo, UDim2.new(0.62, 10, 0, 360))
