@@ -1,7 +1,6 @@
 local p = game.Players.LocalPlayer
 local hrp = p.Character and p.Character:WaitForChild("HumanoidRootPart")
-local btnToggleActivated = false
-local btnEquipArmaActivated = false
+local btnToggleActivated, btnEquipArmaActivated = false, false
 
 function proximityInteract(model)
     if fireclickdetector then
@@ -22,11 +21,8 @@ end
 
 function toggleAnchored(hrp)
     hrp.Anchored = not hrp.Anchored
-
-    if hrp.Anchored then
-        if btnToggleActivated then
-            hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
-        end
+    if hrp.Anchored and btnToggleActivated then
+        hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
     else
         hrp.CFrame = CFrame.new(hrp.Position, hrp.Position - Vector3.new(0, 1, 0))
     end
@@ -38,96 +34,70 @@ end
 
 function equiparItem(nombre)
     local mochila = p:FindFirstChild("Backpack")
-    if mochila then
-        local item = mochila:FindFirstChild(nombre)
-        if item then
-            item.Parent = p.Character
-            item:SetPrimaryPartCFrame(p.Character:WaitForChild("RightHand").CFrame)
-        end
+    local item = mochila and mochila:FindFirstChild(nombre)
+    if item then
+        item.Parent = p.Character
+        item:SetPrimaryPartCFrame(p.Character:WaitForChild("RightHand").CFrame)
     end
 end
 
 function onToggleBtnClicked()
     btnToggleActivated = not btnToggleActivated
-
     if btnToggleActivated and hrp then
         local npc = findNearestNPC()
-        if npc then
-            local head = npc:FindFirstChild("Head")
-            if head then
-                hrp.CFrame = CFrame.new(head.Position + Vector3.new(0, 2, 0))
-            end
+        local head = npc and npc:FindFirstChild("Head")
+        if head then
+            hrp.CFrame = CFrame.new(head.Position + Vector3.new(0, 2, 0))
         end
     end
-
     toggleAnchored(hrp)
 end
 
 function onEquipArmaBtnClicked()
     btnEquipArmaActivated = not btnEquipArmaActivated
-    equiparItem("Flamethrower") -- Cambia el nombre del ítem según tu estructura
+    equiparItem("Flamethrower")
 end
 
-function createToggleBtn()
+function createBtn(guiName, btnName, btnText, btnFunction, btnPosition)
     local gui = Instance.new("ScreenGui")
-    gui.Name = "ToggleBtnGui"
+    gui.Name = guiName
     gui.Parent = p.PlayerGui
 
     local btn = Instance.new("TextButton")
-    btn.Name = "ToggleBtn"
-    btn.Text = "Anclar / Teleport"
-    btn.Size = UDim2.new(0, 150, 0, 30)
-    btn.Position = UDim2.new(0.1, 10, 0, 10)
+    btn.Name = btnName
+    btn.Text = btnText
+    btn.Size = UDim2.new(0, 100, 0, 30)
+    btn.Position = btnPosition
     btn.Parent = gui
 
-    btn.MouseButton1Click:Connect(onToggleBtnClicked)
+    btn.MouseButton1Click:Connect(btnFunction)
 end
 
-function createEquipArmaBtn()
-    local gui = Instance.new("ScreenGui")
-    gui.Name = "EquipArmaBtnGui"
-    gui.Parent = p.PlayerGui
-
-    local btn = Instance.new("TextButton")
-    btn.Name = "EquipArmaBtn"
-    btn.Text = "Equipar Arma"
-    btn.Size = UDim2.new(0, 150, 0, 30)
-    btn.Position = UDim2.new(0.2, 10, 0, 10) -- Ajusta la posición según sea necesario
-    btn.Parent = gui
-
-    btn.MouseButton1Click:Connect(onEquipArmaBtnClicked)
-end
-
-local function onModelAdded(model)
+function onModelAdded(model)
     if model.Name == "Wonka_Bars_M" then
         proximityInteract(model)
-        local part = -- TODO: Define la parte apropiada aquí
         teleportToPart(hrp, part)
     end
 end
 
-createToggleBtn()
-createEquipArmaBtn()
+createBtn("ToggleBtnGui", "ToggleBtn", "Anclar / Teleport", onToggleBtnClicked, UDim2.new(0.1, 10, 0, 10))
+createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equipar Arma", onEquipArmaBtnClicked, UDim2.new(0.2, 10, 0, 10))
+
 workspace.ChildAdded:Connect(onModelAdded)
 
 hrp:GetPropertyChangedSignal("Position"):Connect(function()
     if btnToggleActivated then
         local npc = findNearestNPC()
-        if npc then
-            local head = npc:FindFirstChild("Head")
-            if head then
-                local newCFrame = CFrame.new(head.Position + Vector3.new(0, 4, 0))
-                hrp.CFrame = newCFrame * CFrame.Angles(math.rad(100), 0, 0)
-            end
+        local head = npc and npc:FindFirstChild("Head")
+        if head then
+            local newCFrame = CFrame.new(head.Position + Vector3.new(0, 4, 0))
+            hrp.CFrame = newCFrame * CFrame.Angles(math.rad(100), 0, 0)
         end
     end
 end)
 
--- Llama a la función cada 0.2 segundos para los demás jugadores
-while wait(0.2) do
-    for _, player in pairs(game.Players:GetPlayers()) do
-        if player ~= game.Players.LocalPlayer then
-            workspace[game.Players.LocalPlayer.Name].Medkit.Handle_F.Heal_Player_RF:InvokeServer(player.Name)
-        end
-    end
+local function curarEquipo()
+    equiparItem("Medkit")  
 end
+
+createBtn("CurarEquipoGui", "CurarEquipoButton", "Equipar Medikit", curarEquipo, UDim2.new(0.03, 10, 0, 10))
