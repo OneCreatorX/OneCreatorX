@@ -128,7 +128,7 @@ function onEquipArmaBtnClicked()
     equiparItem("Flamethrower")
 end
 
-createBtn("flashEquipoGui", "flashEquipoButton", "Equip", flashEquipo, UDim2.new(0.37, 10, 0, 360))
-createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equip", onEquipArmaBtnClicked, UDim2.new(0.43, 10, 0, 360))
+createBtn("flashEquipoGui", "flashEquipoButton", "Equip", flashEquipo, UDim2.new(0.40, 10, 0, 360))
+createBtn("EquipArmaBtnGui", "EquipArmaBtn", "Equip", onEquipArmaBtnClicked, UDim2.new(0.45, 10, 0, 360))
 createBtn("CurarEquipoGui", "CurarEquipoButton", "Equip", curarEquipo, UDim2.new(0.5, 10, 0, 360))
 createBtn("batEquipoGui", "batEquipoButton", "Equip", batEquipo, UDim2.new(0.55, 10, 0, 360))
