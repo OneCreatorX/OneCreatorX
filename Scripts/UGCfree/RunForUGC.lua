@@ -1,13 +1,13 @@
 local P,LP,W,RS = game:GetService("Players"), game.Players.LocalPlayer, game:GetService("Workspace"), game:GetService("RunService")
 local SG = Instance.new("ScreenGui", LP:WaitForChild("PlayerGui"))
 
-local AB = Instance.new("TextButton", SG) AB.Size, AB.Position, AB.Text = UDim2.new(0,100,0,50), UDim2.new(0,10,0,10), "Activar"
-local AnB = Instance.new("TextButton", SG) AnB.Size, AnB.Position, AnB.Text = UDim2.new(0,100,0,50), UDim2.new(0,120,0,10), "Anclar"
-local DB = Instance.new("TextButton", SG) DB.Size, DB.Position, DB.Text, DB.Visible = UDim2.new(0,100,0,50), UDim2.new(0,10,0,70), "Desactivar", false
+local RunBtn = Instance.new("TextButton", SG) RunBtn.Size, RunBtn.Position, RunBtn.Text = UDim2.new(0,100,0,50), UDim2.new(0,10,0,10), "Run"
+local AnclarBtn = Instance.new("TextButton", SG) AnclarBtn.Size, AnclarBtn.Position, AnclarBtn.Text = UDim2.new(0,100,0,50), UDim2.new(0,120,0,10), "Anclar"
+local DesactivarBtn = Instance.new("TextButton", SG) DesactivarBtn.Size, DesactivarBtn.Position, DesactivarBtn.Text, DesactivarBtn.Visible = UDim2.new(0,100,0,50), UDim2.new(0,10,0,70), "Desactivar", false
 
 local Pl,AG,AA = nil,0,false
 
-local function AP()
+local function Run()
     if not Pl then
         AG = LP.Character.HumanoidRootPart.Position.Y
 
@@ -27,16 +27,16 @@ local function AP()
         LP.Character.Humanoid.Jumping:Connect(function()
             if Pl then
                 Pl:Destroy()
-                Pl, DB.Visible, AB.Visible, AG = nil, false, true, nil
+                Pl, DesactivarBtn.Visible, RunBtn.Visible, AG = nil, false, true, nil
                 LP.Character.Humanoid.WalkSpeed = 16
             end
         end)
 
-        AB.Visible, DB.Visible = false, true
+        RunBtn.Visible, DesactivarBtn.Visible = false, true
     end
 end
 
-local function AP()
+local function Anclar()
     if LP.Character then
         for _, P in pairs(LP.Character:GetDescendants()) do
             if P:IsA("BasePart") then
@@ -45,20 +45,20 @@ local function AP()
         end
 
         AA = not AA
-        AnB.Text = AA and "Desanclar" or "Anclar"
+        AnclarBtn.Text = AA and "Desanclar" or "Anclar"
     end
 end
 
-local function DP()
+local function Desactivar()
     if Pl then
         Pl:Destroy()
         Pl, AG = nil, nil
 
         LP.Character.Humanoid.WalkSpeed = 16
-        AB.Visible, DB.Visible = true, false
+        RunBtn.Visible, DesactivarBtn.Visible = true, false
     end
 end
 
-AB.MouseButton1Down:Connect(AP)
-AnB.MouseButton1Down:Connect(AP)
-DB.MouseButton1Down:Connect(DP)
+RunBtn.MouseButton1Down:Connect(Run)
+AnclarBtn.MouseButton1Down:Connect(Anclar)
+DesactivarBtn.MouseButton1Down:Connect(Desactivar)
