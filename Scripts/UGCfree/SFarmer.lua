@@ -406,10 +406,10 @@ end
 
 local function onBotonClic()
     local numeroPart = tonumber(wNI.Text)
-    if not numeroPart or numeroPart < 1 or numeroPart > 12 then
-        cWB.Text = "World not valid (Worlds 1-11)"
+    if not numeroPart or numeroPart < 1 or numeroPart > 13 then
+        cWB.Text = "World not valid (Worlds 1-13)"
         task.wait(5)
-        cWB.Text = "TP ALL World (1-12)"
+        cWB.Text = "TP ALL World (1-13)"
         return
     end
 
