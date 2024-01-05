@@ -62,3 +62,8 @@ end
 RunBtn.MouseButton1Down:Connect(Run)
 AnclarBtn.MouseButton1Down:Connect(Anclar)
 DesactivarBtn.MouseButton1Down:Connect(Desactivar)
+LocalPlayer.Idled:Connect(function()
+    local VirtualUser = game:GetService('VirtualUser')
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
