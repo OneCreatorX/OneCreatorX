@@ -14,7 +14,7 @@ fr.Draggable = true
 fr.Parent = sg
 
 local title = Instance.new("TextLabel")
-title.Text = "YouTube: @OneCreatorX"
+title.Text = "YT:@OneCreatorX"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.Position = UDim2.new(0, 0, 0, 10)
 title.TextColor3 = Color3.new(1, 1, 1)
@@ -22,6 +22,16 @@ title.BackgroundTransparency = 1
 title.Font = Enum.Font.SourceSansBold
 title.TextSize = 20
 title.Parent = fr
+
+local titl = Instance.new("TextLabel")
+titl.Text = "U need desblock tasks"
+titl.Size = UDim2.new(1, 0, 0, 30)
+titl.Position = UDim2.new(0, 0, 0.83, 10)
+titl.TextColor3 = Color3.new(1, 1, 1)
+titl.BackgroundTransparency = 1
+titl.Font = Enum.Font.SourceSansBold
+titl.TextSize = 16
+titl.Parent = fr
 
 local function btn(text, pos, func)
     local btn = Instance.new("TextButton")
@@ -42,5 +52,9 @@ btn("Day 1", UDim2.new(0.5, -110, 0.30, -20), function()
     game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.5.1"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("SquishmallowsService"):WaitForChild("RE"):WaitForChild("OnSquishmallowCollected"):FireServer(1)
 end)
 
-btn("Próx. 2", UDim2.new(0.5, -110, 0.55, -20), function() end)
-btn("Próx. 3", UDim2.new(0.5, -110, 0.80, -20), function() end)
+btn("Day 2", UDim2.new(0.5, -110, 0.55, -20), function()
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.5.1"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("SquishmallowsService"):WaitForChild("RE"):WaitForChild("OnSquishmallowCollected"):FireServer(2)
+end)
+btn("Day 3", UDim2.new(0.5, -110, 0.80, -20), function()
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.5.1"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("SquishmallowsService"):WaitForChild("RE"):WaitForChild("OnSquishmallowCollected"):FireServer(3)
+end)
