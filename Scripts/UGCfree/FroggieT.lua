@@ -54,3 +54,22 @@ local function MoveSmallFrogs()
 end
 
 MoveSmallFrogs()
+
+-- Crear ScreenGui con ResetOnSpawn en false
+local screenGui = Instance.new("ScreenGui")
+screenGui.ResetOnSpawn = false  -- Establecer ResetOnSpawn en false
+screenGui.Parent = Plr.PlayerGui
+
+-- Crear Frame
+local frame = Instance.new("Frame")
+frame.Size, frame.Position, frame.BackgroundColor3, frame.BorderSizePixel, frame.Draggable, frame.Active = UDim2.new(0.2, 0, 0.15, 0), UDim2.new(0.5, 0, 0.5, 0), Color3.fromRGB(60, 60, 60), 0, true, true
+frame.Parent = screenGui
+
+local function createLabel(text, position, textColor, backgroundColor)
+    local label = Instance.new("TextLabel")
+    label.Text, label.Size, label.Position, label.TextScaled, label.TextColor3, label.BackgroundColor3, label.Parent = text, UDim2.new(1, 0, 0.33, 0), position, true, textColor, backgroundColor, frame
+end
+
+createLabel("YT:@OneCreatorX", UDim2.new(0, 0, 0, 0), Color3.fromRGB(255, 165, 0), Color3.fromRGB(80, 80, 80))
+createLabel("AutoCollect", UDim2.new(0, 0, 0.33, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(80, 80, 80))
+createLabel("AntiAFK", UDim2.new(0, 0, 0.66, 0), Color3.fromRGB(0, 0, 255), Color3.fromRGB(80, 80, 80))
