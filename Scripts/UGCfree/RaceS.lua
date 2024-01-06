@@ -6,7 +6,6 @@ local localPlayer = Players.LocalPlayer
 local playerGui = localPlayer.PlayerGui
 local workspace = game.Workspace
 
--- Crear ScreenGui con Respawn seteado a false
 local screenGui = Instance.new("ScreenGui")
 screenGui.ResetOnSpawn = false
 screenGui.Parent = playerGui
@@ -112,7 +111,6 @@ button.MouseButton1Click:Connect(function()
     button.Text = caea and "Win/Egg ON" or "Win/Egg OFF"
 
     if not caea then
-        -- Si caea se establece en false, detenemos el bucle
         return
     end
 
