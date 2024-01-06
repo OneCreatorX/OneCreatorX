@@ -25,51 +25,81 @@ local function SearchAllPlots()
     end
 end
 
-SearchAllPlots()
-
 local function MoveMeshPart(meshPart)
     if meshPart:IsA("MeshPart") then
-        meshPart.CFrame = CFrame.new(Plr.Character.HumanoidRootPart.Position)
+        local currentPos = Plr.Character.HumanoidRootPart.Position
+        Plr.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(meshPart.Position.X, currentPos.Y, meshPart.Position.Z)))
     end
 end
 
-local function MoveSmallFrogs()
+local function MoveTowardsMeshParts(meshParts)
+    for _, meshPart in pairs(meshParts) do
+        MoveMeshPart(meshPart)
+        wait(1) -- Espera antes de moverse al siguiente MeshPart
+    end
+end
+
+local function MoveTowardsCollectionPool()
+    if PlotPlr then
+        local collectionArea = PlotPlr:FindFirstChild("CollectionArea")
+
+        if collectionArea and collectionArea:IsA("Folder") then
+            local collectionPool = collectionArea:FindFirstChild("CollectionPool")
+
+            if collectionPool and collectionPool:IsA("MeshPart") then
+                MoveMeshPart(collectionPool)
+            end
+        end
+    end
+end
+
+local function MoveTowardsButton()
+    if PlotPlr then
+        local buttonMeshPart = PlotPlr.Buttons.OtherButtons.ReleaseButton.Button
+
+        if buttonMeshPart and buttonMeshPart:IsA("MeshPart") then
+            MoveMeshPart(buttonMeshPart)
+        end
+    end
+end
+
+local function ConnectChildAdded()
     if PlotPlr then
         local spawnedFrogs = PlotPlr:FindFirstChild("SpawnedFrogs")
-        
+
         if spawnedFrogs and spawnedFrogs:IsA("Folder") then
-            for _, child in pairs(spawnedFrogs:GetChildren()) do
-                if child:IsA("MeshPart") then
-                    MoveMeshPart(child)
-                end
-            end
-            
             spawnedFrogs.ChildAdded:Connect(function(newChild)
                 if newChild:IsA("MeshPart") then
                     MoveMeshPart(newChild)
+                end
+            end)
+
+            spawnedFrogs.ChildRemoved:Connect(function(removedChild)
+                if removedChild:IsA("MeshPart") then
+                    -- Si se elimina un MeshPart, mueve al jugador hacia el botón
+                    MoveTowardsButton()
                 end
             end)
         end
     end
 end
 
-MoveSmallFrogs()
+local function MoveTowardsTargets()
+    while true do
+        if PlotPlr then
+            local spawnedFrogs = PlotPlr:FindFirstChild("SpawnedFrogs")
 
--- Crear ScreenGui con ResetOnSpawn en false
-local screenGui = Instance.new("ScreenGui")
-screenGui.ResetOnSpawn = false  -- Establecer ResetOnSpawn en false
-screenGui.Parent = Plr.PlayerGui
+            if spawnedFrogs and spawnedFrogs:IsA("Folder") then
+                MoveTowardsMeshParts(spawnedFrogs:GetChildren())
+            end
 
--- Crear Frame
-local frame = Instance.new("Frame")
-frame.Size, frame.Position, frame.BackgroundColor3, frame.BorderSizePixel, frame.Draggable, frame.Active = UDim2.new(0.2, 0, 0.15, 0), UDim2.new(0.5, 0, 0.5, 0), Color3.fromRGB(60, 60, 60), 0, true, true
-frame.Parent = screenGui
-
-local function createLabel(text, position, textColor, backgroundColor)
-    local label = Instance.new("TextLabel")
-    label.Text, label.Size, label.Position, label.TextScaled, label.TextColor3, label.BackgroundColor3, label.Parent = text, UDim2.new(1, 0, 0.33, 0), position, true, textColor, backgroundColor, frame
+            MoveTowardsCollectionPool()
+            wait(1) -- Espera antes de volver a verificar los MeshPart
+        end
+        wait()
+    end
 end
 
-createLabel("YT:@OneCreatorX", UDim2.new(0, 0, 0, 0), Color3.fromRGB(255, 165, 0), Color3.fromRGB(80, 80, 80))
-createLabel("AutoCollect", UDim2.new(0, 0, 0.33, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(80, 80, 80))
-createLabel("AntiAFK", UDim2.new(0, 0, 0.66, 0), Color3.fromRGB(0, 0, 255), Color3.fromRGB(80, 80, 80))
+SearchAllPlots()
+ConnectChildAdded()
+MoveTowardsTargets()
