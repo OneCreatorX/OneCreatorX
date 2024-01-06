@@ -164,9 +164,9 @@ local function SpamTeleportToButton()
             local buttonMeshPart = plot.Buttons and plot.Buttons.OtherButtons and plot.Buttons.OtherButtons.ReleaseButton and plot.Buttons.OtherButtons.ReleaseButton.Button
             if buttonMeshPart and buttonMeshPart:IsA("MeshPart") then
                 TeleportToButton(buttonMeshPart)
-      wait(0.1)
+      wait(0.2)
                 TeleportToButton(buttonMeshPart)
-wait(0.1)
+wait(0.2)
                 TeleportToButton(buttonMeshPart)
             end
         end
@@ -180,9 +180,17 @@ end
 
 local humanoid = Player.Character and Player.Character:FindFirstChildOfClass("Humanoid")
         if humanoid then
-            humanoid.WalkSpeed = humanoid.WalkSpeed + 10
+            humanoid.WalkSpeed = humanoid.WalkSpeed + 13
         end
-SearchAllPlots()
+
 ConnectChildAdded()
+SearchAllPlots()
 MoveTowardsButton()
 MoveTowardsTargets()
+
+LocalPlayer.Idled:Connect(function()
+    local VirtualUser = game:GetService('VirtualUser')
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
