@@ -21,6 +21,8 @@ createLabel("YT:@OneCreatorX", UDim2.new(0, 0, 0, 0), Color3.fromRGB(255, 165, 0
 local autoCollectButton = Instance.new("TextButton")
 autoCollectButton.Text, autoCollectButton.Size, autoCollectButton.Position, autoCollectButton.TextScaled, autoCollectButton.TextColor3, autoCollectButton.BackgroundColor3, autoCollectButton.Parent = AutoCollectEnabled and "AutoCollect (Enabled)" or "AutoCollect (Disabled)", UDim2.new(1, 0, 0.33, 0), UDim2.new(0, 0, 0.33, 0), true, AutoCollectEnabled and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(255, 0, 0), Color3.fromRGB(80, 80, 80), frame
 
+createLabel("AntiAFK", UDim2.new(0, 0, 0.66, 0), Color3.fromRGB(0, 0, 255), Color3.fromRGB(80, 80, 80))
+
 autoCollectButton.MouseButton1Click:Connect(function()
     AutoCollectEnabled = not AutoCollectEnabled
     autoCollectButton.Text = AutoCollectEnabled and "AutoCollect (Enabled)" or "AutoCollect (Disabled)"
