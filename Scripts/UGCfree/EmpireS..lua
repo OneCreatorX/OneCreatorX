@@ -98,7 +98,7 @@ local function createButton(name, onClick)
     return button
 end
 
-createButton("Auto Sell World", autoClickFight)
+createButton("Auto buy World", autoClickFight)
 createButton("Auto XP(Lvles)", autoCraftPet)
 createButton("Auto Egg", autoEgg)
 createButton("Resources", autoCoin)
