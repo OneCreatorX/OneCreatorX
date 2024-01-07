@@ -13,7 +13,7 @@ local function activateProximityPromptsInPart(part)
     for _, object in ipairs(part:GetDescendants()) do
         if object:IsA("ProximityPrompt") then
             fireproximityprompt(object)
-            task.wait(0.1)
+            wait(0.1)
         end
     end
 end
@@ -25,7 +25,7 @@ local function activateProximityPromptsInFolder()
                 activateProximityPromptsInPart(part)
             end
         end
-        task.wait(0.1)
+        wait(0.1)
     end
 end
 
@@ -116,11 +116,11 @@ local function iterateMeshParts()
             if object:IsA("MeshPart") then
                 m.CFrame = CFrame.new(object.Position)
                 sendPurchaseRequest(textBox.Text)
-                task.wait(0.1)
+                wait(0.1)
             end
         end
 
-        task.wait(5)
+        wait(5)
     end
 end
 
