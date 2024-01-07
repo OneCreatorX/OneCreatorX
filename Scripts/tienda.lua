@@ -12,6 +12,7 @@ local function createFrame(assetId, itemValue)
     imageLabel.Position = UDim2.new(0, 0, 0, 0)
     imageLabel.Image = "rbxthumb://type=Asset&id=" .. assetId .. "&w=150&h=150"
     imageLabel.Parent = frame
+    imageLabel.BackgroundColor3 = Color3.fromRGB(139, 0, 0)
     imageLabel.BackgroundTransparency = 0.6
 
     local textLabel = Instance.new("TextLabel")
@@ -20,6 +21,7 @@ local function createFrame(assetId, itemValue)
     textLabel.Text = "$" .. itemValue
     textLabel.TextScaled = true
     textLabel.TextColor3 = Color3.fromRGB(0, 128, 255)
+    textLabel.BackgroundColor3 = Color3.fromRGB(255, 215, 0)
     textLabel.Parent = frame
 
     local isTouching = false
@@ -65,17 +67,10 @@ local scrollingFrame = Instance.new("ScrollingFrame")
 scrollingFrame.Size = UDim2.new(0, 470, 0, 338)
 scrollingFrame.Position = UDim2.new(0, 50, 0, 80)
 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+scrollingFrame.BackgroundColor3 = Color3.new(0, 0, 0)
 scrollingFrame.Parent = screenGui
 scrollingFrame.ScrollBarThickness = 8
 scrollingFrame.ScrollBarImageTransparency = 0.2
-
-local titleTextLabel = Instance.new("TextLabel")
-titleTextLabel.Size = UDim2.new(0.4, 0, 0, 30)
-titleTextLabel.Position = UDim2.new(0.09, 0, 0.085, 10)
-titleTextLabel.Text = "YT:@OneCreatorX"
-titleTextLabel.TextScaled = true
-titleTextLabel.TextColor3 = Color3.fromRGB(50, 50, 50)
-titleTextLabel.Parent = screenGui
 
 local linkURL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Data.txt"
 local response = game:HttpGet(linkURL)
@@ -100,3 +95,35 @@ for i, d in ipairs(data) do
 end
 
 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, yOffset)
+
+local text = "YT:@OneCreatorX"
+local textLength = #text
+
+local function generateRandomColor()
+    return Color3.new(math.random(), math.random(), math.random())
+end
+
+local letters = {}
+
+for i = 1, textLength do
+    local letter = Instance.new("TextLabel")
+    letter.Size = UDim2.new(1 / textLength, 0, 1, 0)
+    letter.Position = UDim2.new((i - 1) / textLength, 0, -0.4, 0)
+    letter.Text = text:sub(i, i)
+    letter.TextScaled = true
+    letter.BackgroundTransparency = 1
+    letter.TextColor3 = generateRandomColor()
+    letter.BackgroundColor3 = Color3.fromRGB(128, 0, 128)  -- Mantiene el fondo del texto anterior
+    letter.Parent = screenGui
+
+    table.insert(letters, letter)
+end
+
+spawn(function()
+    while true do
+        for _, letter in ipairs(letters) do
+            letter.TextColor3 = generateRandomColor()
+        end
+        wait(0.3)
+    end
+end)
