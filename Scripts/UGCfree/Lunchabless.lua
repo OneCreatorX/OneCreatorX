@@ -13,8 +13,8 @@ local function activateProximityPromptsInPart(part)
     for _, object in ipairs(part:GetDescendants()) do
         if object:IsA("ProximityPrompt") then
             fireproximityprompt(object)
-            wait()
         end
+wait()
     end
 end
 
@@ -25,7 +25,7 @@ local function activateProximityPromptsInFolder()
                 activateProximityPromptsInPart(part)
             end
         end
-        wait()
+wait()
     end
 end
 
@@ -64,7 +64,7 @@ local textLabel = Instance.new("TextLabel")
 textLabel.Name = "StatusTextLabel"
 textLabel.Text = "OneCreatorX Working for you, wait"
 textLabel.Size = UDim2.new(1, 0, 0, 30)
-textLabel.Position = UDim2.new(0, 0, 0.65, 0)
+textLabel.Position = UDim2.new(0, 0, 0.55, 0)
 textLabel.BackgroundColor3 = Color3.new(0, 0, 0)
 textLabel.BackgroundTransparency = 1
 textLabel.TextColor3 = Color3.new(1, 1, 1)
@@ -116,11 +116,11 @@ local function iterateMeshParts()
             if object:IsA("MeshPart") then
                 m.CFrame = CFrame.new(object.Position)
                 sendPurchaseRequest(textBox.Text)
-                wait(0.1)
+                wait(0.2)
             end
         end
 
-        wait(5)
+        wait(4)
     end
 end
 
