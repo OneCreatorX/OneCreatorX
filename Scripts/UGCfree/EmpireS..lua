@@ -83,7 +83,7 @@ giveItem("Emeralds", 99999999999999)
 end
 
 local function autodelete(button)
-    while task.wait(0.5) do
+    while task.wait() do
         if ActivadoDict[button] then
 local petNames = {"Dog", "Cat", "Pig", "Bear"}
 
