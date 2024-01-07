@@ -22,6 +22,10 @@ local function createFrame(assetId, itemValue)
     textLabel.TextColor3 = Color3.fromRGB(50, 50, 50)
     textLabel.Parent = frame
 
+    -- Agregar colores
+    frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- Color de fondo del frame
+    textLabel.TextColor3 = Color3.fromRGB(0, 128, 255)  -- Color del texto
+
     local isTouching = false
     local touchStartPosition = nil
 
@@ -70,9 +74,9 @@ scrollingFrame.ScrollBarThickness = 8
 scrollingFrame.ScrollBarImageTransparency = 0
 
 local titleTextLabel = Instance.new("TextLabel")
-titleTextLabel.Size = UDim2.new(1, 0, 0, 50)
+titleTextLabel.Size = UDim2.new(0.5, 0, 0, 30)
 titleTextLabel.Position = UDim2.new(0, 0, 0, 10)
-titleTextLabel.Text = "YT: OneCreatorX"
+titleTextLabel.Text = "YT:@OneCreatorX"
 titleTextLabel.TextScaled = true
 titleTextLabel.TextColor3 = Color3.fromRGB(50, 50, 50)
 titleTextLabel.Parent = screenGui
