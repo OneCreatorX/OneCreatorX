@@ -13,40 +13,70 @@ Author.Text, Author.Size, Author.Position, Author.BackgroundColor3, Author.TextS
 local ActivadoDict = {}
 
 local function autoClickFight(button)
-    while wait(0.2) do
+    while task.wait(5) do
         if ActivadoDict[button] then
-            game:GetService("ReplicatedStorage").Remotes.GuiEvent:FireServer({Action = "Sold"})
+            for i = 1, 10 do
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("GuiEvent"):FireServer({
+        ["GateName"] = "GateNum" .. i,
+        ["Action"] = "OpenedGate",
+        ["PricePaid"] = 1200
+    })
+            end
             
         end
     end
 end
 
 local function autoCraftPet(button)
-    while task.wait(0.05) do
+    while task.wait(5) do
         if ActivadoDict[button] then
-            game:GetService("ReplicatedStorage").Remotes.GuiEvent:FireServer({Type = "OakLog", Action = "InstanceCollected", Count = 100})
-            
-        end
-    end
-end
+            local mobsDirectory = workspace:WaitForChild("Map"):WaitForChild("Mobs")
+local localPlayerName = game.Players.LocalPlayer.Name
 
-local function autoRebirth(button)
-    while wait(0.3) do
-        if ActivadoDict[button] then
-            game:GetService("ReplicatedStorage").Remotes.ToolEvent:FireServer({workspace.Map.Ores.Trees.OakTree}, "Axe", 5, "Wood Axe")
+for _, mob in pairs(mobsDirectory:GetChildren()) do
+    local args = {
+        Dmg = 1,
+        Character = workspace:WaitForChild(localPlayerName),
+        Action = "m1",
+        Combo = 5,
+        Target = mob,
+        Id = "Wood Sword"
+    }
+
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ToolEvent"):FireServer(args)
+            end
             
         end
     end
 end
 
 local function autoEgg(button)
-    while wait(1) do
+    while task.wait(3) do
         if ActivadoDict[button] then
-game:GetService("ReplicatedStorage").PetsFolder.Remotes.HatchPet:FireServer(workspace:WaitForChild("Incubators"):WaitForChild("Basic"), 1)
+game:GetService("ReplicatedStorage").PetsFolder.Remotes.HatchPet:FireServer(workspace:WaitForChild("Incubators"):WaitForChild("Basic"), 10)
             
         end
     end
 end
+
+local function giveItem(giveWhat, giveNum)
+    local args = {
+        [1] = {
+            ["GiveWhat"] = giveWhat,
+            ["Num"] = 4,
+            ["Action"] = "PrSpun",
+            ["GiveNum"] = giveNum
+        }
+    }
+
+    game:GetService("ReplicatedStorage").Remotes.GuiEvent:FireServer(unpack(args))
+end
+
+local function autoCoin(button) 
+giveItem("Coins", 99999999999999999)
+giveItem("Emeralds", 99999999999999)  
+end
+
 
 local yOffset = 33
 
@@ -68,7 +98,7 @@ local function createButton(name, onClick)
     return button
 end
 
-createButton("Auto Sell", autoClickFight)
-createButton("Auto Collect", autoCraftPet)
-createButton("Auto Farm", autoRebirth)
+createButton("Auto Sell World", autoClickFight)
+createButton("Auto XP(Lvles)", autoCraftPet)
 createButton("Auto Egg", autoEgg)
+createButton("Resources", autoCoin)
