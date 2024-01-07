@@ -39,7 +39,7 @@ local function showElements()
         noCoinsLabel.Name = "NoCoinsTextLabel"
         noCoinsLabel.Text = "flashes = searching Coin |  Stop = No Coins | exceeds 1m = possible daily limit"
         noCoinsLabel.Size = UDim2.new(1, 0, 0, 30)
-        noCoinsLabel.Position = UDim2.new(0, 0, 0.94, 0)
+        noCoinsLabel.Position = UDim2.new(0, 0, 0.92, 0)
         noCoinsLabel.BackgroundColor3 = Color3.new(0, 0, 0)
         noCoinsLabel.BackgroundTransparency = 0.5
         noCoinsLabel.TextColor3 = Color3.new(1, 1, 1)
