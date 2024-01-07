@@ -119,7 +119,7 @@ end
             end
         end
 
-        wait()  -- Adjust the wait time as needed
+        wait(0.4)  -- Adjust the wait time as needed
     end
 end
 
