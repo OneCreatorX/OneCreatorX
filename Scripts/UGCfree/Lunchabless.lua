@@ -29,8 +29,6 @@ local function activateProximityPromptsInFolder()
     end
 end
 
-spawn(activateProximityPromptsInFolder)
-
 local function Rejoin()
     local Players = game:GetService("Players")
     local TeleportService = game:GetService("TeleportService")
