@@ -30,21 +30,26 @@ end
 local function autoCraftPet(button)
     while task.wait(5) do
         if ActivadoDict[button] then
-            local mobsDirectory = workspace:WaitForChild("Map"):WaitForChild("Mobs")
-local localPlayerName = game.Players.LocalPlayer.Name
+             local mobsDirectory = workspace:WaitForChild("Map"):WaitForChild("Mobs")
+local mobs = mobsDirectory:GetChildren()
+local playerName = game.Players.LocalPlayer.Name
 
-for _, mob in pairs(mobsDirectory:GetChildren()) do
+for _, mob in ipairs(mobs) do
     local args = {
-        Dmg = 1,
-        Character = workspace:WaitForChild(localPlayerName),
-        Action = "m1",
-        Combo = 5,
-        Target = mob,
-        Id = "Wood Sword"
+        [1] = {
+            ["Dmg"] = 90000000000000,
+            ["Character"] = workspace:WaitForChild(playerName),
+            ["Action"] = "m1",
+            ["Combo"] = 5,
+            ["Target"] = mobsDirectory:WaitForChild(mob.Name),
+            ["Id"] = "Wood Sword"
+        },
+        [2] = "Sword"
     }
 
-    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ToolEvent"):FireServer(args)
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ToolEvent"):FireServer(unpack(args))
             end
+            
             
         end
     end
