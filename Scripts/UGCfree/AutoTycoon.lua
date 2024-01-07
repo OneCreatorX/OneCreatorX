@@ -26,7 +26,7 @@ while true do
                 if humanoidRootPart then
                     local distancia = (object.Position - humanoidRootPart.Position).Magnitude
 
-                    if distancia < 100 then
+                    if distancia < 150 then
                         moverYVolver(object)
                     end
                 end
