@@ -95,7 +95,7 @@ local function showElements()
         rejoinButton.Name = "RejoinButton"
         rejoinButton.Text = "Rejoin"
         rejoinButton.Size = UDim2.new(0, 100, 0, 30)
-        rejoinButton.Position = UDim2.new(0.5, -50, 0.3, -15)
+        rejoinButton.Position = UDim2.new(0.5, -50, 0.2, -15)
         rejoinButton.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
         rejoinButton.TextColor3 = Color3.new(1, 1, 1)
         rejoinButton.Font = Enum.Font.SourceSansBold
@@ -119,7 +119,6 @@ local function hideElements()
 end
 
 local function onVisiblePointObjectsChanged()
-    wait(1)
     local meshParts = workspace:WaitForChild("VisiblePointObjects"):GetDescendants()
     local hasMeshParts = #meshParts > 0
 
