@@ -71,11 +71,11 @@ scrollingFrame.Position = UDim2.new(0, 50, 0, 80)
 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 scrollingFrame.Parent = screenGui
 scrollingFrame.ScrollBarThickness = 8
-scrollingFrame.ScrollBarImageTransparency = 0
+scrollingFrame.ScrollBarImageTransparency = 0.2
 
 local titleTextLabel = Instance.new("TextLabel")
 titleTextLabel.Size = UDim2.new(0.4, 0, 0, 30)
-titleTextLabel.Position = UDim2.new(0.07, 0, 0, 10)
+titleTextLabel.Position = UDim2.new(0.09, 0, 0.08, 10)
 titleTextLabel.Text = "YT:@OneCreatorX"
 titleTextLabel.TextScaled = true
 titleTextLabel.TextColor3 = Color3.fromRGB(50, 50, 50)
