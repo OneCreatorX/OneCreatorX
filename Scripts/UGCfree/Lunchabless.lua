@@ -38,7 +38,7 @@ local function Rejoin()
     local JobId = game.JobId
 
     if #Players:GetPlayers() <= 1 then
-        Players.LocalPlayer:Kick("\nRejoining...")
+        Players.LocalPlayer:Kick("\nOneCreator X Rejoining u...")
         task.wait()
         TeleportService:Teleport(placeId, Players.LocalPlayer)
     else
@@ -66,7 +66,7 @@ local textLabel = Instance.new("TextLabel")
 textLabel.Name = "StatusTextLabel"
 textLabel.Text = "OneCreatorX Working for you, wait"
 textLabel.Size = UDim2.new(1, 0, 0, 30)
-textLabel.Position = UDim2.new(0, 0, 0.5, 0)
+textLabel.Position = UDim2.new(0, 0, 0.6, 0)
 textLabel.BackgroundColor3 = Color3.new(0, 0, 0)
 textLabel.BackgroundTransparency = 1
 textLabel.TextColor3 = Color3.new(1, 1, 1)
