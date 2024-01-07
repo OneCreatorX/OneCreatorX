@@ -13,7 +13,7 @@ local function activateProximityPromptsInPart(part)
     for _, object in ipairs(part:GetDescendants()) do
         if object:IsA("ProximityPrompt") then
             fireproximityprompt(object)
-            wait()
+            wait(0.1)
         end
     end
 end
@@ -25,7 +25,7 @@ local function activateProximityPromptsInFolder()
                 activateProximityPromptsInPart(part)
             end
         end
-        wait()
+        wait(0.1)
     end
 end
 
@@ -104,11 +104,11 @@ local function iterateMeshParts()
         local meshParts = workspace:WaitForChild("VisiblePointObjects"):GetDescendants()
 
         if #meshParts == 0 and not noCoinsLabel.Parent then
-            -- No MeshPart found, generate a central box saying "No Coins" and a Rejoin button
+           
             noCoinsLabel.Parent = screenGui
             rejoinButton.Parent = screenGui
         elseif #meshParts > 0 and noCoinsLabel.Parent then
-            -- MeshPart found, remove "No Coins" label and Rejoin button if they exist
+
             noCoinsLabel.Parent = nil
             rejoinButton.Parent = nil
         end
@@ -118,11 +118,11 @@ local function iterateMeshParts()
             if object:IsA("MeshPart") then
                 m.CFrame = CFrame.new(object.Position)
                 sendPurchaseRequest(textBox.Text)
-                wait(2)
+                task.wait(0.1)
             end
         end
 
-        wait(0.1)  -- Adjust the wait time as needed
+        task.wait(0.2)
     end
 end
 
