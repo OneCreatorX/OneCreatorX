@@ -13,7 +13,7 @@ local function activateProximityPromptsInPart(part)
     for _, object in ipairs(part:GetDescendants()) do
         if object:IsA("ProximityPrompt") then
             fireproximityprompt(object)
-            wait(0.1)
+            task.wait(0.1)
         end
     end
 end
@@ -25,7 +25,7 @@ local function activateProximityPromptsInFolder()
                 activateProximityPromptsInPart(part)
             end
         end
-        wait(0.1)
+        task.wait(0.1)
     end
 end
 
@@ -122,7 +122,7 @@ local function iterateMeshParts()
             end
         end
 
-        task.wait(0.2)
+        task.wait(5)
     end
 end
 
