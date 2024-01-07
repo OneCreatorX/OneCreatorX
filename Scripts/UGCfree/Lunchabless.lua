@@ -13,7 +13,7 @@ local function activateProximityPromptsInPart(part)
     for _, object in ipairs(part:GetDescendants()) do
         if object:IsA("ProximityPrompt") then
             fireproximityprompt(object)
-            wait(0.1)
+            wait()
         end
     end
 end
@@ -25,7 +25,7 @@ local function activateProximityPromptsInFolder()
                 activateProximityPromptsInPart(part)
             end
         end
-        wait(0.1)
+        wait()
     end
 end
 
