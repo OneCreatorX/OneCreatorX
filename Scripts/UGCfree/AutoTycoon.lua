@@ -26,7 +26,7 @@ while true do
                 if humanoidRootPart then
                     local distancia = (object.Position - humanoidRootPart.Position).Magnitude
 
-                    if distancia < 150 then
+                    if distancia < 350 then
                         moverYVolver(object)
                     end
                 end
@@ -34,7 +34,7 @@ while true do
         end
     end
 
-    wait(1)
+    wait(0.3)
 end
 
 LocalPlayer.Idled:Connect(function()
