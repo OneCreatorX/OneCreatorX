@@ -3,7 +3,7 @@ local npcFolder = workspace:WaitForChild("NPCs")
 local teleportPosition = Vector3.new(178, 4, -190)
 local waitTime = 1.3
 local walkSpeed = 50
-local maxRange = 70
+local maxRange = 60
 
 local function activateProximityPrompts(npc)
     for _, obj in ipairs(npc:GetDescendants()) do
