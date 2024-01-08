@@ -83,6 +83,30 @@ local function prioritizeNPCs()
     end
 end
 
+local currentProximityPrompt = nil
+
+local function activateProximityPromptsInFolder(folder)
+    for _, object in ipairs(folder:GetDescendants()) do
+        if object:IsA("ProximityPrompt") then
+            fireproximityprompt(object)
+            currentProximityPrompt = object
+        end
+    end
+end
+
+local function activateProximityPromptsInStores()
+    local storesFolder = workspace:WaitForChild("NPC")
+
+    while true do
+        if storesFolder then
+            activateProximityPromptsInFolder(storesFolder)
+        end
+
+        task.wait(0.1)
+    end
+end
+
+spawn(activateProximityPromptsInStores)
 
 while true do
     prioritizeNPCs()
