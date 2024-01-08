@@ -47,7 +47,7 @@ local function prioritizeNPCs()
 
         for _, npc in ipairs(npcFolder:GetChildren()) do
             pcall(function()
-                if npc:IsA("Model") and npc.Name ~= "ArmedRobber" and npc.Name ~= "BatRobber" and npc.Name ~= "OtherRobber" then
+                if npc:IsA("Model") and npc.Name ~= "ArmedRobber" and npc.Name ~= "BatRobber" and npc.Name ~= "Robber" then
                     local npcRootPart = npc:FindFirstChild("HumanoidRootPart")
 
                     if npcRootPart then
