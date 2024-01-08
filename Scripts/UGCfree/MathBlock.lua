@@ -1,4 +1,4 @@
-local s=Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)local f=Instance.new("Frame",s)local tl=Instance.new("TextLabel",f)f.Size,f.Position,f.BackgroundColor3=UDim2.new(0,200,0,50),UDim2.new(0.5,-100,0.5,-25),Color3.new(0,0,0)tl.Size,tl.Text,tl.TextSize,tl.TextColor3=UDim2.new(1,0,1,0),"Anti AFK No Kick AutoWin",20,Color3.new(1,1,1)
+local s=Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)local f=Instance.new("Frame",s)local tl=Instance.new("TextLabel",f)f.Size,f.Position=UDim2.new(0,200,0,50),UDim2.new(0.5,-100,0.5,-25)tl.Text,tl.TextSize,tl.TextColor3="Anti AFK - No Kick - AutoWin - by: OneCreatorX",20,Color3.new(1,1,1)
 
 local p=Instance.new("Part",game.Workspace)p.Size,p.Position,p.Anchored,p.Transparency=Vector3.new(50,3.04,(game.Workspace.Game.Win.Position-Vector3.new(1000,0,1000)).Magnitude),Vector3.new(10,1,49),true,1
 
