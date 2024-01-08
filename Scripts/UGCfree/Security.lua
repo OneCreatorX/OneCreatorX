@@ -3,15 +3,34 @@ local npcFolder = workspace:WaitForChild("NPCs")
 local teleportPosition = Vector3.new(178, 4, -190)
 local waitTime = 1.3
 local walkSpeed = 50
-local maxRange = 60
+local maxRange = 70
+
+local currentProximityPrompt = nil
 
 local function activateProximityPromptsInFolder(folder)
     for _, object in ipairs(folder:GetDescendants()) do
         if object:IsA("ProximityPrompt") then
             fireproximityprompt(object)
+            currentProximityPrompt = object
         end
     end
 end
+
+local function activateProximityPromptsExcludingStores()
+    while true do
+        for _, object in ipairs(workspace:GetDescendants()) do
+            if object:IsA("ProximityPrompt") and not object:IsDescendantOf(workspace:WaitForChild("Stores")) then
+                fireproximityprompt(object)
+                currentProximityPrompt = object
+            end
+        end
+
+        task.wait(0.1)
+    end
+end
+
+spawn(activateProximityPromptsExcludingStores)
+
 
 local function equipItem(player, itemName)
     local success, err = pcall(function()
@@ -37,7 +56,6 @@ local function prioritizeNPCs()
                 if npcRootPart then
                     local distance = (npcRootPart.Position - humanoidRootPart.Position).Magnitude
                     if distance <= maxRange then
-                        activateProximityPromptsInFolder(workspace)
                         humanoidRootPart.CFrame = CFrame.new(npcRootPart.Position)
                         task.wait(waitTime)
                         equipItem(player, "Detain")
