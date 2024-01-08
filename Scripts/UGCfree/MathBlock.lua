@@ -1,42 +1,11 @@
--- Crear un ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+local s=Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)local f=Instance.new("Frame",s)local tl=Instance.new("TextLabel",f)f.Size,f.Position,f.BackgroundColor3=UDim2.new(0,200,0,50),UDim2.new(0.5,-100,0.5,-25),Color3.new(0,0,0)tl.Size,tl.Text,tl.TextSize,tl.TextColor3=UDim2.new(1,0,1,0),"Anti AFK No Kick AutoWin",20,Color3.new(1,1,1)
 
--- Estilo común para las etiquetas de texto
-local estiloTexto = Enum.Font.Gotham
-local colorTexto = Color3.new(1, 1, 1) -- Color blanco
+local p=Instance.new("Part",game.Workspace)p.Size,p.Position,p.Anchored,p.Transparency=Vector3.new(50,3.04,(game.Workspace.Game.Win.Position-Vector3.new(1000,0,1000)).Magnitude),Vector3.new(10,1,49),true,1
 
--- Etiqueta de texto en el centro
-local textoCentro = Instance.new("TextLabel")
-textoCentro.Size = UDim2.new(0, 300, 0, 200)
-textoCentro.Position = UDim2.new(0.5, -150, 0.5, -100)
-textoCentro.Text = "OneCreatorX here"
-textoCentro.TextScaled = true
-textoCentro.Font = estiloTexto
-textoCentro.TextColor3 = colorTexto
-textoCentro.BackgroundTransparency = 1 -- Sin fondo
-textoCentro.Parent = screenGui
+local function t(o)local h=o.Parent:FindFirstChildOfClass("Humanoid")if h then h.WalkToPoint,h.WalkSpeed=game.Workspace.Game.Win.Position,14 end end
 
--- Etiqueta de texto debajo
-local textoDebajo = Instance.new("TextLabel")
-textoDebajo.Size = UDim2.new(0, 200, 0, 50)
-textoDebajo.Position = UDim2.new(0.5, -100, 0.8, -25)
-textoDebajo.Text = "AntiAFK-AutoWin ON"
-textoDebajo.TextScaled = true
-textoDebajo.Font = estiloTexto
-textoDebajo.TextColor3 = colorTexto
-textoDebajo.BackgroundTransparency = 1 -- Sin fondo
-textoDebajo.Parent = screenGui
+p.Touched:Connect(t)
 
-local jugadorLocal = game.Players.LocalPlayer
-local winPart = game.Workspace.Game.Win
+local function afk()while true do wait(300)local vu=game:GetService('VirtualUser')vu:CaptureController()vu:ClickButton2(Vector2.new())end end
 
-local function moverHaciaJugador()
-    if jugadorLocal and jugadorLocal.Character and jugadorLocal.Character:FindFirstChild("HumanoidRootPart") then
-        winPart.CFrame = CFrame.new(jugadorLocal.Character.HumanoidRootPart.Position)
-    end
-end
-
-while wait(0.2) do
-    moverHaciaJugador()
-end
+spawn(afk)
