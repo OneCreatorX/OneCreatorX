@@ -1,5 +1,6 @@
 local p=game.Players.LocalPlayer
 p.PlayerGui.AccessRestrictionPopup.Enabled=false
+local b=game.Lighting:FindFirstChildOfClass("BlurEffect")if b then b.Size=0 end
 game.Workspace.Camera.CameraType=Enum.CameraType.Custom
 local m=p.Character:WaitForChild("HumanoidRootPart")
 local cP
