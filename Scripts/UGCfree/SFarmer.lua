@@ -44,25 +44,40 @@ ct.BorderSizePixel = 0
 ct.Font = Enum.Font.SourceSans
 ct.TextSize = 18
 
-local playerGui = player:WaitForChild("PlayerGui")
-local templeUI = playerGui:WaitForChild("TempleUI")
-local frame = templeUI:WaitForChild("Frame")
+local isLooping = false
+
 local button = Instance.new("TextButton", f)
 button.Name = "SecretButton"
 button.Size = UDim2.new(0, 50, 0, 20)
 button.Position = UDim2.new(0.35, 10, 0, 40)
 button.BackgroundTransparency = 1
-button.Text = "Secret"
+button.Text = "AutoClaim UGC"
 button.TextColor3 = Color3.new(1, 1, 1)
 button.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 button.BorderSizePixel = 0
 button.Font = Enum.Font.SourceSans
 button.TextSize = 14
 
-button.MouseButton1Click:Connect(function()
-    templeUI.Enabled = true
-    frame.Visible = true
-end)
+local function handleButtonClick()
+    isLooping = not isLooping
+
+    if isLooping then
+        local eventName = "LegendaryHatchEvent"
+        while isLooping do
+            local args = {
+                [1] = eventName
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("ClickedEventClaimButton"):FireServer(unpack(args))
+
+            eventName = (eventName == "LegendaryHatchEvent") and "NextBossEvent1" or "LegendaryHatchEvent"
+
+            wait(1)
+        end
+    else
+    end
+end
+
+button.MouseButton1Click:Connect(handleButtonClick)
 
 local gText = Instance.new("TextLabel", f)
 gText.Size = UDim2.new(0, 200, 0, 20)
