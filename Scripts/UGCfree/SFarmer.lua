@@ -51,7 +51,7 @@ button.Name = "SecretButton"
 button.Size = UDim2.new(0, 50, 0, 20)
 button.Position = UDim2.new(0.35, 10, 0, 40)
 button.BackgroundTransparency = 1
-button.Text = "AutoClaim UGC"
+button.Text = "Secret"
 button.TextColor3 = Color3.new(1, 1, 1)
 button.BackgroundColor3 = Color3.new(30/255, 30/255, 30/255)
 button.BorderSizePixel = 0
@@ -62,16 +62,18 @@ local function handleButtonClick()
     isLooping = not isLooping
 
     if isLooping then
-        local eventName = "LegendaryHatchEvent"
+        local events = {"LegendaryHatchEvent", "NextBossEvent1"}
+        local eventIndex = 1
+
         while isLooping do
             local args = {
-                [1] = eventName
+                [1] = events[eventIndex]
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("ClickedEventClaimButton"):FireServer(unpack(args))
 
-            eventName = (eventName == "LegendaryHatchEvent") and "NextBossEvent1" or "LegendaryHatchEvent"
+            eventIndex = 3 - eventIndex -- Alternar entre 1 y 2
 
-            wait(1)
+            wait(3)
         end
     else
     end
