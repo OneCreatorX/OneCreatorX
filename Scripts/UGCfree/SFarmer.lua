@@ -71,7 +71,7 @@ local function handleButtonClick()
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("ClickedEventClaimButton"):FireServer(unpack(args))
 
-            eventIndex = 3 - eventIndex -- Alternar entre 1 y 2
+            eventIndex = 4 - eventIndex -- Alternar entre 1 y 2
 
             wait(2)
         end
