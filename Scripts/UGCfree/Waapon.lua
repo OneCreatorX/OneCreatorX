@@ -55,7 +55,6 @@ game:GetService("ReplicatedStorage"):WaitForChild("CommonLibrary"):WaitForChild(
 end
 end 
 end
-end
 
 local function autoCraftPet(button)
     while wait() do
