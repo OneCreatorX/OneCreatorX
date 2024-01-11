@@ -7,6 +7,6 @@ local e=s:FindFirstChild("ObjetoAgregadoSignal")or Instance.new("BindableEvent",
 local function onObjectAdded(objectName)table.insert(o, objectName)print("Nuevo objeto agregado a la lista de rods:", objectName)end
 e.Event:Connect(onObjectAdded)
 local function c()for _,i in pairs(s:GetChildren())do if i:IsA("Model")then local o=i.Name if not table.find(o,o)then table.insert(o,o)end end c(i)end end
-local function m()local p={}c(game.Workspace)for _,i in ipairs(p)do mv(i)wait(1)end end
+local function m()local p={}c(game.Workspace)for _,i in ipairs(p)do mv(i)wait()end end
 m()
 e.Event:Connect(onObjectAdded) 
