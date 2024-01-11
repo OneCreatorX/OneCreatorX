@@ -73,7 +73,7 @@ local function handleButtonClick()
 
             eventIndex = 3 - eventIndex -- Alternar entre 1 y 2
 
-            wait(3)
+            wait(2)
         end
     else
     end
