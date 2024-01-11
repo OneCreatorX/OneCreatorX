@@ -62,7 +62,7 @@ local function handleButtonClick()
     isLooping = not isLooping
 
     if isLooping then
-        local events = {"LegendaryHatchEvent", "NextBossEvent1"}
+        local events = {"LegendaryHatchEvent", "NextBossEvent", "UniqueEvent"}
         local eventIndex = 1
 
         while isLooping do
