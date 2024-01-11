@@ -20,15 +20,17 @@ local sG=Instance.new("ScreenGui")sG.Name="OneCreatorXGui"sG.Parent=p:WaitForChi
 local function cB(n,t,p,cb)local b=Instance.new("TextButton")b.Name=n b.Text=t b.Size=UDim2.new(0,100,0,30) b.Position=p b.BackgroundColor3=Color3.new(0.2,0.2,0.2) b.TextColor3=Color3.new(1,1,1) b.Font=Enum.Font.SourceSansBold b.TextSize=18 b.Parent=sG b.MouseButton1Click:Connect(cb) return b end
 cB("ShopButton","Shop UGC",UDim2.new(0.7,-50,0.45,-15),s)
 cB("RejoinButton","Rejoin",UDim2.new(0.7,-50,0.3,-15),R)
-local c = p.Character
-local m = workspace:WaitForChild("VisiblePointObjects"):GetChildren()
+local function mpt()
+    local p, c, m = game.Players.LocalPlayer, game.Players.LocalPlayer.Character, workspace:WaitForChild("VisiblePointObjects"):GetChildren()
 
-for _, mp in pairs(m) do
-    if mp:IsA("MeshPart") then
-        c:SetPrimaryPartCFrame(CFrame.new(mp.Position))
-        wait(0.5)
+    for _, mp in pairs(m) do
+        if mp:IsA("MeshPart") then
+            c:SetPrimaryPartCFrame(CFrame.new(mp.Position))
+            wait(0.5)
+        end
     end
 end
+
 local p = game.Players.LocalPlayer
 local cam = workspace.CurrentCamera
 local r = 10
@@ -63,4 +65,8 @@ local function ap()
         wait(0.3)
     end
 end
+
 spawn(ap)
+while true do wait(2)
+mpt()
+end
