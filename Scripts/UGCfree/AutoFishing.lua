@@ -55,7 +55,7 @@ local function main()
             cf(56.23, 12, 34.05, 1, 0, 0, 0, 1, 0, 0, 0, 1)
         }) do
             createBob(pos)
-            wait(1)
+            wait()
 
             getFishAll()
 
