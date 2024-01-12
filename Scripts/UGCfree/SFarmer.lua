@@ -94,7 +94,7 @@ local function updateText()
     gText.Text = "UDPv3-Legendary: " .. tostring(GuaranteedNumber.Text)
 end
 
-gText.Text = "UDPv3-Legendary: Click Pets"
+gText.Text = "S2-Legendary: Click Pets"
 
 GuaranteedNumber:GetPropertyChangedSignal("Text"):Connect(function()
     updateText()
