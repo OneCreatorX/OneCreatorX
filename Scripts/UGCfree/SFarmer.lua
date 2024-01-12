@@ -385,7 +385,7 @@ for i, bD in ipairs(b) do
 end
 
 local cWB = Instance.new("TextButton", f)
-cWB.Text = "TP ALL World (1-13)"
+cWB.Text = "TP ALL World (1-14)"
 cWB.Size = UDim2.new(0, 180, 0, 20)
 cWB.Position = UDim2.new(0.5, -90, 0, 40 * (#b) + 18)
 
@@ -423,10 +423,10 @@ end
 
 local function onBotonClic()
     local numeroPart = tonumber(wNI.Text)
-    if not numeroPart or numeroPart < 1 or numeroPart > 13 then
-        cWB.Text = "World not valid (Worlds 1-13)"
+    if not numeroPart or numeroPart < 1 or numeroPart > 14 then
+        cWB.Text = "World not valid (Worlds 1-14)"
         task.wait(5)
-        cWB.Text = "TP ALL World (1-13)"
+        cWB.Text = "TP ALL World (1-14)"
         return
     end
 
