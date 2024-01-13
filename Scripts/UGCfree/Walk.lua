@@ -18,7 +18,9 @@ local re = rs:WaitForChild("RemoteEvent")
 local function autoClickFight(button)
     while wait() do
         if ActivadoDict[button] then
+            wait()
             re:FireServer("StartMaze")
+            wait()
             re:FireServer("FinishMaze", true)
         end
     end
@@ -63,17 +65,24 @@ local function purchaseAndUpgradeBuilding(button)
                 }
 
                 rs:WaitForChild("RemoteEvent"):FireServer(unpack(purchaseArgs))
-
-                for j = 1, 6 do
-                    local upgradeArgs = {
-                        [1] = "UpgradeBuilding",
-                        [2] = tostring(i)
-                    }
-
-                    rs:WaitForChild("RemoteEvent"):FireServer(unpack(upgradeArgs))
-                end
             end
-wait(10)
+            break
+        end
+    end
+end
+
+local function ea(button)
+    while wait() do
+        if ActivadoDict[button] then
+            for j = 1, 7 do
+                local upgradeArgs = {
+                    [1] = "UpgradeBuilding",
+                    [2] = tostring(j)
+                }
+
+                rs:WaitForChild("RemoteEvent"):FireServer(unpack(upgradeArgs))
+            end
+            wait(2)
         end
     end
 end
@@ -101,4 +110,5 @@ end
 local autoHeartsButton = createButton("Auto Hearts", autoClickFight)
 local autoRunButton = createButton("Auto Upgrades", run)
 local speedButton = createButton("Increase Speed", speed)
-local buildingButton = createButton("BuyUpgrade Building", purchaseAndUpgradeBuilding)
+local buildingButton = createButton("Building", purchaseAndUpgradeBuilding)
+local eaButton = createButton("Upgrade B", ea)
