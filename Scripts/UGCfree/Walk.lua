@@ -74,7 +74,7 @@ end
 local function ea(button)
     while wait() do
         if ActivadoDict[button] then
-            for j = 1, 7 do
+            for j = 1, 8 do
                 local upgradeArgs = {
                     [1] = "UpgradeBuilding",
                     [2] = tostring(j)
