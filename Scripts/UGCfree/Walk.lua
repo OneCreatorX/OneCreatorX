@@ -103,6 +103,6 @@ local function createButton(name, onClick)
 end
 
 local autoHeartsButton = createButton("Auto Hearts", autoClickFight)
-local autoRunButton = createButton("Auto Run", run)
+local autoRunButton = createButton("Auto Upgrades", run)
 local speedButton = createButton("Increase Speed", speed)
 local buildingButton = createButton("BuyUpgrade Building", purchaseAndUpgradeBuilding)
