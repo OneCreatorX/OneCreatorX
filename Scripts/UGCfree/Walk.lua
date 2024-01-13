@@ -18,9 +18,7 @@ local re = rs:WaitForChild("RemoteEvent")
 local function autoClickFight(button)
     while wait() do
         if ActivadoDict[button] then
-            wait()
             re:FireServer("StartMaze")
-            wait()
             re:FireServer("FinishMaze", true)
         end
     end
