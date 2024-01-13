@@ -75,9 +75,7 @@ local function purchaseAndUpgradeBuilding(button)
                     rs:WaitForChild("RemoteEvent"):FireServer(unpack(upgradeArgs))
                 end
             end
-
-            -- Coloca aquí el código que quieras ejecutar después del bucle
-            break
+wait(10)
         end
     end
 end
