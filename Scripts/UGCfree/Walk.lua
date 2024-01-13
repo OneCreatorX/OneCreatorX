@@ -2,13 +2,13 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
 local Frame = Instance.new("Frame")
-Frame.Size, Frame.Position, Frame.BackgroundColor3, Frame.Parent, Frame.Active, Frame.Draggable = UDim2.new(0, 120, 0, 160), UDim2.new(0, 10, 0, 10), Color3.new(0.2, 0.2, 0.2), ScreenGui, true, true
+Frame.Size, Frame.Position, Frame.BackgroundColor3, Frame.Parent, Frame.Active, Frame.Draggable = UDim2.new(0, 120, 0, 200), UDim2.new(0, 10, 0, 10), Color3.new(0.2, 0.2, 0.2), ScreenGui, true, true
 
 local Title = Instance.new("TextLabel")
-Title.Text, Title.Size, Title.Position, Title.BackgroundColor3, Title.Parent = "Charity Walk Simulator", UDim2.new(0, 120, 0, 20), UDim2.new(0, 0, 0, 0), Color3.new(0.8, 0.8, 0.8), Frame
+Title.Text, Title.Size, Title.Position, Title.BackgroundColor3, Title.Parent = "Wizard Clicker Simulator", UDim2.new(0, 120, 0, 20), UDim2.new(0, 0, 0, 0), Color3.new(0.8, 0.8, 0.8), Frame
 
 local Author = Instance.new("TextLabel")
-Author.Text, Author.Size, Author.Position, Author.BackgroundColor3, Author.TextSize, Author.TextColor3, Author.Parent = "by: OneCreatorX", UDim2.new(0, 120, 0, 15), UDim2.new(0, 0, 0, 140), Color3.new(0.8, 0.8, 0.8), 10, Color3.new(1, 1, 1), Frame
+Author.Text, Author.Size, Author.Position, Author.BackgroundColor3, Author.TextSize, Author.TextColor3, Author.Parent = "by: OneCreatorX", UDim2.new(0, 120, 0, 15), UDim2.new(0, 0, 0, 180), Color3.new(0.8, 0.8, 0.8), 10, Color3.new(1, 1, 1), Frame
 
 local ActivadoDict = {}
 
@@ -18,9 +18,9 @@ local re = rs:WaitForChild("RemoteEvent")
 local function autoClickFight(button)
     while wait() do
         if ActivadoDict[button] then
-            
+            wait()
             re:FireServer("StartMaze")
-           
+            wait()
             re:FireServer("FinishMaze", true)
         end
     end
@@ -54,11 +54,39 @@ local function speed(button)
     end
 end
 
+local function purchaseAndUpgradeBuilding(button)
+    while wait() do
+        if ActivadoDict[button] then
+            for i = 1, 8 do
+                local purchaseArgs = {
+                    [1] = "PurchaseBuilding",
+                    [2] = tostring(i),
+                    [3] = "G2GTent"
+                }
+
+                rs:WaitForChild("RemoteEvent"):FireServer(unpack(purchaseArgs))
+
+                for j = 1, 6 do
+                    local upgradeArgs = {
+                        [1] = "UpgradeBuilding",
+                        [2] = tostring(i)
+                    }
+
+                    rs:WaitForChild("RemoteEvent"):FireServer(unpack(upgradeArgs))
+                end
+            end
+
+            -- Coloca aquí el código que quieras ejecutar después del bucle
+            break
+        end
+    end
+end
+
 local yOffset = 33
 
 local function createButton(name, onClick)
     local button = Instance.new("TextButton")
-    button.Text, button.Size, button.Position, button.BackgroundColor3, button.Parent = name, UDim2.new(0, 100, 0, 20), UDim2.new(0, 10, 0, yOffset), Color3.new(0.4, 0.4, 0.4), Frame
+    button.Text, button.Size, button.Position, button.BackgroundColor3, button.Parent = name, UDim2.new(0, 120, 0, 20), UDim2.new(0, 0, 0, yOffset), Color3.new(0.4, 0.4, 0.4), Frame
 
     yOffset = yOffset + 25
 
@@ -75,11 +103,6 @@ local function createButton(name, onClick)
 end
 
 local autoHeartsButton = createButton("Auto Hearts", autoClickFight)
-local autoRunButton = createButton("Auto  Upgrades", run)
+local autoRunButton = createButton("Auto Run", run)
 local speedButton = createButton("Increase Speed", speed)
-
-LocalPlayer.Idled:Connect(function()
-    local VirtualUser = game:GetService('VirtualUser')
-    VirtualUser:CaptureController()
-    VirtualUser:ClickButton2(Vector2.new())
-end)
+local buildingButton = createButton("BuyUpgrade Building", purchaseAndUpgradeBuilding)
