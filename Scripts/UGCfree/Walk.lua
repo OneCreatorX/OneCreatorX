@@ -5,7 +5,7 @@ local Frame = Instance.new("Frame")
 Frame.Size, Frame.Position, Frame.BackgroundColor3, Frame.Parent, Frame.Active, Frame.Draggable = UDim2.new(0, 120, 0, 200), UDim2.new(0, 10, 0, 10), Color3.new(0.2, 0.2, 0.2), ScreenGui, true, true
 
 local Title = Instance.new("TextLabel")
-Title.Text, Title.Size, Title.Position, Title.BackgroundColor3, Title.Parent = "Wizard Clicker Simulator", UDim2.new(0, 120, 0, 20), UDim2.new(0, 0, 0, 0), Color3.new(0.8, 0.8, 0.8), Frame
+Title.Text, Title.Size, Title.Position, Title.BackgroundColor3, Title.Parent = "Charity Walk Simulator", UDim2.new(0, 120, 0, 20), UDim2.new(0, 0, 0, 0), Color3.new(0.8, 0.8, 0.8), Frame
 
 local Author = Instance.new("TextLabel")
 Author.Text, Author.Size, Author.Position, Author.BackgroundColor3, Author.TextSize, Author.TextColor3, Author.Parent = "by: OneCreatorX", UDim2.new(0, 120, 0, 15), UDim2.new(0, 0, 0, 180), Color3.new(0.8, 0.8, 0.8), 10, Color3.new(1, 1, 1), Frame
