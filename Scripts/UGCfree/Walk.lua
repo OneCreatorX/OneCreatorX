@@ -19,9 +19,9 @@ local function autoClickFight(button)
     while wait() do
         if ActivadoDict[button] then
             
-            re:FireServer("StartTrivia")
+            re:FireServer("StartMaze")
            
-            re:FireServer("FinishTrivia", true)
+            re:FireServer("FinishMaze", true)
         end
     end
 end
