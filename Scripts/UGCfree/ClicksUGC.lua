@@ -46,6 +46,12 @@ end)
 
 RunService.Heartbeat:Connect(function()
     if isActiveB1 then
+            local args = {
+    [1] = 15984689733
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("UGC"):InvokeServer(unpack(args))
+            
         game:GetService("ReplicatedStorage").RemoteEvents.Click:FireServer()
     end
     if isActiveB2 then
