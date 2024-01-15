@@ -5,7 +5,8 @@ local runService = game:GetService("RunService")
 local function moveToPlayerPosition(part)
     if part and part:IsA("BasePart") then
         part.CFrame = player.Character.HumanoidRootPart.CFrame
-        wait(0.1)
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UGCEventRedeem"):InvokeServer()
+        wait(0.5)
         part.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
     end
 end
@@ -13,7 +14,7 @@ end
 local function disableCollisionAndInvisibility(part)
     if part and part:IsA("BasePart") then
         part.CanCollide = false
-        part.Transparency = 1 -- 1 means fully transparent, making the part invisible
+        part.Transparency = 1 
     end
 end
 
@@ -45,7 +46,7 @@ local player = game.Players.LocalPlayer
 local proximityMap = {}
 
 local function isProximityValid(proximity)
-    return true -- Puedes agregar condiciones de validez aquí si es necesario
+    return true 
 end
 
 local function activateClosestPrompt()
