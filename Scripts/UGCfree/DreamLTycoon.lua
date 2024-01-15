@@ -6,7 +6,7 @@ local function moveToPlayerPosition(part)
     if part and part:IsA("BasePart") then
         part.CFrame = player.Character.HumanoidRootPart.CFrame
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("UGCEventRedeem"):InvokeServer()
-        wait(0.5)
+        task.wait(1)
         part.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -5)
     end
 end
@@ -72,7 +72,7 @@ local function activateClosestPrompt()
             fireproximityprompt(closestPrompt)
         end
 
-        wait(0.5)
+        task.wait(1)
     end
 end
 
