@@ -51,7 +51,7 @@ end
 
 local function activateClosestPrompt()
     local humanoid = player.Character:WaitForChild("Humanoid")
-    humanoid.WalkSpeed = 100
+    humanoid.WalkSpeed = 50
 
     while true do
         local closestPrompt, closestDist
@@ -72,7 +72,7 @@ local function activateClosestPrompt()
             fireproximityprompt(closestPrompt)
         end
 
-        wait(0.3)
+        wait(0.5)
     end
 end
 
