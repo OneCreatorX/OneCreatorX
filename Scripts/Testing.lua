@@ -1,4 +1,5 @@
 local player = game.Players.LocalPlayer
+local guiEnabled = true
 
 local function eliminateMarkers()
     local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
@@ -19,14 +20,14 @@ end
 
 local function executeTasks()
     if player.Character then
-        for _ = 1, 20 do
+        for _ = 1, 15 do
             wait(0.1)
             game.ReplicatedStorage:WaitForChild("events-shared/global@GlobalEvents"):WaitForChild("getMoney"):FireServer(1e11)
         end
 
         local dominiButton = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Domini1000.Button.Button
         if player.Character:FindFirstChild("HumanoidRootPart") then
-            player.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(dominiButton.Position + Vector3.new(0, 4, 0))
+            player.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(dominiButton.Position)
         end
     end
 end
@@ -39,8 +40,8 @@ local function createUI()
         screenGui.Parent = player.PlayerGui
 
         local frame = Instance.new("Frame")
-        frame.Size = UDim2.new(0, 200, 0, 130)
-        frame.Position = UDim2.new(0.5, -100, 0.5, -65)
+        frame.Size = UDim2.new(0, 200, 0, 150)
+        frame.Position = UDim2.new(0.5, -100, 0.5, -75)
         frame.BackgroundColor3 = Color3.new(0, 0, 0)
         frame.BorderSizePixel = 2
         frame.Draggable = true
@@ -57,7 +58,7 @@ local function createUI()
         title.Parent = frame
 
         local progressLabel = Instance.new("TextLabel")
-        progressLabel.Size = UDim2.new(1, 0, 0.5, -20)
+        progressLabel.Size = UDim2.new(1, 0, 0, 20)
         progressLabel.Position = UDim2.new(0, 0, 0, 20)
         progressLabel.Text = "Progress: 0%"
         progressLabel.Font = Enum.Font.SourceSans
@@ -66,89 +67,81 @@ local function createUI()
         progressLabel.BackgroundTransparency = 1
         progressLabel.Parent = frame
 
-        local manualPrestigeButton = Instance.new("TextButton")
-        manualPrestigeButton.Size = UDim2.new(1, 0, 0.5, -20)
-        manualPrestigeButton.Position = UDim2.new(0, 0, 0.5, 0)
-        manualPrestigeButton.Text = "Manual Prestige"
-        manualPrestigeButton.Font = Enum.Font.SourceSans
-        manualPrestigeButton.TextSize = 18
-        manualPrestigeButton.TextColor3 = Color3.new(1, 1, 1)
-        manualPrestigeButton.BackgroundColor3 = Color3.new(0, 0.5, 0.5)
-        manualPrestigeButton.BorderSizePixel = 0
-        manualPrestigeButton.Parent = frame
+        local stopButton = Instance.new("TextButton")
+        stopButton.Size = UDim2.new(1, 0, 0, 20)
+        stopButton.Position = UDim2.new(0, 0, 0, 50)
+        stopButton.Text = "Stop Execution"
+        stopButton.Font = Enum.Font.SourceSans
+        stopButton.TextSize = 16
+        stopButton.TextColor3 = Color3.new(1, 1, 1)
+        stopButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
+        stopButton.BorderSizePixel = 2
+        stopButton.Parent = frame
 
-        return progressLabel, manualPrestigeButton
+        stopButton.MouseButton1Click:Connect(function()
+            guiEnabled = not guiEnabled
+            if guiEnabled then
+                stopButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
+            else
+                stopButton.BackgroundColor3 = Color3.new(0.2, 0.8, 0.2)
+            end
+        end)
+
+        return progressLabel
     else
-        return screenGui.OneCreatorXGui.ProgressLabel, screenGui.OneCreatorXGui.ManualPrestigeButton
+        return screenGui.OneCreatorXGui.ProgressLabel
     end
 end
 
-local function handleSignalConnection(progressLabel, manualPrestigeButton)
+local function handleSignalConnection(progressLabel)
     local prestigeButton = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Prestige.Button.Button
     local prestigeLabel = prestigeButton.ButtonUI.Label
 
-    -- Tabla de valores asociados a letras
-    local letterValues = {
-        k = 1e3, m = 1e6, b = 1e9, t = 1e12,
-        K = 1e3, M = 1e6, B = 1e9, T = 1e12,
-        q = 1e15, Q = 1e15, s = 1e18, S = 1e18,
-        o = 1e21, O = 1e21, n = 1e24, N = 1e24,
-        d = 1e27, D = 1e27, U = 1e30, u = 1e30
-    }
-
-    local function convertToNumber(text)
-        local number, suffix = text:match("([%d%.]+)([kmbtKMBTqQsSoOnNdDuU]*)")
-        if number then
-            local multiplier = letterValues[suffix] or 1
-            return tonumber(number) * multiplier
-        end
-        return nil
-    end
-
     local function onTextChanged()
-        local current = convertToNumber(prestigeLabel.Text)
-        local total = convertToNumber(prestigeLabel.Text:match("/ ([%d%.]+)([kmbtKMBTqQsSoOnNdDuU]*)"))
+        print("Text changed:", prestigeLabel.Text)
 
+        local current, currentSuffix, total, totalSuffix = prestigeLabel.Text:match("([%d%.]+)([kmbtKMBT]*) / ([%d%.]+)([kmbtKMBT]*)")
         if current and total then
+            current = tonumber(current)
+            total = tonumber(total)
+
+            local multipliers = {
+                k = 1e3, m = 1e6, b = 1e9, t = 1e12,
+                K = 1e3, M = 1e6, B = 1e9, T = 1e12,
+                q = 1e15, Q = 1e15, s = 1e18, S = 1e18,
+                o = 1e21, O = 1e21, n = 1e24, N = 1e24,
+                d = 1e27, D = 1e27, U = 1e30, u = 1e30
+            }
+
+            local currentMultiplier = multipliers[currentSuffix] or 1
+            local totalMultiplier = multipliers[totalSuffix] or 1
+
+            current = current * currentMultiplier
+            total = total * totalMultiplier
+
+            print("Prestige Progress:", current, "/", total)
+
             local progress = math.floor((current / total) * 100)
             progressLabel.Text = "Progress: " .. progress .. "%"
 
-            if progress >= 100 then
-                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                    player.Character:FindFirstChild("HumanoidRootPart").CFrame = prestigeButton.CFrame
-                end
+            if progress >= 150 then
+                -- Detener el bucle automáticamente si el porcentaje supera el 150%
+                guiEnabled = false
+            end
 
-                wait(0.3)
-                local prestigeArgs = {
-                    [1] = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Prestige
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("events-shared/global@GlobalEvents"):WaitForChild("buttonPressed"):FireServer(unpack(prestigeArgs))
+            if guiEnabled and progress >= 100 then
+                -- Llamada a la función cuando se alcanza el 100% de progreso y la interfaz está habilitada
                 executeTasks()
-            elseif progress >= 500 then
-                -- Si el progreso es igual o mayor al 500%, activar el botón de "Manual Prestige" y detener el bucle
-                manualPrestigeButton.Visible = true
-                return
             end
         end
     end
 
-    local function onManualPrestigeButtonClick()
-        -- Ejecutar manualmente la función executeTasks() y ocultar el botón
-        executeTasks()
-        manualPrestigeButton.Visible = false
-    end
-
-    if prestigeLabel and prestigeLabel:IsA("TextLabel") then
-        prestigeLabel:GetPropertyChangedSignal("Text"):Connect(onTextChanged)
-    end
-
-    manualPrestigeButton.MouseButton1Click:Connect(onManualPrestigeButtonClick)
+    prestigeLabel:GetPropertyChangedSignal("Text"):Connect(onTextChanged)
 end
 
 eliminateMarkers()
-local progressLabel, manualPrestigeButton = createUI()
-handleSignalConnection(progressLabel, manualPrestigeButton)
-executeTasks()
+local progressLabel = createUI()
+handleSignalConnection(progressLabel)
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
