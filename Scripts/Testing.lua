@@ -84,8 +84,14 @@ local function handleSignalConnection(progressLabel)
             current = tonumber(current)
             total = tonumber(total)
 
-            local multipliers = { k = 1e3, m = 1e6, b = 1e9, t = 1e12, K = 1e3, M = 1e6, B = 1e9, T = 1e12 }
-
+            local multipliers = {
+    k = 1e3, m = 1e6, b = 1e9, t = 1e12,
+    K = 1e3, M = 1e6, B = 1e9, T = 1e12,
+    q = 1e15, Q = 1e15, s = 1e18, S = 1e18,
+    o = 1e21, O = 1e21, n = 1e24, N = 1e24,
+    d = 1e27, D = 1e27, U = 1e30, u = 1e30
+            }
+            
             local currentMultiplier = multipliers[currentSuffix] or 1
             local totalMultiplier = multipliers[totalSuffix] or 1
 
