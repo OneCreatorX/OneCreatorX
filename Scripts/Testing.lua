@@ -77,8 +77,6 @@ local function handleSignalConnection(progressLabel)
     local prestigeLabel = prestigeButton.ButtonUI.Label
 
     local function onTextChanged()
-        print("Text changed:", prestigeLabel.Text)
-
         local current, currentSuffix, total, totalSuffix = prestigeLabel.Text:match("([%d%.]+)([kmbtKMBT]*) / ([%d%.]+)([kmbtKMBT]*)")
         if current and total then
             current = tonumber(current)
@@ -92,35 +90,34 @@ local function handleSignalConnection(progressLabel)
     d = 1e27, D = 1e27, U = 1e30, u = 1e30
             }
             
-            local currentMultiplier = multipliers[currentSuffix] or 1
-            local totalMultiplier = multipliers[totalSuffix] or 1
+            local currentMultiplier = multipliers[currentSuffix:upper()] or 1
+            local totalMultiplier = multipliers[totalSuffix:upper()] or 1
 
             current = current * currentMultiplier
             total = total * totalMultiplier
 
-            print("Prestige Progress:", current, "/", total)
-
-            if current >= total then
-                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                    player.Character:FindFirstChild("HumanoidRootPart").CFrame = prestigeButton.CFrame
-                end
-
-                wait(0.3)
-                local prestigeArgs = {
-                    [1] = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Prestige
-                }
-                game:GetService("ReplicatedStorage"):WaitForChild("events-shared/global@GlobalEvents"):WaitForChild("buttonPressed"):FireServer(unpack(prestigeArgs))
-                executeTasks()
-            end
+            local progress = math.floor((current / total) * 100)
+            progressLabel.Text = "Progress: " .. progress .. "%"
         end
     end
 
     prestigeLabel:GetPropertyChangedSignal("Text"):Connect(onTextChanged)
 end
 
+local function manualExecution()
+    local prestigeButton = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Prestige.Button.Button
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        player.Character:FindFirstChild("HumanoidRootPart").CFrame = prestigeButton.CFrame
+        wait(0.3)
+        local prestigeArgs = {
+            [1] = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Prestige
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("events-shared/global@GlobalEvents"):WaitForChild("buttonPressed"):FireServer(unpack(prestigeArgs))
+        executeTasks()
+    end
+end
+
 eliminateMarkers()
-executeTasks()
-handleSignalConnection()
 local progressLabel = createUI()
 handleSignalConnection(progressLabel)
 
@@ -128,3 +125,13 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
+
+-- Agregado para ejecución manual
+local manualExecutionButton = Instance.new("TextButton")
+manualExecutionButton.Size = UDim2.new(0, 100, 0, 30)
+manualExecutionButton.Position = UDim2.new(0.5, -50, 0.75, 15)
+manualExecutionButton.Text = "Manual Execution"
+manualExecutionButton.TextColor3 = Color3.new(1, 1, 1)
+manualExecutionButton.BackgroundColor3 = Color3.new(0, 0, 0)
+manualExecutionButton.Parent = player.PlayerGui.OneCreatorXGui
+manualExecutionButton.MouseButton1Click:Connect(manualExecution)
