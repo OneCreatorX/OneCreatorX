@@ -1,5 +1,4 @@
 local player = game.Players.LocalPlayer
-local guiEnabled = true
 
 local function eliminateMarkers()
     local playerPosition = player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character.HumanoidRootPart.Position
@@ -40,8 +39,8 @@ local function createUI()
         screenGui.Parent = player.PlayerGui
 
         local frame = Instance.new("Frame")
-        frame.Size = UDim2.new(0, 200, 0, 150)
-        frame.Position = UDim2.new(0.5, -100, 0.5, -75)
+        frame.Size = UDim2.new(0, 200, 0, 100)
+        frame.Position = UDim2.new(0.5, -100, 0.5, -50)
         frame.BackgroundColor3 = Color3.new(0, 0, 0)
         frame.BorderSizePixel = 2
         frame.Draggable = true
@@ -58,7 +57,7 @@ local function createUI()
         title.Parent = frame
 
         local progressLabel = Instance.new("TextLabel")
-        progressLabel.Size = UDim2.new(1, 0, 0, 20)
+        progressLabel.Size = UDim2.new(1, 0, 1, -20)
         progressLabel.Position = UDim2.new(0, 0, 0, 20)
         progressLabel.Text = "Progress: 0%"
         progressLabel.Font = Enum.Font.SourceSans
@@ -66,26 +65,6 @@ local function createUI()
         progressLabel.TextColor3 = Color3.new(1, 1, 1)
         progressLabel.BackgroundTransparency = 1
         progressLabel.Parent = frame
-
-        local stopButton = Instance.new("TextButton")
-        stopButton.Size = UDim2.new(1, 0, 0, 20)
-        stopButton.Position = UDim2.new(0, 0, 0, 50)
-        stopButton.Text = "Stop Execution"
-        stopButton.Font = Enum.Font.SourceSans
-        stopButton.TextSize = 16
-        stopButton.TextColor3 = Color3.new(1, 1, 1)
-        stopButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
-        stopButton.BorderSizePixel = 2
-        stopButton.Parent = frame
-
-        stopButton.MouseButton1Click:Connect(function()
-            guiEnabled = not guiEnabled
-            if guiEnabled then
-                stopButton.BackgroundColor3 = Color3.new(0.8, 0.2, 0.2)
-            else
-                stopButton.BackgroundColor3 = Color3.new(0.2, 0.8, 0.2)
-            end
-        end)
 
         return progressLabel
     else
@@ -105,13 +84,7 @@ local function handleSignalConnection(progressLabel)
             current = tonumber(current)
             total = tonumber(total)
 
-            local multipliers = {
-                k = 1e3, m = 1e6, b = 1e9, t = 1e12,
-                K = 1e3, M = 1e6, B = 1e9, T = 1e12,
-                q = 1e15, Q = 1e15, s = 1e18, S = 1e18,
-                o = 1e21, O = 1e21, n = 1e24, N = 1e24,
-                d = 1e27, D = 1e27, U = 1e30, u = 1e30
-            }
+            local multipliers = { k = 1e3, m = 1e6, b = 1e9, t = 1e12, K = 1e3, M = 1e6, B = 1e9, T = 1e12 }
 
             local currentMultiplier = multipliers[currentSuffix] or 1
             local totalMultiplier = multipliers[totalSuffix] or 1
@@ -121,16 +94,16 @@ local function handleSignalConnection(progressLabel)
 
             print("Prestige Progress:", current, "/", total)
 
-            local progress = math.floor((current / total) * 100)
-            progressLabel.Text = "Progress: " .. progress .. "%"
+            if current >= total then
+                if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    player.Character:FindFirstChild("HumanoidRootPart").CFrame = prestigeButton.CFrame
+                end
 
-            if progress >= 150 then
-                -- Detener el bucle automáticamente si el porcentaje supera el 150%
-                guiEnabled = false
-            end
-
-            if guiEnabled and progress >= 100 then
-                -- Llamada a la función cuando se alcanza el 100% de progreso y la interfaz está habilitada
+                wait(0.3)
+                local prestigeArgs = {
+                    [1] = workspace.Map.TycoonPlots.TycoonMarker.Tycoon.DefaultButtons.Prestige
+                }
+                game:GetService("ReplicatedStorage"):WaitForChild("events-shared/global@GlobalEvents"):WaitForChild("buttonPressed"):FireServer(unpack(prestigeArgs))
                 executeTasks()
             end
         end
@@ -140,9 +113,11 @@ local function handleSignalConnection(progressLabel)
 end
 
 eliminateMarkers()
+executeTasks()
+handleSignalConnection()
 local progressLabel = createUI()
 handleSignalConnection(progressLabel)
-executeTasks()
+
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
