@@ -60,22 +60,14 @@ button.TextSize = 14
 
 local function handleButtonClick()
     isLooping = not isLooping
-
     if isLooping then
         local events = {"LegendaryHatchEvent", "NextBossEvent", "UniqueEvent"}
         local eventIndex = 1
-
         while isLooping do
-            local args = {
-                [1] = events[eventIndex]
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("ClickedEventClaimButton"):FireServer(unpack(args))
-
-            eventIndex = 4
-
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("ClickedEventClaimButton"):FireServer(events[eventIndex])
+            eventIndex = (eventIndex % 3) + 1
             wait(2)
         end
-    else
     end
 end
 
