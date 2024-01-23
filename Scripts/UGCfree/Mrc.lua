@@ -23,6 +23,8 @@ function movePlayer()
     
     if h then
         p.Character:MoveTo(Vector3.new(639,115,-180))
+        wait(2)
+        p.Character:FindFirstChildOfClass("Humanoid").Jump = true
     else
         warn("HumanoidRootPart no encontrado")end
 end
