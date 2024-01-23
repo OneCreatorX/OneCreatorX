@@ -10,7 +10,7 @@ end)
 
 function spawnPart()
     local part = Instance.new("Part")
-    part.Size = Vector3.new(5, 5, 5)
+    part.Size = Vector3.new(90, 5, 90)
     part.Position = Vector3.new(639, 95, -180)
     part.Anchored = true
     part.Parent = workspace
