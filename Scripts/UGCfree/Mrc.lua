@@ -1,21 +1,33 @@
 local p=game.Players.LocalPlayer
 local s=game.StarterGui
+
 s:SetCore("SendNotification",{Title="YT:@OneCreatorX",Text="Suscribe :)",Icon="rbxassetid://1234567890",Duration=5})
+
 workspace.DescendantRemoving:Connect(function(o)
     if o:IsA("Model")and o.Name==p.Name then
-        wait(5)moveP()end
+        wait(5)spawnPart()end
 end)
-function moveP()
+
+function spawnPart()
+    local part = Instance.new("Part")
+    part.Size = Vector3.new(5, 5, 5)
+    part.Position = Vector3.new(639, 95, -180)
+    part.Anchored = true
+    part.Parent = workspace
+    
+    movePlayer()
+end
+
+function movePlayer()
     local h=p.Character:FindFirstChild("HumanoidRootPart")
     
     if h then
-        p.Character:MoveTo(Vector3.new(93, -30, -16))
-        wait(3)
-        h.Anchored=true
+        p.Character:MoveTo(Vector3.new(639,115,-180))
     else
         warn("HumanoidRootPart no encontrado")end
 end
-moveP()
+
+spawnPart()
 while wait(10)do
     local m=workspace:FindFirstChild("Spin - 1500 Points")
     if m then
@@ -25,6 +37,7 @@ while wait(10)do
     else
         warn("Spin model no encontrado en Workspace")end
 end
+
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
