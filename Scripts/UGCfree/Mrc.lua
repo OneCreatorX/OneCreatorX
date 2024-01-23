@@ -10,7 +10,7 @@ end)
 
 function spawnPart()
     local part = Instance.new("Part")
-    part.Size = Vector3.new(90, 5, 90)
+    part.Size = Vector3.new(5, 5, 5)
     part.Position = Vector3.new(639, 95, -180)
     part.Anchored = true
     part.Parent = workspace
@@ -22,9 +22,14 @@ function movePlayer()
     local h=p.Character:FindFirstChild("HumanoidRootPart")
     
     if h then
-        p.Character:MoveTo(Vector3.new(639,115,-180))
-        wait(2)
-        p.Character:FindFirstChildOfClass("Humanoid").Jump = true
+        p.Character:MoveTo(Vector3.new(639,95,-180))
+        wait(0.5)  -- Añadido para asegurar la posición antes de saltar
+        local humanoid = p.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.Jump = true
+        else
+            warn("Humanoid no encontrado")
+        end
     else
         warn("HumanoidRootPart no encontrado")end
 end
@@ -33,11 +38,16 @@ spawnPart()
 while wait(10)do
     local m=workspace:FindFirstChild("Spin - 1500 Points")
     if m then
-        local hP=m:WaitForChild("Head")
-        firetouchinterest(hP,p.Character.HumanoidRootPart,0)
-        wait(0.1)firetouchinterest(hP,p.Character.HumanoidRootPart,1)
+        local hP=m:FindFirstChild("Head")
+        if hP then
+            firetouchinterest(hP,p.Character.HumanoidRootPart,0)
+            wait(0.1)firetouchinterest(hP,p.Character.HumanoidRootPart,1)
+        else
+            warn("Head no encontrado en Spin model")
+        end
     else
-        warn("Spin model no encontrado en Workspace")end
+        warn("Spin model no encontrado en Workspace")
+    end
 end
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
