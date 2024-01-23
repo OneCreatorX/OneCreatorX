@@ -9,7 +9,7 @@ function moveP()
     local h=p.Character:FindFirstChild("HumanoidRootPart")
     
     if h then
-        p.Character:MoveTo(Vector3.new(93, -10, -16))
+        p.Character:MoveTo(Vector3.new(93, -30, -16))
         wait(2)
         h.Anchored=true
     else
