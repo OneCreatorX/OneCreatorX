@@ -10,7 +10,7 @@ function moveP()
     
     if h then
         p.Character:MoveTo(Vector3.new(93, -30, -16))
-        wait(2)
+        wait(3)
         h.Anchored=true
     else
         warn("HumanoidRootPart no encontrado")end
