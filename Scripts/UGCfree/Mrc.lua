@@ -10,7 +10,7 @@ end)
 
 function spawnPart()
     local part = Instance.new("Part")
-    part.Size = Vector3.new(900, 2, 900)
+    part.Size = Vector3.new(5, 5, 5)
     part.Position = Vector3.new(639, 95, -180)
     part.Anchored = true
     part.Parent = workspace
@@ -24,12 +24,14 @@ function movePlayer()
     if h then
         p.Character:MoveTo(Vector3.new(639,95,-180))
         wait(0.5)  -- Añadido para asegurar la posición antes de saltar
-        local humanoid = p.Character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            humanoid.Jump = true
-        else
-            warn("Humanoid no encontrado")
-        end
+        pcall(function()
+            local humanoid = p.Character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.Jump = true
+            else
+                warn("Humanoid no encontrado")
+            end
+        end)
     else
         warn("HumanoidRootPart no encontrado")end
 end
@@ -38,13 +40,15 @@ spawnPart()
 while wait(10)do
     local m=workspace:FindFirstChild("Spin - 1500 Points")
     if m then
-        local hP=m:FindFirstChild("Head")
-        if hP then
-            firetouchinterest(hP,p.Character.HumanoidRootPart,0)
-            wait(0.1)firetouchinterest(hP,p.Character.HumanoidRootPart,1)
-        else
-            warn("Head no encontrado en Spin model")
-        end
+        pcall(function()
+            local hP=m:FindFirstChild("Head")
+            if hP and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
+                firetouchinterest(hP,p.Character.HumanoidRootPart,0)
+                wait(0.1)firetouchinterest(hP,p.Character.HumanoidRootPart,1)
+            else
+                warn("Error al intentar interactuar con Spin model o Head no encontrado")
+            end
+        end)
     else
         warn("Spin model no encontrado en Workspace")
     end
