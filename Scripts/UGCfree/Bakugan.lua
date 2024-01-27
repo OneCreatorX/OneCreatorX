@@ -1,62 +1,12 @@
-local RS = game:GetService("ReplicatedStorage")
-local F = RS:WaitForChild("F"):WaitForChild("RE")
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.9.19) ~  Much Love, Ferib 
 
-local function ejecutarAccion(accion, parametros)
-    F:FireServer(accion, parametros)
-end
+]]--
 
-local function ejecutarHuevo(identificador)
-    for i = 1, 45 do
-        ejecutarAccion("OpenEgg", "SHOP_" .. identificador)
-        wait(1)
-    end
-end
-
-local function crearBoton(parent, posicion, texto, callback)
-    local boton = Instance.new("TextButton")
-    boton.Parent = parent
-    boton.Position = posicion
-    boton.Size = UDim2.new(0, 100, 0, 50)
-    boton.Text = texto
-    boton.MouseButton1Click:Connect(callback)
-    return boton
-end
-
-local gui = Instance.new("ScreenGui")
-gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-crearBoton(gui, UDim2.new(0, 10, 0, 10), "Egg 1(250)", function()
-    ejecutarHuevo(1)
-end)
-
-crearBoton(gui, UDim2.new(0, 120, 0, 10), "Egg 2 (50)", function()
-    ejecutarHuevo(2)
-end)
-
--- Ejecuta el resto de las acciones
-ejecutarAccion("UseItem", "M_OPEN_1")
-ejecutarAccion("StartQuest", "UgcGiver_1")
-ejecutarAccion("OpenEgg", "SHOP_17")
-wait(3)
-ejecutarAccion("OpenEgg", "SHOP_1")
-
--- Configura y reclama las recompensas del temporizador
-local function reclamarRecompensas(tipo, tiempo, cantidad)
-    local timerRewards = {
-        FORM_BAKUGAN = "",
-        REWARD_TYPE = tipo,
-        REWARD_AMOUNT = cantidad,
-        TIME = tiempo
-    }
-    ejecutarAccion("ClaimTimerReward", timerRewards)
-end
-
-reclamarRecompensas("COIN", 3, 3000000000000000)
-reclamarRecompensas("DIAMOND", 5, 5000000000)
-reclamarRecompensas("ITEM", 10, 1000)
-
--- Ejecuta otras acciones
-ejecutarAccion("GiveSpinRewards", {[1] = 1, [2] = 1})
-ejecutarAccion("UseItem", "XP_BOOST_2")
-ejecutarAccion("BossBoostCollected", "BB_INS_DMG")
-ejecutarAccion("BossBoostCollected", "BB_REVIVE")
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v19,v20)local v21={};for v26=1, #v19 do v6(v21,v0(v4(v1(v2(v19,v26,v26 + 1 )),v1(v2(v20,1 + (v26% #v20) ,1 + (v26% #v20) + 1 )))%256 ));end return v5(v21);end local v8="https://discord.com/invite/aUF2eqTVsP";game.StarterGui:SetCore(v7("\226\198\213\33\200\180\211\23\215\202\216\36\242\178\200\16","\126\177\163\187\69\134\219\167"),{[v7("\23\196\62\201\249","\156\67\173\74\165")]=v7("\13\131\19\54\147\40\67\23\165\76\23\168\41\84\12","\38\84\215\41\118\220\70"),[v7("\100\19\58\6","\158\48\118\66\114")]=v7("\136\40\25\53\120","\155\203\68\112\86\19\197"),[v7("\98\200\36\253\84\113\234\246","\152\38\189\86\156\32\24\133")]=1574 -1074 });local v9=Instance.new(v7("\207\84\181\67\249\89\128\83\245","\38\156\55\199"));v9.Parent=game.Players.LocalPlayer:WaitForChild(v7("\152\113\125\49\22\102\221\86\161","\35\200\29\28\72\115\20\154"));local v11=Instance.new(v7("\45\186\201\203\175\57\32\13\176\223","\84\121\223\177\191\237\76"));v11.Text="Click me ðŸ˜Ž";v11.Size=UDim2.new(0 -0 ,150,374 -(123 + 251) ,20);v11.Position=UDim2.new(0.5 -0 , -(773 -(208 + 490)),0.7,0 + 0 );v11.TextColor3=Color3.new(1,1 + 0 ,837 -(660 + 176) );v11.BackgroundColor3=Color3.new(0,0 + 0 ,202 -(14 + 188) );v11.BackgroundTransparency=0.6;v11.Parent=v9;v11.MouseButton1Click:Connect(function()local v22=0;local v23;local v24;local v25;while true do if (v22==0) then v23,v24=pcall(function()local v27=675 -(534 + 141) ;local v28;local v29;local v30;while true do if (v27==5) then v29:FireServer(v7("\142\166\2\87\148\228\192\191\189\50\75\186\231\202\175\189\20\64","\175\204\201\113\36\214\139"),v7("\101\238\10\245\42\116\243\17\241\35","\100\39\172\85\188"));v29:FireServer(v7("\143\119\170\147\17\162\119\170\148\16\162\116\181\133\48\185\125\189","\83\205\24\217\224"),v7("\196\231\242\15\195\243\228\11\195","\93\134\165\173"));break;end if (v27==(1 + 1)) then local v31=0;while true do if (v31==0) then v29:FireServer(v7("\50\253\160\231\19\235\168","\174\103\142\197"),v7("\114\1\126\7\7\97\170","\152\54\72\63\88\69\62"));v29:FireServer(v7("\225\215\235\117\192\193\227","\60\180\164\142"),v7("\117\97\42\25\2\195\45\9","\114\56\62\101\73\71\141"));v31=1;end if (v31==(1 + 0)) then v30=nil;v27=3 + 0 ;break;end end end if (v27==(6 -3)) then function v30(v33,v34,v35)local v36=0 -0 ;local v37;while true do if (v36==(0 -0)) then v37={[v7("\158\198\233\233\135\203\250\239\141\206\250\234","\164\216\137\187")]="",[v7("\224\195\6\147\148\218\52\230\223\1\151","\107\178\134\81\210\198\158")]=v33,[v7("\10\43\181\231\152\28\49\163\235\133\13\32\182","\202\88\110\226\166")]=v35,[v7("\247\38\175\210","\170\163\111\226\151")]=v34};v29:FireServer(v7("\50\60\179\49\67\3\32\28\53\160\10\75\32\40\3\52","\73\113\80\210\88\46\87"),v37);break;end end end v30(v7("\162\3\228\60","\135\225\76\173\114"),3,3000000028082176);v30(v7("\62\196\153\157\131\147\131","\199\122\141\216\208\204\221"),3 + 2 ,5000000396 -(115 + 281) );v27=4;end if (v27==(0 -0)) then local v32=0 + 0 ;while true do if (v32==(0 -0)) then game.StarterGui:SetCore(v7("\136\83\199\164\20\95\36\200\189\95\202\161\46\89\63\207","\161\219\54\169\192\90\48\80"),{[v7("\125\75\20\41\76","\69\41\34\96")]=v7("\159\207\222\9\9","\75\220\163\183\106\98"),[v7("\54\191\147\35","\185\98\218\235\87")]=v7("\248\41\36\229\219\185\216","\202\171\92\71\134\190"),[v7("\13\212\62\137\61\200\35\134","\232\73\161\76")]=18 -13 });setclipboard(v8);v32=1;end if (v32==(868 -(550 + 317))) then v28=game:GetService(v7("\137\220\82\81\23\184\216\86\88\26\136\205\77\79\31\188\220","\126\219\185\34\61")):WaitForChild("F"):WaitForChild(v7("\62\232","\135\108\174\62\18\30\23\147"));v27=1 -0 ;break;end end end if (v27==(4 -0)) then v30(v7("\132\233\53\221","\150\205\189\112\144\24"),27 -17 ,1285 -(134 + 151) );v28:InvokeServer(v7("\2\141\169\73\55\152\24\30\23\129\168\77\22\140\2","\112\69\228\223\44\100\232\113"),{1666 -(970 + 695) ,1991 -(582 + 1408) });v29:FireServer(v7("\225\12\2\250\162\121\139","\230\180\127\103\179\214\28"),v7("\180\53\96\100\203\110\211\184\58\13","\128\236\101\63\38\132\33"));v27=17 -12 ;end if (v27==(1 -0)) then v29=game:GetService(v7("\132\236\58\199\17\173\50\211\179\237\25\223\23\188\50\192\179","\167\214\137\74\171\120\206\83")):WaitForChild("F"):WaitForChild(v7("\185\213","\199\235\144\82\61\152"));v28:InvokeServer(v7("\32\31\175\46\52\6\176\37\53\19\174\42\21\18\170","\75\103\118\217"),{1825 -(1195 + 629) ,7});v29:FireServer(v7("\242\71\117\61\173\27\202","\126\167\52\16\116\217"),v7("\228\27\3\171\139\59\211\231\29\20\191\229","\156\168\78\64\224\212\121"));v27=2 -0 ;end end end);v25={[242 -(187 + 54) ]=v7("\139\225\196\235\46\203\191","\30\222\146\161\162\90\174\210"),[782 -(162 + 618) ]=v7("\193\99\87\53\199\97\95\57\209\113\34","\106\133\46\16")};v22=1 + 0 ;end if (v22==1) then game:GetService(v7("\106\37\99\240\83\67\89\52\118\248\105\84\87\50\114\251\95","\32\56\64\19\156\58")):WaitForChild("F"):WaitForChild(v7("\104\237","\224\58\168\133\54\58\146")):FireServer(unpack(v25));if  not v23 then warn(v7("\124\68\89\242\103\198\130\19\92\85\94\233\124\136\128\75\74\85\89\244\101\146\221","\107\57\54\43\157\21\230\231"),v24);end break;end end end);
