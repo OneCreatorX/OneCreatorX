@@ -9,6 +9,8 @@ menuFrame.Position = UDim2.new(0.5, -50, 0, 10)
 menuFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 menuFrame.BorderSizePixel = 0
 menuFrame.Parent = Tractor
+menuFrame.Draggable = true
+menuFrame.Active = true
 
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
@@ -20,9 +22,6 @@ titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.Font = Enum.Font.SourceSans
 titleLabel.TextSize = 14
 titleLabel.Parent = menuFrame
-
-menuFrame.Draggable = true
-menuFrame.Active = true
 
 local function createMenuButton(buttonText, callback, waitTime)
     local button = Instance.new("TextButton")
@@ -47,32 +46,21 @@ local function createMenuButton(buttonText, callback, waitTime)
         toggleButtonColor()
         while isRunning do
             callback()
-            wait(waitTime or 1)
+            task.wait(waitTime or 1)
         end
     end)
 
     return button, toggleButtonColor
 end
 
-local damageButton, toggleDamageButtonColor = createMenuButton("Daño", function()
-    game:GetService("ReplicatedStorage").Events.DamageIncreaseOnClickEvent:FireServer()
-end, 1)
+local damageButton, toggleDamageButtonColor = createMenuButton("Click Damage", function() game:GetService("ReplicatedStorage").Events.DamageIncreaseOnClickEvent:FireServer()
+end, 0.1)
 
-local sellButton, toggleSellButtonColor = createMenuButton("Vender", function()
-    game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()
+local sellButton, toggleSellButtonColor = createMenuButton("Sell BackP", function() game:GetService("ReplicatedStorage").Events.SellBlocks:FireServer()
 end, 4)
 
-local ascendButton, toggleAscendButtonColor = createMenuButton("Ascender", function()
-    game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)
+local ascendButton, toggleAscendButtonColor = createMenuButton("Ascend", function() game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)
 end, 10)
 
-local autoBuyButton, toggleAutoBuyButtonColor = createMenuButton("Upgrade Tractor", function()
-    game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("HarvestRange")
-    wait(1)
-    game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorSpeed")
-    wait(1)
-    game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorPower")
-    wait(1)
-    game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorEvolution")
-    wait(15)
+local autoBuyButton, toggleAutoBuyButtonColor = createMenuButton("Upgrade Tractor", function() game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("HarvestRange") game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorSpeed") game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorPower") game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorEvolution")
 end, 15)
