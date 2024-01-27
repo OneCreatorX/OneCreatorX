@@ -66,7 +66,7 @@ local ascendButton, toggleAscendButtonColor = createMenuButton("Ascender", funct
     game:GetService("ReplicatedStorage").Events.AscendEvent:FireServer(true)
 end, 10)
 
-local autoBuyButton, toggleAutoBuyButtonColor = createMenuButton("AutoBuy Tractor", function()
+local autoBuyButton, toggleAutoBuyButtonColor = createMenuButton("Upgrade Tractor", function()
     game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("HarvestRange")
     wait(1)
     game:GetService("ReplicatedStorage").Events.PlayerUpgradeTank:FireServer("TractorSpeed")
