@@ -38,7 +38,7 @@ function jumpBehavior()
 
     return function()
         humanoid.Jump = true
-        wait(0.3)
+        wait()
         humanoid.Jump = false
     end
 end
