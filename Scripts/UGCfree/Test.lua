@@ -33,6 +33,23 @@ function afkBehavior()
     -- No hace nada especial, ya que AFK no requiere una acción en bucle
 end
 
+-- Verificar si ya existen archivos al inicio
+for _, archivo in pairs(quests:GetChildren()) do
+    local completedBool = archivo:FindFirstChild("Completed")
+    if completedBool and completedBool.Value then
+        local nombreArchivo = archivo.Name
+        if nombreArchivo == "Runner" then
+            spawn(runnerBehavior)
+        elseif nombreArchivo == "AFK" then
+            afkBehavior()
+        elseif nombreArchivo == "Clicker" then
+            spawn(clickerBehavior)
+        elseif nombreArchivo == "Jump" then
+            spawn(jumpBehavior)
+        end
+    end
+end
+
 quests.ChildAdded:Connect(function(archivo)
     print("Nuevo archivo agregado:", archivo.Name)
     local completedBool = archivo:WaitForChild("Completed")
