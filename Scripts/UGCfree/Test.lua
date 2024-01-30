@@ -9,15 +9,18 @@ local destinations = {
     Vector3.new(2, 8, -17)
 }
 
+function movePlayerTo(destination)
+    jugadorLocal.Character:WaitForChild("Humanoid").WalkToPoint = destination
+end
+
+
 function spamBehavior(actionFunction)
     local completed = false
 
-    local connection
-    connection = game:GetService("RunService").Heartbeat:Connect(function()
-        if not completed then
+    spawn(function()
+        while not completed do
             actionFunction()
-        else
-            connection:Disconnect()
+         task.wait()
         end
     end)
 
@@ -26,16 +29,19 @@ function spamBehavior(actionFunction)
     end
 end
 
-function movePlayerTo(destination)
-    jugadorLocal.Character:WaitForChild("Humanoid").WalkToPoint = destination
-end
-
 function runnerBehavior()
     local currentDestinationIndex = 1
+    local distanceThreshold = 5 
 
     return function()
-        movePlayerTo(destinations[currentDestinationIndex])
-        currentDestinationIndex = (currentDestinationIndex % #destinations) + 1
+        local humanoid = jugadorLocal.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            local currentPos = humanoid.Parent and humanoid.Parent.PrimaryPart and humanoid.Parent.PrimaryPart.Position
+            if currentPos and (currentPos - destinations[currentDestinationIndex]).Magnitude < distanceThreshold then
+                currentDestinationIndex = (currentDestinationIndex % #destinations) + 1
+            end
+            movePlayerTo(destinations[currentDestinationIndex])
+        end
     end
 end
 
@@ -45,47 +51,19 @@ function clickerBehavior()
     end
 end
 
-function jumperBehavior()
+function jumpBehavior()
+    local character = jugadorLocal.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+
     return function()
-        local humanoid = jugadorLocal.Character:FindFirstChildOfClass("Humanoid")
-        if humanoid then
-            humanoid.Jump = true
-            humanoid.Jump = false
-        end
+        humanoid.Jump = true
+        task.wait(0.001)
+        humanoid.Jump = false
     end
 end
 
 function afkBehavior()
     return function()
-        -- No se requiere una acción específica para AFK
-    end
-end
-
--- Verificar si ya existen archivos al inicio
-for _, archivo in pairs(quests:GetChildren()) do
-    local completedBool = archivo:FindFirstChild("Completed")
-    if completedBool and completedBool.Value then
-        local nombreArchivo = archivo.Name
-        local actionFunc
-        if nombreArchivo == "Runner" then
-            actionFunc = runnerBehavior()
-        elseif nombreArchivo == "AFK" then
-            actionFunc = afkBehavior()
-        elseif nombreArchivo == "Clicker" then
-            actionFunc = clickerBehavior()
-        elseif nombreArchivo == "Jumper" then
-            actionFunc = jumperBehavior()
-        end
-
-        local stopSpam = spamBehavior(actionFunc)
-
-        completedBool.Changed:Connect(function(newValue)
-            print("Completed cambiado a:", newValue)
-            if newValue then
-                stopSpam()  -- Detener la acción en bucle cuando la tarea está completa
-                game:GetService("ReplicatedStorage"):WaitForChild("ClaimQuestReward"):FireServer(nombreArchivo)
-            end
-        end)
     end
 end
 
@@ -101,8 +79,8 @@ quests.ChildAdded:Connect(function(archivo)
         actionFunc = afkBehavior()
     elseif nombreArchivo == "Clicker" then
         actionFunc = clickerBehavior()
-    elseif nombreArchivo == "Jumper" then
-        actionFunc = jumperBehavior()
+    elseif nombreArchivo == "Jumper" then  -- Aquí cambió de "Jump" a "Jumper"
+        actionFunc = jumpBehavior()
     end
 
     local stopSpam = spamBehavior(actionFunc)
@@ -110,7 +88,7 @@ quests.ChildAdded:Connect(function(archivo)
     completedBool.Changed:Connect(function(newValue)
         print("Completed cambiado a:", newValue)
         if newValue then
-            stopSpam()
+            stopSpam()  -- Detener la acción en bucle cuando la tarea está completa
             game:GetService("ReplicatedStorage"):WaitForChild("ClaimQuestReward"):FireServer(nombreArchivo)
         end
     end)
