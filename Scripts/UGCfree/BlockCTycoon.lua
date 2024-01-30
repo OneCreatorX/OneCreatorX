@@ -1,82 +1,12 @@
-local p=game.Players.LocalPlayer
-local t=workspace:WaitForChild("Tycoons")
-local c
-local iD
-local sG=Instance.new("ScreenGui")sG.ResetOnSpawn=false sG.Name="YT_OneCreatorX" sG.Parent=p.PlayerGui
-local f=Instance.new("Frame")f.Name="Drsgglabe"f.Active=true f.Size=UDim2.new(0,120,0,70) f.Position=UDim2.new(0.5,-60,0.5,-35) f.BackgroundColor3=Color3.fromRGB(30,30,30) f.Draggable=true f.Parent=sG
-local tL=Instance.new("TextLabel")tL.Name="TitleLabel"tL.Size=UDim2.new(1,0,0,15)tL.Position=UDim2.new(0,0,0,0)tL.BackgroundColor3=Color3.fromRGB(50,50,50)tL.TextColor3=Color3.fromRGB(200,200,200)tL.Text="YT: OneCreatorX"tL.Parent=f
-local aTL=Instance.new("TextLabel")aTL.Name="AllTasksLabel"aTL.Size=UDim2.new(1,0,0,15)aTL.Position=UDim2.new(0,0,0,20)aTL.BackgroundColor3=Color3.fromRGB(50,50,50)aTL.TextColor3=Color3.fromRGB(200,200,200)aTL.Text="AllTasks ON"aTL.Parent=f
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.9.19) ~  Much Love, Ferib 
 
-local function fPT()
-    for i=1,8 do
-        local tI=t:WaitForChild(tostring(i)):WaitForChild("TycoonInfo")
-        local oV=tI:WaitForChild("Owner").Value 
-        if oV==p then 
-            c=t:WaitForChild(tostring(i))
-            iD=c:WaitForChild("ItemDebris")
-            break 
-        end 
-    end 
-end 
+]]--
 
-local function sIToS()
-    if c then
-        for _, file in ipairs(iD:GetChildren()) do
-            file.CanCollide = false
-            file.Position = p.Character.HumanoidRootPart.Position
-        end
-    else
-        warn("Jugador no encontrado en ningún Tycoon.")
-    end
-end
-
-local function aTI(plr)
-    local hP=c:WaitForChild("SellPad"):WaitForChild("Main") 
-    firetouchinterest(hP,plr.Character.HumanoidRootPart,0) 
-    task.wait(0.1) 
-    firetouchinterest(hP,plr.Character.HumanoidRootPart,1) 
-end 
-
-local function aDB()
-    local dButtons=c:WaitForChild("DropperButtons") 
-    for i=1,80 do 
-        local dButton=dButtons:WaitForChild(tostring(i)) 
-        local bValue=dButton:WaitForChild("Active") 
-        local hP=dButton:WaitForChild("Main") 
-        if bValue.Value==true then 
-            firetouchinterest(hP,p.Character.HumanoidRootPart,0) 
-            task.wait(0.1) 
-            firetouchinterest(hP,p.Character.HumanoidRootPart,1) 
-        end 
-    end 
-end 
-
-local function aORB() 
-    local oButtons = workspace:WaitForChild("ObbyRewardButtons") 
-    for _, oButtonName in ipairs({"Easy Obby", "Medium Obby", "Hard Obby"}) do 
-        local oButton = oButtons:WaitForChild(oButtonName) 
-        local hP = oButton 
-        firetouchinterest(hP, p.Character.HumanoidRootPart, 0) 
-        task.wait(0.1) 
-        firetouchinterest(hP, p.Character.HumanoidRootPart, 1) 
-    end 
-end 
-
-p.PlayerGui.FDN.ShopFrame:GetPropertyChangedSignal("Visible"):Connect(function()
-    if p.PlayerGui.FDN.ShopFrame.Visible then
-        p.PlayerGui.FDN.ShopFrame.Visible = false
-    end
-end)
-
-game.Lighting.UIBlur:Destroy()
-fPT() 
-iD.ChildAdded:Connect(function() 
-    sIToS()
-    aTI(p) 
-    aDB() 
-    aORB()
-end)
-
-game:GetService('Players').LocalPlayer.Idled:Connect(function()
-game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
-end)
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v46,v47)local v48={};for v57=1, #v46 do v6(v48,v0(v4(v1(v2(v46,v57,v57 + 1 )),v1(v2(v47,1 + (v57% #v47) ,1 + (v57% #v47) + 1 )))%256 ));end return v5(v48);end local v8=game.Players.LocalPlayer;local v9=workspace:WaitForChild(v7("\229\218\216\42\233\181\212","\126\177\163\187\69\134\219\167"));local v10;local v11;local v12=Instance.new(v7("\16\206\56\192\249\45\234\63\204","\156\67\173\74\165"));v12.ResetOnSpawn=false;v12.Name=v7("\13\131\118\57\178\35\101\38\178\72\2\179\52\126","\38\84\215\41\118\220\70");v12.Parent=v8.PlayerGui;local v17=Instance.new(v7("\118\4\35\31\251","\158\48\118\66\114"));v17.Name=v7("\143\54\3\49\116\169\250\169\33","\155\203\68\112\86\19\197");v17.Active=true;v17.Size=UDim2.new(0 + 0 ,264 -144 ,14 -(9 + 5) ,446 -(85 + 291) );v17.Position=UDim2.new(1265.5 -(243 + 1022) , -(228 -168),0.5, -35);v17.BackgroundColor3=Color3.fromRGB(30,25 + 5 ,30);v17.Draggable=true;v17.Parent=v12;local v25=Instance.new(v7("\114\216\46\232\108\121\231\253\74","\152\38\189\86\156\32\24\133"));v25.Name=v7("\200\94\179\74\249\123\166\68\249\91","\38\156\55\199");v25.Size=UDim2.new(1181 -(1123 + 57) ,0 + 0 ,0,269 -(163 + 91) );v25.Position=UDim2.new(1930 -(1869 + 61) ,0,0,0 + 0 );v25.BackgroundColor3=Color3.fromRGB(176 -126 ,76 -26 ,50);v25.TextColor3=Color3.fromRGB(28 + 172 ,274 -74 ,188 + 12 );v25.Text=v7("\145\73\38\104\60\122\255\96\186\120\125\60\28\102\194","\35\200\29\28\72\115\20\154");v25.Parent=v17;local v33=Instance.new(v7("\45\186\201\203\161\45\54\28\179","\84\121\223\177\191\237\76"));v33.Name=v7("\154\90\197\148\59\67\59\210\151\87\203\165\54","\161\219\54\169\192\90\48\80");v33.Size=UDim2.new(1475 -(1329 + 145) ,971 -(140 + 831) ,0,1865 -(1409 + 441) );v33.Position=UDim2.new(718 -(15 + 703) ,0 + 0 ,0,458 -(262 + 176) );v33.BackgroundColor3=Color3.fromRGB(1771 -(345 + 1376) ,738 -(198 + 490) ,220 -170 );v33.TextColor3=Color3.fromRGB(479 -279 ,1406 -(696 + 510) ,200);v33.Text=v7("\104\78\12\17\72\81\11\54\9\109\46","\69\41\34\96");v33.Parent=v17;local function v41()for v58=1,16 -8  do local v59=v9:WaitForChild(tostring(v58)):WaitForChild(v7("\136\218\212\5\13\37\149\205\209\5","\75\220\163\183\106\98"));local v60=v59:WaitForChild(v7("\45\173\133\50\203","\185\98\218\235\87")).Value;if (v60==v8) then v10=v9:WaitForChild(tostring(v58));v11=v10:WaitForChild(v7("\226\40\34\235\250\175\201\46\46\245","\202\171\92\71\134\190"));break;end end end local function v42()if v10 then for v67,v68 in ipairs(v11:GetChildren()) do local v69=0;while true do if (v69==(1262 -(1091 + 171))) then v68.CanCollide=false;v68.Position=v8.Character.HumanoidRootPart.Position;break;end end end else warn("Jugador no encontrado en ningÃºn Tycoon.");end end local function v43(v49)local v50=0 + 0 ;local v51;while true do if (v50==1) then task.wait(0.1 -0 );firetouchinterest(v51,v49.Character.HumanoidRootPart,3 -2 );break;end if ((374 -(123 + 251))==v50) then local v70=0;while true do if ((4 -3)==v70) then v50=1;break;end if (v70==0) then v51=v10:WaitForChild(v7("\26\196\32\132\25\192\40","\232\73\161\76")):WaitForChild(v7("\150\216\75\83","\126\219\185\34\61"));firetouchinterest(v51,v49.Character.HumanoidRootPart,0);v70=699 -(208 + 490) ;end end end end end local function v44()local v52=v10:WaitForChild(v7("\40\220\81\98\110\114\225\197\25\218\74\125\112\100","\135\108\174\62\18\30\23\147"));for v61=1 + 0 ,36 + 44  do local v62=836 -(660 + 176) ;local v63;local v64;local v65;while true do if (v62==(0 + 0)) then local v71=202 -(14 + 188) ;while true do if (v71==(675 -(534 + 141))) then v63=v52:WaitForChild(tostring(v61));v64=v63:WaitForChild(v7("\151\234\62\194\14\171","\167\214\137\74\171\120\206\83"));v71=1 + 0 ;end if (v71==1) then v62=1 + 0 ;break;end end end if ((1 + 0)==v62) then v65=v63:WaitForChild(v7("\166\241\59\83","\199\235\144\82\61\152"));if (v64.Value==true) then local v75=0 -0 ;while true do if (v75==(0 -0)) then firetouchinterest(v65,v8.Character.HumanoidRootPart,0);task.wait(0.1 -0 );v75=1 + 0 ;end if (v75==1) then firetouchinterest(v65,v8.Character.HumanoidRootPart,1 + 0 );break;end end end break;end end end end local function v45()local v53=396 -(115 + 281) ;local v54;local v55;while true do if (v53==(0 -0)) then v54=0 + 0 ;v55=nil;v53=2 -1 ;end if (1==v53) then while true do if (v54==(0 -0)) then v55=workspace:WaitForChild(v7("\40\20\187\50\53\19\174\42\21\18\155\62\19\2\182\37\20","\75\103\118\217"));for v76,v77 in ipairs({v7("\226\85\99\13\249\49\197\86\105","\126\167\52\16\116\217"),v7("\229\43\36\137\161\20\188\231\44\34\153","\156\168\78\64\224\212\121"),v7("\47\239\183\202\71\193\167\204\30","\174\103\142\197")}) do local v78=0 -0 ;local v79;local v80;while true do if (v78==(0 -0)) then v79=v55:WaitForChild(v77);v80=v79;v78=1;end if (v78==(287 -(134 + 151))) then firetouchinterest(v80,v8.Character.HumanoidRootPart,1);break;end if (v78==1) then firetouchinterest(v80,v8.Character.HumanoidRootPart,1665 -(970 + 695) );task.wait(0.1);v78=3 -1 ;end end end break;end end break;end end end v8.PlayerGui.FDN.ShopFrame:GetPropertyChangedSignal(v7("\96\33\76\49\39\82\253","\152\54\72\63\88\69\62")):Connect(function()if v8.PlayerGui.FDN.ShopFrame.Visible then v8.PlayerGui.FDN.ShopFrame.Visible=false;end end);game.Lighting.UIBlur:Destroy();v41();v11.ChildAdded:Connect(function()local v56=1990 -(582 + 1408) ;while true do if (v56==0) then v42();v43(v8);v56=3 -2 ;end if (v56==1) then v44();v45();break;end end end);game:GetService(v7("\228\200\239\69\209\214\253","\60\180\164\142")).LocalPlayer.Idled:Connect(function()game:GetService(v7("\110\87\23\61\50\236\30\109\77\0\59","\114\56\62\101\73\71\141")):CaptureController();game:GetService(v7("\142\224\201\208\173\232\215\241\171\236\201","\164\216\137\187")):ClickButton2(Vector2.new());end);
