@@ -5,10 +5,12 @@ local clickerRemote = game:GetService("ReplicatedStorage"):WaitForChild("MouseCl
 function spamBehavior(actionFunction)
     local completed = false
 
-    spawn(function()
-        while not completed do
+    local connection
+    connection = game:GetService("RunService").Heartbeat:Connect(function()
+        if not completed then
             actionFunction()
-            wait()
+        else
+            connection:Disconnect()
         end
     end)
 
@@ -22,7 +24,7 @@ function runnerBehavior()
     local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 
     return function()
-        humanoid.WalkToPoint = Vector3.new(math.random(-5, 5), 0, math.random(-5, 5))
+        humanoid.WalkToPoint = Vector3.new(math.random(-50, 50), 0, math.random(-50, 50))
     end
 end
 
@@ -32,21 +34,18 @@ function clickerBehavior()
     end
 end
 
-function jumpBehavior()
+function jumperBehavior()
     local character = jugadorLocal.Character
     local humanoid = character and character:FindFirstChildOfClass("Humanoid")
 
     return function()
         humanoid.Jump = true
-        wait()
         humanoid.Jump = false
     end
 end
 
 function afkBehavior()
-    -- No hace nada especial, ya que AFK no requiere una acción en bucle
     return function()
-        -- No se requiere acción de finalización para AFK
     end
 end
 
@@ -63,7 +62,7 @@ for _, archivo in pairs(quests:GetChildren()) do
         elseif nombreArchivo == "Clicker" then
             actionFunc = clickerBehavior()
         elseif nombreArchivo == "Jumper" then
-            actionFunc = jumpBehavior()
+            actionFunc = jumperBehavior()
         end
 
         local stopSpam = spamBehavior(actionFunc)
@@ -91,7 +90,7 @@ quests.ChildAdded:Connect(function(archivo)
     elseif nombreArchivo == "Clicker" then
         actionFunc = clickerBehavior()
     elseif nombreArchivo == "Jumper" then
-        actionFunc = jumpBehavior()
+        actionFunc = jumperBehavior()
     end
 
     local stopSpam = spamBehavior(actionFunc)
