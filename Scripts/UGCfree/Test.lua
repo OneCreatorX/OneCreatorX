@@ -2,6 +2,13 @@ local jugadorLocal = game.Players.LocalPlayer
 local quests = jugadorLocal.Quests
 local clickerRemote = game:GetService("ReplicatedStorage"):WaitForChild("MouseClicked")
 
+local destinations = {
+    Vector3.new(0, 8, 30),
+    Vector3.new(-32, 8, 0),
+    Vector3.new(40, 8, 0),
+    Vector3.new(2, 8, -17)
+}
+
 function spamBehavior(actionFunction)
     local completed = false
 
@@ -19,12 +26,16 @@ function spamBehavior(actionFunction)
     end
 end
 
+function movePlayerTo(destination)
+    jugadorLocal.Character:WaitForChild("Humanoid").WalkToPoint = destination
+end
+
 function runnerBehavior()
-    local character = jugadorLocal.Character
-    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    local currentDestinationIndex = 1
 
     return function()
-        humanoid.WalkToPoint = Vector3.new(math.random(-50, 50), 0, math.random(-50, 50))
+        movePlayerTo(destinations[currentDestinationIndex])
+        currentDestinationIndex = (currentDestinationIndex % #destinations) + 1
     end
 end
 
@@ -35,17 +46,18 @@ function clickerBehavior()
 end
 
 function jumperBehavior()
-    local character = jugadorLocal.Character
-    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
-
     return function()
-        humanoid.Jump = true
-        humanoid.Jump = false
+        local humanoid = jugadorLocal.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.Jump = true
+            humanoid.Jump = false
+        end
     end
 end
 
 function afkBehavior()
     return function()
+        -- No se requiere una acción específica para AFK
     end
 end
 
@@ -98,7 +110,7 @@ quests.ChildAdded:Connect(function(archivo)
     completedBool.Changed:Connect(function(newValue)
         print("Completed cambiado a:", newValue)
         if newValue then
-            stopSpam()  -- Detener la acción en bucle cuando la tarea está completa
+            stopSpam()
             game:GetService("ReplicatedStorage"):WaitForChild("ClaimQuestReward"):FireServer(nombreArchivo)
         end
     end)
