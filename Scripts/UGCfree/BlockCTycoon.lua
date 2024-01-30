@@ -33,7 +33,7 @@ end
 local function aTI(plr)
     local hP=c:WaitForChild("SellPad"):WaitForChild("Main") 
     firetouchinterest(hP,plr.Character.HumanoidRootPart,0) 
-    wait(0.1) 
+    task.wait(0.1) 
     firetouchinterest(hP,plr.Character.HumanoidRootPart,1) 
 end 
 
@@ -45,7 +45,7 @@ local function aDB()
         local hP=dButton:WaitForChild("Main") 
         if bValue.Value==true then 
             firetouchinterest(hP,p.Character.HumanoidRootPart,0) 
-            wait(0.1) 
+            task.wait(0.1) 
             firetouchinterest(hP,p.Character.HumanoidRootPart,1) 
         end 
     end 
@@ -57,7 +57,7 @@ local function aORB()
         local oButton = oButtons:WaitForChild(oButtonName) 
         local hP = oButton 
         firetouchinterest(hP, p.Character.HumanoidRootPart, 0) 
-        wait(0.1) 
+        task.wait(0.1) 
         firetouchinterest(hP, p.Character.HumanoidRootPart, 1) 
     end 
 end 
@@ -75,4 +75,8 @@ iD.ChildAdded:Connect(function()
     aTI(p) 
     aDB() 
     aORB()
+end)
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
