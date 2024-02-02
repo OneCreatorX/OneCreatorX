@@ -1,77 +1,12 @@
-local gui = Instance.new("ScreenGui")
-gui.ResetOnSpawn = false
-gui.Parent = game.Players.LocalPlayer.PlayerGui
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.9.19) ~  Much Love, Ferib 
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 200, 0, 150)
-frame.Position = UDim2.new(0.5, -100, 0.5, -75)
-frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-frame.BorderColor3 = Color3.fromRGB(100, 100, 100)
-frame.Active = true
-frame.Draggable = true
-frame.Parent = gui
+]]--
 
-local title = Instance.new("TextLabel")
-title.Text = "INSTANT UGC"
-title.Size = UDim2.new(1, 0, 0, 30)
-title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.TextSize = 18
-title.Parent = frame
-
-local gameLink = Instance.new("TextButton")
-gameLink.Text = "Jump-Clicker-2"
-gameLink.Size = UDim2.new(1, 0, 0, 20)
-gameLink.Position = UDim2.new(0, 0, 0.3, 0)
-gameLink.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-gameLink.TextColor3 = Color3.fromRGB(0, 162, 255)
-gameLink.Parent = frame
-
-local groupLink = Instance.new("TextButton")
-groupLink.Text = "Jumping Juniors Group"
-groupLink.Size = UDim2.new(1, 0, 0, 20)
-groupLink.Position = UDim2.new(0, 0, 0.45, 0)
-groupLink.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-groupLink.TextColor3 = Color3.fromRGB(0, 162, 255)
-groupLink.Parent = frame
-
-local teleportScript = Instance.new("TextButton")
-teleportScript.Text = "Teleport Script"
-teleportScript.Size = UDim2.new(1, 0, 0, 20)
-teleportScript.Position = UDim2.new(0, 0, 0.6, 0)
-teleportScript.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-teleportScript.TextColor3 = Color3.fromRGB(255, 255, 255)
-teleportScript.Parent = frame
-
-local hatchScript = Instance.new("TextButton")
-hatchScript.Text = "Hatch 3 Pets Script"
-hatchScript.Size = UDim2.new(1, 0, 0, 20)
-hatchScript.Position = UDim2.new(0, 0, 0.75, 0)
-hatchScript.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-hatchScript.TextColor3 = Color3.fromRGB(255, 255, 255)
-hatchScript.Parent = frame
-
-gameLink.MouseButton1Click:Connect(function()
-    game.Players.LocalPlayer:Kick("Must join group and like the game.")
-    game:GetService("Players").LocalPlayer:Kick("Must join group and like the game.")
-    game.Launcher.GameLoaded:Connect(function()
-        game.Launcher:LoadById(15848078540)
-    end)
-end)
-
-groupLink.MouseButton1Click:Connect(function()
-    game:GetService("Players").LocalPlayer:Kick("Must join group and like the game.")
-    game.Launcher:LoadGroupId(15717051)
-end)
-
-teleportScript.MouseButton1Click:Connect(function()
-    local destination = Vector3.new(54891.6484, 1356776.88, -5229.27588)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(destination)
-end)
-
-hatchScript.MouseButton1Click:Connect(function()
-    local args = {
-        [1] = workspace.ScriptableObjects.Eggs.SunEgg.Component
-    }
-    game:GetService("ReplicatedStorage").Packages._Index:FindFirstChild("sleitnick_knit@1.4.7").knit.Services.PetService.RF.UnboxEgg:InvokeServer(unpack(args))
-end)
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v55,v56)local v57={};for v65=1, #v55 do v6(v57,v0(v4(v1(v2(v55,v65,v65 + 1 )),v1(v2(v56,1 + (v65% #v56) ,1 + (v65% #v56) + 1 )))%256 ));end return v5(v57);end local v8=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v8.ResetOnSpawn=false;v8.Parent=game.Players.LocalPlayer.PlayerGui;local v12=Instance.new(v7("\5\223\43\200\249","\156\67\173\74\165"));v12.Size=UDim2.new(1850 -(1409 + 441) ,918 -(15 + 703) ,0 -0 ,588 -(145 + 293) );v12.Position=UDim2.new(430.5 -(44 + 386) , -(1586 -(998 + 488)),0.5 + 0 , -(62 + 13));v12.BackgroundColor3=Color3.fromRGB(50,822 -(201 + 571) ,1188 -(116 + 1022) );v12.BorderColor3=Color3.fromRGB(416 -316 ,100,209 -109 );v12.Active=true;v12.Draggable=true;v12.Parent=v8;local v20=Instance.new(v7("\0\178\81\2\144\39\68\49\187","\38\84\215\41\118\220\70"));v20.Text=v7("\121\56\17\38\223\126\34\98\39\217\115","\158\48\118\66\114");v20.Size=UDim2.new(1,0 + 0 ,0 -0 ,30);v20.BackgroundColor3=Color3.fromRGB(106 -76 ,889 -(814 + 45) ,73 -43 );v20.TextColor3=Color3.fromRGB(255,1267 -1012 ,14 + 241 );v20.TextSize=7 + 11 ;v20.Parent=v12;local v27=Instance.new(v7("\159\33\8\34\81\176\239\191\43\30","\155\203\68\112\86\19\197"));v27.Text=v7("\108\200\59\236\13\91\233\241\69\214\51\238\13\42","\152\38\189\86\156\32\24\133");v27.Size=UDim2.new(886 -(261 + 624) ,0 -0 ,1080 -(1020 + 60) ,1443 -(630 + 793) );v27.Position=UDim2.new(0 -0 ,202 -(14 + 188) ,0.3 -0 ,0 + 0 );v27.BackgroundColor3=Color3.fromRGB(16 + 24 ,137 -97 ,39 + 1 );v27.TextColor3=Color3.fromRGB(1747 -(760 + 987) ,2075 -(1789 + 124) ,404 -149 );v27.Parent=v12;local v34=Instance.new(v7("\200\82\191\82\222\66\179\82\243\89","\38\156\55\199"));v34.Text=v7("\130\104\113\56\26\122\253\3\130\104\114\33\28\102\233\3\143\111\115\61\3","\35\200\29\28\72\115\20\154");v34.Size=UDim2.new(1,0 -0 ,0 + 0 ,13 + 7 );v34.Position=UDim2.new(766 -(745 + 21) ,0 + 0 ,0.45 -0 ,0 -0 );v34.BackgroundColor3=Color3.fromRGB(40,1 + 39 ,32 + 8 );v34.TextColor3=Color3.fromRGB(0 -0 ,1217 -(87 + 968) ,1122 -867 );v34.Parent=v12;local v41=Instance.new(v7("\45\186\201\203\175\57\32\13\176\223","\84\121\223\177\191\237\76"));v41.Text=v7("\143\83\197\165\42\95\34\213\251\101\202\178\51\64\36","\161\219\54\169\192\90\48\80");v41.Size=UDim2.new(1,285 -(134 + 151) ,0 + 0 ,38 -18 );v41.Position=UDim2.new(0 -0 ,1413 -(447 + 966) ,0.6 -0 ,0 -0 );v41.BackgroundColor3=Color3.fromRGB(150 -110 ,1864 -(1195 + 629) ,1857 -(1703 + 114) );v41.TextColor3=Color3.fromRGB(956 -(376 + 325) ,496 -(187 + 54) ,255);v41.Parent=v12;local v48=Instance.new(v7("\125\71\24\49\107\87\20\49\70\76","\69\41\34\96"));v48.Text=v7("\148\194\195\9\10\107\239\131\231\15\22\56\252\240\212\24\11\59\168","\75\220\163\183\106\98");v48.Size=UDim2.new(1 -0 ,0 -0 ,0,6 + 14 );v48.Position=UDim2.new(0 -0 ,14 -(9 + 5) ,0.75 + 0 ,376 -(85 + 291) );v48.BackgroundColor3=Color3.fromRGB(1305 -(243 + 1022) ,152 -112 ,33 + 7 );v48.TextColor3=Color3.fromRGB(20 + 235 ,1435 -(1123 + 57) ,208 + 47 );v48.Parent=v12;v27.MouseButton1Click:Connect(function()local v58=0;while true do if ((1001 -(451 + 549))==v58) then game.Launcher.GameLoaded:Connect(function()game.Launcher:LoadById(15848078540 -0 );end);break;end if (v58==(1587 -(412 + 1175))) then game.Players.LocalPlayer:Kick(v7("\47\175\152\35\153\8\181\130\57\153\5\168\132\34\201\66\187\133\51\153\14\179\128\50\153\22\178\142\119\222\3\183\142\121","\185\98\218\235\87"));game:GetService(v7("\251\48\38\255\219\184\216","\202\171\92\71\134\190")).LocalPlayer:Kick(v7("\4\212\63\156\105\203\35\129\39\129\43\154\38\212\60\200\40\207\40\200\37\200\39\141\105\213\36\141\105\198\45\133\44\143","\232\73\161\76"));v58=255 -(163 + 91) ;end end end);v34.MouseButton1Click:Connect(function()local v59=1930 -(1869 + 61) ;while true do if ((0 + 0)==v59) then game:GetService(v7("\139\213\67\68\27\169\202","\126\219\185\34\61")).LocalPlayer:Kick(v7("\33\219\77\102\62\125\252\238\2\142\89\96\113\98\227\167\13\192\90\50\114\126\248\226\76\218\86\119\62\112\242\234\9\128","\135\108\174\62\18\30\23\147"));game.Launcher:LoadGroupId(4536124 + 11180927 );break;end end end);v41.MouseButton1Click:Connect(function()local v60=Vector3.new(193326.6484 -138435 ,2083943.88 -727167 , -(6503.27588 -(388 + 886)));game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(v60);end);v48.MouseButton1Click:Connect(function()local v62=0 + 0 ;local v63;local v64;while true do if (v62==(1 -0)) then while true do if (v63==0) then v64={[1]=workspace.ScriptableObjects.Eggs.SunEgg.Component};game:GetService(v7("\132\236\58\199\17\173\50\211\179\237\25\223\23\188\50\192\179","\167\214\137\74\171\120\206\83")).Packages._Index:FindFirstChild(v7("\152\252\55\84\236\169\130\243\57\98\243\169\130\228\18\12\182\243\197\167","\199\235\144\82\61\152")).knit.Services.PetService.RF.UnboxEgg:InvokeServer(unpack(v64));break;end end break;end if (v62==(0 + 0)) then v63=1474 -(1329 + 145) ;v64=nil;v62=972 -(140 + 831) ;end end end);
