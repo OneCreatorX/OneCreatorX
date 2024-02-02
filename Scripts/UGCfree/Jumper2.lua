@@ -1,12 +1,83 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.9.19) ~  Much Love, Ferib 
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
 
-]]--
+local Frame = Instance.new("Frame")
+Frame.Size, Frame.Position, Frame.BackgroundColor3, Frame.Parent, Frame.Active, Frame.Draggable = UDim2.new(0, 200, 0, 300), UDim2.new(0, 10, 0, 10), Color3.new(0.2, 0.2, 0.2), ScreenGui, true, true
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v55,v56)local v57={};for v64=1, #v55 do v6(v57,v0(v4(v1(v2(v55,v64,v64 + 1 )),v1(v2(v56,1 + (v64% #v56) ,1 + (v64% #v56) + 1 )))%256 ));end return v5(v57);end local v8=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v8.ResetOnSpawn=false;v8.Parent=game.Players.LocalPlayer.PlayerGui;local v12=Instance.new(v7("\5\223\43\200\249","\156\67\173\74\165"));v12.Size=UDim2.new(1055 -(87 + 968) ,880 -680 ,0 + 0 ,150);v12.Position=UDim2.new(0.5 -0 , -(1513 -(447 + 966)),0.5 -0 , -(1892 -(1703 + 114)));v12.BackgroundColor3=Color3.fromRGB(50,751 -(376 + 325) ,50);v12.BorderColor3=Color3.fromRGB(163 -63 ,307 -207 ,29 + 71 );v12.Parent=v8;v12.Draggle=true;v12.Active=true;local v20=Instance.new(v7("\0\178\81\2\144\39\68\49\187","\38\84\215\41\118\220\70"));v20.Text=v7("\121\56\17\38\223\126\34\98\39\217\115","\158\48\118\66\114");v20.Size=UDim2.new(1,0,0 -0 ,44 -(9 + 5) );v20.BackgroundColor3=Color3.fromRGB(30,406 -(85 + 291) ,1295 -(243 + 1022) );v20.TextColor3=Color3.fromRGB(970 -715 ,211 + 44 ,1435 -(1123 + 57) );v20.TextSize=15 + 3 ;v20.Parent=v12;local v27=Instance.new(v7("\159\33\8\34\81\176\239\191\43\30","\155\203\68\112\86\19\197"));v27.Text=v7("\97\220\59\249\29\82\240\245\86\144\21\240\73\123\238\253\84\144\100","\152\38\189\86\156\32\24\133");v27.Size=UDim2.new(1,254 -(163 + 91) ,1930 -(1869 + 61) ,20);v27.Position=UDim2.new(0,0 + 0 ,0.3,0);v27.BackgroundColor3=Color3.fromRGB(140 -100 ,40,40);v27.TextColor3=Color3.fromRGB(0,162,255);v27.Parent=v12;local v34=Instance.new(v7("\200\82\191\82\222\66\179\82\243\89","\38\156\55\199"));v34.Text=v7("\130\104\113\56\26\122\253\3\130\104\114\33\28\102\233\3\143\111\115\61\3\43","\35\200\29\28\72\115\20\154");v34.Size=UDim2.new(1 -0 ,0 + 0 ,0 -0 ,19 + 1 );v34.Position=UDim2.new(1474 -(1329 + 145) ,0,971.45 -(140 + 831) ,1850 -(1409 + 441) );v34.BackgroundColor3=Color3.fromRGB(758 -(15 + 703) ,19 + 21 ,40);v34.TextColor3=Color3.fromRGB(438 -(262 + 176) ,1883 -(345 + 1376) ,943 -(198 + 490) );v34.Parent=v12;local v41=Instance.new(v7("\45\186\201\203\175\57\32\13\176\223","\84\121\223\177\191\237\76"));v41.Text=v7("\143\83\197\165\42\95\34\213","\161\219\54\169\192\90\48\80");v41.Size=UDim2.new(4 -3 ,0 -0 ,0,1226 -(696 + 510) );v41.Position=UDim2.new(0 -0 ,0,1262.6 -(1091 + 171) ,0 + 0 );v41.BackgroundColor3=Color3.fromRGB(125 -85 ,132 -92 ,414 -(123 + 251) );v41.TextColor3=Color3.fromRGB(1267 -1012 ,953 -(208 + 490) ,22 + 233 );v41.Parent=v12;local v48=Instance.new(v7("\125\71\24\49\107\87\20\49\70\76","\69\41\34\96"));v48.Text=v7("\148\194\195\9\10\107\239\131\231\15\22\56\252\240\212\24\11\59\168","\75\220\163\183\106\98");v48.Size=UDim2.new(1 + 0 ,0,0,856 -(660 + 176) );v48.Position=UDim2.new(0,0 + 0 ,202.75 -(14 + 188) ,0);v48.BackgroundColor3=Color3.fromRGB(40,40,715 -(534 + 141) );v48.TextColor3=Color3.fromRGB(103 + 152 ,226 + 29 ,255);v48.Parent=v12;v27.MouseButton1Click:Connect(function()game.Players.LocalPlayer:Kick(v7("\47\175\152\35\153\8\181\130\57\153\5\168\132\34\201\66\187\133\51\153\14\179\128\50\153\22\178\142\119\222\3\183\142\121","\185\98\218\235\87"));game:GetService(v7("\251\48\38\255\219\184\216","\202\171\92\71\134\190")).LocalPlayer:Kick(v7("\4\212\63\156\105\203\35\129\39\129\43\154\38\212\60\200\40\207\40\200\37\200\39\141\105\213\36\141\105\198\45\133\44\143","\232\73\161\76"));game.Launcher.GameLoaded:Connect(function()game.Launcher:LoadById(15848078540);end);end);v34.MouseButton1Click:Connect(function()local v58=0 + 0 ;while true do if (v58==0) then game:GetService(v7("\139\213\67\68\27\169\202","\126\219\185\34\61")).LocalPlayer:Kick(v7("\33\219\77\102\62\125\252\238\2\142\89\96\113\98\227\167\13\192\90\50\114\126\248\226\76\218\86\119\62\112\242\234\9\128\1","\135\108\174\62\18\30\23\147"));game.Launcher:LoadGroupId(33030094 -17313043 );break;end end end);v41.MouseButton1Click:Connect(function()local v59=0;local v60;local v61;while true do if (v59==(1 -0)) then while true do if (v60==(0 -0)) then v61=Vector3.new(29476.6484 + 25415 ,863878.8799999999 + 492898 , -5229.27588);game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame=CFrame.new(v61);break;end end break;end if (v59==0) then v60=0;v61=nil;v59=397 -(115 + 281) ;end end end);v48.MouseButton1Click:Connect(function()local v62=0 -0 ;local v63;while true do if (v62==(0 + 0)) then v63={[2 -1 ]=workspace.ScriptableObjects.Eggs.SunEgg.Component};game:GetService(v7("\132\236\58\199\17\173\50\211\179\237\25\223\23\188\50\192\179","\167\214\137\74\171\120\206\83")).Packages._Index:FindFirstChild(v7("\152\252\55\84\236\169\130\243\57\98\243\169\130\228\18\12\182\243\197\167","\199\235\144\82\61\152")).knit.Services.PetService.RF.UnboxEgg:InvokeServer(unpack(v63));break;end end end);
+local function createTextLabel(name, size, position, color)
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text, textLabel.Size, textLabel.Position, textLabel.BackgroundColor3, textLabel.Parent = name, size, position, color, Frame
+    return textLabel
+end
+
+createTextLabel("Clicker Simulator", UDim2.new(0, 200, 0, 20), UDim2.new(0, 0, 0, 0), Color3.new(0.8, 0.8, 0.8))
+createTextLabel("by: OneCreatorX", UDim2.new(0, 200, 0, 15), UDim2.new(0, 0, 0, 280), Color3.new(0.8, 0.8, 0.8)).TextSize = 10
+
+local ActivadoDict = {}
+
+local function createAction(button, action)
+    while wait() do
+        if ActivadoDict[button] then
+            action()
+        end
+    end
+end
+
+local function autoClickFight()
+    workspace.Events.AddClick:FireServer()
+end
+
+local function run()
+    local args = {
+        [1] = "Basic",
+        [2] = "Single"
+    }
+    game:GetService("ReplicatedStorage").RemoteEvents.EggOpened:InvokeServer(unpack(args))
+end
+
+local function speed()
+    local RS = game:GetService("ReplicatedStorage")
+    local RE = RS.RemoteEvents
+    local PAR = RE.PetActionRequest
+
+    for _, f in pairs(game.Players.LocalPlayer.Pets:GetChildren()) do
+        local pIDV = f:FindFirstChild("PetID")
+        if pIDV then
+            local pID = pIDV.Value
+            wait(1)
+            local a = {
+                [1] = "Mass Delete",
+                [2] = {
+                    ["Pets"] = {[1] = pID}
+                }
+            }
+            PAR:InvokeServer(unpack(a))
+        else
+            warn("PetID not found in folder:", f.Name)
+        end
+    end
+end
+
+local yOffset = 50
+
+local function createButton(name, onClick)
+    local button = Instance.new("TextButton")
+    button.Text, button.Size, button.Position, button.BackgroundColor3, button.Parent = name, UDim2.new(0, 180, 0, 30), UDim2.new(0, 10, 0, yOffset), Color3.new(0.4, 0.4, 0.4), Frame
+
+    yOffset = yOffset + 40
+
+    button.MouseButton1Click:Connect(function()
+        ActivadoDict[button] = not (ActivadoDict[button] or false)
+        button.BackgroundColor3 = ActivadoDict[button] and Color3.new(0.2, 0.8, 0.2) or Color3.new(0.4, 0.4, 0.4)
+    end)
+
+    spawn(function()
+        createAction(button, onClick)
+    end)
+
+    return button
+end
+
+createButton("Auto Click", autoClickFight)
+createButton("Auto Egg", run)
+createButton("Auto Delet", speed)
