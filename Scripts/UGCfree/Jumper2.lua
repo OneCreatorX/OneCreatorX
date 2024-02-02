@@ -7,6 +7,8 @@ frame.Size = UDim2.new(0, 200, 0, 150)
 frame.Position = UDim2.new(0.5, -100, 0.5, -75)
 frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 frame.BorderColor3 = Color3.fromRGB(100, 100, 100)
+frame.Active = true
+frame.Draggable = true
 frame.Parent = gui
 
 local title = Instance.new("TextLabel")
