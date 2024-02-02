@@ -1,83 +1,75 @@
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui
+local gui = Instance.new("ScreenGui")
+gui.ResetOnSpawn = false
+gui.Parent = game.Players.LocalPlayer.PlayerGui
 
-local Frame = Instance.new("Frame")
-Frame.Size, Frame.Position, Frame.BackgroundColor3, Frame.Parent, Frame.Active, Frame.Draggable = UDim2.new(0, 200, 0, 300), UDim2.new(0, 10, 0, 10), Color3.new(0.2, 0.2, 0.2), ScreenGui, true, true
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 200, 0, 150)
+frame.Position = UDim2.new(0.5, -100, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderColor3 = Color3.fromRGB(100, 100, 100)
+frame.Parent = gui
 
-local function createTextLabel(name, size, position, color)
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Text, textLabel.Size, textLabel.Position, textLabel.BackgroundColor3, textLabel.Parent = name, size, position, color, Frame
-    return textLabel
-end
+local title = Instance.new("TextLabel")
+title.Text = "INSTANT UGC"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextSize = 18
+title.Parent = frame
 
-createTextLabel("Clicker Simulator", UDim2.new(0, 200, 0, 20), UDim2.new(0, 0, 0, 0), Color3.new(0.8, 0.8, 0.8))
-createTextLabel("by: OneCreatorX", UDim2.new(0, 200, 0, 15), UDim2.new(0, 0, 0, 280), Color3.new(0.8, 0.8, 0.8)).TextSize = 10
+local gameLink = Instance.new("TextButton")
+gameLink.Text = "Jump-Clicker-2"
+gameLink.Size = UDim2.new(1, 0, 0, 20)
+gameLink.Position = UDim2.new(0, 0, 0.3, 0)
+gameLink.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+gameLink.TextColor3 = Color3.fromRGB(0, 162, 255)
+gameLink.Parent = frame
 
-local ActivadoDict = {}
+local groupLink = Instance.new("TextButton")
+groupLink.Text = "Jumping Juniors Group"
+groupLink.Size = UDim2.new(1, 0, 0, 20)
+groupLink.Position = UDim2.new(0, 0, 0.45, 0)
+groupLink.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+groupLink.TextColor3 = Color3.fromRGB(0, 162, 255)
+groupLink.Parent = frame
 
-local function createAction(button, action)
-    while wait() do
-        if ActivadoDict[button] then
-            action()
-        end
-    end
-end
+local teleportScript = Instance.new("TextButton")
+teleportScript.Text = "Teleport Script"
+teleportScript.Size = UDim2.new(1, 0, 0, 20)
+teleportScript.Position = UDim2.new(0, 0, 0.6, 0)
+teleportScript.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+teleportScript.TextColor3 = Color3.fromRGB(255, 255, 255)
+teleportScript.Parent = frame
 
-local function autoClickFight()
-    workspace.Events.AddClick:FireServer()
-end
+local hatchScript = Instance.new("TextButton")
+hatchScript.Text = "Hatch 3 Pets Script"
+hatchScript.Size = UDim2.new(1, 0, 0, 20)
+hatchScript.Position = UDim2.new(0, 0, 0.75, 0)
+hatchScript.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+hatchScript.TextColor3 = Color3.fromRGB(255, 255, 255)
+hatchScript.Parent = frame
 
-local function run()
+gameLink.MouseButton1Click:Connect(function()
+    game.Players.LocalPlayer:Kick("Must join group and like the game.")
+    game:GetService("Players").LocalPlayer:Kick("Must join group and like the game.")
+    game.Launcher.GameLoaded:Connect(function()
+        game.Launcher:LoadById(15848078540)
+    end)
+end)
+
+groupLink.MouseButton1Click:Connect(function()
+    game:GetService("Players").LocalPlayer:Kick("Must join group and like the game.")
+    game.Launcher:LoadGroupId(15717051)
+end)
+
+teleportScript.MouseButton1Click:Connect(function()
+    local destination = Vector3.new(54891.6484, 1356776.88, -5229.27588)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(destination)
+end)
+
+hatchScript.MouseButton1Click:Connect(function()
     local args = {
-        [1] = "Basic",
-        [2] = "Single"
+        [1] = workspace.ScriptableObjects.Eggs.SunEgg.Component
     }
-    game:GetService("ReplicatedStorage").RemoteEvents.EggOpened:InvokeServer(unpack(args))
-end
-
-local function speed()
-    local RS = game:GetService("ReplicatedStorage")
-    local RE = RS.RemoteEvents
-    local PAR = RE.PetActionRequest
-
-    for _, f in pairs(game.Players.LocalPlayer.Pets:GetChildren()) do
-        local pIDV = f:FindFirstChild("PetID")
-        if pIDV then
-            local pID = pIDV.Value
-            wait(1)
-            local a = {
-                [1] = "Mass Delete",
-                [2] = {
-                    ["Pets"] = {[1] = pID}
-                }
-            }
-            PAR:InvokeServer(unpack(a))
-        else
-            warn("PetID not found in folder:", f.Name)
-        end
-    end
-end
-
-local yOffset = 50
-
-local function createButton(name, onClick)
-    local button = Instance.new("TextButton")
-    button.Text, button.Size, button.Position, button.BackgroundColor3, button.Parent = name, UDim2.new(0, 180, 0, 30), UDim2.new(0, 10, 0, yOffset), Color3.new(0.4, 0.4, 0.4), Frame
-
-    yOffset = yOffset + 40
-
-    button.MouseButton1Click:Connect(function()
-        ActivadoDict[button] = not (ActivadoDict[button] or false)
-        button.BackgroundColor3 = ActivadoDict[button] and Color3.new(0.2, 0.8, 0.2) or Color3.new(0.4, 0.4, 0.4)
-    end)
-
-    spawn(function()
-        createAction(button, onClick)
-    end)
-
-    return button
-end
-
-createButton("Auto Click", autoClickFight)
-createButton("Auto Egg", run)
-createButton("Auto Delet", speed)
+    game:GetService("ReplicatedStorage").Packages._Index:FindFirstChild("sleitnick_knit@1.4.7").knit.Services.PetService.RF.UnboxEgg:InvokeServer(unpack(args))
+end)
