@@ -1,7 +1,7 @@
 local player = game.Players.LocalPlayer
-local velocityValue = 900000
-local updateInterval = 1
-local rewardInterval = 180 -- 3 minutos en segundos
+local velocityValue = 90000000
+local updateInterval = 0.3
+local rewardInterval = 180 
 local playerName = player.Name
 local racePower
 
@@ -68,17 +68,20 @@ local function createOrFindGUI()
         screenGui.Parent = playerGui
 
         frame.Name = "VelocityFrame"
-        frame.Size = UDim2.new(0, 200, 0, 100)
+        frame.Size = UDim2.new(0, 90, 0, 65)
         frame.Position = UDim2.new(0, 50, 0, 50)
         frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
         frame.Parent = screenGui
+frame.Draggable = true
+ frame.Active = true
 
         local function createTextBox(name, posY)
             local textBox = Instance.new("TextBox")
-            textBox.Size = UDim2.new(0, 150, 0, 30)
-            textBox.Position = UDim2.new(0, 25, 0, posY)
-            textBox.PlaceholderText = name
+            textBox.Size = UDim2.new(0, 60, 0, 20)
+            textBox.Position = UDim2.new(0, 15, 0, posY)
+            textBox.Text = name
             textBox.Parent = frame
+
 
             textBox.FocusLost:Connect(function(enterPressed)
                 if enterPressed then
@@ -94,8 +97,8 @@ local function createOrFindGUI()
             end)
         end
 
-        createTextBox("Velocidad", 20)
-        createTextBox("Intervalo", 60)
+        createTextBox("Speed", 10)
+        createTextBox("0.5", 34)
     end
 
     while true do
