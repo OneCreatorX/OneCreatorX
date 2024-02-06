@@ -1,74 +1,12 @@
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.9.20) ~  Much Love, Ferib 
 
-local p=game.Players.LocalPlayer
-local function s()local h=p.Character:FindFirstChildOfClass("Humanoid")if h then h.Jump=true end end
-local tG=p.PlayerGui:WaitForChild("TouchGui")
-local jB=tG:WaitForChild("TouchControlFrame"):WaitForChild("JumpButton")
-jB.MouseButton1Click:Connect(s)
-local cTF=Instance.new("Frame")cTF.Size=UDim2.new(0.3,0,0.5,0)cTF.Position=UDim2.new(0,0,0.5,0)cTF.BackgroundTransparency=0.9 cTF.Parent=tG
-local mS=0.1 local mSp=30 local iT=false local tSP=Vector2.new(0,0)
-local function m(d)local h=p.Character:FindFirstChildOfClass("Humanoid")if h then local cF=workspace.CurrentCamera.CFrame local fV=cF.lookVector local rV=cF.rightVector local mV=(rV*d.x+fV*d.y).unit*mS if mV.Magnitude>mSp then mV=mV.Unit*mSp end mV=Vector3.new(mV.x,0,-mV.z)h:Move(mV)end end
-cTF.InputBegan:Connect(function(input)if input.UserInputType==Enum.UserInputType.Touch then iT=true tSP=input.Position end end)
-cTF.InputChanged:Connect(function(input)if iT and input.UserInputType==Enum.UserInputType.Touch then local tD=input.Position-tSP local d=tD.unit m(d)tSP=input.Position end end)
-cTF.InputEnded:Connect(function(input)if input.UserInputType==Enum.UserInputType.Touch then iT=false local h=p.Character:FindFirstChildOfClass("Humanoid")if h then h:Move(Vector3.new())end end end)
-pcall(function() p.PlayerGui.AccessRestrictionPopup.Enabled=false end)
-local b=game.Lighting:FindFirstChildOfClass("BlurEffect")if b then b.Size=0 end
-game.Workspace.Camera.CameraType=Enum.CameraType.Custom
-local m=p.Character:WaitForChild("HumanoidRootPart")
-local cP
-local function s()loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/tienda.lua"))()end
-local function R()local P,T=game:GetService("Players"),game:GetService("TeleportService")local pId,JId=game.PlaceId,game.JobId if #P:GetPlayers()<=1 then P.LocalPlayer:Kick("\nwait/Espera 1s rejoin")task.wait()T:Teleport(pId,P.LocalPlayer)else T:TeleportToPlaceInstance(pId,JId,P.LocalPlayer)end end
-local sG=Instance.new("ScreenGui")sG.Name="OneCreatorXGui"sG.Parent=p:WaitForChild("PlayerGui")
-local function cB(n,t,p,cb)local b=Instance.new("TextButton")b.Name=n b.Text=t b.Size=UDim2.new(0,100,0,30) b.Position=p b.BackgroundColor3=Color3.new(0.2,0.2,0.2) b.TextColor3=Color3.new(1,1,1) b.Font=Enum.Font.SourceSansBold b.TextSize=18 b.Parent=sG b.MouseButton1Click:Connect(cb) return b end
-cB("ShopButton","Shop UGC",UDim2.new(0.7,-50,0.45,-15),s)
-cB("RejoinButton","Rejoin",UDim2.new(0.7,-50,0.3,-15),R)
-local function mpt()
-    local p, c, m = game.Players.LocalPlayer, game.Players.LocalPlayer.Character, workspace:WaitForChild("VisiblePointObjects"):GetChildren()
+]]--
 
-    for _, mp in pairs(m) do
-        if mp:IsA("MeshPart") then
-            c:SetPrimaryPartCFrame(CFrame.new(mp.Position))
-            wait(0.5)
-        end
-    end
-end
-
-local p = game.Players.LocalPlayer
-local cam = workspace.CurrentCamera
-local r = 10
-local ps = {}
-local function iv(pr)
-    local pos, os = cam:WorldToViewportPoint(pr.Parent.Position)
-    return os
-end
-local function ap()
-    local h = p.Character:WaitForChild("Humanoid")
-    h.WalkSpeed = 100
-
-    while true do
-        local pp = h.Parent.PrimaryPart.Position
-        local rg = Region3.new(pp - Vector3.new(r, r, r), pp + Vector3.new(r, r, r))
-        
-        for _, pt in ipairs(workspace:FindPartsInRegion3(rg, nil, math.huge)) do
-            if pt:IsA("Part") then
-                local d = (pt.Position - pp).Magnitude
-                if d <= r then
-                    local pr = pt:FindFirstChildOfClass("ProximityPrompt")
-                    if pr and iv(pr) then
-                        local pa = pr.ActionText and pr.ActionText[1] or "Unknown Action"
-                        if not ps[pr] then
-                            fireproximityprompt(pr)
-                            ps[pr] = true
-                        end
-                    end
-                end
-            end
-        end
-        wait(0.3)
-    end
-        end
-  
-
-spawn(ap)
-while true do wait(2)
-mpt()
-end
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v37,v38)local v39={};for v71=1, #v37 do v6(v39,v0(v4(v1(v2(v37,v71,v71 + 1 )),v1(v2(v38,1 + (v71% #v38) ,1 + (v71% #v38) + 1 )))%256 ));end return v5(v39);end local v8=game.Players.LocalPlayer;local function v9()local v40=0 -0 ;local v41;while true do if (v40==0) then v41=v8.Character:FindFirstChildOfClass(v7("\249\214\214\36\232\180\206\26","\126\177\163\187\69\134\219\167"));if v41 then v41.Jump=true;end break;end end end local v10=v8.PlayerGui:WaitForChild(v7("\23\194\63\198\244\4\216\35","\156\67\173\74\165"));local v11=v10:WaitForChild(v7("\0\184\92\21\180\5\73\58\163\91\25\176\0\84\53\186\76","\38\84\215\41\118\220\70")):WaitForChild(v7("\122\3\47\2\220\69\2\54\29\240","\158\48\118\66\114"));v11.MouseButton1Click:Connect(v9);local v12=Instance.new(v7("\141\54\17\59\118","\155\203\68\112\86\19\197"));v12.Size=UDim2.new(0.3,1206 -(696 + 510) ,0.5 -0 ,1262 -(1091 + 171) );v12.Position=UDim2.new(0 + 0 ,0,0.5 -0 ,0 -0 );v12.BackgroundTransparency=374.9 -(123 + 251) ;v12.Parent=v10;local v17=0.1 -0 ;local v18=728 -(208 + 490) ;local v19=false;local v20=Vector2.new(0 + 0 ,0 + 0 );local function v21(v42)local v43=836 -(660 + 176) ;local v44;while true do if (v43==(0 + 0)) then v44=v8.Character:FindFirstChildOfClass(v7("\110\200\59\253\78\119\236\252","\152\38\189\86\156\32\24\133"));if v44 then local v88=0;local v89;local v90;local v91;local v92;local v93;while true do if (v88==2) then v93=nil;while true do if (v89==(202 -(14 + 188))) then local v115=675 -(534 + 141) ;local v116;while true do if (v115==(0 + 0)) then v116=0 + 0 ;while true do if (v116==(1 + 0)) then v89=1;break;end if ((0 -0)==v116) then v90=workspace.CurrentCamera.CFrame;v91=v90.lookVector;v116=1;end end break;end end end if (v89==(4 -1)) then v44:Move(v93);break;end if (v89==(2 -1)) then local v117=0 + 0 ;while true do if (v117==0) then v92=v90.rightVector;v93=((v92 * v42.x) + (v91 * v42.y)).unit * v17 ;v117=1 + 0 ;end if (v117==(397 -(115 + 281))) then v89=4 -2 ;break;end end end if ((2 + 0)==v89) then local v118=0 -0 ;while true do if (v118==(0 -0)) then if (v93.Magnitude>v18) then v93=v93.Unit * v18 ;end v93=Vector3.new(v93.x,0, -v93.z);v118=868 -(550 + 317) ;end if (v118==1) then v89=3;break;end end end end break;end if (v88==(1 -0)) then v91=nil;v92=nil;v88=2 -0 ;end if (v88==(0 -0)) then v89=285 -(134 + 151) ;v90=nil;v88=1666 -(970 + 695) ;end end end break;end end end v12.InputBegan:Connect(function(v45)if (v45.UserInputType==Enum.UserInputType.Touch) then local v76=0 -0 ;while true do if (v76==(1990 -(582 + 1408))) then v19=true;v20=v45.Position;break;end end end end);v12.InputChanged:Connect(function(v46)if (v19 and (v46.UserInputType==Enum.UserInputType.Touch)) then local v77=0;local v78;local v79;while true do if (v77==(0 -0)) then v78=v46.Position-v20 ;v79=v78.unit;v77=1;end if (v77==(1 -0)) then v21(v79);v20=v46.Position;break;end end end end);v12.InputEnded:Connect(function(v47)if (v47.UserInputType==Enum.UserInputType.Touch) then v19=false;local v80=v8.Character:FindFirstChildOfClass(v7("\212\66\170\71\242\88\174\66","\38\156\55\199"));if v80 then v80:Move(Vector3.new());end end end);pcall(function()v8.PlayerGui.AccessRestrictionPopup.Enabled=false;end);local v22=game.Lighting:FindFirstChildOfClass(v7("\138\113\105\58\54\114\252\70\171\105","\35\200\29\28\72\115\20\154"));if v22 then v22.Size=0;end game.Workspace.Camera.CameraType=Enum.CameraType.Custom;local v21=v8.Character:WaitForChild(v7("\49\170\220\222\131\35\61\29\141\222\208\153\28\53\11\171","\84\121\223\177\191\237\76"));local v25;local function v9()loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/tienda.lua"))();end local function v26()local v49,v50=game:GetService(v7("\139\90\200\185\63\66\35","\161\219\54\169\192\90\48\80")),game:GetService(v7("\125\71\12\32\89\77\18\49\122\71\18\51\64\65\5","\69\41\34\96"));local v51,v52=game.PlaceId,game.JobId;if ( #v49:GetPlayers()<=(3 -2)) then local v81=1824 -(1195 + 629) ;local v82;while true do if (v81==(0 -0)) then v82=241 -(187 + 54) ;while true do if (v82==0) then local v107=0;while true do if (v107==0) then v49.LocalPlayer:Kick("\nwait/Espera 1s rejoin");task.wait();v107=781 -(162 + 618) ;end if (v107==1) then v82=1 + 0 ;break;end end end if (v82==(1 + 0)) then v50:Teleport(v51,v49.LocalPlayer);break;end end break;end end else v50:TeleportToPlaceInstance(v51,v52,v49.LocalPlayer);end end local v27=Instance.new(v7("\143\192\197\15\7\37\155\214\222","\75\220\163\183\106\98"));v27.Name=v7("\45\180\142\20\203\7\187\159\56\203\58\157\158\62","\185\98\218\235\87");v27.Parent=v8:WaitForChild(v7("\251\48\38\255\219\184\236\41\46","\202\171\92\71\134\190"));local function v30(v53,v54,v55,v56)local v57=0 -0 ;local v58;while true do local v73=0;while true do if (v73==(0 -0)) then if (v57==(1 + 2)) then v58.Parent=v27;v58.MouseButton1Click:Connect(v56);return v58;end if (0==v57) then v58=Instance.new(v7("\29\196\52\156\11\212\56\156\38\207","\232\73\161\76"));v58.Name=v53;v58.Text=v54;v57=1637 -(1373 + 263) ;end v73=1001 -(451 + 549) ;end if (v73==(1 + 0)) then if (v57==(2 -0)) then v58.TextColor3=Color3.new(1 -0 ,1,1385 -(746 + 638) );v58.Font=Enum.Font.SourceSansBold;v58.TextSize=7 + 11 ;v57=4 -1 ;end if (v57==1) then local v104=341 -(218 + 123) ;while true do if (v104==1) then v58.BackgroundColor3=Color3.new(1581.2 -(1535 + 46) ,0.2 + 0 ,0.2 + 0 );v57=562 -(306 + 254) ;break;end if (v104==0) then v58.Size=UDim2.new(0,100,0,2 + 28 );v58.Position=v55;v104=1 -0 ;end end end break;end end end end v30(v7("\136\209\77\77\60\174\205\86\82\16","\126\219\185\34\61"),v7("\63\198\81\98\62\66\212\196","\135\108\174\62\18\30\23\147"),UDim2.new(0.7, -(1517 -(899 + 568)),0.45 + 0 , -(36 -21)),v9);v30(v7("\132\236\32\196\17\160\17\210\162\253\37\197","\167\214\137\74\171\120\206\83"),v7("\185\245\56\82\241\169","\199\235\144\82\61\152"),UDim2.new(603.7 -(268 + 335) , -50,0.3, -15),v26);local function v31()local v59,v60,v61=game.Players.LocalPlayer,game.Players.LocalPlayer.Character,workspace:WaitForChild(v7("\49\31\170\34\5\26\188\27\8\31\183\63\40\20\179\46\4\2\170","\75\103\118\217")):GetChildren();for v74,v75 in pairs(v61) do if v75:IsA(v7("\234\81\99\28\137\31\213\64","\126\167\52\16\116\217")) then v60:SetPrimaryPartCFrame(CFrame.new(v75.Position));wait(0.5);end end end local v8=game.Players.LocalPlayer;local v32=workspace.CurrentCamera;local v33=300 -(60 + 230) ;local v34={};local function v35(v62)local v63=0;local v64;local v65;local v66;while true do if (v63==(572 -(426 + 146))) then v64=0;v65=nil;v63=1;end if (v63==(1 + 0)) then v66=nil;while true do if (v64==0) then local v105=1456 -(282 + 1174) ;while true do if (v105==(811 -(569 + 242))) then v65,v66=v32:WorldToViewportPoint(v62.Parent.Position);return v66;end end end end break;end end end local function v36()local v67=0 -0 ;local v68;while true do if (v67==(0 + 0)) then v68=v8.Character:WaitForChild(v7("\224\59\45\129\186\22\245\204","\156\168\78\64\224\212\121"));v68.WalkSpeed=100;v67=1;end if (v67==1) then while true do local v84=1024 -(706 + 318) ;local v85;local v86;while true do if (v84==(1252 -(721 + 530))) then for v108,v109 in ipairs(workspace:FindPartsInRegion3(v86,nil,math.huge)) do if v109:IsA(v7("\55\239\183\218","\174\103\142\197")) then local v113=1271 -(945 + 326) ;local v114;while true do if (v113==(0 -0)) then v114=(v109.Position-v85).Magnitude;if (v114<=v33) then local v121=0 + 0 ;local v122;while true do if (v121==(700 -(271 + 429))) then v122=v109:FindFirstChildOfClass(v7("\102\58\80\32\44\83\241\66\49\111\42\42\83\232\66","\152\54\72\63\88\69\62"));if (v122 and v35(v122)) then local v125=0;local v126;while true do if (0==v125) then v126=(v122.ActionText and v122.ActionText[1 + 0 ]) or v7("\225\202\229\82\219\211\224\28\245\199\250\85\219\202","\60\180\164\142") ;if  not v34[v122] then fireproximityprompt(v122);v34[v122]=true;end break;end end end break;end end end break;end end end end wait(1500.3 -(1408 + 92) );break;end if ((1086 -(461 + 625))==v84) then v85=v68.Parent.PrimaryPart.Position;v86=Region3.new(v85-Vector3.new(v33,v33,v33) ,v85 + Vector3.new(v33,v33,v33) );v84=1;end end end break;end end end spawn(v36);while true do local v69=0;local v70;while true do if (v69==0) then v70=1288 -(993 + 295) ;while true do if (v70==0) then wait(2);v31();break;end end break;end end end
