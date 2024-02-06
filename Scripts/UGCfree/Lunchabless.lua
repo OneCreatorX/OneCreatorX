@@ -1,3 +1,4 @@
+
 local p=game.Players.LocalPlayer
 local function s()local h=p.Character:FindFirstChildOfClass("Humanoid")if h then h.Jump=true end end
 local tG=p.PlayerGui:WaitForChild("TouchGui")
@@ -9,7 +10,7 @@ local function m(d)local h=p.Character:FindFirstChildOfClass("Humanoid")if h the
 cTF.InputBegan:Connect(function(input)if input.UserInputType==Enum.UserInputType.Touch then iT=true tSP=input.Position end end)
 cTF.InputChanged:Connect(function(input)if iT and input.UserInputType==Enum.UserInputType.Touch then local tD=input.Position-tSP local d=tD.unit m(d)tSP=input.Position end end)
 cTF.InputEnded:Connect(function(input)if input.UserInputType==Enum.UserInputType.Touch then iT=false local h=p.Character:FindFirstChildOfClass("Humanoid")if h then h:Move(Vector3.new())end end end)
-p.PlayerGui.AccessRestrictionPopup.Enabled=false
+pcall(function() p.PlayerGui.AccessRestrictionPopup.Enabled=false end)
 local b=game.Lighting:FindFirstChildOfClass("BlurEffect")if b then b.Size=0 end
 game.Workspace.Camera.CameraType=Enum.CameraType.Custom
 local m=p.Character:WaitForChild("HumanoidRootPart")
@@ -64,7 +65,8 @@ local function ap()
         end
         wait(0.3)
     end
-end
+        end
+  
 
 spawn(ap)
 while true do wait(2)
