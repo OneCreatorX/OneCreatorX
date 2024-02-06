@@ -1,72 +1,62 @@
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local SG = Instance.new("ScreenGui")
+SG.ResetOnSpawn = false
+SG.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local ActivarImagen = Instance.new("ImageButton")
-ActivarImagen.Size = UDim2.new(0, 100, 0, 50)
-ActivarImagen.Position = UDim2.new(0, 10, 0, 10)
-ActivarImagen.Image = "http://www.roblox.com/asset/?id=4953528537"
-ActivarImagen.Parent = ScreenGui
+local AI = Instance.new("ImageButton")
+AI.Size = UDim2.new(0, 100, 0, 50)
+AI.Position = UDim2.new(0, 10, 0, 10)
+AI.Image = "http://www.roblox.com/asset/?id=4953528537"
+AI.Parent = SG
 
-local DesactivarImagen = Instance.new("ImageButton")
-DesactivarImagen.Size = UDim2.new(0, 100, 0, 50)
-DesactivarImagen.Position = UDim2.new(0, 10, 0, 10)
-DesactivarImagen.Image = "http://www.roblox.com/asset/?id=4953529287"
-DesactivarImagen.Visible = false
-DesactivarImagen.Parent = ScreenGui
+local DI = Instance.new("ImageButton")
+DI.Size = UDim2.new(0, 100, 0, 50)
+DI.Position = UDim2.new(0, 10, 0, 10)
+DI.Image = "http://www.roblox.com/asset/?id=4953529287"
+DI.Visible = false
+DI.Parent = SG
 
-local plataforma
-local alturaGuardada -- Variable para almacenar la altura
+local platform
+local savedHeight
 
-ActivarImagen.MouseButton1Down:Connect(function()
-    ActivarImagen.Visible = false
-    DesactivarImagen.Visible = true
+AI.MouseButton1Down:Connect(function()
+    AI.Visible = false
+    DI.Visible = true
+    if not platform then
+        if not savedHeight then savedHeight = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y end
+        platform = Instance.new("Part")
+        platform.Size = Vector3.new(5, 1, 5)
+        platform.BrickColor = BrickColor.new("Sand blue")
+        platform.Anchored = true
+        platform.Position = Vector3.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X, savedHeight - 3.5, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)
+        platform.Parent = workspace
 
-    if not plataforma then
-        if not alturaGuardada then
-            alturaGuardada = game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Y -- Guardar la altura actual
+        local function updatePlatformPosition(speed)
+            if speed > 0 then
+                platform.Position = Vector3.new(game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X, savedHeight - 3.5, game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z)
+            end
         end
 
-        plataforma = Instance.new("Part")
-        plataforma.Size = Vector3.new(5, 1, 5)
-        plataforma.BrickColor = BrickColor.new("Sand blue")
-        plataforma.Anchored = true
-        plataforma.Position = Vector3.new(
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X,
-            alturaGuardada - 3.5,
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z
-        ) -- Utilizar la altura guardada para generar la plataforma
-        plataforma.Parent = workspace
-
-        game.Players.LocalPlayer.Character.Humanoid.Running:Connect(function(speed)
-            if speed > 0 then
-                plataforma.Position = Vector3.new(
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Position.X,
-                    alturaGuardada - 3.5,
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Position.Z
-                ) -- Actualizar la posición de la plataforma mientras el jugador se mueve
+        local function destroyPlatform()
+            if platform then
+                platform:Destroy()
+                platform = nil
+                DI.Visible = false
+                AI.Visible = true
+                savedHeight = nil
             end
-        end)
+        end
 
-        game.Players.LocalPlayer.Character.Humanoid.Jumping:Connect(function()
-            if plataforma then
-                plataforma:Destroy()
-                plataforma = nil
-                DesactivarImagen.Visible = false
-                ActivarImagen.Visible = true
-                alturaGuardada = nil -- Restablecer la altura guardada al saltar
-            end
-        end)
+        game.Players.LocalPlayer.Character.Humanoid.Running:Connect(updatePlatformPosition)
+        game.Players.LocalPlayer.Character.Humanoid.Jumping:Connect(destroyPlatform)
     end
 end)
 
-DesactivarImagen.MouseButton1Down:Connect(function()
-    ActivarImagen.Visible = true
-    DesactivarImagen.Visible = false
-
-    if plataforma then
-        plataforma:Destroy()
-        plataforma = nil
+DI.MouseButton1Down:Connect(function()
+    AI.Visible = true
+    DI.Visible = false
+    if platform then
+        platform:Destroy()
+        platform = nil
     end
-
-    alturaGuardada = nil -- Eliminar la altura guardada
+    savedHeight = nil
 end)
