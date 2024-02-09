@@ -49,3 +49,63 @@ function waitUntilArrival(humanoid, targetPosition, tolerance)
         wait(0.05)
     end
 end
+
+
+local player = game.Players.LocalPlayer
+local workspace = game.Workspace
+local playerGui = player:WaitForChild("PlayerGui")
+
+local function movePlayerToCameraCFrame()
+    game:GetService("ReplicatedStorage"):WaitForChild("TMReplicatedStorage"):WaitForChild("InvitaAmigos"):FireServer()
+    
+    local tmStarterGui = playerGui:WaitForChild("TMStarterGui", 5)
+    if not tmStarterGui then
+        return
+    end
+
+    local camera = tmStarterGui:FindFirstChild("Camera", true)
+    if camera and camera:IsA("Camera") then
+        local character = player.Character
+        if character then
+            local playerCFrame = character:GetPrimaryPartCFrame()
+            local cameraCFrame = camera.CFrame
+
+            character:SetPrimaryPartCFrame(cameraCFrame)
+            wait(2)
+
+            for _, part in pairs(workspace:GetDescendants()) do
+                if (part:IsA("BasePart") or part:IsA("MeshPart")) and part:FindFirstChild("ProximityPrompt") then
+                    local proximity = part.ProximityPrompt
+                    if proximity and (part.Position - character:GetPrimaryPartCFrame().Position).Magnitude < 10 then
+                        fireproximityprompt(proximity)
+                        wait(1)
+                        game:GetService("ReplicatedStorage"):WaitForChild("FB-ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ResetearAspecto"):FireServer()
+                        
+                    end
+                end
+            end
+        end
+    end
+end
+
+local function activateFunction()
+    wait(10)
+    movePlayerToCameraCFrame()
+end
+
+local function checkTaskTimer()
+    local descendants = playerGui:GetDescendants()
+
+    for _, descendant in ipairs(descendants) do
+        if descendant:IsA("TextLabel") and descendant.Name == "taskTimer" then
+            descendant:GetPropertyChangedSignal("Text"):Connect(function()
+                if descendant.Text == "00:00" then
+                    activateFunction()
+                end
+            end)
+            break
+        end
+    end
+end
+
+checkTaskTimer()
