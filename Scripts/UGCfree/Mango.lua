@@ -1,6 +1,3 @@
-local SG, TL1, TL2 = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayerGui), Instance.new("TextLabel", SG), Instance.new("TextLabel", SG)
-TL1.Size, TL1.Position, TL1.BackgroundTransparency, TL1.TextColor3, TL1.Text, TL1.Font, TL1.TextSize = UDim2.new(0, 200, 0, 50), UDim2.new(0.5, -100, 0, 0), 1, Color3.new(1, 1, 1), "OneCreatorX", Enum.Font.SourceSansBold, 20
-TL2.Size, TL2.Position, TL2.BackgroundTransparency, TL2.TextColor3, TL2.Text, TL2.Font, TL2.TextSize = UDim2.new(0, 200, 0, 50), UDim2.new(0.5, -100, 0, 50), 1, Color3.new(1, 1, 1), "Automatic Find", Enum.Font.SourceSansBold, 20
 
 local placeholder = game.Workspace.A_placeholder
 local imageLabel = placeholder:FindFirstChildWhichIsA("ImageLabel", true)
