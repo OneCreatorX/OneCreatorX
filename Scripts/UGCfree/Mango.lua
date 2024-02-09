@@ -15,9 +15,9 @@ if clockTextLabel then
 
                 if id then
                     local questID = tostring(id)
-                        wait(2)
+                     
                     game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(-238, 40, -457)))
-
+                    task.wait(2)
                     local RFQuest = game:GetService("ReplicatedStorage"):FindFirstChild("RFQuest")
                     if RFQuest then
                         RFQuest:InvokeServer(tonumber(questID))
