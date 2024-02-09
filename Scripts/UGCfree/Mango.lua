@@ -40,25 +40,21 @@ local function movePlayerToCameraCFrame()
     local tmStarterGui = playerGui:WaitForChild("TMStarterGui", 5)
     if not tmStarterGui then return end
 
-    local success, camera = pcall(function()
-        return tmStarterGui:WaitForChild("Camera", 5)
-    end)
-
-    if success and camera and camera:IsA("Camera") then
+    local camera = tmStarterGui:FindFirstChild("Camera", true)
+    if camera and camera:IsA("Camera") then
         local character = player.Character
         if character then
             local playerCFrame = character:GetPrimaryPartCFrame()
             local cameraCFrame = camera.CFrame
 
             character:SetPrimaryPartCFrame(cameraCFrame)
-            task.wait(1.5)
+            wait(1.5)
 
             for _, part in pairs(workspace:GetDescendants()) do
                 if (part:IsA("BasePart") or part:IsA("MeshPart")) and part:FindFirstChild("ProximityPrompt") then
                     local proximity = part.ProximityPrompt
                     if proximity and (part.Position - character:GetPrimaryPartCFrame().Position).Magnitude < 10 then
                         fireproximityprompt(proximity)
-                        
                         task.wait(2)
                         game:GetService("ReplicatedStorage"):WaitForChild("FB-ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ResetearAspecto"):FireServer()
                     end
@@ -69,7 +65,7 @@ local function movePlayerToCameraCFrame()
 end
 
 local function activateFunction()
-    task.wait(3)
+    task.wait(1)
     movePlayerToCameraCFrame()
 end
 
