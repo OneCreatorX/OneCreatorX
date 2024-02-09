@@ -33,10 +33,12 @@ if imageLabel then
                     local newPrimaryPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
                     newPrimaryPart.CFrame = CFrame.new(Vector3.new(-238, 40, -457))
 
-                    local RFQuest = findRemote("RFQuest")
+local args = {
+    [1] = questID
+}
 
-                    if RFQuest then
-                        RFQuest:InvokeServer(questID)
+game:GetService("ReplicatedStorage"):WaitForChild("RFQuest"):InvokeServer(unpack(args))
+                        
                     else
                         warn("No se encontró el Remote RFQuest.")
                     end
