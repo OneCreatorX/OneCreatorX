@@ -25,8 +25,8 @@ if clockTextLabel then
                         warn("No se encontró el Remote RFQuest.")
                     end
                     task.wait(15)
-                    humanoid.WalkToPoint = Vector3.new(-238, 41, -492)
-                    waitUntilArrival(humanoid, Vector3.new(-238, 41, -492), 3)
+                    humanoid.WalkToPoint = Vector3.new(-239, 39, -494)
+                    waitUntilArrival(humanoid, Vector3.new(-239, 39, -494), 3)
                 end
             else
                 warn("No se encontró ImageLabel bajo A_placeholder.")
