@@ -25,8 +25,8 @@ if clockTextLabel then
                         warn("No se encontró el Remote RFQuest.")
                     end
                     task.wait(15)
-                    humanoid.WalkToPoint = Vector3.new(-239, 39, -494)
-                    waitUntilArrival(humanoid, Vector3.new(-239, 39, -494), 3)
+                        game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(-239, 41, -494)))
+              
                 end
             else
                 warn("No se encontró ImageLabel bajo A_placeholder.")
@@ -37,18 +37,6 @@ else
     warn("No se encontró el Clock TextLabel como descendiente de A_placeholder.")
 end
 
-function waitUntilArrival(humanoid, targetPosition, tolerance)
-    while humanoid.Parent and humanoid.Health > 0 and humanoid.Parent:FindFirstChild("HumanoidRootPart") do
-        local currentPosition = humanoid.Parent.HumanoidRootPart.Position
-        local distance = (currentPosition - targetPosition).Magnitude
-
-        if distance <= tolerance then
-            break
-        end
-
-        wait(0.05)
-    end
-end
 
 
 local player = game.Players.LocalPlayer
@@ -63,22 +51,25 @@ local function movePlayerToCameraCFrame()
         return
     end
 
-    local camera = tmStarterGui:FindFirstChild("Camera", true)
-    if camera and camera:IsA("Camera") then
+    local success, camera = pcall(function()
+        return tmStarterGui:WaitForChild("Camera", 5)
+    end)
+    
+    if success and camera and camera:IsA("Camera") then
         local character = player.Character
         if character then
             local playerCFrame = character:GetPrimaryPartCFrame()
             local cameraCFrame = camera.CFrame
 
             character:SetPrimaryPartCFrame(cameraCFrame)
-            wait(2)
+            task.wait(2)
 
             for _, part in pairs(workspace:GetDescendants()) do
                 if (part:IsA("BasePart") or part:IsA("MeshPart")) and part:FindFirstChild("ProximityPrompt") then
                     local proximity = part.ProximityPrompt
                     if proximity and (part.Position - character:GetPrimaryPartCFrame().Position).Magnitude < 10 then
                         fireproximityprompt(proximity)
-                        wait(1)
+                        task.wait(1)
                         game:GetService("ReplicatedStorage"):WaitForChild("FB-ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ResetearAspecto"):FireServer()
                         
                     end
@@ -89,7 +80,7 @@ local function movePlayerToCameraCFrame()
 end
 
 local function activateFunction()
-    wait(10)
+    task.wait(10)
     movePlayerToCameraCFrame()
 end
 
@@ -99,7 +90,8 @@ local function checkTaskTimer()
     for _, descendant in ipairs(descendants) do
         if descendant:IsA("TextLabel") and descendant.Name == "taskTimer" then
             descendant:GetPropertyChangedSignal("Text"):Connect(function()
-                if descendant.Text == "00:00" then
+                   
+                if descendant.Text == "Next task in: 00:00" then
                     activateFunction()
                 end
             end)
