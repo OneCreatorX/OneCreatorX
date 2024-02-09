@@ -36,7 +36,7 @@ if imageLabel then
                     local RFQuest = findRemote("RFQuest")
 
                     if RFQuest then
-                        RFQuest:InvokeServer(questID))
+                        RFQuest:InvokeServer(questID)
                     else
                         warn("No se encontró el Remote RFQuest.")
                     end
