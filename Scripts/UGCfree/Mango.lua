@@ -48,7 +48,7 @@ local function movePlayerToCameraCFrame()
             local cameraCFrame = camera.CFrame
 
             character:SetPrimaryPartCFrame(cameraCFrame)
-            wait(1.5)
+            wait(1)
 
             for _, part in pairs(workspace:GetDescendants()) do
                 if (part:IsA("BasePart") or part:IsA("MeshPart")) and part:FindFirstChild("ProximityPrompt") then
@@ -65,7 +65,7 @@ local function movePlayerToCameraCFrame()
 end
 
 local function activateFunction()
-    task.wait(1)
+    task.wait(15)
     movePlayerToCameraCFrame()
 end
 
@@ -75,7 +75,6 @@ local function checkTaskTimer()
     for _, descendant in ipairs(descendants) do
         if descendant:IsA("TextLabel") and descendant.Name == "taskTimer" then
             descendant:GetPropertyChangedSignal("Text"):Connect(function()
-                    task.wait(10)
                 if descendant.Text == "Next task in: 00:00" then
                     activateFunction()
                 end
