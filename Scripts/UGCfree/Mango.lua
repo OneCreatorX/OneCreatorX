@@ -1,44 +1,25 @@
 local placeholder = game.Workspace.A_placeholder
-local imageLabel = placeholder:FindFirstChildWhichIsA("ImageLabel", true)
+local clockTextLabel = placeholder:FindFirstChild("Clock", true)
 
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
+if clockTextLabel then
+    local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
 
-local function findRemote(remoteName)
-    local remote = ReplicatedStorage:FindFirstChild(remoteName, true)
-    return remote
-end
+    clockTextLabel:GetPropertyChangedSignal("Text"):Connect(function()
+        if clockTextLabel.Text == "00:01" then
+            task.wait(5)
 
-if imageLabel then
-    local id = imageLabel.Image:match("id=(%d+)")
+            local imageLabel = placeholder:FindFirstChildWhichIsA("ImageLabel", true)
 
-    if id then
-        local questID = tostring(id)
-        local descendants = placeholder:GetDescendants()
-        local clockTextLabel
+            if imageLabel then
+                local id = tonumber(imageLabel.Image:match("id=(%d+)"))
 
-        for _, descendant in pairs(descendants) do
-            if descendant:IsA("TextLabel") and descendant.Name == "Clock" then
-                clockTextLabel = descendant
-                break
-            end
-        end
+                if id then
+                    local questID = tostring(id)
+                    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(-238, 40, -457)))
 
-        if clockTextLabel then
-            local humanoid = game.Players.LocalPlayer.Character:WaitForChild("Humanoid")
-
-            clockTextLabel:GetPropertyChangedSignal("Text"):Connect(function()
-                if clockTextLabel.Text == "00:01" then
-                    wait(10)  -- Waiting for 10 seconds
-
-                    local newPrimaryPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-                    newPrimaryPart.CFrame = CFrame.new(Vector3.new(-238, 40, -457))
-
-local args = {
-    [1] = questID
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RFQuest"):InvokeServer(unpack(args))
-                        
+                    local RFQuest = game:GetService("ReplicatedStorage"):FindFirstChild("RFQuest")
+                    if RFQuest then
+                        RFQuest:InvokeServer(tonumber(questID))
                     else
                         warn("No se encontró el Remote RFQuest.")
                     end
@@ -46,13 +27,13 @@ game:GetService("ReplicatedStorage"):WaitForChild("RFQuest"):InvokeServer(unpack
                     humanoid.WalkToPoint = Vector3.new(-238, 41, -492)
                     waitUntilArrival(humanoid, Vector3.new(-238, 41, -492), 3)
                 end
-            end)
-        else
-            warn("No se encontró el Clock TextLabel como descendiente de A_placeholder.")
+            else
+                warn("No se encontró ImageLabel bajo A_placeholder.")
+            end
         end
-    end
+    end)
 else
-    warn("No ImageLabel found under A_placeholder.")
+    warn("No se encontró el Clock TextLabel como descendiente de A_placeholder.")
 end
 
 function waitUntilArrival(humanoid, targetPosition, tolerance)
