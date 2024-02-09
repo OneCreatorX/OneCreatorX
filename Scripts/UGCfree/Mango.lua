@@ -1,3 +1,13 @@
+local ScreenGui = Instance.new("ScreenGui") ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui ScreenGui.ResetOnSpawn = false
+
+local Frame = Instance.new("Frame") Frame.Parent = ScreenGui Frame.Size = UDim2.new(0, 150, 0, 69) Frame.Position = UDim2.new(0, 10, 0, 10) Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40) Frame.BorderColor3 = Color3.fromRGB(255, 255, 255) Frame.BorderSizePixel = 2 Frame.Active = true Frame.Draggable = true
+
+local Title = Instance.new("TextLabel") Title.Parent = Frame Title.Text = "YT:@OneCreatorX" Title.Size = UDim2.new(1, 0, 0, 20) Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30) Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local AntiAFK = Instance.new("TextLabel") AntiAFK.Parent = Frame AntiAFK.Text = "AntiAFK ON" AntiAFK.Size = UDim2.new(1, 0, 0, 20) AntiAFK.Position = UDim2.new(0, 0, 0, 20) AntiAFK.BackgroundColor3 = Color3.fromRGB(30, 30, 30) AntiAFK.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local AllTasks = Instance.new("TextLabel") AllTasks.Parent = Frame AllTasks.Text = "All Tasks ON" AllTasks.Size = UDim2.new(1, 0, 0, 20) AllTasks.Position = UDim2.new(0, 0, 0, 40) AllTasks.BackgroundColor3 = Color3.fromRGB(30, 30, 30) AllTasks.TextColor3 = Color3.fromRGB(255, 255, 255)
+
 local placeholder = workspace.A_placeholder
 local clockTextLabel = placeholder:FindFirstChild("Clock", true)
 
@@ -85,3 +95,7 @@ local function checkTaskTimer()
 end
 
 checkTaskTimer()
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
