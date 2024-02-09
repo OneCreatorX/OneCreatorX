@@ -17,14 +17,14 @@ if clockTextLabel then
                     local questID = tostring(id)
                      
                     game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Vector3.new(-238, 40, -457)))
-                    task.wait(2)
+                    task.wait(20)
                     local RFQuest = game:GetService("ReplicatedStorage"):FindFirstChild("RFQuest")
                     if RFQuest then
                         RFQuest:InvokeServer(tonumber(questID))
                     else
                         warn("No se encontró el Remote RFQuest.")
                     end
-
+                    task.wait(20)
                     humanoid.WalkToPoint = Vector3.new(-238, 41, -492)
                     waitUntilArrival(humanoid, Vector3.new(-238, 41, -492), 3)
                 end
