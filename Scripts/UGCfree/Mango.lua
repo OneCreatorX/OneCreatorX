@@ -1,4 +1,3 @@
-
 local placeholder = game.Workspace.A_placeholder
 local imageLabel = placeholder:FindFirstChildWhichIsA("ImageLabel", true)
 
