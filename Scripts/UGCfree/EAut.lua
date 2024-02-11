@@ -10,4 +10,3 @@ local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or 
           \_Welcome to LuaObfuscator.com   (Alpha 0.9.20) ~  Much Love, Ferib 
 
 ]]--
-                 
