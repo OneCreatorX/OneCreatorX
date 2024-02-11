@@ -7,7 +7,7 @@ local isEnabled = true
 local function spinAndClaim(threadId)
     while isEnabled do
 game:GetService("ReplicatedStorage"):WaitForChild("SpinnerContents"):WaitForChild("RemoteFunction"):InvokeServer()
-        wait()
+        wait(2)
     end
 end
 
@@ -41,7 +41,7 @@ buttonStop.MouseButton1Click:Connect(function()
     destroyAllThreads()
 end)
 
-for i = 1, 75 do
+for i = 1, 2 do
     Threads[i] = coroutine.create(function()
         spinAndClaim(i)
     end)
