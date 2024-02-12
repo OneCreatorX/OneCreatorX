@@ -1,1 +1,1 @@
-setclipboard(game.GameId)
+setclipboard(tostring(game.GameId))
