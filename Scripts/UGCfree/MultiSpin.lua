@@ -1,7 +1,7 @@
 local gameId = game.GameId
 local supportedActions = {
-    [5251802284] = function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/InstantUGC.lua"))() 
+    [5533844790] = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/SpinForUGC.lua"))()
     end,
     [5616226528] = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/AutoSpin2.lua"))()
