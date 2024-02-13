@@ -8,6 +8,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreato
     end,
     [5376457835] = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/5376457835.lua"))() 
+    end,
+    [5598801336] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/5598801336.lua"))()
+    end,
+    [5376457835] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/5376457835.lua"))() 
     end
 }
 
