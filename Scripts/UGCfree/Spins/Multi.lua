@@ -7,6 +7,7 @@ local Remotes = ReplicatedStorage:WaitForChild("Remotes")
 
 local gui = Instance.new("ScreenGui")
 gui.Parent = player.PlayerGui
+gui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 200, 0, 100)
@@ -36,6 +37,7 @@ local function createAssetButton(image, value)
     button.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
     button.Image = image
     button.MouseButton1Click:Connect(function()
+            
         if selectedButton == button then
             selectedButton = nil
             button.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
@@ -51,7 +53,7 @@ local function createAssetButton(image, value)
                         [1] = value
                     }
                     Remotes:WaitForChild("Spin"):InvokeServer(unpack(args))
-                    Remotes:WaitForChild("UpdateSelected"):InvokeServer(unpack(args))
+
                     wait(loopInterval)
                 end
             end)
