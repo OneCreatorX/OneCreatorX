@@ -5,6 +5,9 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreato
     end,
     [5616226528] = function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/AutoSpin2.lua"))()
+    end,
+    [5376457835] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/5376457835.lua"))() 
     end
 }
 
