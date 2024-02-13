@@ -18,7 +18,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreato
 }
 
 game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Loading Scripts",
+    Title = "YT:@OneCreatorX",
     Text = "Loading scripts...",
     Duration = 5
 })
