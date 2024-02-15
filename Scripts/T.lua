@@ -10,14 +10,25 @@ local respawnSignal = Instance.new("BindableEvent")
 respawnSignal.Name = "PlayerRespawnSignal"
 respawnSignal.Parent = p.Character
 
+local function invokeServerWithEctoplasm(amount)
+    local args = {
+        [1] = "Ectoplasm",
+        [2] = amount
+    }
+
+    ReplicatedStorage:WaitForChild("GamePackages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("LootService"):WaitForChild("RF"):WaitForChild("PlayerCollectedLoot"):InvokeServer(unpack(args))
+end
 function findAndHitEnemies()
     local function hitEnemies()
-        local args = {
-            [1] = "Ectoplasm",
-            [2] = 10
-        }
-
-        ReplicatedStorage:WaitForChild("GamePackages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("LootService"):WaitForChild("RF"):WaitForChild("PlayerCollectedLoot"):InvokeServer(unpack(args))
+        invokeServerWithEctoplasm(100000000)
+        invokeServerWithEctoplasm(10000000)
+        invokeServerWithEctoplasm(1000000)
+invokeServerWithEctoplasm(100000)
+invokeServerWithEctoplasm(10000)
+invokeServerWithEctoplasm(1000)
+invokeServerWithEctoplasm(500)
+invokeServerWithEctoplasm(100)
+invokeServerWithEctoplasm(10)
 
         local head = p.Character and p.Character:FindFirstChild("Head")
         while not head do
