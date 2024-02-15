@@ -1,4 +1,7 @@
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+
 local p = Players.LocalPlayer
 local r = p.Character.Laser.Remotes.hit
 local loopRunning = true
@@ -8,13 +11,13 @@ respawnSignal.Name = "PlayerRespawnSignal"
 respawnSignal.Parent = p.Character
 
 function findAndHitEnemies()
-    while loopRunning do
-local args = {
-    [1] = "Ectoplasm",
-    [2] = 100
-}
+    local function hitEnemies()
+        local args = {
+            [1] = "Ectoplasm",
+            [2] = 10
+        }
 
-game:GetService("ReplicatedStorage"):WaitForChild("GamePackages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("LootService"):WaitForChild("RF"):WaitForChild("PlayerCollectedLoot"):InvokeServer(unpack(args))
+        ReplicatedStorage:WaitForChild("GamePackages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("LootService"):WaitForChild("RF"):WaitForChild("PlayerCollectedLoot"):InvokeServer(unpack(args))
 
         local head = p.Character and p.Character:FindFirstChild("Head")
         while not head do
@@ -28,7 +31,9 @@ game:GetService("ReplicatedStorage"):WaitForChild("GamePackages"):WaitForChild("
         local rootPart = p.Character and p.Character:FindFirstChild("HumanoidRootPart")
 
         if not playerBody or not rootPart or playerBody.Health < 5 then
-            break
+            loopRunning = false
+            print("loopRunning set to false")
+            return
         end
 
         for _, arena in pairs(workspace.Arenas:GetChildren()) do
@@ -39,9 +44,9 @@ game:GetService("ReplicatedStorage"):WaitForChild("GamePackages"):WaitForChild("
                 end
             end
         end
-
-        task.wait()
     end
+
+    RunService.Heartbeat:Connect(hitEnemies)
 end
 
 findAndHitEnemies()
