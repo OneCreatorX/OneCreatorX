@@ -1,3 +1,4 @@
+
 local Players = game:GetService("Players")
 local p = Players.LocalPlayer
 local sg = Instance.new("ScreenGui")
@@ -8,7 +9,7 @@ sg.Parent = p.PlayerGui
 local frame = Instance.new("Frame")
 frame.Name = "CustomFrame"
 frame.Size = UDim2.new(0, 200, 0, 150)
-frame.Position = UDim2.new(0.5, -100, 0.5, -75)
+frame.Position = UDim2.new(0.5, -100, 0.3, -75)
 frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.BorderSizePixel = 2
 frame.BorderColor3 = Color3.fromRGB(50, 50, 50)
@@ -24,19 +25,19 @@ titleLabel.Position = UDim2.new(0, 0, 0, 0)
 titleLabel.TextSize = 18
 titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-titleLabel.BorderSizePixel = 55
+titleLabel.BorderSizePixel = 1
 titleLabel.Parent = frame
 
 local startButton = Instance.new("TextButton")
 startButton.Name = "StartButton"
 startButton.Text = "Start Game"
-startButton.Size = UDim2.new(0, 180, 0, 40)
-startButton.Position = UDim2.new(0, 10, 0.35, 0)
-startButton.BackgroundColor3 = Color3.fromRGB(50, 50, 255)
+startButton.Size = UDim2.new(0, 180, 0, 30)
+startButton.Position = UDim2.new(0, 10, 0.2, 0)
+startButton.BackgroundColor3 = Color3.fromRGB(225, 50, 50)
 startButton.Parent = frame
 
 startButton.MouseButton1Click:Connect(function()
-local newPosition = Vector3.new(854, 187, 3168)
+local newPosition = Vector3.new(854, 188, 3168)
     local c = p.Character.HumanoidRootPart.Position
     p.Character:SetPrimaryPartCFrame(CFrame.new(newPosition))
 end)
@@ -44,7 +45,7 @@ end)
 local moveUpButton = Instance.new("TextButton")
 moveUpButton.Name = "AutoAttackButton"
 moveUpButton.Text = "Auto Attack"
-moveUpButton.Size = UDim2.new(0, 180, 0, 40)
+moveUpButton.Size = UDim2.new(0, 180, 0, 30)
 moveUpButton.Position = UDim2.new(0, 10, 0.7, 0)
 moveUpButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
 moveUpButton.Parent = frame
@@ -56,8 +57,8 @@ end)
 local moveButton = Instance.new("TextButton")
 moveButton.Name = "MoveUpButton"
 moveButton.Text = "Mode Safe"
-moveButton.Size = UDim2.new(0, 130, 0, 40)
-moveButton.Position = UDim2.new(0, 10, 0.55, 10)
+moveButton.Size = UDim2.new(0, 130, 0, 30)
+moveButton.Position = UDim2.new(0.1, 10, 0.38, 10)
 moveButton.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
 moveButton.Parent = frame
 
