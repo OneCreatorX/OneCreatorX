@@ -45,7 +45,7 @@ invokeServerWithEctoplasm(10)
         loopConnection:Disconnect()
         print("loopRunning set to false")
         return
-    end
+
 end
 
 
