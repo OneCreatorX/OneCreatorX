@@ -3,5 +3,6 @@ game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUse
 end)
 while true do task.wait(5)
   game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Spin"):FireServer()
+  task.wait(2)
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("ClaimReward"):FireServer()
 end
