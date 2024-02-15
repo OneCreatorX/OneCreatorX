@@ -42,10 +42,12 @@ invokeServerWithEctoplasm(10)
         local rootPart = p.Character and p.Character:FindFirstChild("HumanoidRootPart")
 
         if not playerBody or not rootPart or playerBody.Health < 5 then
-            loopRunning = false
-            print("loopRunning set to false")
-            return
-        end
+        loopConnection:Disconnect()
+        print("loopRunning set to false")
+        return
+    end
+end
+
 
         for _, arena in pairs(workspace.Arenas:GetChildren()) do
             for _, descendant in pairs(arena:GetDescendants()) do
