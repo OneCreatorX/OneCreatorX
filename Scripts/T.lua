@@ -5,6 +5,7 @@ local RunService = game:GetService("RunService")
 local p = Players.LocalPlayer
 local r = p.Character.Laser.Remotes.hit
 local loopRunning = true
+local loopConnection
 
 local respawnSignal = Instance.new("BindableEvent")
 respawnSignal.Name = "PlayerRespawnSignal"
@@ -18,17 +19,18 @@ local function invokeServerWithEctoplasm(amount)
 
     ReplicatedStorage:WaitForChild("GamePackages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("LootService"):WaitForChild("RF"):WaitForChild("PlayerCollectedLoot"):InvokeServer(unpack(args))
 end
+
 function findAndHitEnemies()
     local function hitEnemies()
         invokeServerWithEctoplasm(100000000)
         invokeServerWithEctoplasm(10000000)
         invokeServerWithEctoplasm(1000000)
-invokeServerWithEctoplasm(100000)
-invokeServerWithEctoplasm(10000)
-invokeServerWithEctoplasm(1000)
-invokeServerWithEctoplasm(500)
-invokeServerWithEctoplasm(100)
-invokeServerWithEctoplasm(10)
+        invokeServerWithEctoplasm(100000)
+        invokeServerWithEctoplasm(10000)
+        invokeServerWithEctoplasm(1000)
+        invokeServerWithEctoplasm(500)
+        invokeServerWithEctoplasm(100)
+        invokeServerWithEctoplasm(10)
 
         local head = p.Character and p.Character:FindFirstChild("Head")
         while not head do
@@ -42,12 +44,10 @@ invokeServerWithEctoplasm(10)
         local rootPart = p.Character and p.Character:FindFirstChild("HumanoidRootPart")
 
         if not playerBody or not rootPart or playerBody.Health < 5 then
-        loopConnection:Disconnect()
-        print("loopRunning set to false")
-        return
-
-end
-
+            loopConnection:Disconnect()
+            print("loopRunning set to false")
+            return
+        end
 
         for _, arena in pairs(workspace.Arenas:GetChildren()) do
             for _, descendant in pairs(arena:GetDescendants()) do
@@ -59,7 +59,7 @@ end
         end
     end
 
-    RunService.Heartbeat:Connect(hitEnemies)
+    loopConnection = RunService.Heartbeat:Connect(hitEnemies)
 end
 
 findAndHitEnemies()
