@@ -20,6 +20,12 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreato
     end,
     [3380613938] = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/3380613938.lua"))()
+    end,
+    [5631238011] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/5631238011.lua"))()
+    end,
+    [4035073289] = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Spins/4035073289.lua"))()
     end
 }
 
@@ -32,10 +38,14 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 local function checkGameId()
     if supportedActions[gameId] then
         supportedActions[gameId]()
-    else
-      
         game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "No support Game",
+            Title = "Game Support",
+            Text = "Ready Script Execute",
+            Duration = 5
+        })
+    else
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "No Support Game",
             Text = "The game is not supported.",
             Duration = 5
         })
