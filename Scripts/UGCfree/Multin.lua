@@ -37,12 +37,12 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 
 local function checkGameId()
     if supportedActions[gameId] then
-        supportedActions[gameId]()
         game:GetService("StarterGui"):SetCore("SendNotification", {
             Title = "Game Support",
             Text = "Ready Script Execute",
             Duration = 5
         })
+        supportedActions[gameId]()
     else
         game:GetService("StarterGui"):SetCore("SendNotification", {
             Title = "No Support Game",
