@@ -16,13 +16,15 @@ frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.Parent = gui
 
 local title = Instance.new("TextLabel")
-title.Text = "Auto Spin"
+title.Text = "Auto Spin Select"
 title.Parent = frame
-title.Position = UDim2.new(0, 0, -0.4, 0)
+title.Position = UDim2.new(0, 0, -0.2, 0)
 title.Size = UDim2.new(1, 0, 0, 30)
 title.TextSize = 18
 title.Font = Enum.Font.SourceSansBold
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextColor3 = Color3.fromRGB(255, 0, 0) 
+title.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
+title.TextStrokeTransparency = 0 
 
 local assetButtons = {}
 local selectedButton = nil
