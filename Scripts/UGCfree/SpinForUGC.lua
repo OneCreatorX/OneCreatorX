@@ -16,13 +16,15 @@ frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 frame.Parent = gui
 
 local title = Instance.new("TextLabel")
-title.Text = "Auto Spin"
+title.Text = "Auto Spin Select"
 title.Parent = frame
-title.Position = UDim2.new(0, 0, -0.4, 0)
+title.Position = UDim2.new(0, 0, -0.2, 0)
 title.Size = UDim2.new(1, 0, 0, 30)
-title.TextSize = 18
+title.TextSize = 16
 title.Font = Enum.Font.SourceSansBold
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.TextColor3 = Color3.fromRGB(255, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+title.TextStrokeTransparency = 0
 
 local assetButtons = {}
 local selectedButton = nil
@@ -85,26 +87,14 @@ buildGUI()
 local P, WS = game.Players.LocalPlayer, game.Workspace
 local H = P.Character and P.Character:FindFirstChild("HumanoidRootPart")
 
-local function activateTouchInterest(part)
-	local humanoidRoot = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-
-	if humanoidRoot then
-		firetouchinterest(part, humanoidRoot, 0)
-		wait(0.1)
-		firetouchinterest(part, humanoidRoot, 1)
-	end
-end
-
-local function activateTouchInterestForCoins()
-	for _, part in pairs(game.Workspace:GetChildren()) do
-		if part:IsA("Part") and part.Name == "coin" then
-			activateTouchInterest(part)
-		end
-	end
-end
-
 local function aTI()
-	if H then firetouchinterest(WS.EndPart, H, 0) wait(0.1) firetouchinterest(WS.EndPart, H, 1) end
+WS.EndPart.Transparency = 1
+    WS.EndPart2.Transparency = 1
+    WS.EndPart.CanCollide = false
+    WS.EndPart2.CanCollide = false
+	task.wait(5)
+    WS.EndPart.Position = H.Position
+    WS.EndPart2.Position = H.Position
 end
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
@@ -112,7 +102,4 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 
-while true do
-wait()
-	aTI()
-end
+	task.spawn(aTI)
