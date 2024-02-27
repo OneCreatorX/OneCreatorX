@@ -1,7 +1,5 @@
 -- ScreenGui
 local g = Instance.new("ScreenGui")
-g.Name = "YT_OneCreator-- ScreenGui
-local g = Instance.new("ScreenGui")
 g.Name = "YT_OneCreatorX"
 g.ResetOnSpawn = false
 g.Parent = game.Players.LocalPlayer.PlayerGui
@@ -52,14 +50,22 @@ local function toggleLoop()
                         local fp = workspace.Map.Fragmentable:GetChildren()
 
                         if #fp > 0 then
-                            local randomIndex = math.random(1, #fp)
-                            local pt = fp[randomIndex]
+                            local validOptions = {}
 
-                            local hrp = c:WaitForChild("HumanoidRootPart")
-                            local distance = (pt.Position - hrp.Position).Magnitude
+                            for _, pt in ipairs(fp) do
+                                local hrp = c:WaitForChild("HumanoidRootPart")
+                                local distance = (pt.Position - hrp.Position).Magnitude
 
-                            if distance >= minRange and distance <= maxRange then
-                                h.WalkToPoint = pt.Position
+                                if distance >= minRange and distance <= maxRange then
+                                    table.insert(validOptions, pt.Position)
+                                end
+                            end
+
+                            if #validOptions > 0 then
+                                local randomIndex = math.random(1, #validOptions)
+                                local targetPosition = validOptions[randomIndex]
+
+                                h.WalkToPoint = targetPosition
                                 h.Jump = true
                                 wait(0.5)
                                 game:GetService("Players").LocalPlayer.Character.Events.Sell:FireServer()
@@ -78,7 +84,7 @@ local function toggleLoop()
                                     warn("Error executing Grab remote:", e)
                                 end
                             else
-                                warn("Fragmentable part out of range.")
+                                warn("No valid fragmentable parts within range.")
                             end
                         else
                             warn("No fragmentable parts available.")
