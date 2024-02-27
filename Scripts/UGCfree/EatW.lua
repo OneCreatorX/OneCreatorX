@@ -1,5 +1,7 @@
 -- ScreenGui
 local g = Instance.new("ScreenGui")
+g.Name = "YT_OneCreator-- ScreenGui
+local g = Instance.new("ScreenGui")
 g.Name = "YT_OneCreatorX"
 g.ResetOnSpawn = false
 g.Parent = game.Players.LocalPlayer.PlayerGui
@@ -110,6 +112,7 @@ b.MouseButton1Click:Connect(function()
         toggleLoop()
     end
 end)
+
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
