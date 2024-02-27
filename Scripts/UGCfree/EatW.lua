@@ -32,8 +32,8 @@ b.TextColor3 = Color3.new(1, 1, 1)
 b.Parent = f
 
 local le = false
-local minRange = 15
-local maxRange = 50
+local minRange = 30
+local maxRange = 300
 
 local function toggleLoop()
     local success, error = pcall(function()
