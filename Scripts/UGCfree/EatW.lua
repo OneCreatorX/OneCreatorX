@@ -1,15 +1,115 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.2) ~  Much Love, Ferib 
+-- ScreenGui
+local g = Instance.new("ScreenGui")
+g.Name = "YT_OneCreatorX"
+g.ResetOnSpawn = false
+g.Parent = game.Players.LocalPlayer.PlayerGui
 
-]]--
+-- Frame principal
+local f = Instance.new("Frame")
+f.Size = UDim2.new(0, 200, 0, 100)
+f.Position = UDim2.new(0, 10, 0, 10)
+f.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+f.BorderSizePixel = 0
+f.Active = true
+f.Draggable = true
+f.Parent = g
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v38,v39) local v40={};for v47=1, #v38 do v6(v40,v0(v4(v1(v2(v38,v47,v47 + 1 )),v1(v2(v39,1 + (v47% #v39) ,1 + (v47% #v39) + 1 )))%256 ));end return v5(v40);end local v8=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v8.Name=v7("\26\249\21\234\242\38\238\56\192\253\55\194\56\253","\156\67\173\74\165");v8.ResetOnSpawn=false;v8.Parent=game.Players.LocalPlayer.PlayerGui;local v13=Instance.new(v7("\18\165\72\27\185","\38\84\215\41\118\220\70"));v13.Size=UDim2.new(0 -0 ,1613 -(447 + 966) ,0 -0 ,1917 -(1703 + 114) );v13.Position=UDim2.new(0 -0 ,711 -(376 + 325) ,0 -0 ,30 -20 );v13.BackgroundColor3=Color3.new(0.2 + 0 ,0.2 -0 ,0.2 -0 );v13.BorderSizePixel=0 -0 ;v13.Active=true;v13.Draggable=true;v13.Parent=v8;local v21=Instance.new(v7("\100\19\58\6\210\81\20\39\30","\158\48\118\66\114"));v21.Size=UDim2.new(15 -(9 + 5) ,376 -(85 + 291) ,1265 -(243 + 1022) ,38 -18 );v21.Text=v7("\146\16\74\118\92\171\254\136\54\21\55\103\170\233\147","\155\203\68\112\86\19\197");v21.TextColor3=Color3.new(1,3 -2 ,1 + 0 );v21.BackgroundTransparency=1181 -(1123 + 57) ;v21.Parent=v13;local v27=Instance.new(v7("\114\216\46\232\98\109\241\236\73\211","\152\38\189\86\156\32\24\133"));v27.Size=UDim2.new(0 + 0 ,434 -(163 + 91) ,1930 -(1869 + 61) ,9 + 21 );v27.Position=UDim2.new(241 -(187 + 54) ,10,780 -(162 + 618) ,29 + 11 );v27.BackgroundColor3=Color3.new(0 -0 ,0.6 -0 ,0.2 -0 );v27.Text=v7("\221\66\179\73\188\113\166\84\241\23\136\96\218","\38\156\55\199");v27.TextColor3=Color3.new(1,1 -0 ,1 + 0 );v27.Parent=v13;local v34=false;local v35=6 + 34 ;local v36=20613 -5613 ;local function v37() local v41=0 + 0 ;local v42;local v43;local v44;while true do if (v41==(1000 -(451 + 549))) then v42=0;v43=nil;v41=1475 -(1329 + 145) ;end if (v41==(972 -(140 + 831))) then v44=nil;while true do if (v42==(1850 -(1409 + 441))) then v43,v44=pcall(function() while v34 do local v49=1384 -(746 + 638) ;local v50;local v51;while true do if (v49==(0 + 0)) then v50=game.Players.LocalPlayer;v51=v50.Character;v49=719 -(15 + 703) ;end if (v49==1) then if (v51 and v51:FindFirstChild(v7("\128\104\113\41\29\123\243\71","\35\200\29\28\72\115\20\154"))) then local v54=0 + 0 ;local v55;local v56;while true do if ((341 -(218 + 123))==v54) then v55=v51:WaitForChild(v7("\49\170\220\222\131\35\61\29","\84\121\223\177\191\237\76"));v56=v51.CurrentChunk;v54=439 -(262 + 176) ;end if (v54==(1722 -(345 + 1376))) then if (v56 and v56:IsA(v7("\148\84\195\165\57\68\6\192\183\67\204","\161\219\54\169\192\90\48\80"))) then if (v56.Value==nil) then local v58=688 -(198 + 490) ;local v59;local v60;while true do if ((0 -0)==v58) then v59=0 -0 ;v60=nil;v58=1 + 0 ;end if (v58==1) then while true do if (v59==0) then v60=workspace.Map.Fragmentable:GetChildren();if ( #v60>(0 -0)) then local v63=1206 -(696 + 510) ;local v64;local v65;local v66;local v67;local v68;while true do if (v63==(1 -0)) then v66=nil;v67=nil;v63=1264 -(1091 + 171) ;end if (v63==(603 -(268 + 335))) then v64=0 + 0 ;v65=nil;v63=3 -2 ;end if (v63==2) then v68=nil;while true do if (v64==(6 -4)) then if ((v68>=v35) and (v68<=v36)) then local v71=374 -(123 + 251) ;local v72;local v73;local v74;while true do if (v71==(14 -11)) then if  not v73 then warn(v7("\238\46\53\233\204\234\206\36\34\229\203\190\194\50\32\166\249\184\202\62\103\244\219\167\196\40\34\188","\202\171\92\71\134\190"),v74);end break;end if (v71==(699 -(208 + 490))) then local v75=0;while true do if ((2 -1)==v75) then v71=1 + 1 ;break;end if (v75==(0 + 0)) then wait(1251.5 -(721 + 530) );game:GetService(v7("\140\207\214\19\7\57\175","\75\220\163\183\106\98")).LocalPlayer.Character.Events.Sell:FireServer();v75=837 -(660 + 176) ;end end end if (v71==(1 + 1)) then v72={[203 -(14 + 188) ]=false,[702 -(271 + 429) ]=false};v73,v74=pcall(function() local v79=0 + 0 ;while true do if (v79==(675 -(534 + 141))) then game:GetService(v7("\50\182\138\46\220\16\169","\185\98\218\235\87")).LocalPlayer.Character.Events.Grab:FireServer(unpack(v72));wait(1 + 1 );break;end end end);v71=1089 -(461 + 625) ;end if (v71==(0 + 0)) then v55.WalkToPoint=v66.Position;v55.Jump=true;v71=1289 -(993 + 295) ;end end else warn(v7("\15\211\45\143\36\196\34\156\40\195\32\141\105\209\45\154\61\129\35\157\61\129\35\142\105\211\45\134\46\196\98","\232\73\161\76"));end break;end if (v64==(1 + 0)) then v67=v51:WaitForChild(v7("\97\87\13\36\71\77\9\33\123\77\15\49\121\67\18\49","\69\41\34\96"));v68=(v66.Position-v67.Position).Magnitude;v64=3 -1 ;end if (v64==(0 -0)) then v65=math.random(2 -1 , #v60);v66=v60[v65];v64=1 + 0 ;end end break;end end else warn(v7("\149\214\2\91\12\186\222\79\88\16\175\216\64\81\27\251\201\67\79\10\168\153\67\75\31\178\213\67\95\18\190\151","\126\219\185\34\61"));end break;end end break;end end else local v61,v62=pcall(function() game:GetService(v7("\60\194\95\107\123\101\224","\135\108\174\62\18\30\23\147")).LocalPlayer.Character.Events.Eat:FireServer();end);if  not v61 then warn(v7("\147\251\56\196\10\238\54\223\179\234\63\223\17\160\52\135\147\232\62\139\10\171\62\200\162\236\112","\167\214\137\74\171\120\206\83"),v62);end end end break;end end end wait(0.5 + 0 );break;end end end end);if  not v43 then warn(v7("\174\226\32\82\234\231\130\254\114\73\247\160\140\252\55\113\247\168\155\170","\199\235\144\82\61\152"),v44);end break;end end break;end end end v27.MouseButton1Click:Connect(function() local v45=0 + 0 ;local v46;while true do if (v45==(0 + 0)) then v46=0 + 0 ;while true do if (v46==(397 -(115 + 281))) then if v34 then v37();end break;end if ((1769 -(1749 + 20))==v46) then v34= not v34;v27.Text=(v34 and v7("\38\3\173\36\71\48\184\57\10\86\150\5","\75\103\118\217")) or v7("\230\65\100\27\249\56\198\70\125\84\150\56\225","\126\167\52\16\116\217") ;v46=2 -1 ;end end break;end end end);     
+-- Título
+local t = Instance.new("TextLabel")
+t.Size = UDim2.new(1, 0, 0, 20)
+t.Text = "YT: OneCreatorX"
+t.TextColor3 = Color3.new(1, 1, 1)
+t.BackgroundTransparency = 1
+t.Parent = f
+
+-- Botón de control
+local b = Instance.new("TextButton")
+b.Size = UDim2.new(0, 180, 0, 30)
+b.Position = UDim2.new(0, 10, 0, 40)
+b.BackgroundColor3 = Color3.new(0, 0.6, 0.2)
+b.Text = "Auto Farm OFF"
+b.TextColor3 = Color3.new(1, 1, 1)
+b.Parent = f
+
+local le = false
+local minRange = 15
+local maxRange = 50
+
+local function toggleLoop()
+    local success, error = pcall(function()
+        while le do
+            local p = game.Players.LocalPlayer
+            local c = p.Character
+
+            if c and c:FindFirstChild("Humanoid") then
+                local h = c:WaitForChild("Humanoid")
+                local cc = c.CurrentChunk
+
+                if cc and cc:IsA("ObjectValue") then
+                    if cc.Value == nil then
+                        local fp = workspace.Map.Fragmentable:GetChildren()
+
+                        if #fp > 0 then
+                            local randomIndex = math.random(1, #fp)
+                            local pt = fp[randomIndex]
+
+                            local hrp = c:WaitForChild("HumanoidRootPart")
+                            local distance = (pt.Position - hrp.Position).Magnitude
+
+                            if distance >= minRange and distance <= maxRange then
+                                h.WalkToPoint = pt.Position
+                                h.Jump = true
+                                wait(0.5)
+                                game:GetService("Players").LocalPlayer.Character.Events.Sell:FireServer()
+
+                                local a = {
+                                    [1] = false,
+                                    [2] = false
+                                }
+
+                                local s, e = pcall(function()
+                                    game:GetService("Players").LocalPlayer.Character.Events.Grab:FireServer(unpack(a))
+                                    wait(2)
+                                end)
+
+                                if not s then
+                                    warn("Error executing Grab remote:", e)
+                                end
+                            else
+                                warn("Fragmentable part out of range.")
+                            end
+                        else
+                            warn("No fragmentable parts available.")
+                        end
+                    else
+                        local s, e = pcall(function()
+                            game:GetService("Players").LocalPlayer.Character.Events.Eat:FireServer()
+                        end)
+
+                        if not s then
+                            warn("Error executing Eat remote:", e)
+                        end
+                    end
+                end
+            end
+
+            wait(0.5)
+        end
+    end)
+
+    if not success then
+        warn("Error in toggleLoop:", error)
+    end
+end
+
+b.MouseButton1Click:Connect(function()
+    le = not le
+    b.Text = le and "Auto Farm ON" or "Auto Farm OFF"
+    
+    if le then
+        toggleLoop()
+    end
+end)
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
