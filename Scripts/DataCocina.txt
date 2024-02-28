@@ -1,0 +1,45 @@
+local ordenesRecetas = {
+    ["rbxassetid://15549648454"] = "rbxassetid://15612474795",
+    ["rbxassetid://15606198559"] = "rbxassetid://15612474667",
+    ["rbxassetid://15549647100"] = "rbxassetid://15612474576",
+    ["rbxassetid://15606198998"] = "rbxassetid://15612474482",
+    ["rbxassetid://15605962293"] = "rbxassetid://15612464150",
+    ["rbxassetid://15605962205"] = "rbxassetid://15612463982",
+    ["rbxassetid://15605962356"] = "rbxassetid://15612469264",
+    ["rbxassetid://15549645914"] = "rbxassetid://15612474316",
+    ["rbxassetid://15549645248"] = "rbxassetid://15612474161",
+    ["rbxassetid://15606198450"] = "rbxassetid://15612469970",
+    ["rbxassetid://15605962666"] = "rbxassetid://15612469454",
+    ["rbxassetid://15605962441"] = "rbxassetid://15612469360",
+    ["rbxassetid://15606206578"] = "rbxassetid://15612469859",
+    ["rbxassetid://15636221212"] = "rbxassetid://15636220810",
+    ["rbxassetid://15636226170"] = "rbxassetid://15636220969",
+    ["rbxassetid://15636226036"] = "rbxassetid://15636220889",
+    ["rbxassetid://15636221084"] = "rbxassetid://15636220676",
+    ["rbxassetid://15605962794"] = "rbxassetid://15612469659"
+}
+
+local ingredientes = {
+    ["rbxassetid://15549641576"] = "Egg",
+    ["rbxassetid://15549641387"] = "Rice",
+    ["rbxassetid://15549640786"] = "Meat",
+    ["rbxassetid://15549644660"] = "Buns",
+    ["rbxassetid://15549642215"] = "Carrot",
+    ["rbxassetid://15638400841"] = "PancakeMix",
+    ["rbxassetid://15612296443"] = "Peach",
+    ["rbxassetid://15606091145"] = "WhippedCream",
+    ["rbxassetid://15549640539"] = "IceCreamBowl",
+    ["rbxassetid://15549640632"] = "Strawberry",
+    ["rbxassetid://15605958462"] = "Chocolate",
+    ["rbxassetid://15606091422"] = "CoffeeBean",
+    ["rbxassetid://15638400715"] = "Milk"
+}
+
+local cocinas = {
+    ["rbxassetid://16001086770"] = "BG_Kitchenware_01",
+    ["rbxassetid://16001086383"] = "BG_Kitchenware_05",
+    ["rbxassetid://16021545739"] = "BG_Kitchenware_04",
+    ["rbxassetid://16001086862"] = "BG_Kitchenware_00",
+    ["rbxassetid://16001086489"] = "BG_Kitchenware_03",
+    ["rbxassetid://16001086617"] = "BG_Kitchenware_02"
+}
