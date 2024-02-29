@@ -1,22 +1,22 @@
-local orders = {
-    ["rbxassetid://15549648454"] = "Arroz de Amelette",
-    ["rbxassetid://15606198559"] = "Arroz de Omelette con zanahoria",
-    ["rbxassetid://15549647100"] = "Hamburguesa",
-    ["rbxassetid://15606198998"] = "Hamburguesa con Zanahoria",
-    ["rbxassetid://15605962293"] = "Panqueque",
-    ["rbxassetid://15605962205"] = "Panqueque con crema",
-    ["rbxassetid://15605962356"] = "Panqueque Crema y Zanahoria",
-    ["rbxassetid://15549645914"] = "Helado",
-    ["rbxassetid://15549645248"] = "Helado Frutilla",
-    ["rbxassetid://15606198450"] = "Helado Zanahoria",
-    ["rbxassetid://15605962666"] = "Galleta",
-    ["rbxassetid://15605962441"] = "Galleta de Zanahoria",
-    ["rbxassetid://15606206578"] = "Zanahorias",
-    ["rbxassetid://15636221212"] = "Cafe trituradoro",
-    ["rbxassetid://15636226170"] = "Cafe Triturado con Leche",
-    ["rbxassetid://15636226036"] = "Frutilla Leche",
-    ["rbxassetid://15636221084"] = "Zanahoria Licuadora",
-    ["rbxassetid://15605962794"] = "Zanahorias Helado y chocolate",
+local o = {
+    ["rbxassetid://15549648454"] = "Amelette Rice",
+    ["rbxassetid://15606198559"] = "Omelette Rice with Carrot",
+    ["rbxassetid://15549647100"] = "Burger",
+    ["rbxassetid://15606198998"] = "Burger with Carrot",
+    ["rbxassetid://15605962293"] = "Pancake",
+    ["rbxassetid://15605962205"] = "Pancake with Cream",
+    ["rbxassetid://15605962356"] = "Pancake Cream and Carrot",
+    ["rbxassetid://15549645914"] = "Ice Cream",
+    ["rbxassetid://15549645248"] = "Strawberry Ice Cream",
+    ["rbxassetid://15606198450"] = "Carrot Ice Cream",
+    ["rbxassetid://15605962666"] = "Cookie",
+    ["rbxassetid://15605962441"] = "Carrot Cookie",
+    ["rbxassetid://15606206578"] = "Carrots",
+    ["rbxassetid://15636221212"] = "Crushed Coffee",
+    ["rbxassetid://15636226170"] = "Crushed Coffee with Milk",
+    ["rbxassetid://15636226036"] = "Strawberry Milk",
+    ["rbxassetid://15636221084"] = "Blended Carrot",
+    ["rbxassetid://15605962794"] = "Carrot Ice Cream and Chocolate",
 }
 
 local RS = game:GetService("ReplicatedStorage")
@@ -26,374 +26,112 @@ local player = P.LocalPlayer
 local PG = player:WaitForChild("PlayerGui")
 
 local function l()
-for _, descendant in ipairs(workspace:WaitForChild("Table"):GetDescendants()) do
-    if descendant:IsA("Attachment") then
-        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("PutDishEvent"):FireServer(descendant)
-local args = {
-    [1] = workspace:WaitForChild("Action"):WaitForChild("ServingPort")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("DishPortEvent"):FireServer(unpack(args))
+    for _, d in ipairs(workspace:WaitForChild("Table"):GetDescendants()) do
+        if d:IsA("Attachment") then
+            RS:WaitForChild("RemoteEvent"):WaitForChild("PutDishEvent"):FireServer(d)
+            local args = {[1] = workspace:WaitForChild("Action"):WaitForChild("ServingPort")}
+            RS:WaitForChild("RemoteEvent"):WaitForChild("DishPortEvent"):FireServer(unpack(args))
+        end
     end
 end
-end
 
-local ingre = {
-    Huevo = "Egg",
-    Arroz = "Rice",
-    Carne = "Meat",
-    Bollos = "Buns",
-    Zanahoria = "Carrot",
-    Harina = "PancakeMix",
-    Durazno = "Peach",
-    Crema = "WhippedCream",
-    Helado = "IceCreamBowl",
-    Fresa = "Strawberry",
-    Chocolate = "Chocolate",
-    Cafe = "CoffeeBean",
-    Leche = "Milk"
-}
+local ingre = {Huevo = "Egg", Arroz = "Rice", Carne = "Meat", Bollos = "Buns", Zanahoria = "Carrot", Harina = "PancakeMix", Durazno = "Peach", Crema = "WhippedCream", Helado = "IceCreamBowl", Fresa = "Strawberry", Chocolate = "Chocolate", Cafe = "CoffeeBean", Leche = "Milk"}
+local cocina = {Sarten = "BG_Kitchenware_01", Horno = "BG_Kitchenware_05", Congelador = "BG_Kitchenware_04", Micro = "BG_Kitchenware_00", Tritura = "BG_Kitchenware_03", Licua = "BG_Kitchenware_02"}
 
-local cocina = {
-    Sarten = "BG_Kitchenware_01",
-    Horno = "BG_Kitchenware_05",
-    Congelador = "BG_Kitchenware_04",
-    Micro = "BG_Kitchenware_00",
-    Tritura = "BG_Kitchenware_03",
-    Licua = "BG_Kitchenware_02"
-}
-
-local function takeIngredient(ingredientName)
-    local args = {[1] = workspace:WaitForChild("Action"):WaitForChild("Food"):WaitForChild(ingredientName)}
-    RS:WaitForChild("RemoteEvent"):WaitForChild("GetItemEvent"):FireServer(unpack(args))
-end
-
-local function putInKitchen(kitchenName)
-    local args = {[1] = workspace:WaitForChild("Action"):WaitForChild("Kitchenware"):WaitForChild(kitchenName)}
-    RS:WaitForChild("RemoteEvent"):WaitForChild("SetMaterialEvent"):FireServer(unpack(args))
-end
-
-local function takeFromKitchen(kitchenName)
-    local args = {[1] = workspace:WaitForChild("Action"):WaitForChild("Kitchenware"):WaitForChild(kitchenName)}
-    game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("TakeItemEvent"):FireServer(unpack(args))
-end
-
-local c = function() return wait(0.4) end
-local m = function() return wait(5.3) end
-local r = function() return wait(2) end
-local j = function() return wait(3.6) end
+local function t(i) local a={[1]=workspace:WaitForChild("Action"):WaitForChild("Food"):WaitForChild(i)} RE:WaitForChild("GetItemEvent"):FireServer(unpack(a)) end
+local function put(k) local a={[1]=workspace:WaitForChild("Action"):WaitForChild("Kitchenware"):WaitForChild(k)} RE:WaitForChild("SetMaterialEvent"):FireServer(unpack(a)) end
+local function take(k) local a={[1]=workspace:WaitForChild("Action"):WaitForChild("Kitchenware"):WaitForChild(k)} RS:WaitForChild("RemoteEvent"):WaitForChild("TakeItemEvent"):FireServer(unpack(a)) end
+local function c() return task.wait(0.2) end
+local function m() return task.wait(5.1) end
+local function r() return task.wait(1) end
+local function j() return task.wait(3.4) end
+local function op() return task.wait(4.7) end
 
 local function clear()
-local args = {
-    [1] = workspace:WaitForChild("Action"):WaitForChild("GarbageCan"):WaitForChild("GarbageCan")
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("RemoveItemEvent"):FireServer(unpack(args))
+    local args = {[1] = workspace:WaitForChild("Action"):WaitForChild("GarbageCan"):WaitForChild("GarbageCan")}
+    RS:WaitForChild("RemoteEvent"):WaitForChild("RemoveItemEvent"):FireServer(unpack(args))
 end
 
-local function prepareOrder(order)
-    if order == "Arroz de Amelette" then
-         putInKitchen(cocina.Sarten)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Arroz)
-       c()
-        putInKitchen(cocina.Sarten)
-        c()
-        takeIngredient(ingre.Huevo)
-       c()
-        putInKitchen(cocina.Sarten)
-        m()
-        takeFromKitchen(cocina.Sarten)
-l()
-    elseif order == "Arroz de Omelette con zanahoria" then
-        putInKitchen(cocina.Horno)
-           c()
-          clear()
-         c()
-        prepareOrder("Arroz de Amelette")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno)
-l()
-    elseif order == "Hamburguesa" then
-        putInKitchen(cocina.Sarten)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Carne)
-        c()
-        putInKitchen(cocina.Sarten)
-        c()
-        takeIngredient(ingre.Bollos)
-        c()
-        putInKitchen(cocina.Sarten)
-         m()
-        takeFromKitchen(cocina.Sarten)
-l()
-    elseif order == "Hamburguesa con Zanahoria" then
-          putInKitchen(cocina.Sarten)
-           c()
-          clear()
-         c()
-        prepareOrder("Hamburguesa")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno)
-l()
-    elseif order == "Panqueque" then
-        putInKitchen(cocina.Sarten)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Harina)
-        c()
-        putInKitchen(cocina.Sarten)
-        c()
-        takeIngredient(ingre.Huevo)
-        c()
-        putInKitchen(cocina.Sarten)
-         m()
-        takeFromKitchen(cocina.Sarten)
-l()
-    elseif order == "Panqueque con crema" then
-           putInKitchen(cocina.Sarten)
-           c()
-          clear()
-         c()
-        prepareOrder("Panqueque")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Durazno)
-        c()
-        putInKitchen(cocina.Horno)
-         c()
-       takeIngredient(ingre.Crema)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno)
-l()
-    elseif order == "Panqueque Crema y Zanahoria" then
-           putInKitchen(cocina.Sarten)
-           c()
-          clear()
-         c()
-          prepareOrder("Panqueque")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Horno)
-         c()
-       takeIngredient(ingre.Crema)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno) 
-l()
-    elseif order == "Helado" then
-           putInKitchen(cocina.Congelador)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Helado)
-        c()
-        putInKitchen(cocina.Congelador)
-        j()
-        takeFromKitchen(cocina.Congelador) 
-l()
-    elseif order == "Helado Frutilla" then
-         putInKitchen(cocina.Congelador)
-           c()
-          clear()
-         c()
-        prepareOrder("Helado")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Fresa)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno)
-l()
-    elseif order == "Helado Zanahoria" then
-        putInKitchen(cocina.Congelador)
-           c()
-          clear()
-         c()
-        prepareOrder("Helado")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno)
-l()
-    elseif order == "Galleta" then
-       putInKitchen(cocina.Micro)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Harina)
-        c()
-        putInKitchen(cocina.Micro)
-        c()
-        takeIngredient(ingre.Chocolate)
-        c()
-        putInKitchen(cocina.Micro)
-         m()
-        takeFromKitchen(cocina.Micro)
-l()
-    elseif order == "Galleta de Zanahoria" then
-        putInKitchen(cocina.Micro)
-           c()
-          clear()
-         c()
-       takeIngredient(ingre.Harina)
-        c()
-        putInKitchen(cocina.Micro)
-        c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Micro)
-         m()
-        takeFromKitchen(cocina.Micro)
-l() 
-    elseif order == "Zanahorias" then
-            putInKitchen(cocina.Micro)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Micro)
-        c()
-        takeIngredient(ingre.Zanahoria)
-        c()
-        putInKitchen(cocina.Micro)
-         m()
-        takeFromKitchen(cocina.Micro)
-l() 
-    elseif order == "Cafe trituradoro" then
-          putInKitchen(cocina.Tritura)
-           c()
-          clear()
-         c()
-        takeIngredient(ingre.Cafe)
-        c()
-         putInKitchen(cocina.Tritura)
-         m()
-         takeFromKitchen(cocina.Tritura)
-       l()
-    elseif order == "Cafe Triturado con Leche" then
-              putInKitchen(cocina.Tritura)
-           c()
-          clear()
-         c()
-             prepareOrder("Cafe trituradoro")
-             c()
-            putInKitchen(cocina.Horno)
-              c()
-              takeIngredient(ingre.Leche)
-                c()
-                putInKitchen(cocina.Horno)
-             j()
-            takeFromKitchen(cocina.Horno)
-         l()
-    elseif order == "Frutilla Leche" then
-         putInKitchen(cocina.Licua)
-           c()
-          clear()
-         c()
-          takeIngredient(ingre.Fresa)
-           c()
-           putInKitchen(cocina.Licua)
-           c()
-           takeIngredient(ingre.Leche)
-           c()
-           putInKitchen(cocina.Licua)
-            m()
-             takeFromKitchen(cocina.Licua)
-          l()
-    elseif order == "Zanahoria Licuadora" then
-             putInKitchen(cocina.Licua)
-           c()
-          clear()
-         c()
-             takeIngredient(ingre.Zanahoria)
-           c()
-           putInKitchen(cocina.Licua)
-           c()
-           takeIngredient(ingre.Zanahoria)
-           c()
-           putInKitchen(cocina.Licua)
-            m()
-             takeFromKitchen(cocina.Licua)
-           l()
-    elseif order == "Zanahorias Helado y chocolate" then
-       putInKitchen(cocina.Congelador)
-           c()
-          clear()
-         c()
-        prepareOrder("Helado")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        prepareOrder("Zanahorias")
-        r()
-        putInKitchen(cocina.Horno)
-        c()
-        takeIngredient(ingre.Chocolate)
-        c()
-        putInKitchen(cocina.Horno)
-        r()
-        takeFromKitchen(cocina.Horno)
-l()
+local function prepareOrder(o)
+    if o == "Amelette Rice" then
+        put(cocina.Sarten) c() clear() c() t(ingre.Arroz) c() put(cocina.Sarten) c() t(ingre.Huevo) c() put(cocina.Sarten) m() take(cocina.Sarten) l()
+    elseif o == "Omelette Rice with Carrot" then
+        put(cocina.Horno) c() clear() c()
+put(cocina.Horno) c() clear() c() prepareOrder("Amelette Rice") c() put(cocina.Horno) c() t(ingre.Zanahoria) c() put(cocina.Horno) r() take(cocina.Horno) l()
+    elseif o == "Burger" then
+        put(cocina.Sarten) c() clear() c()
+put(cocina.Sarten) c() clear() c() t(ingre.Carne) c() put(cocina.Sarten) c() t(ingre.Bollos) c() put(cocina.Sarten) m() take(cocina.Sarten) l()
+    elseif o == "Burger with Carrot" then
+        put(cocina.Sarten) c() clear() c()
+put(cocina.Sarten) c() clear() c() prepareOrder("Burger") c() put(cocina.Horno) c() t(ingre.Zanahoria) c() put(cocina.Horno) r() take(cocina.Horno) l()
+    elseif o == "Pancake" then
+put(cocina.Sarten) c() clear() c()
+        put(cocina.Sarten) c() clear() c() t(ingre.Harina) c() put(cocina.Sarten) c() t(ingre.Huevo) c() put(cocina.Sarten) m() take(cocina.Sarten) l()
+    elseif o == "Pancake with Cream" then
+ put(cocina.Horno) c() clear() c()
+        put(cocina.Horno) c() clear() c() prepareOrder("Pancake") c() put(cocina.Horno) c() t(ingre.Durazno) c() put(cocina.Horno) c() t(ingre.Crema) c() put(cocina.Horno) r() take(cocina.Horno) l()
+    elseif o == "Pancake Cream and Carrot" then
+        put(cocina.Horno) c() clear() c()
+put(cocina.Horno) c() clear() c() prepareOrder("Pancake") c() put(cocina.Horno) c() t(ingre.Zanahoria) c() put(cocina.Horno) c() t(ingre.Crema) c() put(cocina.Horno) r() take(cocina.Horno) l()
+    elseif o == "Ice Cream" then
+        put(cocina.Congelador) c() clear() c()
+put(cocina.Congelador) c() clear() c() t(ingre.Helado) c() put(cocina.Congelador) op() take(cocina.Congelador) l()
+    elseif o == "Strawberry Ice Cream" then
+        put(cocina.Horno) c() clear() c()
+put(cocina.Horno) c() clear() c() prepareOrder("Ice Cream") c() put(cocina.Horno) c() t(ingre.Fresa) c() put(cocina.Horno) r() take(cocina.Horno) l()
+    elseif o == "Carrot Ice Cream" then
+        put(cocina.Horno) c() clear() c()
+put(cocina.Horno) c() clear() c() prepareOrder("Ice Cream") c() put(cocina.Horno) c() t(ingre.Zanahoria) c() put(cocina.Horno) r() take(cocina.Horno) l()
+    elseif o == "Cookie" then
+put(cocina.Micro) c() clear() c()
+        put(cocina.Micro) c() clear() c() t(ingre.Harina) c() put(cocina.Micro) c() t(ingre.Chocolate) c() put(cocina.Micro) m() take(cocina.Micro) l()
+    elseif o == "Carrot Cookie" then
+put(cocina.Micro) c() clear() c()
+        put(cocina.Micro) c() clear() c() t(ingre.Harina) c() put(cocina.Micro) c() t(ingre.Zanahoria) c() put(cocina.Micro) m() take(cocina.Micro) l()
+    elseif o == "Carrots" then
+put(cocina.Micro) c() clear() c()
+        put(cocina.Micro) c() clear() c() t(ingre.Zanahoria) c() put(cocina.Micro) c() t(ingre.Zanahoria) c() put(cocina.Micro) m() take(cocina.Micro) l()
+    elseif o == "Crushed Coffee" then
+put(cocina.Tritura) c() clear() c()
+        put(cocina.Tritura) c() clear() c() t(ingre.Cafe) c() put(cocina.Tritura) m() take(cocina.Tritura) l()
+    elseif o == "Crushed Coffee with Milk" then
+put(cocina.Horno) c() clear() c()
+        put(cocina.Horno) c() clear() c() prepareOrder("Crushed Coffee") c() put(cocina.Horno) c() t(ingre.Leche) c() put(cocina.Horno) j() take(cocina.Horno) l()
+    elseif o == "Strawberry Milk" then
+put(cocina.Licua) c() clear() c()
+        put(cocina.Licua) c() clear() c() t(ingre.Fresa) c() put(cocina.Licua) c() t(ingre.Leche) c() put(cocina.Licua) m() take(cocina.Licua) l()
+    elseif o == "Blended Carrot" then
+        put(cocina.Licua) c() clear() c() t(ingre.Zanahoria) c() put(cocina.Licua) c() t(ingre.Zanahoria) c() put(cocina.Licua) m() take(cocina.Licua) l()
+    elseif o == "Carrot Ice Cream and Chocolate" then
+        put(cocina.Horno) c() clear() c() prepareOrder("Ice Cream") c() put(cocina.Horno) c() prepareOrder("Carrots") r() put(cocina.Horno) c() t(ingre.Chocolate) c() put(cocina.Horno) r() take(cocina.Horno) l()
     else
-        warn("Orden no reconocida.")
+        warn("Unrecognized order.")
     end
 end
 
 local function findOrder()
     local monitor = workspace.BG_Stage.BG_Models.BG_Monitor_00_Kitchen
 
-    for _, descendant in ipairs(monitor:GetDescendants()) do
-        if descendant:IsA("ImageLabel") and descendant.Name == "ImageLabel" then
-            local orderImage = descendant.Image
-            local recipeName = orders[orderImage]
+    for _, d in ipairs(monitor:GetDescendants()) do
+        if d:IsA("ImageLabel") and d.Name == "ImageLabel" then
+            local oImage = d.Image
+            local rName = o[oImage]
 
-            if recipeName then
-                prepareOrder(recipeName)  -- Llamar a prepareOrder con el nombre correcto
+            if rName then
+                prepareOrder(rName)
                 return
             else
-                warn("Receta no encontrada para la imagen proporcionada.")
+                warn("Recipe not found for the provided image.")
                 return
             end
         end
     end
 
-    warn("Imagen de receta no encontrada en el monitor.")
+    warn("Recipe image not found on the monitor.")
 end
 
 local sg = Instance.new("ScreenGui")
-sg.Parent = game.Players.LocalPlayer.PlayerGui
+sg.Parent = P.LocalPlayer.PlayerGui
 sg.ResetOnSpawn = false
 
 sg:GetPropertyChangedSignal("Enabled"):Connect(function()
@@ -405,95 +143,97 @@ end)
 local fr = Instance.new("Frame")
 fr.Size = UDim2.new(0, 200, 0, 200)
 fr.Position = UDim2.new(0.5, -100, 0.5, -75)
-fr.BackgroundColor3 = Color3.new(0.8, 0.8, 0.8)
+fr.BackgroundColor3 = Color3.new(0, 0, 0)
 fr.Parent = sg
 fr.Draggable = true
 fr.Active = true
 
-local title = Instance.new("TextLabel")
-title.Text = "OneCreatorX"
-title.Size = UDim2.new(1, 0, 0.2, 0)
-title.BackgroundColor3 = Color3.new(0.6, 0.6, 0.6)
-title.Parent = fr
+local t = Instance.new("TextLabel")
+t.Text = "OneCreatorX"
+t.Size = UDim2.new(1, 0, 0.2, 0)
+t.BackgroundColor3 = Color3.new(0.4, 0, 0.4)
+t.Parent = fr
+t.TextScaled = true
+t.TextStrokeTransparency = 0.2
 
-local loopAct = false
+local la = false
 
-local btnFind = Instance.new("TextButton")
-btnFind.Text = "Cook order"
-btnFind.Size = UDim2.new(0.8, 0, 0.2, 0)
-btnFind.Position = UDim2.new(0.1, 0, 0.25, 0)
-btnFind.BackgroundColor3 = Color3.new(0.6, 0.3, 0.3)
-btnFind.Parent = fr
-btnFind.MouseButton1Click:Connect(function()
-    loopAct = not loopAct
-    btnFind.BackgroundColor3 = loopAct and Color3.new(0.3, 0.6, 0.3) or Color3.new(0.6, 0.3, 0.3)
+local bf = Instance.new("TextButton")
+bf.Text = "Cook order"
+bf.Size = UDim2.new(0.8, 0, 0.2, 0)
+bf.Position = UDim2.new(0.1, 0, 0.25, 0)
+bf.BackgroundColor3 = Color3.new(0.6, 0.3, 0.3)
+bf.Parent = fr
+bf.MouseButton1Click:Connect(function()
+    la = not la
+    bf.BackgroundColor3 = la and Color3.new(0.3, 0.6, 0.3) or Color3.new(0.6, 0.3, 0.3)
 end)
 
-local function loot()
+local function rt()
     while true do
-        if loopAct then
+        if la then
             findOrder()
-            wait(6)
+            task.wait(1)
         else
-            wait(0.1)
+            task.wait(0.1)
         end
     end
 end
 
-spawn(function()
-    loot()
+task.spawn(function()
+    rt()
 end)
 
-local btnSpecificCode = Instance.new("TextButton")
-btnSpecificCode.Text = "Delivery"
-btnSpecificCode.Size = UDim2.new(0.8, 0, 0.2, 0)
-btnSpecificCode.Position = UDim2.new(0.1, 0, 0.5, 0)
-btnSpecificCode.BackgroundColor3 = Color3.new(0.3, 0.3, 0.6)
-btnSpecificCode.Parent = fr
-btnSpecificCode.MouseButton1Click:Connect(function()
+local bs = Instance.new("TextButton")
+bs.Text = "Delivery"
+bs.Size = UDim2.new(0.8, 0, 0.2, 0)
+bs.Position = UDim2.new(0.1, 0, 0.5, 0)
+bs.BackgroundColor3 = Color3.new(0.3, 0.3, 0.6)
+bs.Parent = fr
+bs.MouseButton1Click:Connect(function()
 for _, d in ipairs(workspace:WaitForChild("Table"):GetDescendants()) do
         if d:IsA("Attachment") then
-            game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("PutDishEvent"):FireServer(d)
-local args = {
+            RS:WaitForChild("RemoteEvent"):WaitForChild("PutDishEvent"):FireServer(d)
+local a = {
     [1] = workspace:WaitForChild("Action"):WaitForChild("ServingPort")
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("DishPortEvent"):FireServer(unpack(args))
+RS:WaitForChild("RemoteEvent"):WaitForChild("DishPortEvent"):FireServer(unpack(a))
 
-local args = {
+local a = {
     [1] = workspace:WaitForChild("Action"):WaitForChild("GarbageCan"):WaitForChild("GarbageCan")
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("RemoveItemEvent"):FireServer(unpack(args))
+RS:WaitForChild("RemoteEvent"):WaitForChild("RemoveItemEvent"):FireServer(unpack(a))
 end
 end
 end)
 
-local loopActive = false
+local le = false
 
-local btnLoop = Instance.new("TextButton")
-btnLoop.Text = "Accept Ord"
-btnLoop.Size = UDim2.new(0.8, 0, 0.2, 0)
-btnLoop.Position = UDim2.new(0.1, 0, 0.75, 0)
-btnLoop.BackgroundColor3 = Color3.new(0.6, 0.3, 0.3)
-btnLoop.Parent = fr
-btnLoop.MouseButton1Click:Connect(function()
-    loopActive = not loopActive
-    btnLoop.BackgroundColor3 = loopActive and Color3.new(0.3, 0.6, 0.3) or Color3.new(0.6, 0.3, 0.3)
+local bl = Instance.new("TextButton")
+bl.Text = "Accept Ord"
+bl.Size = UDim2.new(0.8, 0, 0.2, 0)
+bl.Position = UDim2.new(0.1, 0, 0.75, 0)
+bl.BackgroundColor3 = Color3.new(0.6, 0.3, 0.3)
+bl.Parent = fr
+bl.MouseButton1Click:Connect(function()
+    le = not le
+    bl.BackgroundColor3 = le and Color3.new(0.3, 0.6, 0.3) or Color3.new(0.6, 0.3, 0.3)
 end)
 
 while true do
-    if loopActive then
-local args = {
+    if le then
+local a = {
     [1] = workspace:WaitForChild("Action"):WaitForChild("Cash"):WaitForChild("Cash")
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvent"):WaitForChild("CashEvent"):FireServer(unpack(args))
+RS:WaitForChild("RemoteEvent"):WaitForChild("CashEvent"):FireServer(unpack(a))
 
     end
-wait(0.1)
+taak.wait(0.1)
 end
 
-game:GetService('Players').LocalPlayer.Idled:Connect(function()
-game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+P.LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController() game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
