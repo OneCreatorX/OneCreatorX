@@ -12,7 +12,7 @@ local function destroyModels()
                     player.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(otherPart.Position)
                     task.wait(0.4)
                     remotes:FireServer(otherPart)
-                    task.wait(2)
+                    task.wait(3)
                     remotes:FireServer(otherPart)
                     task.wait(0.3)
                     otherPart:Destroy()
@@ -38,7 +38,7 @@ local function noDestroyModels()
                 end
             end
         end
-        wait(1.5)
+        wait()
     end
 end
 
