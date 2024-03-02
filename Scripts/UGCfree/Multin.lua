@@ -31,11 +31,12 @@ local supportedActions = {
         while true do
             wait(1)
             game:GetService("ReplicatedStorage").openCrate:InvokeServer("Main")
-        end,
+        end
+    end,
         [5647872310] = function()
         while true do
             wait(0.1)
-            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Spin"):InvokeServer()
             end
     end
 }
