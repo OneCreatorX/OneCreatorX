@@ -1,12 +1,166 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.2) ~  Much Love, Ferib 
+local Workspace = game:GetService("Workspace")
+local Players = game:GetService("Players")
 
-]]--
+local sg = Instance.new("ScreenGui")
+sg.ResetOnSpawn = false
+sg.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v62,v63) local v64={};for v72=1, #v62 do v6(v64,v0(v4(v1(v2(v62,v72,v72 + 1 )),v1(v2(v63,1 + (v72% #v63) ,1 + (v72% #v63) + 1 )))%256 ));end return v5(v64);end local v8=game:GetService(v7("\230\204\201\46\245\171\198\29\212","\126\177\163\187\69\134\219\167"));local v9=game:GetService(v7("\19\193\43\220\249\49\222","\156\67\173\74\165"));local v10=Instance.new(v7("\7\180\91\19\185\40\97\33\190","\38\84\215\41\118\220\70"));v10.ResetOnSpawn=false;v10.Parent=v9.LocalPlayer:WaitForChild(v7("\96\26\35\11\251\66\49\55\27","\158\48\118\66\114"));local v13=Instance.new(v7("\141\54\17\59\118","\155\203\68\112\86\19\197"));v13.Size=UDim2.new(0,829 -609 ,0,190);v13.Position=UDim2.new(0.5, -110,1824.5 -(1195 + 629) , -100);v13.AnchorPoint=Vector2.new(0.5,0.5 -0 );v13.Draggable=true;v13.Active=true;v13.BackgroundColor3=Color3.fromRGB(291 -(187 + 54) ,830 -(162 + 618) ,50);local v20=Instance.new(v7("\114\216\46\232\108\121\231\253\74","\152\38\189\86\156\32\24\133"));v20.Text=v7("\197\99\253\102\211\89\162\101\238\82\166\82\243\69\159","\38\156\55\199");v20.Size=UDim2.new(1 + 0 ,0 + 0 ,0 -0 ,30);v20.TextSize=17;v20.TextColor3=Color3.fromRGB(428 -173 ,0 + 0 ,1636 -(1373 + 263) );v20.BackgroundColor3=Color3.fromRGB(75,75,1075 -(451 + 549) );v20.Parent=v13;local v27=Instance.new(v7("\156\120\100\60\63\117\248\70\164","\35\200\29\28\72\115\20\154"));v27.Text=v7("\56\177\197\214\205\13\18\50\255\156\159\172\57\32\22\255\243\202\153\56\59\23\172\139\159\162\2","\84\121\223\177\191\237\76");v27.Size=UDim2.new(1 + 0 ,0,0 -0 ,50 -20 );v27.TextSize=1396 -(746 + 638) ;v27.TextColor3=Color3.fromRGB(96 + 159 ,0,0 -0 );v27.BackgroundColor3=Color3.fromRGB(416 -(218 + 123) ,1656 -(1535 + 46) ,75);v27.Position=UDim2.new(0 + 0 ,0 + 0 ,560 -(306 + 254) ,10 + 145 );v27.Parent=v13;local v35=Instance.new(v7("\143\83\209\180\24\69\36\213\180\88","\161\219\54\169\192\90\48\80"));v35.Text=v7("\104\87\20\42\9\111\15\43\76\91","\69\41\34\96");v35.Size=UDim2.new(0 -0 ,1647 -(899 + 568) ,0 + 0 ,40);v35.Position=UDim2.new(0.5 -0 , -90,0,703 -(268 + 335) );v35.Parent=v13;v35.BackgroundColor3=Color3.fromRGB(390 -(60 + 230) ,672 -(426 + 146) ,12 + 88 );v35.TextSize=14;v35.TextColor3=Color3.fromRGB(1711 -(282 + 1174) ,1066 -(569 + 242) ,734 -479 );local v43=Instance.new(v7("\136\198\207\30\32\62\168\215\216\4","\75\220\163\183\106\98"));v43.Text=v7("\35\175\159\56\153\53\181\153\60\208\12\189","\185\98\218\235\87");v43.Size=UDim2.new(0 + 0 ,1204 -(706 + 318) ,1251 -(721 + 530) ,40);v43.Position=UDim2.new(1271.5 -(945 + 326) , -90,0 -0 ,41 + 4 );v43.Parent=v13;v43.BackgroundColor3=Color3.fromRGB(100,800 -(271 + 429) ,92 + 8 );v43.TextSize=1514 -(1408 + 92) ;v43.TextColor3=Color3.fromRGB(1341 -(461 + 625) ,1543 -(993 + 295) ,255);local v51=false;local v52=false;local v53=game.Players.LocalPlayer;local v54=v53.PlayerData.Gamepasses;if v54 then for v81,v82 in pairs(v54:GetChildren()) do pcall(function() if v82:IsA(v7("\233\51\40\234\232\171\199\41\34","\202\171\92\71\134\190")) then v82.Value=true;end end);end else warn("No se encontrÃ³ la carpeta de Gamepasses en PlayerData.");end local v53=game.Players.LocalPlayer;local v55=v53.DisplayName   .. "'s Business" ;local v56=game.Workspace.TycoonPlots;local v57=nil;pcall(function() for v73,v74 in pairs(v56:GetDescendants()) do if (v74:IsA(v7("\25\192\62\156","\232\73\161\76")) and (v74.Name==v7("\153\214\67\79\26","\126\219\185\34\61"))) then local v83=v74:FindFirstChild(v7("\63\199\89\124","\135\108\174\62\18\30\23\147"));local v84=v83 and v83:FindFirstChild(v7("\130\224\62\199\29","\167\214\137\74\171\120\206\83")) ;if (v84 and v84:IsA(v7("\191\245\42\73\212\166\137\245\62","\199\235\144\82\61\152"))) then local v93=v84.Text;print(v7("\37\3\170\40\6\24\189\36\93","\75\103\118\217"),v55);print(v7("\226\90\115\27\183\10\213\85\116\27\227","\126\167\52\16\116\217"),v93);if (v93 and (v93==v55)) then v57=v74.Parent.Parent.Parent;print("El jugador local estÃ¡ en el Plot",v57.Name);break;end end end end end);if  not v57 then warn("No se encontrÃ³ el Plot del jugador local.");end local v57=v57;local function v58(v65,v66,v67,v68) pcall(function() local v75=0 + 0 ;local v76;local v77;local v78;local v79;local v80;while true do if ((1172 -(418 + 753))==v75) then v78=nil;v79=nil;v75=1 + 1 ;end if (v75==0) then v76=0 + 0 ;v77=nil;v75=1 + 0 ;end if ((1 + 1)==v75) then v80=nil;while true do if (v76==(530 -(406 + 123))) then local v95=0;while true do if ((1770 -(1749 + 20))==v95) then v76=1 + 1 ;break;end if ((1322 -(1249 + 73))==v95) then v79=v78:FindFirstChild(v7("\111\81\23\34\34\255\33\76\95\17\32\40\227\1","\114\56\62\101\73\71\141")):FindFirstChild(v7("\143\230\201\207\189\251","\164\216\137\187")   .. v67 );v80=v79:FindFirstChild(v7("\246\244\62\162\182\251\25\237","\107\178\134\81\210\198\158")   .. v68 );v95=1 + 0 ;end end end if (v76==(1145 -(466 + 679))) then v77=v57:FindFirstChild(v7("\252\55\35\143\187\23","\156\168\78\64\224\212\121")):FindFirstChild(v7("\51\247\166\193\8\224\182","\174\103\142\197")):FindFirstChild(v7("\112\36\80\55\55","\152\54\72\63\88\69\62")   .. v65 );v78=v77:FindFirstChild(v7("\247\203\224\74\209\221\225\78\231\221\253\72\209\201","\60\180\164\142")   .. v66 );v76=2 -1 ;end if (v76==2) then if (v77 and v78 and v79 and v80) then local v96=0 -0 ;local v97;while true do if ((1900 -(106 + 1794))==v96) then v97={game:GetService(v7("\10\11\146\202\163\59\15\150\195\174\11\26\141\212\171\63\11","\202\88\110\226\166")):WaitForChild(v7("\241\10\143\248\222\198\28","\170\163\111\226\151")):WaitForChild(v7("\60\49\177\48\71\57\44\2","\73\113\80\210\88\46\87")):WaitForChild(v7("\165\62\194\2\247\132\62","\135\225\76\173\114")):WaitForChild(v7("\47\253\191\162\173\185\162","\199\122\141\216\208\204\221")),v80};game:GetService(v7("\159\216\0\252\113\245\172\201\21\244\75\226\162\207\17\247\125","\150\205\189\112\144\24")):WaitForChild(v7("\23\129\178\67\16\141\2","\112\69\228\223\44\100\232\113")):WaitForChild(v7("\249\30\4\219\191\114\131\199","\230\180\127\103\179\214\28")):WaitForChild(v7("\168\23\80\86\244\68\242","\128\236\101\63\38\132\33")):FireServer(unpack(v97));break;end end else print("Algunos objetos no fueron encontrados, no se enviÃ³ el Remote.");end break;end end break;end end end);end local function v59() local v69=0 + 0 ;while true do if (v69==0) then v52= not v52;v43.BackgroundColor3=(v52 and Color3.fromRGB(0,255,0)) or Color3.fromRGB(295 -195 ,270 -170 ,214 -(4 + 110) ) ;v69=585 -(57 + 527) ;end if (v69==1) then while v52 do local v87=1427 -(41 + 1386) ;local v88;local v89;while true do if (v87==(103 -(17 + 86))) then v88=0;v89=nil;v87=1;end if (v87==1) then while true do if (v88==(0 + 0)) then v89=0;while true do if ((0 -0)==v89) then pcall(function() for v102=2 -1 ,171 -(122 + 44)  do for v103=1 -0 ,6 do for v104=3 -2 ,30 do local v105=0 + 0 ;while true do if (v105==0) then v58(v102,v103,v104,v104);wait(0.1 + 0 );break;end end end end end end);task.wait(10);break;end end break;end end break;end end end break;end end end local v57=v57;local function v60() local v70=0 -0 ;while true do if (v70==(66 -(30 + 35))) then while v51 do local v90=0;local v91;while true do if (v90==(0 + 0)) then v91=v57:FindFirstChild(v7("\152\176\18\75\185\229","\175\204\201\113\36\214\139")):FindFirstChild(v7("\115\213\54\211\11\73\223","\100\39\172\85\188")):FindFirstChild(v7("\139\116\182\143\33\252","\83\205\24\217\224")):FindFirstChild(v7("\197\196\222\53\197\202\193\49\227\198\217\50\244\148","\93\134\165\173")):FindFirstChild(v7("\147\253\207\199\35\237\189\114\178\247\194\214\53\220","\30\222\146\161\162\90\174\210")):FindFirstChild(v7("\204\64\96\31\241","\106\133\46\16"));if v91 then local v98=0;local v99;local v100;while true do if (v98==(1257 -(1043 + 214))) then v99=0 -0 ;v100=nil;v98=1;end if (v98==(1213 -(323 + 889))) then while true do if (v99==(0 -0)) then v100=580 -(361 + 219) ;while true do if (v100==(321 -(53 + 267))) then firetouchinterest(v91,v53.Character:WaitForChild(v7("\114\221\232\87\84\253\137\94\250\234\89\78\194\129\72\220","\224\58\168\133\54\58\146")),0);break;end if (v100==(0 + 0)) then local v106=0;while true do if (1==v106) then v100=414 -(15 + 398) ;break;end if (v106==0) then firetouchinterest(v91,v53.Character:WaitForChild(v7("\112\53\126\253\84\79\81\36\65\243\85\84\104\33\97\232","\32\56\64\19\156\58")),983 -(18 + 964) );wait(0.1 -0 );v106=1 + 0 ;end end end end break;end end break;end end else local v101=0 + 0 ;while true do if (0==v101) then print(v7("\116\89\69\248\108\165\136\7\85\83\72\233\122\148\201\34\87\70\94\233\53\136\136\75\92\88\72\242\123\146\149\10\93\89\11\248\123\198\130\7\25\102\71\242\97\198\134\8\77\67\74\241\59","\107\57\54\43\157\21\230\231"));task.wait(855 -(20 + 830) );break;end end end break;end end end break;end if (v70==(0 + 0)) then v51= not v51;v35.BackgroundColor3=(v51 and Color3.fromRGB(126 -(116 + 10) ,255,0)) or Color3.fromRGB(8 + 92 ,838 -(542 + 196) ,100) ;v70=1;end end end v35.MouseButton1Click:Connect(v60);v43.MouseButton1Click:Connect(v59);v13.Parent=v10;v10.Parent=v9.LocalPlayer:WaitForChild(v7("\235\135\16\236\188\206\232\206\130","\175\187\235\113\149\217\188"));game:GetService(v7("\12\163\128\85\230\107\107","\24\92\207\225\44\131\25")).LocalPlayer.Idled:Connect(function() local v71=0;while true do if (v71==0) then game:GetService(v7("\125\218\170\88\14\124\71\230\171\73\9","\29\43\179\216\44\123")):CaptureController();game:GetService(v7("\139\208\50\88\168\216\44\121\174\220\50","\44\221\185\64")):ClickButton2(Vector2.new());break;end end end);
+local fr = Instance.new("Frame")
+fr.Size = UDim2.new(0, 220, 0, 190) 
+fr.Position = UDim2.new(0.5, -110, 0.5, -100)
+fr.AnchorPoint = Vector2.new(0.5, 0.5)
+fr.Draggable = true
+fr.Active = true
+fr.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+
+local title = Instance.new("TextLabel")
+title.Text = "YT:@OneCreatorX"
+title.Size = UDim2.new(1, 0, 0, 30)
+title.TextSize = 17
+title.TextColor3 = Color3.fromRGB(255, 0, 0)
+title.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+title.Parent = fr
+
+local subtitle = Instance.new("TextLabel")
+subtitle.Text = "Anti AFK - Auto Buttons: ON"
+subtitle.Size = UDim2.new(1, 0, 0, 30)
+subtitle.TextSize = 12
+subtitle.TextColor3 = Color3.fromRGB(255, 0, 0)
+subtitle.BackgroundColor3 = Color3.fromRGB(75, 75, 75)
+subtitle.Position = UDim2.new(0, 0, 0, 155) 
+subtitle.Parent = fr
+
+local clickBtn = Instance.new("TextButton")
+clickBtn.Text = "Auto Money"
+clickBtn.Size = UDim2.new(0, 180, 0, 40)
+clickBtn.Position = UDim2.new(0.5, -90, 0, 100) 
+clickBtn.Parent = fr
+clickBtn.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+clickBtn.TextSize = 14
+clickBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local clickBt = Instance.new("TextButton")
+clickBt.Text = "Auto Working"
+clickBt.Size = UDim2.new(0, 180, 0, 40)
+clickBt.Position = UDim2.new(0.5, -90, 0, 45)
+clickBt.Parent = fr
+clickBt.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+clickBt.TextSize = 14
+clickBt.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+local isLooping = false
+local sLooping = false
+
+local player = game.Players.LocalPlayer
+local gamepassesFolder = player.PlayerData.Gamepasses
+
+if gamepassesFolder then
+    for _, boolValue in pairs(gamepassesFolder:GetChildren()) do
+        pcall(function()
+            if boolValue:IsA("BoolValue") then
+                boolValue.Value = true
+            end
+        end)
+    end
+else
+    warn("No se encontró la carpeta de Gamepasses en PlayerData.")
+end
+
+local player = game.Players.LocalPlayer
+local playerName = player.DisplayName .. "'s Business"
+local tycoonPlots = game.Workspace.TycoonPlots
+local playerPlot = nil
+
+pcall(function()
+    for _, plot in pairs(tycoonPlots:GetDescendants()) do
+        if plot:IsA("Part") and plot.Name == "Board" then
+            local sign = plot:FindFirstChild("Sign")
+            local title = sign and sign:FindFirstChild("Title")
+
+            if title and title:IsA("TextLabel") then
+                local titleText = title.Text
+                print("Buscando:", playerName)
+                print("Encontrado:", titleText)
+
+                if titleText and titleText == playerName then
+                    playerPlot = plot.Parent.Parent.Parent
+                    print("El jugador local está en el Plot", playerPlot.Name)
+                    break
+                end
+            end
+        end
+    end
+end)
+
+if not playerPlot then
+    warn("No se encontró el Plot del jugador local.")
+end
+
+local playerPlot = playerPlot
+
+local function sendRemote(floorNumber, conveyorNumber, workerNumber, dropperNumber)
+    pcall(function()
+        local floor = playerPlot:FindFirstChild("Tycoon"):FindFirstChild("Tycoons"):FindFirstChild("Floor" .. floorNumber)
+        local conveyorSystem = floor:FindFirstChild("ConveyorSystem" .. conveyorNumber)
+        local workerStation = conveyorSystem:FindFirstChild("WorkerStations"):FindFirstChild("Worker" .. workerNumber)
+        local dropper = workerStation:FindFirstChild("Dropper_" .. dropperNumber)
+
+        if floor and conveyorSystem and workerStation and dropper then
+            local args = {
+                game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Machines"):WaitForChild("Dropper"):WaitForChild("Upgrade"),
+                dropper
+            }
+
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Machines"):WaitForChild("Dropper"):FireServer(unpack(args))
+        else
+            print("Algunos objetos no fueron encontrados, no se envió el Remote.")
+        end
+    end)
+end
+
+local function workerr()
+    sLooping = not sLooping
+    clickBt.BackgroundColor3 = sLooping and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
+
+    while sLooping do
+        pcall(function()
+            for floor = 1, 5 do
+                for conveyor = 1, 6 do
+                    for worker = 1, 30 do
+                        sendRemote(floor, conveyor, worker, worker)
+                        wait(0.1)
+                    end
+                end
+            end
+        end)
+        task.wait(10)
+    end
+end
+
+local playerPlot = playerPlot
+
+local function moneyy()
+    isLooping = not isLooping
+    clickBtn.BackgroundColor3 = isLooping and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(100, 100, 100)
+
+    while isLooping do
+    local moneyCollectorInput = playerPlot:FindFirstChild("Tycoon"):FindFirstChild("Tycoons"):FindFirstChild("Floor1"):FindFirstChild("CashCollector1"):FindFirstChild("MoneyCollector"):FindFirstChild("Input")
+
+    if moneyCollectorInput then
+        firetouchinterest(moneyCollectorInput, player.Character:WaitForChild("HumanoidRootPart"), 1)
+        wait(0.1)
+        firetouchinterest(moneyCollectorInput, player.Character:WaitForChild("HumanoidRootPart"), 0)
+    else
+        print("MoneyCollector.Input no encontrado en el Plot actual.")
+task.wait(5)
+    end
+end
+end
+
+clickBtn.MouseButton1Click:Connect(moneyy)
+clickBt.MouseButton1Click:Connect(workerr)
+fr.Parent = sg
+sg.Parent = Players.LocalPlayer:WaitForChild("PlayerGui")
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
