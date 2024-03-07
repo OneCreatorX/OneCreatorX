@@ -21,6 +21,7 @@ local photobootRemote = game:GetService("ReplicatedStorage"):FindFirstChild("Pho
 for _, part in ipairs(scavengerFolder:GetDescendants()) do
     if part:IsA("Part") or part:IsA("MeshPart") then
         player.Character:WaitForChild("HumanoidRootPart").CFrame = CFrame.new(part.Position)
+        wait(1)
     end
 end
 
