@@ -58,14 +58,22 @@ antiAFK.MouseButton1Click:Connect(function()
         if model:IsA("Model") and model.PrimaryPart:IsA("MeshPart") then
             model.PrimaryPart.Transparency = 1
             game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = model.PrimaryPart.CFrame
-            wait(6)
+            wait(4)
         end
     end
 
-    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor"}) do
+    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor", "Samurai"}) do
         game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Check_NpcTask"):InvokeServer(npcName)
+            wait(0.2)
         game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Claim_TaskTreasure"):InvokeServer(npcName)
-    end
+    wait(0.2)
+        end
+        local args = {
+    [1] = "Sakura Miko Hat"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UgcService"):WaitForChild("RF"):WaitForChild("ClaimFreeUGC"):InvokeServer(unpack(args))
+        
 end)
 
 sg.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
