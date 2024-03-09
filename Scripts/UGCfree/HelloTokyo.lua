@@ -50,7 +50,7 @@ rejoin.MouseButton1Click:Connect(function()
 end)
 
 antiAFK.MouseButton1Click:Connect(function()
-    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor"}) do
+    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor", "Samurai"}) do
         game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Accept_NpcTask"):InvokeServer(npcName)
     end
 
@@ -58,7 +58,7 @@ antiAFK.MouseButton1Click:Connect(function()
         if model:IsA("Model") and model.PrimaryPart:IsA("MeshPart") then
             model.PrimaryPart.Transparency = 1
             game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = model.PrimaryPart.CFrame
-            wait(4)
+            wait(5)
         end
     end
 
