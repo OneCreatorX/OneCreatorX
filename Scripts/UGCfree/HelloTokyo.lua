@@ -50,16 +50,21 @@ rejoin.MouseButton1Click:Connect(function()
 end)
 
 antiAFK.MouseButton1Click:Connect(function()
-        for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor"}) do
-	local args = {npcName}
-	game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Accept_NpcTask"):InvokeServer(unpack(args))
-        end
+    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor"}) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Accept_NpcTask"):InvokeServer(npcName)
+    end
+
     for _, model in pairs(workspace.Treasures_Edo:GetChildren()) do
         if model:IsA("Model") and model.PrimaryPart:IsA("MeshPart") then
             model.PrimaryPart.Transparency = 1
             game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = model.PrimaryPart.CFrame
             wait(6)
         end
+    end
+
+    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor"}) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Check_NpcTask"):InvokeServer(npcName)
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Claim_TaskTreasure"):InvokeServer(npcName)
     end
 end)
 
