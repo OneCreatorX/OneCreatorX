@@ -49,33 +49,6 @@ rejoin.MouseButton1Click:Connect(function()
     end
 end)
 
-antiAFK.MouseButton1Click:Connect(function()
-    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor", "Samurai"}) do
-        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Accept_NpcTask"):InvokeServer(npcName)
-    end
-
-    for _, model in pairs(workspace.Treasures_Edo:GetChildren()) do
-        if model:IsA("Model") and model.PrimaryPart:IsA("MeshPart") then
-            model.PrimaryPart.Transparency = 1
-            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = model.PrimaryPart.CFrame
-            wait(5)
-        end
-    end
-
-    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor", "Samurai"}) do
-        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Check_NpcTask"):InvokeServer(npcName)
-            wait(0.2)
-        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Claim_TaskTreasure"):InvokeServer(npcName)
-    wait(0.2)
-        end
-        local args = {
-    [1] = "Sakura Miko Hat"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UgcService"):WaitForChild("RF"):WaitForChild("ClaimFreeUGC"):InvokeServer(unpack(args))
-        
-end)
-
 sg.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 local player = game.Players.LocalPlayer
@@ -179,8 +152,34 @@ local function createNameTag(parent, text, color)
 
     return billboardGui
 end
+antiAFK.MouseButton1Click:Connect(function()
+    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor", "Samurai"}) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Accept_NpcTask"):InvokeServer(npcName)
+    end
 
--- Conectar BillboardGui al Model
+    for _, model in pairs(workspace.Treasures_Edo:GetChildren()) do
+        if model:IsA("Model") and model.PrimaryPart:IsA("MeshPart") then
+            model.PrimaryPart.Transparency = 1
+            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = model.PrimaryPart.CFrame
+            wait(5)
+        end
+    end
+
+    for _, npcName in ipairs({"Horseguy", "Busho", "Kabuki Actor", "Samurai"}) do
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Check_NpcTask"):InvokeServer(npcName)
+            wait(0.2)
+        game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("TreasureService"):WaitForChild("RF"):WaitForChild("Claim_TaskTreasure"):InvokeServer(npcName)
+    wait(0.2)
+        end
+        local args = {
+    [1] = "Sakura Miko Hat"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UgcService"):WaitForChild("RF"):WaitForChild("ClaimFreeUGC"):InvokeServer(unpack(args))
+        
+end)
+
+
 for _, model in pairs(workspace.Treasures_Edo:GetChildren()) do
     if model:IsA("Model") and model.PrimaryPart then
         local hitbox = Instance.new("Part", model)
