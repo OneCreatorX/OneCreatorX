@@ -1,12 +1,191 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.2) ~  Much Love, Ferib 
+local sg = Instance.new("ScreenGui")
+sg.Name = "OCX"
+sg.ResetOnSpawn = false
 
-]]--
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 130)
+frame.Position = UDim2.new(0.5, -125, 0.5, -65)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderSizePixel = 5
+frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = sg
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v68,v69) local v70={};for v86=1, #v68 do v6(v70,v0(v4(v1(v2(v68,v86,v86 + 1 )),v1(v2(v69,1 + (v86% #v69) ,1 + (v86% #v69) + 1 )))%256 ));end return v5(v70);end local v8=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v8.Name=v7("\12\195\47\230\238\38\204\62\202\238\27","\156\67\173\74\165");v8.ResetOnSpawn=false;local v11=Instance.new(v7("\18\165\72\27\185","\38\84\215\41\118\220\70"));v11.Size=UDim2.new(1822 -(301 + 1521) ,431 -181 ,0 + 0 ,214 -84 );v11.Position=UDim2.new(0.5 -0 , -(1825 -(1419 + 281)),0.5 -0 , -(139 -(71 + 3)));v11.BackgroundColor3=Color3.fromRGB(50 + 0 ,122 -72 ,66 -16 );v11.BorderSizePixel=246 -(187 + 54) ;v11.BorderColor3=Color3.fromRGB(255,1035 -(162 + 618) ,179 + 76 );v11.Active=true;v11.Draggable=true;v11.Parent=v8;local v20=Instance.new(v7("\100\19\58\6\210\81\20\39\30","\158\48\118\66\114"));v20.Text=v7("\146\16\74\22\92\171\254\136\54\21\55\103\170\233\147","\155\203\68\112\86\19\197");v20.TextSize=12 + 6 ;v20.Size=UDim2.new(1 -0 ,0 -0 ,0 + 0 ,1666 -(1373 + 263) );v20.BackgroundColor3=Color3.fromRGB(1030 -(451 + 549) ,10 + 20 ,46 -16 );v20.BorderSizePixel=3;v20.TextColor3=Color3.fromRGB(428 -173 ,1639 -(746 + 638) ,96 + 159 );v20.Parent=v11;local v28=Instance.new(v7("\114\216\46\232\98\109\241\236\73\211","\152\38\189\86\156\32\24\133"));v28.Text=v7("\223\88\171\74\249\84\179\6\200\69\162\71\239\66\181\85","\38\156\55\199");v28.TextSize=14;v28.Size=UDim2.new(1 -0 ,341 -(218 + 123) ,1581 -(1535 + 46) ,30 + 0 );v28.Position=UDim2.new(0 + 0 ,560 -(306 + 254) ,0 + 0 ,60);v28.BackgroundColor3=Color3.fromRGB(235 -115 ,1487 -(899 + 568) ,47 + 24 );v28.BorderSizePixel=0 -0 ;v28.TextColor3=Color3.fromRGB(858 -(268 + 335) ,545 -(60 + 230) ,827 -(426 + 146) );v28.Parent=v11;local v37=Instance.new(v7("\156\120\100\60\49\97\238\87\167\115","\35\200\29\28\72\115\20\154"));v37.Text=v7("\56\170\197\208\205\15\59\20\175\221\218\153\41\116\41\182\210\203\152\62\49","\84\121\223\177\191\237\76");v37.Size=UDim2.new(1 + 0 ,0,0,1486 -(282 + 1174) );v37.Position=UDim2.new(811 -(569 + 242) ,0,0 -0 ,6 + 89 );v37.BackgroundColor3=Color3.fromRGB(0,1144 -(706 + 318) ,1466 -(721 + 530) );v37.BorderSizePixel=2;v37.TextColor3=Color3.fromRGB(255,1526 -(945 + 326) ,255);v37.Parent=v11;v37.MouseButton1Click:Connect(function() for v87,v88 in pairs(workspace.Tokyo_Edo.Interact_Buildings:GetChildren()) do local v89=0;while true do if (v89==(0 -0)) then for v119,v120 in pairs(v88:GetChildren()) do local v121=0 + 0 ;local v122;while true do if (v121==(700 -(271 + 429))) then v122={[1 + 0 ]=v120.Name};game:GetService(v7("\137\83\217\172\51\83\49\213\190\82\250\180\53\66\49\198\190","\161\219\54\169\192\90\48\80")):WaitForChild(v7("\121\67\3\46\72\69\5\54","\69\41\34\96")):WaitForChild(v7("\151\205\222\30","\75\220\163\183\106\98")):WaitForChild(v7("\49\191\153\33\208\1\191\152","\185\98\218\235\87")):WaitForChild(v7("\254\59\36\213\219\184\221\53\36\227","\202\171\92\71\134\190")):WaitForChild(v7("\27\231","\232\73\161\76")):WaitForChild(v7("\146\215\86\88\12\186\218\86\120\26\180\251\87\84\18\191","\126\219\185\34\61")):InvokeServer(unpack(v122));v121=1;end if (v121==1) then wait(0.1);break;end end end wait(1500.1 -(1408 + 92) );break;end end end end);v28.MouseButton1Click:Connect(function() local v71=0;local v72;local v73;local v74;while true do if (v71==0) then v72=game.Players.LocalPlayer;v73=v72.Character;v71=1087 -(461 + 625) ;end if ((1289 -(993 + 295))==v71) then v74=v73:WaitForChild(v7("\36\219\83\115\112\120\250\227\62\193\81\102\78\118\225\243","\135\108\174\62\18\30\23\147"));for v117,v118 in pairs(workspace.Treasures_Edo:GetChildren()) do if v118:IsA(v7("\155\230\46\206\20","\167\214\137\74\171\120\206\83")) then local v129=0 + 0 ;while true do if (v129==(1172 -(418 + 753))) then wait(3 + 3 );break;end if ((0 + 0)==v129) then local v136=0 + 0 ;while true do if (v136==(1 + 0)) then v129=530 -(406 + 123) ;break;end if (v136==(1769 -(1749 + 20))) then v118.PrimaryPart.Transparency=1 + 0 ;v74.CFrame=v118.PrimaryPart.CFrame;v136=1323 -(1249 + 73) ;end end end end end end break;end end end);v8.Parent=game.Players.LocalPlayer:WaitForChild(v7("\187\252\51\68\253\181\172\229\59","\199\235\144\82\61\152"));local v46=game.Players.LocalPlayer;local v47=workspace:WaitForChild(v7("\36\25\176\37\20\94\156\47\8\95","\75\103\118\217"));local v48=0.1 + 0 ;local v49=0.13;local v50=1/v49 ;local v51=Instance.new(v7("\243\81\104\0\155\11\211\64\127\26","\126\167\52\16\116\217"));v51.Text=v7("\233\59\52\143\244\58\243\196\34\37\131\160\89\223\199\39\46\147\238\89\211\238\8","\156\168\78\64\224\212\121");v51.TextSize=14;v51.Size=UDim2.new(1146 -(466 + 679) ,0 -0 ,0 -0 ,1930 -(106 + 1794) );v51.Position=UDim2.new(0,0,0 + 0 ,8 + 22 );v51.BackgroundColor3=Color3.fromRGB(354 -234 ,54 -34 ,71);v51.BorderSizePixel=3;v51.TextColor3=Color3.fromRGB(369 -(4 + 110) ,839 -(57 + 527) ,1682 -(41 + 1386) );v51.Parent=v11;local v60=false;v51.MouseButton1Click:Connect(function() v60= not v60;v51.Text=v7("\38\251\177\193\71\205\170\194\11\235\166\218\71\205\170\199\9\253\255\142","\174\103\142\197")   .. ((v60 and v7("\121\6","\152\54\72\63\88\69\62")) or v7("\251\226\200","\60\180\164\142")) ;print(v7("\91\81\11\61\46\227\7\93\115\10\63\46\227\21\2","\114\56\62\101\73\71\141"),v60);end);local function v61(v76) return (v76 and (v76.Transparency<(103.75 -(17 + 86))) and (v46.Character:FindFirstChild(v7("\144\252\214\197\182\230\210\192\138\230\212\208\136\232\201\208","\164\216\137\187")) and (v46.Character:WaitForChild(v7("\250\243\60\179\168\241\2\214\212\62\189\178\206\10\192\242","\107\178\134\81\210\198\158")).Position-v76.Position)).Magnitude) or math.huge ;end local function v62() local v77={};for v90,v91 in ipairs(v47:GetChildren()) do if (v91:IsA(v7("\21\11\145\206\154\57\28\150","\202\88\110\226\166")) and (v91.Transparency<0.75)) then table.insert(v77,{[v7("\192\0\139\249","\170\163\111\226\151")]=v91,[v7("\21\57\161\44\79\57\42\20","\73\113\80\210\88\46\87")]=v61(v91)});end end table.sort(v77,function(v92,v93) return v92.distance<v93.distance ;end);if ( #v77>(0 + 0)) then local v94=0 -0 ;local v95;local v96;local v97;local v98;local v99;while true do if (v94==(5 -3)) then v99=nil;while true do if (v95==(169 -(122 + 44))) then wait(v48);break;end if (v95==1) then local v131=0 -0 ;while true do if (v131==(0 -0)) then v98=v96.Position;v99=tick();v131=1;end if (v131==(1 + 0)) then v95=2;break;end end end if (v95==2) then while (tick() -v99)<v49  do local v137=0 + 0 ;local v138;while true do if (v137==(0 -0)) then v138=65 -(30 + 35) ;while true do if (v138==0) then v97.CFrame=v97.CFrame:Lerp(CFrame.new(v98),(tick() -v99)/v49 );wait();break;end end break;end end end pcall(function() v96.Transparency=0.75;end);v95=3 + 0 ;end if ((1257 -(1043 + 214))==v95) then local v132=0 -0 ;while true do if (v132==0) then v96=v77[1213 -(323 + 889) ].coin;v97=v46.Character:WaitForChild(v7("\169\57\192\19\233\142\37\201\32\232\142\56\253\19\245\149","\135\225\76\173\114"));v132=2 -1 ;end if ((581 -(361 + 219))==v132) then v95=321 -(53 + 267) ;break;end end end end break;end if (v94==(1 + 0)) then v97=nil;v98=nil;v94=2;end if (v94==0) then v95=0;v96=nil;v94=414 -(15 + 398) ;end end else v60=false;v51.Text=v7("\59\248\172\191\236\158\168\22\225\189\179\184\231\231\53\203\158","\199\122\141\216\208\204\221");wait(1);v51.Text=v7("\159\216\3\228\119\228\164\211\23\176\91\249\164\211\3","\150\205\189\112\144\24");wait(984 -(18 + 964) );v51.Text=v7("\22\144\190\94\16\129\31\23\101\165\170\88\11\133\16\4\44\135\190\64\8\145\81\25\43\196\236","\112\69\228\223\44\100\232\113");wait(2);for v105,v106 in ipairs(v47:GetChildren()) do if (v106:IsA(v7("\249\26\20\219\134\125\148\192","\230\180\127\103\179\214\28")) and (v106.Transparency<(0.75 -0))) then pcall(function() v106.Transparency=0;end);end end v60=true;v51.Text=v7("\173\16\75\73\164\98\239\128\9\90\69\240\27\160\163\43","\128\236\101\63\38\132\33");end end local v46=game.Players.LocalPlayer;local v63=game:GetService(v7("\155\166\3\79\165\251\206\175\172","\175\204\201\113\36\214\139"));local v64=Instance.new(v7("\97\195\57\216\1\85","\100\39\172\85\188"));v64.Name=v7("\131\121\180\133\7\172\127\170\166\60\161\124\188\146","\83\205\24\217\224");v64.Parent=v63;local function v67(v78,v79,v80) local v81=0 + 0 ;local v82;local v83;while true do if (0==v81) then v82=Instance.new(v7("\196\204\193\49\228\202\204\47\226\226\216\52","\93\134\165\173"));v82.Adornee=v78;v82.Size=UDim2.new(0,100,0 + 0 ,870 -(20 + 830) );v82.StudsOffset=Vector3.new(0,2,0);v81=1 + 0 ;end if ((129 -(116 + 10))==v81) then return v82;end if (v81==(1 + 0)) then v82.AlwaysOnTop=true;v82.Parent=v78;v83=Instance.new(v7("\138\247\217\214\22\207\176\123\178","\30\222\146\161\162\90\174\210"));v83.Size=UDim2.new(1,738 -(542 + 196) ,1 -0 ,0 + 0 );v81=2;end if ((2 + 0)==v81) then v83.BackgroundTransparency=1;v83.TextColor3=v80;v83.Text=v79;v83.Parent=v82;v81=2 + 1 ;end end end for v84,v85 in pairs(v63.Treasures_Edo:GetChildren()) do if (v85:IsA(v7("\200\65\116\15\233","\106\133\46\16")) and v85.PrimaryPart) then local v101=0 -0 ;local v102;while true do if (v101==(7 -4)) then v67(v102,v85.Name,Color3.new(1552 -(1126 + 425) ,406 -(118 + 287) ,1)).Parent=v64;break;end if (v101==(0 -0)) then local v124=1121 -(118 + 1003) ;local v125;while true do if (v124==0) then v125=0 -0 ;while true do if ((377 -(142 + 235))==v125) then v102=Instance.new(v7("\104\33\97\232","\32\56\64\19\156\58"),v85);v102.Size=Vector3.new(1,4 -3 ,1 + 0 );v125=978 -(553 + 424) ;end if (v125==1) then v101=1;break;end end break;end end end if (v101==(3 -1)) then local v126=0;while true do if (v126==0) then v102.Name=v7("\114\193\241\84\85\234","\224\58\168\133\54\58\146");v102.CFrame=v85.PrimaryPart.CFrame;v126=1 + 0 ;end if (v126==(1 + 0)) then v101=3;break;end end end if (v101==(1 + 0)) then v102.Anchored=true;v102.Transparency=0.5 + 0 ;v101=2;end end end end while true do if v60 then v62();else wait(1 + 0 );end end game:GetService(v7("\105\90\74\228\112\148\148","\107\57\54\43\157\21\230\231")).LocalPlayer.Idled:Connect(function() game:GetService(v7("\237\130\3\225\172\221\195\238\152\20\231","\175\187\235\113\149\217\188")):CaptureController();game:GetService(v7("\10\166\147\88\246\120\116\9\188\132\94","\24\92\207\225\44\131\25")):ClickButton2(Vector2.new());end);
+local title = Instance.new("TextLabel")
+title.Text = "YT:OneCreatorX"
+title.TextSize = 18
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.BorderSizePixel = 3
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Parent = frame
+
+local antiAFK = Instance.new("TextButton")
+antiAFK.Text = "Collect Treasure"
+antiAFK.TextSize = 14
+antiAFK.Size = UDim2.new(1, 0, 0, 30)
+antiAFK.Position = UDim2.new(0, 0, 0, 60)
+antiAFK.BackgroundColor3 = Color3.fromRGB(120, 20, 71) 
+antiAFK.BorderSizePixel = 0
+antiAFK.TextColor3 = Color3.fromRGB(255, 255, 255)  
+antiAFK.Parent = frame
+
+local rejoin = Instance.new("TextButton")
+rejoin.Text = "Auto Complet Picture"
+rejoin.Size = UDim2.new(1, 0, 0, 30)
+rejoin.Position = UDim2.new(0, 0, 0, 95)
+rejoin.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+rejoin.BorderSizePixel = 2
+rejoin.TextColor3 = Color3.fromRGB(255, 255, 255)
+rejoin.Parent = frame
+rejoin.MouseButton1Click:Connect(function()
+    for _, b in pairs(workspace.Tokyo_Edo.Interact_Buildings:GetChildren()) do
+        for _, f in pairs(b:GetChildren()) do
+            game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("Knit"):WaitForChild("Services"):WaitForChild("UgcService"):WaitForChild("RF"):WaitForChild("InteractEdoBuild"):InvokeServer(f.Name)
+            wait(0.1)
+        end
+        wait(0.1)
+    end
+end)
+
+antiAFK.MouseButton1Click:Connect(function()
+    for _, model in pairs(workspace.Treasures_Edo:GetChildren()) do
+        if model:IsA("Model") and model.PrimaryPart:IsA("MeshPart") then
+            model.PrimaryPart.Transparency = 1
+            game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = model.PrimaryPart.CFrame
+            wait(6)
+        end
+    end
+end)
+
+sg.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local player = game.Players.LocalPlayer
+local coinsFolder = workspace:WaitForChild("Coins(Edo)")
+local waitTime = 0.1
+local transitionTime = 0.15
+local speed = 1 / transitionTime
+
+local autoCollect = Instance.new("TextButton")
+autoCollect.Text = "Auto Collect Coins: OFF"
+autoCollect.TextSize = 14
+autoCollect.Size = UDim2.new(1, 0, 0, 30)
+autoCollect.Position = UDim2.new(0, 0, 0, 30)
+autoCollect.BackgroundColor3 = Color3.fromRGB(120, 20, 71) 
+autoCollect.BorderSizePixel = 3
+autoCollect.TextColor3 = Color3.fromRGB(255, 255, 255) 
+autoCollect.Parent = frame
+
+local isAuto = false
+
+autoCollect.MouseButton1Click:Connect(function()
+    isAuto = not isAuto
+    autoCollect.Text = "Auto Collect Coins: " .. (isAuto and "ON" or "OFF")
+    print("isAuto:", isAuto)
+end)
+
+local function getDistanceToPlayer(coin)
+    return coin and coin.Transparency < 0.75 and (player.Character:FindFirstChild("HumanoidRootPart") and player.Character:WaitForChild("HumanoidRootPart").Position - coin.Position).Magnitude or math.huge
+end
+
+local function move()
+    local coinsList = {}
+
+    for _, coin in ipairs(coinsFolder:GetChildren()) do
+        if coin:IsA("MeshPart") and coin.Transparency < 0.75 then
+            table.insert(coinsList, {coin = coin, distance = getDistanceToPlayer(coin)})
+        end
+    end
+
+    table.sort(coinsList, function(a, b)
+        return a.distance < b.distance
+    end)
+
+    if #coinsList > 0 then
+        local currentCoin = coinsList[1].coin
+        local rootPart = player.Character:WaitForChild("HumanoidRootPart")
+        local targetPosition = currentCoin.Position
+
+        local startTime = tick()
+
+        while (tick() - startTime) < transitionTime do
+            rootPart.CFrame = rootPart.CFrame:Lerp(CFrame.new(targetPosition), (tick() - startTime) / transitionTime)
+            wait()
+        end
+
+        pcall(function()
+            currentCoin.Transparency = 0.75
+        end)
+
+        wait(waitTime)
+    else
+        isAuto = false
+        autoCollect.Text = "Auto Collect: OFF"
+        wait(1)
+        autoCollect.Text = "Restoring Coins"
+        wait(2)
+        autoCollect.Text = "Starting Automatically in 3"
+        wait(2)
+        for _, coin in ipairs(coinsFolder:GetChildren()) do
+            if coin:IsA("MeshPart") and coin.Transparency < 0.75 then
+                pcall(function()
+                    coin.Transparency = 0
+                end)
+            end
+        end
+        isAuto = true
+        autoCollect.Text = "Auto Collect: ON"
+    end
+end
+
+-- Crear un Folder para almacenar las etiquetas de nombre
+local nameTagsFolder = Instance.new("Folder")
+nameTagsFolder.Name = "NameTagsFolder"
+nameTagsFolder.Parent = workspace
+
+-- Función para crear BillboardGui con TextLabel
+local function createNameTag(parent, text, color)
+    local billboardGui = Instance.new("BillboardGui")
+    billboardGui.Adornee = parent
+    billboardGui.Size = UDim2.new(0, 100, 0, 20)
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0)
+    billboardGui.AlwaysOnTop = true
+    billboardGui.Parent = parent
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextColor3 = color
+    textLabel.Text = text
+    textLabel.Parent = billboardGui
+
+    return billboardGui
+end
+
+-- Conectar BillboardGui al Model
+for _, model in pairs(workspace.Treasures_Edo:GetChildren()) do
+    if model:IsA("Model") and model.PrimaryPart then
+        local hitbox = Instance.new("Part", model)
+        hitbox.Size = Vector3.new(1, 1, 1)
+        hitbox.Anchored = true
+        hitbox.Transparency = 0.5
+        hitbox.Name = "Hitbox"
+        hitbox.CFrame = model.PrimaryPart.CFrame
+
+        createNameTag(hitbox, model.Name, Color3.new(1, 1, 1)).Parent = nameTagsFolder
+    end
+end
+
+while true do
+    if isAuto then
+        move()
+    else
+        wait(1)
+    end
+end
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
