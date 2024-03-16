@@ -1,12 +1,124 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.3) ~  Much Love, Ferib 
+local sg = Instance.new("ScreenGui")
+sg.Name = "OneCreatorX"
+sg.ResetOnSpawn = false
 
-]]--
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 250, 0, 130)
+frame.Position = UDim2.new(0.5, -125, 0.5, -65)
+frame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+frame.BorderSizePixel = 5
+frame.BorderColor3 = Color3.fromRGB(255, 255, 255)
+frame.Active = true
+frame.Draggable = true
+frame.Parent = sg
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v53,v54) local v55={};for v62=1, #v53 do v6(v55,v0(v4(v1(v2(v53,v62,v62 + 1 )),v1(v2(v54,1 + (v62% #v54) ,1 + (v62% #v54) + 1 )))%256 ));end return v5(v55);end local v8=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v8.Name=v7("\12\195\47\230\238\38\204\62\202\238\27","\156\67\173\74\165");v8.ResetOnSpawn=false;local v11=Instance.new(v7("\18\165\72\27\185","\38\84\215\41\118\220\70"));v11.Size=UDim2.new(0,459 -(111 + 98) ,1523 -(1098 + 425) ,213 -83 );v11.Position=UDim2.new(0.5 -0 , -125,1413.5 -(447 + 966) , -(177 -112));v11.BackgroundColor3=Color3.fromRGB(50,1867 -(1703 + 114) ,50);v11.BorderSizePixel=5;v11.BorderColor3=Color3.fromRGB(956 -(376 + 325) ,417 -162 ,784 -529 );v11.Active=true;v11.Draggable=true;v11.Parent=v8;local v20=Instance.new(v7("\100\19\58\6\210\81\20\39\30","\158\48\118\66\114"));v20.Text=v7("\146\16\74\22\92\171\254\136\54\21\55\103\170\233\147","\155\203\68\112\86\19\197");v20.TextSize=6 + 12 ;v20.Size=UDim2.new(2 -1 ,14 -(9 + 5) ,376 -(85 + 291) ,1295 -(243 + 1022) );v20.BackgroundColor3=Color3.fromRGB(114 -84 ,25 + 5 ,1210 -(1123 + 57) );v20.BorderSizePixel=3;v20.TextColor3=Color3.fromRGB(208 + 47 ,509 -(163 + 91) ,255);v20.Parent=v11;local v28=Instance.new(v7("\114\216\46\232\108\121\231\253\74","\152\38\189\86\156\32\24\133"));v28.Text=v7("\221\89\179\79\188\118\129\109\166\23\136\104","\38\156\55\199");v28.TextSize=1944 -(1869 + 61) ;v28.Size=UDim2.new(1 + 0 ,0,0,30);v28.Position=UDim2.new(0 -0 ,0,0,122 -42 );v28.BackgroundColor3=Color3.fromRGB(120,3 + 17 ,97 -26 );v28.BorderSizePixel=0 + 0 ;v28.TextColor3=Color3.fromRGB(1729 -(1329 + 145) ,255,255);v28.Parent=v11;local v37=v7("\141\124\111\49","\35\200\29\28\72\115\20\154");local v38=false;local v39={};local function v40(v56,v57) v37=v56;for v63,v64 in pairs(v39) do v64.BackgroundColor3=((v64==v57) and Color3.fromRGB(971 -(140 + 831) ,1970 -(1409 + 441) ,933 -(15 + 703) )) or Color3.fromRGB(120,20,71) ;end end local function v41() local v58=0 + 0 ;while true do if (v58==(438 -(262 + 176))) then v38= not v38;for v67,v68 in pairs(v39) do v68.Visible=v38;end break;end end end local v42=Instance.new(v7("\45\186\201\203\161\45\54\28\179","\84\121\223\177\191\237\76"));v42.Text=v7("\154\67\221\175\122\113\57\204\251\27\137\131\53\92\60\196\184\66\137\161\54\92","\161\219\54\169\192\90\48\80");v42.Size=UDim2.new(1722 -(345 + 1376) ,688 -(198 + 490) ,0 -0 ,71 -41 );v42.Position=UDim2.new(1206 -(696 + 510) ,0,0 -0 ,1302 -(1091 + 171) );v42.BackgroundColor3=Color3.fromRGB(0 + 0 ,377 -257 ,713 -498 );v42.BorderSizePixel=376 -(123 + 251) ;v42.TextColor3=Color3.fromRGB(255,1267 -1012 ,255);v42.Parent=v11;v8.Parent=game.Players.LocalPlayer:WaitForChild(v7("\121\78\1\60\76\80\39\48\64","\69\41\34\96"));local v51=game:GetService(v7("\142\214\217\57\7\57\170\202\212\15","\75\220\163\183\106\98"));local v52=game.Players.LocalPlayer;v51.Heartbeat:Connect(function() local v59=698 -(208 + 490) ;local v60;local v61;while true do if (v59==(0 + 0)) then v60=workspace:FindFirstChild(v7("\47\179\152\36\208\13\180\152","\185\98\218\235\87"));if v60 then local v74=nil;local v75=math.huge;for v76,v77 in ipairs(v60:GetDescendants()) do if (v77.Name==v7("\227\41\42\231\208\165\194\56\21\233\209\190\251\61\53\242","\202\171\92\71\134\190")) then local v83=0;local v84;local v85;while true do if ((0 + 0)==v83) then v84=0;v85=nil;v83=837 -(660 + 176) ;end if (v83==1) then while true do if (v84==(0 + 0)) then v85=(v52.Character.HumanoidRootPart.Position-v77.Position).magnitude;if (v85<v75) then v74=v77;v75=v85;end break;end end break;end end end end if v74 then local v78=202 -(14 + 188) ;local v79;local v80;local v81;while true do if (v78==0) then v79={v74};v80=v74.Parent;v78=1;end if (v78==1) then while (v80~=v60) and (v80~=nil)  do local v87=0 + 0 ;while true do if (v87==(0 + 0)) then table.insert(v79,1,v80);v80=v80.Parent;break;end end end v81=workspace:FindFirstChild(v7("\4\200\63\155\32\205\41","\232\73\161\76"));v78=2 + 0 ;end if (v78==(3 -1)) then if v81 then local v88=0;local v89;local v90;local v91;while true do if (v88==(0 -0)) then v89={[1]=v7("\158\193\82\81\17\191\220\111\84\13\168\208\78\88","\126\219\185\34\61"),[2]=v74.CFrame,[8 -5 ]=v79[ #v79],[3 + 1 ]=v81};v90,v91=pcall(function() game:GetService(v7("\62\203\78\126\119\116\242\243\9\202\109\102\113\101\242\224\9","\135\108\174\62\18\30\23\147")):WaitForChild(v7("\147\255\47\197\12\189","\167\214\137\74\171\120\206\83")):WaitForChild(v7("\170\226\63\112\241\180\152\249\62\88\221\177\142\254\38","\199\235\144\82\61\152")):FireServer(unpack(v89));end);v88=1 + 0 ;end if (v88==1) then if  not v90 then warn(v7("\34\4\171\36\21\86\191\34\21\31\183\44\71\27\176\56\20\31\181\46\71\19\175\46\9\2\227","\75\103\118\217"),v91);end break;end end else end break;end end end end v59=397 -(115 + 281) ;end if (v59==(2 -1)) then v61=v52.Character.HumanoidRootPart.Position;for v70,v71 in ipairs(workspace.Entities:GetDescendants()) do local v72,v73=pcall(function() if (v71:IsA(v7("\247\85\98\0","\126\167\52\16\116\217")) or v71:IsA(v7("\229\43\51\136\132\24\238\220","\156\168\78\64\224\212\121")) or v71:IsA(v7("\50\224\172\193\9\193\181\203\21\239\177\199\8\224","\174\103\142\197"))) then v71.CFrame=CFrame.new(v61);end end);if  not v72 then warn(v7("\115\58\77\55\55\30\237\70\44\94\44\44\80\255\22\39\93\50\32\93\236\12","\152\54\72\63\88\69\62"),v73);end end break;end end end);
+local title = Instance.new("TextLabel")
+title.Text = "YT:@OneCreatorX"
+title.TextSize = 18
+title.Size = UDim2.new(1, 0, 0, 30)
+title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+title.BorderSizePixel = 3
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Parent = frame
+
+local antiAFKLabel = Instance.new("TextLabel")
+antiAFKLabel.Text = "AimBot: ON"
+antiAFKLabel.TextSize = 14
+antiAFKLabel.Size = UDim2.new(1, 0, 0, 30)
+antiAFKLabel.Position = UDim2.new(0, 0, 0, 80)
+antiAFKLabel.BackgroundColor3 = Color3.fromRGB(120, 20, 71)
+antiAFKLabel.BorderSizePixel = 0
+antiAFKLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+antiAFKLabel.Parent = frame
+
+local mode = "Easy"
+local isOptionsVisible = false
+local difficultyButtons = {}
+
+local function changeDifficulty(newMode, clickedButton)
+    mode = newMode
+    for _, button in pairs(difficultyButtons) do
+        button.BackgroundColor3 = button == clickedButton and Color3.fromRGB(0, 120, 215) or Color3.fromRGB(120, 20, 71)
+    end
+end
+
+local function toggleOptions()
+    isOptionsVisible = not isOptionsVisible
+    for _, button in pairs(difficultyButtons) do
+        button.Visible = isOptionsVisible
+    end
+end
+
+local mainButton = Instance.new("TextLabel")
+mainButton.Text = "Auto Aim - Collect all"
+mainButton.Size = UDim2.new(1, 0, 0, 30)
+mainButton.Position = UDim2.new(0, 0, 0, 40)
+mainButton.BackgroundColor3 = Color3.fromRGB(0, 120, 215)
+mainButton.BorderSizePixel = 2
+mainButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+mainButton.Parent = frame
+
+sg.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local RunService = game:GetService("RunService")
+local player = game.Players.LocalPlayer
+
+RunService.Heartbeat:Connect(function()
+    local missionFolder = workspace:FindFirstChild("Missions")
+    if missionFolder then
+        local closestSpawner = nil
+        local closestDistance = math.huge
+
+        for _, descendant in ipairs(missionFolder:GetDescendants()) do
+            if descendant.Name == "HumanoidRootPart" then
+                local distance = (player.Character.HumanoidRootPart.Position - descendant.Position).magnitude
+                if distance < closestDistance then
+                    closestSpawner = descendant
+                    closestDistance = distance
+                end
+            end
+        end
+
+        if closestSpawner then
+            local hierarchy = {closestSpawner}
+            local currentParent = closestSpawner.Parent
+            while currentParent ~= missionFolder and currentParent ~= nil do
+                table.insert(hierarchy, 1, currentParent)
+                currentParent = currentParent.Parent
+            end
+
+            local missile = workspace:FindFirstChild("Missile")
+            if missile then
+                local args = {
+                    [1] = "ExplodeMissile",
+                    [2] = closestSpawner.CFrame,
+                    [3] = hierarchy[#hierarchy],
+                    [4] = missile
+                }
+
+                local success, error = pcall(function()
+                    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("ArmMissileEvent"):FireServer(unpack(args))
+                end)
+
+                if not success then
+                    warn("Error firing missile event:", error)
+                end
+            else
+            end
+        end
+    end
+
+    local playerPosition = player.Character.HumanoidRootPart.Position
+
+    for _, object in ipairs(workspace.Entities:GetDescendants()) do
+        local success, error = pcall(function()
+            if object:IsA("Part") or object:IsA("MeshPart") or object:IsA("UnionOperation") then
+                object.CFrame = CFrame.new(playerPosition)
+            end
+        end)
+
+        if not success then
+            warn("Error updating object:", error)
+        end
+    end
+end)
