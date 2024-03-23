@@ -76,7 +76,7 @@ local function movePlayerToParts(folder, partName)
             humanoid.WalkToPoint = part.Position
             repeat
                 wait(0.2)
-            until (player.Character.HumanoidRootPart.Position - part.Position).Magnitude < 5
+            until (player.Character.HumanoidRootPart.Position - part.Position).Magnitude < 7
             wait(0.2)
         end
     end
