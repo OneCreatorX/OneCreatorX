@@ -10,12 +10,36 @@ local t = Instance.new("TextLabel", f)
 t.Size, t.Position, t.Text, t.TextSize, t.TextColor3, t.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0), "YT:OneCreatorX", 12, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
 
 local ti = Instance.new("TextLabel", f)
-ti.Size, ti.Position, ti.Text, ti.TextSize, ti.TextColor3, ti.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0.53, 0), "New V.2", 10, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+ti.Size, ti.Position, ti.Text, ti.TextSize, ti.TextColor3, ti.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0.53, 0), "New V.2(more maps.S)", 10, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
+
+  game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(3, 1, -114)
+
+
+
+local function movePlayerToGrass(grass)
+    local player = game.Players.LocalPlayer
+    local humanoidRootPart = player.Character:WaitForChild("HumanoidRootPart")
+
+    if humanoidRootPart then
+        humanoidRootPart.CFrame = CFrame.new(grass.Position)
+    end
+end
+
+local function sendRemoteToTree(tree)
+    for _ = 1, 4 do
+        local args = {
+            [1] = tree
+        }
+
+        game:GetService("Players").LocalPlayer.Character.Hatchet.HitEvent:FireServer(unpack(args))
+        wait(0.1)
+    end
+end
 
 local function onPartAdded(part)
     if part.Name == "Wipeout" or part.Name == "FloodEscape" or part.Name == "BombDrop" or part.Name == "Spleef" then
@@ -39,23 +63,21 @@ end
 
 local function onCharacterRemoved(character)
     wait(4)
-    game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(3, 1, -114)
+    game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(7, 0, -124)
 end
 
-local function teleportToParts(folder, partName)
+local function movePlayerToParts(folder, partName)
     local parts = folder:GetDescendants()
     local player = game.Players.LocalPlayer
     local humanoid = player.Character:WaitForChild("Humanoid")
 
-    while folder.Parent do
-        for _, part in ipairs(parts) do
-            if part:IsA("MeshPart") and part.Name == partName then
-                humanoid.WalkToPoint = part.Position
-                repeat
-                    wait(0.2)
-                until (player.Character.HumanoidRootPart.Position - part.Position).Magnitude < 2
-                wait(0.2) 
-            end
+    for _, part in ipairs(parts) do
+        if part:IsA("MeshPart") and part.Name == partName then
+            humanoid.WalkToPoint = part.Position
+            repeat
+                wait(0.2)
+            until (player.Character.HumanoidRootPart.Position - part.Position).Magnitude < 5
+            wait(0.2)
         end
     end
 end
@@ -63,7 +85,7 @@ end
 local function onFolderAdded(folder)
     if folder.Name == "ColorTakeover" then
         wait(8)
-        coroutine.wrap(function() teleportToParts(folder, "Tile") end)()
+        movePlayerToParts(folder, "Tile")
     elseif folder.Name == "Lumberjack" then
         wait(8)
         local trucks = folder:GetDescendants()
@@ -85,7 +107,7 @@ local function onFolderAdded(folder)
         end
     elseif folder.Name == "GrassMowing" then
         wait(8)
-        coroutine.wrap(function() teleportToParts(folder, "Grass") end)()
+        movePlayerToParts(folder, "Grass")
     end
 end
 
