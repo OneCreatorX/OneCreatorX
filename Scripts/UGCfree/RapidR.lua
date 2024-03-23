@@ -29,7 +29,7 @@ local function teleportToTitles(folder)
 
     while folder.Parent do
         for _, part in ipairs(titleParts) do
-            if part:IsA("MeshPart") and part.Name == "Title" then
+            if part:IsA("MeshPart") and part.Name == "Tile" then
                 player.Character:SetPrimaryPartCFrame(part.CFrame)
                 wait(0.3)
             end
