@@ -10,7 +10,7 @@ local t = Instance.new("TextLabel", f)
 t.Size, t.Position, t.Text, t.TextSize, t.TextColor3, t.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0), "YT:OneCreatorX", 12, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
 
 local ti = Instance.new("TextLabel", f)
-ti.Size, ti.Position, ti.Text, ti.TextSize, ti.TextColor3, ti.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0.53, 0), "Version 2", 10, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+ti.Size, ti.Position, ti.Text, ti.TextSize, ti.TextColor3, ti.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0.53, 0), "New V.2", 10, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
