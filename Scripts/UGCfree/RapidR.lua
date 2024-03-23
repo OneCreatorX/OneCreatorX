@@ -38,7 +38,7 @@ end
 
 local function onCharacterRemoved(character)
     wait(4)
-    game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(7, 0, -124)
+    game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(3, 1, -114)
 end
 
 local function teleportToTitles(folder)
@@ -91,5 +91,4 @@ end
 
 workspace.MinigamesRoot.ChildAdded:Connect(onFolderAdded)
 workspace.MinigamesRoot.ChildAdded:Connect(onPartAdded)
-workspace.MinigamesRoot.ChildRemoved:Connect(onPartRemoved)
 game.Players.LocalPlayer.CharacterRemoving:Connect(onCharacterRemoved)
