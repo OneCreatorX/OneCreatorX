@@ -13,7 +13,8 @@ local ti = Instance.new("TextLabel", f)
 ti.Size, ti.Position, ti.Text, ti.TextSize, ti.TextColor3, ti.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0.53, 0), "Version 2", 10, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
-game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 
 local function onPartAdded(part)
@@ -41,15 +42,19 @@ local function onCharacterRemoved(character)
     game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(3, 1, -114)
 end
 
-local function teleportToTitles(folder)
-    local titleParts = folder:GetDescendants()
+local function teleportToParts(folder, partName)
+    local parts = folder:GetDescendants()
     local player = game.Players.LocalPlayer
+    local humanoid = player.Character:WaitForChild("Humanoid")
 
     while folder.Parent do
-        for _, part in ipairs(titleParts) do
-            if part:IsA("MeshPart") and part.Name == "Tile" then
-                player.Character:SetPrimaryPartCFrame(part.CFrame)
-                wait(0.3)
+        for _, part in ipairs(parts) do
+            if part:IsA("MeshPart") and part.Name == partName then
+                humanoid.WalkToPoint = part.Position
+                repeat
+                    wait(0.2)
+                until (player.Character.HumanoidRootPart.Position - part.Position).Magnitude < 2
+                wait(0.2) 
             end
         end
     end
@@ -58,7 +63,7 @@ end
 local function onFolderAdded(folder)
     if folder.Name == "ColorTakeover" then
         wait(8)
-        coroutine.wrap(teleportToTitles)(folder)
+        coroutine.wrap(function() teleportToParts(folder, "Tile") end)()
     elseif folder.Name == "Lumberjack" then
         wait(8)
         local trucks = folder:GetDescendants()
@@ -80,12 +85,7 @@ local function onFolderAdded(folder)
         end
     elseif folder.Name == "GrassMowing" then
         wait(8)
-        local grassParts = folder:GetDescendants()
-        for _, grass in ipairs(grassParts) do
-            if grass:IsA("MeshPart") and grass.Name == "Grass" then
-                movePlayerToGrass(grass)
-            end
-        end
+        coroutine.wrap(function() teleportToParts(folder, "Grass") end)()
     end
 end
 
