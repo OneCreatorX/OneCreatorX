@@ -31,7 +31,7 @@ shopChoices.ChildAdded:Connect(function(child)
 end)
 
 local i = game:GetService("Players").LocalPlayer.PlayerGui
-shopChoices.ChildAdded:Connect(function(chil)
+i.ChildAdded:Connect(function(chil)
 wait(1)
 if chil.Name == ScreenGui then
 chil.Enabled = false 
