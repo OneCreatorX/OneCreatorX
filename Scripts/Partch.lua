@@ -25,7 +25,15 @@ end)
 local shopChoices = game:GetService("Players").LocalPlayer.PlayerGui.StoreSelection.Background.Stores.ShopChoices
 
 shopChoices.ChildAdded:Connect(function(child)
-        wait(0.2)
+        wait(0.5)
         local button = child.TextButton      
         clickButton(button)
 end)
+
+local i = game:GetService("Players").LocalPlayer.PlayerGui
+shopChoices.ChildAdded:Connect(function(chil)
+wait(1)
+if chil.Name == ScreenGui then
+chil.Enabled = false 
+end
+    end
