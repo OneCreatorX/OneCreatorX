@@ -1,50 +1,12 @@
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-local sg = Instance.new("ScreenGui")
-sg.ResetOnSpawn = false
-sg.Enabled = true
-sg.Parent = playerGui
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.3) ~  Much Love, Ferib 
 
-local frame = Instance.new("Frame")
-frame.Name = "ControlFrame"
-frame.Size = UDim2.new(0, 250, 0, 130)
-frame.Position = UDim2.new(0.5, -125, 0.3, -60)
-frame.BackgroundColor3 = Color3.fromRGB(40, 20, 10)
-frame.BorderSizePixel = 1
-frame.Style = Enum.FrameStyle.DropShadow
-frame.Parent = sg
-frame.Active = true
-frame.Draggable = true
+]]--
 
-local title = Instance.new("TextLabel")
-title.Name = "Title"
-title.Text = "YT:@OneCreatorX"
-title.Size = UDim2.new(1, 0, 0, 30)
-title.Position = UDim2.new(0, 0, 0, 0)
-title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.GothamBold
-title.TextSize = 20
-title.Parent = frame
-
-local button = Instance.new("TextButton")
-button.Name = "ControlButton"
-button.Text = "Instant UGC" 
-button.Style = Enum.ButtonStyle.RobloxButtonDefault
-button.Size = UDim2.new(0, 220, 0, 20)
-button.BackgroundColor3 = Color3.fromRGB(150, 30, 30)
-button.Position = UDim2.new(0.46, -100, 0.5, -20)
-button.Font = Enum.Font.ArialBold
-button.TextSize = 16
-button.TextColor3 = Color3.fromRGB(255, 255, 255)
-button.Parent = frame
-
-
-
-button.MouseButton1Click:Connect(function()
-    
-   game:GetService("ReplicatedStorage"):WaitForChild("Packages"):WaitForChild("_Index"):WaitForChild("sleitnick_knit@1.7.0"):WaitForChild("knit"):WaitForChild("Services"):WaitForChild("ChurchPathToGodService"):WaitForChild("RF"):WaitForChild("LightUpResurrectionAreaCandle"):InvokeServer()
-
-end)
-
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v50,v51) local v52={};for v53=1, #v50 do v6(v52,v0(v4(v1(v2(v50,v53,v53 + 1 )),v1(v2(v51,1 + (v53% #v51) ,1 + (v53% #v51) + 1 )))%256 ));end return v5(v52);end local v8=game:GetService(v7("\225\207\218\60\227\169\212","\126\177\163\187\69\134\219\167"));local v9=v8.LocalPlayer;local v10=v9:WaitForChild(v7("\19\193\43\220\249\49\234\63\204","\156\67\173\74\165"));local v11=Instance.new(v7("\7\180\91\19\185\40\97\33\190","\38\84\215\41\118\220\70"));v11.ResetOnSpawn=false;v11.Enabled=true;v11.Parent=v10;local v15=Instance.new(v7("\118\4\35\31\251","\158\48\118\66\114"));v15.Name=v7("\136\43\30\34\97\170\247\141\54\17\59\118","\155\203\68\112\86\19\197");v15.Size=UDim2.new(0 + 0 ,502 -252 ,0,500 -370 );v15.Position=UDim2.new(442.5 -(416 + 26) , -(399 -274),0.3 + 0 , -(106 -46));v15.BackgroundColor3=Color3.fromRGB(478 -(145 + 293) ,450 -(44 + 386) ,1496 -(998 + 488) );v15.BorderSizePixel=1 + 0 ;v15.Style=Enum.FrameStyle.DropShadow;v15.Parent=v11;v15.Active=true;v15.Draggable=true;local v26=Instance.new(v7("\114\216\46\232\108\121\231\253\74","\152\38\189\86\156\32\24\133"));v26.Name=v7("\200\94\179\74\249","\38\156\55\199");v26.Text=v7("\145\73\38\8\60\122\255\96\186\120\125\60\28\102\194","\35\200\29\28\72\115\20\154");v26.Size=UDim2.new(1,0 + 0 ,0,802 -(201 + 571) );v26.Position=UDim2.new(0,1138 -(116 + 1022) ,0 -0 ,0 + 0 );v26.BackgroundColor3=Color3.fromRGB(30,109 -79 ,30);v26.TextColor3=Color3.fromRGB(905 -650 ,255,1114 -(814 + 45) );v26.Font=Enum.Font.GothamBold;v26.TextSize=20;v26.Parent=v15;local v37=Instance.new(v7("\45\186\201\203\175\57\32\13\176\223","\84\121\223\177\191\237\76"));v37.Name=v7("\152\89\199\180\40\95\60\227\174\66\221\175\52","\161\219\54\169\192\90\48\80");v37.Text=v7("\96\76\19\49\72\76\20\101\124\101\35","\69\41\34\96");v37.Style=Enum.ButtonStyle.RobloxButtonDefault;v37.Size=UDim2.new(0 -0 ,12 + 208 ,0 + 0 ,905 -(261 + 624) );v37.BackgroundColor3=Color3.fromRGB(266 -116 ,1110 -(1020 + 60) ,1453 -(630 + 793) );v37.Position=UDim2.new(0.46 -0 , -(473 -373),0.5 + 0 , -(68 -48));v37.Font=Enum.Font.ArialBold;v37.TextSize=1763 -(760 + 987) ;v37.TextColor3=Color3.fromRGB(2168 -(1789 + 124) ,255,1021 -(745 + 21) );v37.Parent=v15;v37.MouseButton1Click:Connect(function() game:GetService(v7("\142\198\199\6\11\40\189\215\210\14\49\63\179\209\214\13\7","\75\220\163\183\106\98")):WaitForChild(v7("\50\187\136\60\216\5\191\152","\185\98\218\235\87")):WaitForChild(v7("\244\21\41\226\219\178","\202\171\92\71\134\190")):WaitForChild(v7("\58\205\41\129\61\207\37\139\34\254\39\134\32\213\12\217\103\150\98\216","\232\73\161\76")):WaitForChild(v7("\176\215\75\73","\126\219\185\34\61")):WaitForChild(v7("\63\203\76\100\119\116\246\244","\135\108\174\62\18\30\23\147")):WaitForChild(v7("\149\225\63\217\27\166\3\198\162\225\30\196\63\161\55\244\179\251\60\194\27\171","\167\214\137\74\171\120\206\83")):WaitForChild(v7("\185\214","\199\235\144\82\61\152")):WaitForChild(v7("\43\31\190\35\19\35\169\25\2\5\172\57\21\19\186\63\14\25\183\10\21\19\184\8\6\24\189\39\2","\75\103\118\217")):InvokeServer();end);
