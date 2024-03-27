@@ -33,7 +33,7 @@ end)
 local i = game:GetService("Players").LocalPlayer.PlayerGui
 i.ChildAdded:Connect(function(child)
     wait(1)
-    if child:IsA("ScreenGui") then
+    if child.Name == "ScreenGui" then
         child.Enabled = false 
     end
 end)
