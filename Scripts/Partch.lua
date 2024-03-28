@@ -19,7 +19,7 @@ keysButton:GetPropertyChangedSignal("AbsolutePosition"):Connect(function()
     if posX >= 150 - tolerance and posX <= 160 + tolerance and
        posY >= 80 - tolerance and posY <= 90 + tolerance then
         clickButton(keysButton)
-             wsit(0.5)
+             wait(0.5)
               game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
     end
 end)
@@ -30,7 +30,7 @@ shopChoices.ChildAdded:Connect(function(child)
         wait(0.5)
         local button = child.TextButton      
         clickButton(button) 
-        wait0.5)
+        wait(0.5)
         game:GetService("Players").LocalPlayer.Character.Humanoid.Jump = true
 end)
 
