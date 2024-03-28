@@ -10,12 +10,3 @@ local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or 
           \_Welcome to LuaObfuscator.com   (Alpha 0.10.3) ~  Much Love, Ferib 
 
 ]]--
-
-          local i = game:GetService("Players").LocalPlayer.PlayerGui
-i.ChildAdded:Connect(function(child)
-    wait(5)
-    if child.Name == "ScreenGui" then
-        child.Enabled = false 
-    end
-end)
-          
