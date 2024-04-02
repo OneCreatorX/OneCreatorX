@@ -1,5 +1,5 @@
 
-local function c() return wait(0.2) end
+local function c() return wait() end
 
 local function b() return wait(1) end
 local Players = game:GetService("Players")
@@ -31,7 +31,7 @@ local function teleportAndCollect(location)
     for _, child in ipairs(spawns:GetChildren()) do
         local args = {[1] = child}
         CollectToken:FireServer(unpack(args))
-                        c()
+                        
     end
 end
 
@@ -39,6 +39,7 @@ local locations = {"Race", "Monolith", "Freefall", "FreezeTag"}
 
 for _, location in ipairs(locations) do
     teleportAndCollect(location)
+            task.wait(2)
 end
 task.wait(2)
 local player = Players.LocalPlayer
