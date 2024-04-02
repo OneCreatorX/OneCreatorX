@@ -25,7 +25,7 @@ local function teleportAndCollect(location)
     local CollectToken = Network:WaitForChild("CollectToken")
     local args = {[1] = location}
     TeleportRequest:FireServer(unpack(args))
-    task.wait(1)
+    task.wait(1.5)
     local spawns = RS:WaitForChild("Tokens"):WaitForChild("Spawns")
     for _, child in ipairs(spawns:GetChildren()) do
         local args = {[1] = child}
