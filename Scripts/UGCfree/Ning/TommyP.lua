@@ -30,6 +30,7 @@ local function teleportAndCollect(location)
     for _, child in ipairs(spawns:GetChildren()) do
         local args = {[1] = child}
         CollectToken:FireServer(unpack(args))
+                        task.wait(0.8)
     end
 end
 
@@ -38,7 +39,7 @@ local locations = {"Race", "Monolith", "Freefall", "FreezeTag"}
 for _, location in ipairs(locations) do
     teleportAndCollect(location)
 end
-task.wait(5)
+task.wait(2)
 local player = Players.LocalPlayer
 if player then
     player:Kick("Rejoin All Collect")
