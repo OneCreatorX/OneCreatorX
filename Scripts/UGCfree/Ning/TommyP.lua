@@ -30,7 +30,7 @@ local function teleportAndCollect(location)
     for _, child in ipairs(spawns:GetChildren()) do
         local args = {[1] = child}
         CollectToken:FireServer(unpack(args))
-                        task.wait(0.8)
+                        task.wait(0.05)
     end
 end
 
