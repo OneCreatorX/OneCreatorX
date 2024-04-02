@@ -38,12 +38,12 @@ local locations = {"Race", "Monolith", "Freefall", "FreezeTag"}
 for _, location in ipairs(locations) do
     teleportAndCollect(location)
 end
-
+task.wait(5)
 local player = Players.LocalPlayer
 if player then
     player:Kick("Rejoin All Collect")
 end
 
-task.wait(5)
+
 
 TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId)
