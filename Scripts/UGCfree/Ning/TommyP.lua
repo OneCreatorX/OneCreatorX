@@ -42,8 +42,17 @@ for _, location in ipairs(locations) do
             task.wait(2)
 end
 task.wait(1)
-local player = Players.LocalPlayer
-if player then
-    player:Kick("Rejoin Broken  Manual exit")
-end
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "YT:OneCreatorX",
+            Text = "Rejoin Broken",
+            Duration = 10,
+        })
+
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "YT:OneCreatorX",
+            Text = "Ready all Collect",
+            Duration = 10,
+        })
 
