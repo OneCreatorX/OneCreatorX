@@ -44,6 +44,6 @@ if player then
     player:Kick("Rejoin All Collect")
 end
 
-task.wait(2)
+task.wait(5)
 
 TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId)
