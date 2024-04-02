@@ -1,7 +1,7 @@
 
 local function c() return wait() end
 
-local function b() return wait(1) end
+local function b() return task.wait(2) end
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -41,12 +41,9 @@ for _, location in ipairs(locations) do
     teleportAndCollect(location)
             task.wait(2)
 end
-task.wait(2)
+task.wait(1)
 local player = Players.LocalPlayer
 if player then
-    player:Kick("Rejoin All Collect")
+    player:Kick("Rejoin Broken  Manual exit")
 end
 
-
-
-game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
