@@ -1,6 +1,7 @@
 
+local function c() return wait(0.2) end
 
-
+local function b() return wait(1) end
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -25,12 +26,12 @@ local function teleportAndCollect(location)
     local CollectToken = Network:WaitForChild("CollectToken")
     local args = {[1] = location}
     TeleportRequest:FireServer(unpack(args))
-    task.wait(1.5)
+    b()
     local spawns = RS:WaitForChild("Tokens"):WaitForChild("Spawns")
     for _, child in ipairs(spawns:GetChildren()) do
         local args = {[1] = child}
         CollectToken:FireServer(unpack(args))
-                        task.wait(0.05)
+                        c()
     end
 end
 
