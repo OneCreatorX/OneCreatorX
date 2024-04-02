@@ -49,4 +49,4 @@ end
 
 
 
-TeleportService:TeleportToPlaceInstance(game.PlaceId, game.JobId)
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
