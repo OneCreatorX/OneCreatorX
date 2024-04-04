@@ -1,12 +1,163 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.3) ~  Much Love, Ferib 
+local pp = game.Players.LocalPlayer
+local g = Instance.new("ScreenGui")
+g.ResetOnSpawn = false
+g.Parent = pp.PlayerGui
 
-]]--
+local f = Instance.new("Frame", g)
+f.Size, f.Position, f.BackgroundColor3, f.BorderSizePixel, f.BorderColor3, f.Draggable, f.Active = UDim2.new(0, 200, 0, 150), UDim2.new(0.5, -100, 0.5, -80), Color3.fromRGB(32, 32, 32), 2, Color3.new(1, 1, 1), true, true
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v69,v70) local v71={};for v89=1, #v69 do v6(v71,v0(v4(v1(v2(v69,v89,v89 + 1 )),v1(v2(v70,1 + (v89% #v70) ,1 + (v89% #v70) + 1 )))%256 ));end return v5(v71);end local v8=game.Players.LocalPlayer;local v9=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v9.ResetOnSpawn=false;v9.Parent=v8.PlayerGui;local v13=Instance.new(v7("\5\223\43\200\249","\156\67\173\74\165"),v9);v13.Size,v13.Position,v13.BackgroundColor3,v13.BorderSizePixel,v13.BorderColor3,v13.Draggable,v13.Active=UDim2.new(0 -0 ,598 -398 ,0,1850 -(1419 + 281) ),UDim2.new(0.5, -(142 -42),74.5 -(71 + 3) , -(79 + 1)),Color3.fromRGB(78 -46 ,24 + 8 ,24 + 8 ),1977 -(1913 + 62) ,Color3.new(1 -0 ,242 -(187 + 54) ,1),true,true;local v21=Instance.new(v7("\0\178\81\2\144\39\68\49\187","\38\84\215\41\118\220\70"),v13);v21.Size,v21.Position,v21.Text,v21.TextSize,v21.TextColor3,v21.BackgroundColor3=UDim2.new(781 -(162 + 618) ,0,0 -0 ,22 + 8 ),UDim2.new(0 -0 ,0 + 0 ,0 -0 ,0 -0 ),v7("\105\34\120\82\209\94\19\1\0\251\81\2\45\0\198\16\0\112","\158\48\118\66\114"),15 + 1 ,Color3.fromRGB(1111 -(564 + 292) ,439 -184 ,768 -513 ),Color3.fromRGB(350 -(244 + 60) ,36 + 10 ,522 -(41 + 435) );local v28=Instance.new(v7("\159\33\8\34\81\176\239\191\43\30","\155\203\68\112\86\19\197"),v13);v28.Size,v28.Position,v28.Text,v28.TextColor3,v28.BackgroundColor3=UDim2.new(1 + 0 ,0,1636 -(1373 + 263) ,1030 -(451 + 549) ),UDim2.new(0 + 0 ,0 -0 ,0 -0 ,38 + 22 ),v7("\103\200\34\243\0\91\233\241\69\214\118\180\111\94\195\177","\152\38\189\86\156\32\24\133"),Color3.fromRGB(1639 -(746 + 638) ,255,96 + 159 ),Color3.fromRGB(69 -23 ,67 -21 ,387 -(218 + 123) );local v34=Instance.new(v7("\200\82\191\82\222\66\179\82\243\89","\38\156\55\199"),v13);v34.Size,v34.Position,v34.Text,v34.TextColor3,v34.BackgroundColor3=UDim2.new(1582 -(1535 + 46) ,1875 -(157 + 1718) ,0 + 0 ,5 + 25 ),UDim2.new(0 -0 ,1018 -(697 + 321) ,560 -(306 + 254) ,2 + 28 ),v7("\137\104\104\39\83\70\255\65\161\111\104\32\83\60\213\101\142\52","\35\200\29\28\72\115\20\154"),Color3.fromRGB(500 -245 ,1722 -(899 + 568) ,168 + 87 ),Color3.fromRGB(111 -65 ,649 -(268 + 335) ,46);local v40=Instance.new(v7("\45\186\201\203\175\57\32\13\176\223","\84\121\223\177\191\237\76"),v13);v40.Size,v40.Position,v40.Text,v40.TextColor3,v40.BackgroundColor3=UDim2.new(291 -(60 + 230) ,572 -(426 + 146) ,0 + 0 ,30),UDim2.new(1189 -(449 + 740) ,1456 -(282 + 1174) ,0,1037 -(245 + 702) ),v7("\154\67\221\175\122\100\63\202\190\88\218\224\119\16\31\209\175\95\198\174\41","\161\219\54\169\192\90\48\80"),Color3.fromRGB(1066 -(569 + 242) ,734 -479 ,255),Color3.fromRGB(3 + 43 ,1070 -(706 + 318) ,1297 -(721 + 530) );local v46=Instance.new(v7("\111\80\1\40\76","\69\41\34\96"),v13);v46.Size,v46.Position,v46.BackgroundColor3,v46.BorderSizePixel,v46.BorderColor3,v46.Visible=UDim2.new(1,1271 -(945 + 326) ,0 -0 ,54 + 6 ),UDim2.new(700 -(271 + 429) ,0 + 0 ,0,329 -179 ),Color3.fromRGB(32,32,1532 -(1408 + 92) ),4 -2 ,Color3.new(1087 -(461 + 625) ,1691 -(1121 + 569) ,1),false;local v53=workspace:WaitForChild(v7("\136\204\220\15\12\56","\75\220\163\183\106\98"));local v54={};for v72,v73 in pairs(v53:GetChildren()) do if v73:IsA(v7("\36\181\135\51\220\16","\185\98\218\235\87")) then table.insert(v54,v73.Name);end end local v55={};local function v56(v74) local v75=1288 -(993 + 295) ;local v76;local v77;while true do if (v75==(0 + 0)) then v76=1171 -(418 + 753) ;v77=nil;v75=1464 -(1404 + 59) ;end if (v75==1) then while true do if (v76==(0 -0)) then local v102=0 + 0 ;while true do if (v102==(0 + 0)) then v77={};for v114,v115 in ipairs(v55) do if v53:FindFirstChild(v115) then table.insert(v77,v53:FindFirstChild(v115));end end v102=1;end if (v102==(1 + 0)) then v76=1 + 0 ;break;end end end if (v76==(530 -(406 + 123))) then for v104,v105 in ipairs(v77) do for v106,v107 in pairs(v105:GetDescendants()) do if ((v107:IsA(v7("\251\61\53\242","\202\171\92\71\134\190")) or v107:IsA(v7("\4\196\63\128\25\192\62\156","\232\73\161\76"))) and v107:FindFirstChild(v7("\143\214\87\94\22\146\215\86\88\12\190\202\86","\126\219\185\34\61"))) then v107.CFrame=CFrame.new(v8.Character.HumanoidRootPart.Position);end end end break;end end break;end end end for v78,v79 in ipairs(v54) do local v80=1769 -(1749 + 20) ;local v81;local v82;local v83;while true do if (v80==(0 -0)) then v81=0 + 0 ;v82=nil;v80=1323 -(1249 + 73) ;end if (v80==(1 + 0)) then v83=nil;while true do if (v81==(1145 -(466 + 679))) then v82=0 -0 ;v83=nil;v81=2 -1 ;end if (v81==1) then while true do if (v82==(1901 -(106 + 1794))) then v83.Position=UDim2.new(0 + 0 ,0 + 0 ,0 + 0 ,(v78-(1 + 0)) * (59 -39) );v83.Text=v79;v82=2;end if (v82==(7 -4)) then v83.Name=v79;v83.Parent=v46;v82=118 -(4 + 110) ;end if (v82==(588 -(57 + 527))) then v83.MouseButton1Click:Connect(function() local v117=1427 -(41 + 1386) ;local v118;while true do if (v117==(103 -(17 + 86))) then v118=table.find(v55,v79);if  not v118 then local v128=0 + 0 ;local v129;while true do if (v128==(0 -0)) then v129=0 -0 ;while true do if (v129==(166 -(122 + 44))) then table.insert(v55,v79);v83.BackgroundColor3=Color3.fromRGB(0 -0 ,845 -590 ,0 + 0 );break;end end break;end end else local v130=0 + 0 ;while true do if (v130==(0 -0)) then table.remove(v55,v118);v83.BackgroundColor3=Color3.fromRGB(111 -(30 + 35) ,38 + 8 ,32 + 14 );break;end end end break;end end end);break;end if (v82==(1259 -(1043 + 214))) then local v112=0 + 0 ;while true do if (v112==(3 -2)) then v82=852 -(254 + 595) ;break;end if (v112==(126 -(55 + 71))) then v83.TextColor3=Color3.fromRGB(1467 -(323 + 889) ,335 -80 ,686 -431 );v83.BackgroundColor3=Color3.fromRGB(626 -(361 + 219) ,366 -(53 + 267) ,11 + 35 );v112=1 -0 ;end end end if (0==v82) then v83=Instance.new(v7("\56\203\70\102\92\98\231\243\3\192","\135\108\174\62\18\30\23\147"));v83.Size=UDim2.new(414 -(15 + 398) ,939 -(714 + 225) ,0 -0 ,1002 -(18 + 964) );v82=3 -2 ;end end break;end end break;end end end local v57,v58=false,false;local function v59() while true do local v90=0 + 0 ;while true do if (v90==(0 + 0)) then task.wait(851 -(20 + 830) );v56(v55);break;end end end end v28.MouseButton1Click:Connect(function() local v84=48 -(25 + 23) ;while true do if (v84==(1 + 0)) then while v57 do local v96=0 + 0 ;while true do if (v96==(126 -(116 + 10))) then game:GetService(v7("\53\19\169\39\14\21\184\63\2\18\138\63\8\4\184\44\2","\75\103\118\217")):WaitForChild(v7("\226\66\117\26\173\13","\126\167\52\16\116\217")):WaitForChild(v7("\235\34\41\131\191","\156\168\78\64\224\212\121")):FireServer();task.wait(0.1 + 0 );break;end end end break;end if (v84==0) then v57= not v57;v28.Text,v28.BackgroundColor3=(v57 and v7("\151\252\62\196\88\141\63\206\181\226\106\131\55\128\122","\167\214\137\74\171\120\206\83")) or v7("\170\229\38\82\184\132\135\249\49\86\184\239\164\214\20\20","\199\235\144\82\61\152") ,(v57 and Color3.fromRGB(738 -(542 + 196) ,546 -291 ,0 + 0 )) or Color3.fromRGB(24 + 22 ,17 + 29 ,120 -74 ) ;v84=2 -1 ;end end end);v34.MouseButton1Click:Connect(function() local v85=0 -0 ;while true do if (v85==(285 -(175 + 110))) then v58= not v58;v34.Text,v34.BackgroundColor3=(v58 and v7("\38\251\177\193\71\220\160\204\14\252\177\198\71\166\138\224\78","\174\103\142\197")) or v7("\119\61\75\55\101\108\253\84\33\77\44\45\30\176\121\14\121\113","\152\54\72\63\88\69\62") ,(v58 and Color3.fromRGB(1551 -(1126 + 425) ,660 -(118 + 287) ,0 -0 )) or Color3.fromRGB(46,1167 -(118 + 1003) ,134 -88 ) ;v85=378 -(142 + 235) ;end if ((4 -3)==v85) then while v58 do game:GetService(v7("\230\193\254\80\221\199\239\72\209\192\221\72\219\214\239\91\209","\60\180\164\142")):WaitForChild(v7("\125\72\0\39\51\254","\114\56\62\101\73\71\141")):WaitForChild(v7("\138\236\217\205\170\253\211","\164\216\137\187")):FireServer();task.wait(2 + 3 );end break;end end end);v40.MouseButton1Click:Connect(function() v46.Visible= not v46.Visible;end);local v60=Instance.new(v7("\230\227\41\166\132\235\31\198\233\63","\107\178\134\81\210\198\158"),v13);v60.Size,v60.Position,v60.Text,v60.TextColor3,v60.BackgroundColor3=UDim2.new(978 -(553 + 424) ,0 + 0 ,0 + 0 ,56 -26 ),UDim2.new(0 + 0 ,0 + 0 ,0 + 0 ,52 + 68 ),v7("\25\27\150\201\234\27\6\135\213\190\120\61\146\207\164\120\33\164\224","\202\88\110\226\166"),Color3.fromRGB(255,146 + 109 ,552 -297 ),Color3.fromRGB(905 -(240 + 619) ,12 + 34 ,72 -26 );local v66=game.Players.LocalPlayer;local v67=workspace.Scriptables.Chests;local v9=workspace.Scriptables.Gates;local v68={v7("\224\7\135\228\222\146","\170\163\111\226\151"),v7("\50\56\183\43\90\101","\73\113\80\210\88\46\87"),v7("\162\36\200\1\243\210","\135\225\76\173\114"),v7("\57\229\189\163\184\233","\199\122\141\216\208\204\221"),v7("\142\213\21\227\108\163","\150\205\189\112\144\24")};v60.MouseButton1Click:Connect(function() local v87=753 -(239 + 514) ;while true do if (v87==(0 + 0)) then local v95=1329 -(797 + 532) ;while true do if (v95==(0 + 0)) then autoChest= not autoChest;v60.Text=(autoChest and v7("\4\145\171\67\68\171\25\21\54\144\255\12\10\200\34\0\44\138\255\99\42","\112\69\228\223\44\100\232\113")) or v7("\245\10\19\220\246\95\142\209\12\19\147\184\60\181\196\22\9\147\153\90\160","\230\180\127\103\179\214\28") ;v95=1 + 0 ;end if (v95==(1740 -(404 + 1335))) then v87=1;break;end end end if (v87==(407 -(183 + 223))) then while autoChest do local v97,v98=pcall(function() local v99=0 -0 ;local v100;local v101;while true do if (v99==(1 + 0)) then while true do if (v100==(1202 -(373 + 829))) then local v119=731 -(476 + 255) ;while true do if ((338 -(10 + 327))==v119) then v100=1131 -(369 + 761) ;break;end if (v119==(0 + 0)) then game.ReplicatedStorage.Events.WheelSpin:FireServer(v7("\162\10\77\75\229\77","\128\236\101\63\38\132\33"));v101=nil;v119=1 + 0 ;end end end if ((339 -(118 + 220))==v100) then for v122=1 -0 ,2 + 3  do local v123=v67:FindFirstChild(v7("\143\161\20\87\162","\175\204\201\113\36\214\139")   .. v122 );if v123 then local v127=v9:FindFirstChild(v7("\96\205\33\217","\100\39\172\85\188")   .. (v122-(1 -0)) );if  not v127 then v101=v123;break;end end end if v101 then local v124=0 + 0 ;local v125;local v126;while true do if (v124==(239 -(64 + 174))) then v66.Character:SetPrimaryPartCFrame(CFrame.new(v126));task.wait(1 + 4 );break;end if ((0 -0)==v124) then v125=v101.PrimaryPart;v126=v125.Position + Vector3.new(336 -(144 + 192) ,224 -(42 + 174) ,0 + 0 ) ;v124=1;end end end break;end end break;end if (v99==(1819 -(580 + 1239))) then v100=0 -0 ;v101=nil;v99=1 + 0 ;end end end);if  not v97 then end end break;end end end);task.spawn(v59);game:GetService(v7("\157\116\184\153\54\191\107","\83\205\24\217\224")).LocalPlayer.Idled:Connect(function() local v88=0 + 0 ;while true do if (v88==(0 + 0)) then game:GetService(v7("\208\204\223\41\243\196\193\8\245\192\223","\93\134\165\173")):CaptureController();game:GetService(v7("\136\251\211\214\47\207\190\75\173\247\211","\30\222\146\161\162\90\174\210")):ClickButton2(Vector2.new());break;end end end);
+local t = Instance.new("TextLabel", f)
+t.Size, t.Position, t.Text, t.TextSize, t.TextColor3, t.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0), "YT: OneCreatorX v2", 16, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+
+local a = Instance.new("TextButton", f)
+a.Size, a.Position, a.Text, a.TextColor3, a.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 60), "Auto Click (OFF)", Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+
+local a2 = Instance.new("TextButton", f)
+a2.Size, a2.Position, a2.Text, a2.TextColor3, a2.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 30), "Auto Rebirth (OFF)", Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+
+local b = Instance.new("TextButton", f)
+b.Size, b.Position, b.Text, b.TextColor3, b.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 90), "Auto Tokens - Options", Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+
+local o = Instance.new("Frame", f)
+o.Size, o.Position, o.BackgroundColor3, o.BorderSizePixel, o.BorderColor3, o.Visible = UDim2.new(1, 0, 0, 60), UDim2.new(0, 0, 0, 150), Color3.fromRGB(32, 32, 32), 2, Color3.new(1, 1, 1), false
+
+local tF = workspace:WaitForChild("Tokens")
+local fO = {}
+
+for _, f in pairs(tF:GetChildren()) do
+    if f:IsA("Folder") then
+        table.insert(fO, f.Name)
+    end
+end
+
+local cOpt = {}
+
+local function executeOption(optionName)
+    local selectedZones = {}
+    for _, selectedOpt in ipairs(cOpt) do
+        if tF:FindFirstChild(selectedOpt) then
+            table.insert(selectedZones, tF:FindFirstChild(selectedOpt))
+        end
+    end
+    for _, zone in ipairs(selectedZones) do
+        for _, part in pairs(zone:GetDescendants()) do
+            if (part:IsA("Part") or part:IsA("MeshPart")) and part:FindFirstChild("TouchInterest") then
+                part.CFrame = CFrame.new(pp.Character.HumanoidRootPart.Position)
+            end
+        end
+    end
+end
+
+for i, n in ipairs(fO) do
+    local oB = Instance.new("TextButton")
+    oB.Size = UDim2.new(1, 0, 0, 20)
+    oB.Position = UDim2.new(0, 0, 0, (i - 1) * 20)
+    oB.Text = n
+    oB.TextColor3 = Color3.fromRGB(255, 255, 255)
+    oB.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
+    oB.Name = n
+    oB.Parent = o
+    oB.MouseButton1Click:Connect(function()
+        local index = table.find(cOpt, n)
+        if not index then
+            table.insert(cOpt, n)
+            oB.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+        else
+            table.remove(cOpt, index)
+            oB.BackgroundColor3 = Color3.fromRGB(46, 46, 46)
+        end
+    end)
+end
+
+
+local aC, a2C = false, false
+
+local function optionLoop()
+    while true do
+        task.wait(1)
+        executeOption(cOpt)
+    end
+end
+
+a.MouseButton1Click:Connect(function()
+    aC = not aC
+    a.Text, a.BackgroundColor3 = aC and "Auto Click (ON)" or "Auto Click (OFF)", aC and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(46, 46, 46)
+    while aC do
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Click"):FireServer()
+        task.wait(0.1)
+    end
+end)
+
+a2.MouseButton1Click:Connect(function()
+    a2C = not a2C
+    a2.Text, a2.BackgroundColor3 = a2C and "Auto Rebirth (ON)" or "Auto Rebirth (OFF)", a2C and Color3.fromRGB(0, 255, 0) or Color3.fromRGB(46, 46, 46)
+    while a2C do
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rebirth"):FireServer()
+        task.wait(5)
+    end
+end)
+
+b.MouseButton1Click:Connect(function()
+    o.Visible = not o.Visible
+end)
+
+local bi = Instance.new("TextButton", f)
+bi.Size, bi.Position, bi.Text, bi.TextColor3, bi.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 120), "Auto Chest Spin OFF", Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
+
+local p = game.Players.LocalPlayer
+local c = workspace.Scriptables.Chests
+local g = workspace.Scriptables.Gates
+local n = { "Chest1", "Chest2", "Chest3", "Chest4", "Chest5" }
+
+bi.MouseButton1Click:Connect(function()
+    autoChest = not autoChest
+    bi.Text = autoChest and "Auto Chest Spin ON" or "Auto Chest Spin OFF"
+
+    while autoChest do
+        local success, error = pcall(function()
+            game.ReplicatedStorage.Events.WheelSpin:FireServer("Normal")
+
+            local destinationChest = nil
+
+            for i = 1, 5 do
+                local chest = c:FindFirstChild("Chest" .. i)
+
+                if chest then
+                    local previousGate = g:FindFirstChild("Gate" .. (i - 1))
+                    if not previousGate then
+                        destinationChest = chest
+                        break  -- Salir del bucle si se encuentra un cofre existente sin puerta anterior
+                    end
+                end
+            end
+
+            if destinationChest then
+                local pp = destinationChest.PrimaryPart
+                local destination = pp.Position + Vector3.new(0, 8, 0)
+                local start = p.Character.HumanoidRootPart.Position
+                local distance = (destination - start).magnitude
+                local duration = distance / 50
+
+                for t = 0, 1, 0.01 do
+                    p.Character.HumanoidRootPart.CFrame = CFrame.new(start:Lerp(destination, t))
+                    task.wait(duration * 0.01)
+                end
+
+                task.wait(0.1)
+            end
+
+            task.wait(5)
+        end)
+
+        if not success then
+            warn("Error in Auto Chest loop:", error)
+        end
+    end
+end)
+
+task.spawn(optionLoop)
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
