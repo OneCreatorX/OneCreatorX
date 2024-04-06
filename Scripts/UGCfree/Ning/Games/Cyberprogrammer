@@ -1,0 +1,45 @@
+local function shootEnemies()
+    local localPlayer = game:GetService("Players").LocalPlayer
+    local blaster = localPlayer.Character and localPlayer.Character.Blaster
+    if not blaster then
+
+    end
+    
+    local targetsFolder = workspace:WaitForChild("Targets")
+    if not targetsFolder then
+
+    end
+    
+    local weaponHitEvent = game:GetService("ReplicatedStorage"):WaitForChild("WeaponsSystem"):WaitForChild("Network"):WaitForChild("WeaponHit")
+    if not weaponHitEvent then
+
+    end
+    
+    local enemies = targetsFolder:GetChildren()
+    for _, enemy in ipairs(enemies) do
+        local enemyPart = enemy:WaitForChild("MeshModel"):WaitForChild("MeshPart")
+        local humanoid = enemy:WaitForChild("Humanoid")
+        
+        local args = {
+            [1] = blaster,
+            [2] = {
+                ["p"] = enemyPart.Position,
+                ["pid"] = 1,
+                ["part"] = enemyPart,
+                ["d"] = 40.59109115600586,
+                ["maxDist"] = 40.49562072753906,
+                ["h"] = humanoid,
+                ["m"] = Enum.Material.Plastic,
+                ["n"] = Vector3.new(-0.25125864148139954, 0.08973053842782974, 0.9637517333030701),
+                ["t"] = 0.34779404514842355,
+                ["sid"] = 6
+            }
+        }
+        
+        weaponHitEvent:FireServer(unpack(args))
+    end
+end
+
+while true do wait(0.1)
+shootEnemies()
+end
