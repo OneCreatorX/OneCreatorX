@@ -1,0 +1,58 @@
+local function moveToTrash(trashModel)
+    local trashPosition = trashModel.PrimaryPart.Position
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(trashPosition))
+end
+
+local function moveToTrashCan(trashColor)
+    local trashCan = workspace.TrashCans:FindFirstChild(trashColor .. "Can")
+    if not trashCan then
+
+    end
+    
+    local trashCanPosition = trashCan.Position
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(trashCanPosition))
+end
+
+local function collectAndPlaceTrash()
+    local pickableTrash = workspace:FindFirstChild("PickableTrash")
+    if not pickableTrash then
+      
+    end
+    
+    moveToTrash(pickableTrash)
+    wait(0.5)
+    
+    local colorModel = pickableTrash:FindFirstChildOfClass("Model")
+    if not colorModel then
+
+    end
+    
+    local color = colorModel.Name
+    
+    local primaryPart = pickableTrash.PrimaryPart
+    if not primaryPart then
+      
+    end
+    
+    local proximityPrompt = primaryPart:FindFirstChildOfClass("ProximityPrompt")
+    if not proximityPrompt then
+
+    end
+    
+    fireproximityprompt(proximityPrompt)
+    
+    moveToTrashCan(color)
+    
+    wait(0.5)
+    
+    local trashCanProximity = workspace.TrashCans:FindFirstChild(color .. "Can"):FindFirstChildOfClass("ProximityPrompt")
+    if not trashCanProximity then
+
+    end
+    
+    fireproximityprompt(trashCanProximity)
+end
+
+while true do wait(1.3)
+collectAndPlaceTrash()
+end
