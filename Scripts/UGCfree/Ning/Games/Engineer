@@ -1,0 +1,9 @@
+while true do wait(0.3)
+local clickDetectors = workspace:GetDescendants()
+
+for _, object in ipairs(clickDetectors) do
+    if object:IsA("ClickDetector") then
+     fireclickdetector(object)
+    end
+end
+end
