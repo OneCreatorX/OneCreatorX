@@ -1,116 +1,12 @@
-local p = game.Players.LocalPlayer
-local g = Instance.new("ScreenGui")
-g.ResetOnSpawn = false
-g.Parent = p.PlayerGui
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.3) ~  Much Love, Ferib 
 
-local f = Instance.new("Frame", g)
-f.Size, f.Position, f.BackgroundColor3, f.BorderSizePixel, f.BorderColor3, f.Draggable, f.Active = UDim2.new(0, 150, 0, 60), UDim2.new(0.3, -100, 0.9, -80), Color3.fromRGB(32, 32, 32), 2, Color3.new(1, 1, 1), true, true
+]]--
 
-local t = Instance.new("TextLabel", f)
-t.Size, t.Position, t.Text, t.TextSize, t.TextColor3, t.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0), "YT:OneCreatorX", 12, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
-
-local ti = Instance.new("TextLabel", f)
-ti.Size, ti.Position, ti.Text, ti.TextSize, ti.TextColor3, ti.BackgroundColor3 = UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0.53, 0), "New V.2(+ Support Mps)", 10, Color3.fromRGB(255, 255, 255), Color3.fromRGB(46, 46, 46)
-
-game:GetService('Players').LocalPlayer.Idled:Connect(function()
-    game:GetService('VirtualUser'):CaptureController()
-    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
-end)
-
-  game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(3, 1, -114)
-
-
-
-local function movePlayerToGrass(grass)
-    local player = game.Players.LocalPlayer
-    local humanoidRootPart = player.Character:WaitForChild("HumanoidRootPart")
-
-    if humanoidRootPart then
-        humanoidRootPart.CFrame = CFrame.new(grass.Position)
-    end
-end
-
-local function sendRemoteToTree(tree)
-    for _ = 1, 4 do
-        local args = {
-            [1] = tree
-        }
-
-        game:GetService("Players").LocalPlayer.Character.Hatchet.HitEvent:FireServer(unpack(args))
-        wait(0.1)
-    end
-end
-
-local function onPartAdded(part)
-    if part.Name == "Wipeout" or part.Name == "FloodEscape" or part.Name == "BombDrop" or part.Name == "Spleef" then
-        wait(6)
-        part:Destroy()
-    elseif part.Name == "GrassMowing" then
-        wait(8)
-        local grassParts = part:GetDescendants()
-        for _, grass in ipairs(grassParts) do
-            if grass:IsA("MeshPart") and grass.Name == "Grass" then
-                movePlayerToGrass(grass)
-            end
-        end
-    end
-end
-
-local function onPartRemoved(part)
-    wait(4)
-    game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(7, 0, -124)
-end
-
-local function onCharacterRemoved(character)
-    wait(4)
-    game.Players.LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(7, 0, -124)
-end
-
-local function movePlayerToParts(folder, partName)
-    local parts = folder:GetDescendants()
-    local player = game.Players.LocalPlayer
-    local humanoid = player.Character:WaitForChild("Humanoid")
-
-    for _, part in ipairs(parts) do
-        if part:IsA("MeshPart") and part.Name == partName then
-            humanoid.WalkToPoint = part.Position
-            repeat
-                wait(0.2)
-            until (player.Character.HumanoidRootPart.Position - part.Position).Magnitude < 7
-            wait(0.2)
-        end
-    end
-end
-
-local function onFolderAdded(folder)
-    if folder.Name == "ColorTakeover" then
-        wait(8)
-        movePlayerToParts(folder, "Tile")
-    elseif folder.Name == "Lumberjack" then
-        wait(8)
-        local trucks = folder:GetDescendants()
-        for _, truck in ipairs(trucks) do
-            if truck:IsA("MeshPart") and truck.Name == "Truck" then
-                movePlayerToTree(truck)
-                sendRemoteToTree(truck)
-            end
-        end
-    elseif folder.Name == "MindlessMining" then
-        wait(8)
-        local ores = folder:GetDescendants()
-        for _, ore in ipairs(ores) do
-            if ore:IsA("MeshPart") and ore.Name == "Rock" then
-                movePlayerToOre(ore)
-                sendRemoteToOre(ore)
-                wait(0.5) 
-            end
-        end
-    elseif folder.Name == "GrassMowing" then
-        wait(8)
-        movePlayerToParts(folder, "Grass")
-    end
-end
-
-workspace.MinigamesRoot.ChildAdded:Connect(onFolderAdded)
-workspace.MinigamesRoot.ChildAdded:Connect(onPartAdded)
-game.Players.LocalPlayer.CharacterRemoving:Connect(onCharacterRemoved)
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v45,v46) local v47={};for v76=1, #v45 do v6(v47,v0(v4(v1(v2(v45,v76,v76 + 1 )),v1(v2(v46,1 + (v76% #v46) ,1 + (v76% #v46) + 1 )))%256 ));end return v5(v47);end local v8=game.Players.LocalPlayer;local v9=Instance.new(v7("\226\192\201\32\227\181\224\11\216","\126\177\163\187\69\134\219\167"));v9.ResetOnSpawn=false;v9.Parent=v8.PlayerGui;local v13=Instance.new(v7("\5\223\43\200\249","\156\67\173\74\165"),v9);v13.Size,v13.Position,v13.BackgroundColor3,v13.BorderSizePixel,v13.BorderColor3,v13.Draggable,v13.Active=UDim2.new(1767 -(308 + 1459) ,264 -114 ,0 -0 ,220 -160 ),UDim2.new(867.3 -(550 + 317) , -(144 -44),0.9 -0 , -(223 -143)),Color3.fromRGB(317 -(134 + 151) ,1697 -(970 + 695) ,32),2,Color3.new(1 -0 ,1991 -(582 + 1408) ,1),true,true;local v21=Instance.new(v7("\0\178\81\2\144\39\68\49\187","\38\84\215\41\118\220\70"),v13);v21.Size,v21.Position,v21.Text,v21.TextSize,v21.TextColor3,v21.BackgroundColor3=UDim2.new(3 -2 ,0,0 -0 ,113 -83 ),UDim2.new(0,1824 -(1195 + 629) ,0 -0 ,0),v7("\105\34\120\61\240\85\53\48\23\255\68\25\48\42","\158\48\118\66\114"),253 -(187 + 54) ,Color3.fromRGB(1035 -(162 + 618) ,179 + 76 ,170 + 85 ),Color3.fromRGB(46,97 -51 ,77 -31 );local v28=Instance.new(v7("\159\33\8\34\95\164\249\174\40","\155\203\68\112\86\19\197"),v13);v28.Size,v28.Position,v28.Text,v28.TextSize,v28.TextColor3,v28.BackgroundColor3=UDim2.new(1,0 + 0 ,1636 -(1373 + 263) ,1030 -(451 + 549) ),UDim2.new(0,0,0.53 + 0 ,0 -0 ),v7("\104\216\33\188\118\54\182","\152\38\189\86\156\32\24\133"),10,Color3.fromRGB(428 -173 ,1639 -(746 + 638) ,255),Color3.fromRGB(18 + 28 ,69 -23 ,46);game:GetService(v7("\204\91\166\95\249\69\180","\38\156\55\199")).LocalPlayer.Idled:Connect(function() local v48=341 -(218 + 123) ;local v49;while true do if (v48==0) then v49=1581 -(1535 + 46) ;while true do if (0==v49) then game:GetService(v7("\158\116\110\60\6\117\246\118\187\120\110","\35\200\29\28\72\115\20\154")):CaptureController();game:GetService(v7("\47\182\195\203\152\45\56\44\172\212\205","\84\121\223\177\191\237\76")):ClickButton2(Vector2.new());break;end end break;end end end);game.Players.LocalPlayer.Character.Humanoid.WalkToPoint=Vector3.new(3,1 + 0 , -(17 + 97));local function v36(v50) local v51=560 -(306 + 254) ;local v52;while true do if (v51==0) then v52=game.Players.LocalPlayer;v52.Character.Humanoid.WalkToPoint=v50.Position;break;end end end local function v37(v53) for v77=1 + 0 ,5 -2  do local v78={[1468 -(899 + 568) ]=v53};game:GetService(v7("\139\90\200\185\63\66\35","\161\219\54\169\192\90\48\80")).LocalPlayer.Character.Hatchet.HitEvent:FireServer(unpack(v78));task.wait(0.1 + 0 );end end local function v38(v54) if ((v54.Name==v7("\126\75\16\32\70\87\20","\69\41\34\96")) or (v54.Name==v7("\154\207\216\5\6\14\175\192\214\26\7","\75\220\163\183\106\98")) or (v54.Name==v7("\32\181\134\53\253\16\181\155","\185\98\218\235\87")) or (v54.Name==v7("\248\44\43\227\219\172","\202\171\92\71\134\190")) or (v54.Name==v7("\26\214\35\154\45\231\37\143\33\213","\232\73\161\76"))) then local v84=0;while true do if (v84==(0 -0)) then task.wait(609 -(268 + 335) );v54:Destroy();break;end end elseif (v54.Name==v7("\156\203\67\78\13\150\214\85\84\16\188","\126\219\185\34\61")) then local v92=290 -(60 + 230) ;local v93;while true do if (v92==(573 -(426 + 146))) then for v115,v116 in ipairs(v93) do if (v116:IsA(v7("\33\203\77\122\78\118\225\243","\135\108\174\62\18\30\23\147")) and (v116.Name==v7("\145\251\43\216\11","\167\214\137\74\171\120\206\83"))) then v36(v116);end end break;end if (v92==(0 + 0)) then task.wait(1464 -(282 + 1174) );v93=v54:GetDescendants();v92=1;end end end end local function v39(v55) local v56=0;local v57;while true do if (v56==0) then v57=811 -(569 + 242) ;while true do if (v57==0) then task.wait(11 -7 );game.Players.LocalPlayer.Character.Humanoid.WalkToPoint=Vector3.new(7,0, -124);break;end end break;end end end local function v40(v58) local v59=0;local v60;while true do if (v59==(0 + 0)) then v60=1024 -(706 + 318) ;while true do if (v60==(1251 -(721 + 530))) then task.wait(1275 -(945 + 326) );game.Players.LocalPlayer.Character.Humanoid.WalkToPoint=Vector3.new(7,0 -0 , -124);break;end end break;end end end local function v41(v61,v62) local v63=0 + 0 ;local v64;local v65;local v66;while true do if (v63==(700 -(271 + 429))) then v64=v61:GetDescendants();v65=game.Players.LocalPlayer;v63=1 + 0 ;end if (v63==(1501 -(1408 + 92))) then v66=v65.Character:WaitForChild(v7("\163\229\63\92\246\168\130\244","\199\235\144\82\61\152"));for v94,v95 in ipairs(v64) do if (v95:IsA(v7("\42\19\170\35\55\23\171\63","\75\103\118\217")) and (v95.Name==v62)) then local v108=1086 -(461 + 625) ;while true do if (v108==(1288 -(993 + 295))) then local v119=0 + 0 ;while true do if (v119==(1172 -(418 + 753))) then v108=1;break;end if (v119==(0 + 0)) then v66.WalkToPoint=v95.Position;repeat task.wait(0.2);until (v65.Character.HumanoidRootPart.Position-v95.Position).Magnitude<(1 + 6)  v119=1;end end end if (v108==1) then v66.WalkToPoint=v65.Character.HumanoidRootPart.Position;task.wait(0.2 + 0 );break;end end end end break;end end end local function v42(v67) if (v67.Name==v7("\228\91\124\27\171\42\198\95\117\27\175\27\213","\126\167\52\16\116\217")) then task.wait(8);v41(v67,v7("\252\39\44\133","\156\168\78\64\224\212\121"));elseif (v67.Name==v7("\43\251\168\204\2\252\175\207\4\229","\174\103\142\197")) then local v96=0 + 0 ;local v97;while true do if (0==v96) then local v111=529 -(406 + 123) ;while true do if ((1770 -(1749 + 20))==v111) then v96=1 + 0 ;break;end if ((1322 -(1249 + 73))==v111) then task.wait(3 + 5 );v97=v67:GetDescendants();v111=1146 -(466 + 679) ;end end end if ((2 -1)==v96) then for v117,v118 in ipairs(v97) do if (v118:IsA(v7("\123\45\76\48\21\95\234\66","\152\54\72\63\88\69\62")) and (v118.Name==v7("\224\214\251\95\223","\60\180\164\142"))) then local v123=0 -0 ;while true do if (v123==(1900 -(106 + 1794))) then movePlayerToTree(v118);v37(v118);break;end end end end break;end end elseif (v67.Name==v7("\117\87\11\45\43\232\1\75\115\12\39\46\227\21","\114\56\62\101\73\71\141")) then task.wait(3 + 5 );local v109=v67:GetDescendants();for v112,v113 in ipairs(v109) do if (v113:IsA(v7("\149\236\200\204\136\232\201\208","\164\216\137\187")) and (v113.Name==v7("\224\233\50\185","\107\178\134\81\210\198\158"))) then local v122=0 + 0 ;while true do if (v122==(0 -0)) then local v126=0 -0 ;while true do if (v126==(115 -(4 + 110))) then v122=585 -(57 + 527) ;break;end if (v126==0) then movePlayerToOre(v113);sendRemoteToOre(v113);v126=1;end end end if (v122==(1428 -(41 + 1386))) then task.wait(103.5 -(17 + 86) );break;end end end end elseif (v67.Name==v7("\31\28\131\213\185\21\1\149\207\164\63","\202\88\110\226\166")) then task.wait(6 + 2 );v41(v67,v7("\228\29\131\228\217","\170\163\111\226\151"));end end local function v43() local v68=0;local v69;local v70;local v71;local v72;while true do if (1==v68) then local v89=0 -0 ;while true do if (v89==(2 -1)) then v68=2;break;end if (v89==(166 -(122 + 44))) then local v110=0 -0 ;while true do if (v110==1) then v89=1;break;end if (v110==0) then v71=6 -4 ;v72=workspace.MinigamesRoot:FindFirstChild(v7("\34\63\177\59\75\37","\73\113\80\210\88\46\87"));v110=1 + 0 ;end end end end end if ((1 + 1)==v68) then if  not v72 then return;end while v72 do local v98=v72:FindFirstChild(v7("\178\35\206\17\226\147\14\204\30\235","\135\225\76\173\114"));if  not v98 then break;end local v99=v98.Position;v70.WalkToPoint=Vector3.new(v69.Character.HumanoidRootPart.Position.X,v69.Character.HumanoidRootPart.Position.Y,v99.Z + v71 );task.wait(0.1 -0 );end break;end if (v68==(65 -(30 + 35))) then v69=game.Players.LocalPlayer;v70=v69.Character.Humanoid;v68=1 + 0 ;end end end workspace.MinigamesRoot.ChildAdded:Connect(v42);workspace.MinigamesRoot.ChildAdded:Connect(v38);game.Players.LocalPlayer.CharacterRemoving:Connect(v40);workspace.MinigamesRoot.ChildAdded:Connect(function(v73) local v74=1257 -(1043 + 214) ;local v75;while true do if ((0 -0)==v74) then v75=1212 -(323 + 889) ;while true do if (v75==(0 -0)) then task.wait(588 -(361 + 219) );if (v73.Name==v7("\41\226\187\179\169\175","\199\122\141\216\208\204\221")) then coroutine.wrap(v43)();end break;end end break;end end end);local function v44() while true do local v79=320 -(53 + 267) ;local v80;local v81;local v82;local v83;while true do if (v79==0) then task.wait(1 + 3 );v80=game.Players.LocalPlayer;v79=1;end if (v79==(415 -(15 + 398))) then local v102=982 -(18 + 964) ;while true do if (v102==(3 -2)) then v79=3;break;end if (v102==0) then if  not v82 then return;end v83=v82:GetDescendants();v102=1 + 0 ;end end end if (v79==1) then v81=v80.Character.HumanoidRootPart.Position;v82=workspace:FindFirstChild(v7("\139\209\31\241\108\255\163\218\36\249\96","\150\205\189\112\144\24"));v79=2 + 0 ;end if (v79==3) then for v104,v105 in ipairs(v83) do if (v105:IsA(v7("\8\129\172\68\52\137\3\4","\112\69\228\223\44\100\232\113")) and (v105.Name==v7("\242\13\2\192\190\72\143\204","\230\180\127\103\179\214\28"))) then v105.Position=v81;end end break;end end end end v44();
