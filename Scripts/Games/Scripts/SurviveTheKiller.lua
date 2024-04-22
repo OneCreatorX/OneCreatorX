@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Survive The Killer v0.1")
+local Win = Lib:NewWindow("Survive The Killer v0.9")
 local Sec = Win:NewSection("General")
 local Ki = Win:NewSection("Killer")
 local Su = Win:NewSection("Survivor")
@@ -163,7 +163,7 @@ function curar()
                 if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
-                    if distance > 5 and distance <= 40 and distance < minDistance then
+                    if distance > 5 and distance <= 30 and distance < minDistance then
                         targetPlayer = players
                         minDistance = distance
 else
@@ -172,8 +172,7 @@ else
                 end
             end
             if targetPlayer then
-                targetPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Player.Character.HumanoidRootPart.Position))
-            
+                targetPlayer.Character.HumanoidRootPart.Position = Player.Character.HumanoidRootPart.Position  
             end
         end
         task.wait()
@@ -479,6 +478,8 @@ function Trappp()
     Trapp()
 end
 
+-- RatTraps
+
 local o = false
 
 function curarse()
@@ -494,7 +495,7 @@ function curarse()
                     if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
                         local targetPos = players.Character.HumanoidRootPart.Position
                         local distance = (rootPos - targetPos).magnitude
-                        if distance > 3 and distance <= 900 and distance < minDistance then
+                        if distance > 4 and distance <= 900 and distance < minDistance then
                             targetPlayer = players
                             minDistance = distance
                         end
@@ -522,7 +523,7 @@ end
 Sec:CreateToggle("Esp ALL", esp)
 Ki:CreateToggle("Kill Aura", killAura)
 Ki:CreateToggle("Instant Kill", kill)
-Su:CreateToggle("Aura Rescatar (Beta 0.4)", curar)
+Su:CreateToggle("Aura Rescatar (Beta 0.7)", curar)
 Su:CreateToggle("No Trap Killer", Trap)
 Su:CreateToggle("Auto Escape", Escap)
 Su:CreateToggle("Aura Items", item)
