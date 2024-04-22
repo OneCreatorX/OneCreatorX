@@ -163,7 +163,7 @@ function curar()
                 if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
-                    if distance > 5 and distance <= 80 and distance < minDistance then
+                    if distance > 5 and distance <= 60 and distance < minDistance then
                         targetPlayer = players
                         minDistance = distance
 else
@@ -208,54 +208,72 @@ end
 function Escape()
     while isRunning and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
         task.wait(1)
-        for _, model in pairs(workspace:GetChildren()) do
-            if model:IsA("Model") and model:FindFirstChild("Exits") then
-                exitFound = true
-                isRunning = false
-                while exitFound and d and model.Exits do
-                    task.wait(1)
-                    for _, part in ipairs(model.Exits:GetChildren()) do
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("Exits") then
+                    exitFound = true
+                    isRunning = false
+                    while exitFound and d and model.Exits do
                         task.wait(1)
-                        if part:IsA("Model") then
-                            for _, partt in ipairs(part.Trigger:GetChildren()) do
-                                if partt.Name == "ExitIcon" then
-                                    local triggerPos = partt.Parent.Position
-                                    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
-                                        local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
-                                        if distance < 1500 then
-Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door1.Position))
-task.wait(0.3)
-Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door2.Position))
-task.wait(0.3)
-Player.Character:SetPrimaryPartCFrame(CFrame.new(triggerPos))                                          .
-                                            exitFound = false
-                                            control()
-                                            break
-                                        else
-                                            exitFound = false
-                                            isRunning = true
+                        local success, result = pcall(function()
+                            for _, part in ipairs(model.Exits:GetChildren()) do
+                                task.wait(1)
+                                if part:IsA("Model") then
+                                    local success, result = pcall(function()
+                                        for _, partt in ipairs(part.Trigger:GetChildren()) do
+                                            if partt.Name == "ExitIcon" then
+                                                local triggerPos = partt.Parent.Position
+                                                if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+                                                    local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                                    if distance < 1500 then
+                                                        Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door1.Position))
+                                                        task.wait(0.3)
+                                                        Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door2.Position))
+                                                        task.wait(0.3)
+                                                        Player.Character:SetPrimaryPartCFrame(CFrame.new(triggerPos))
+                                                        exitFound = false
+                                                        control()
+                                                        break
+                                                    else
+                                                        exitFound = false
+                                                        isRunning = true
+                                                    end
+                                                else
+                                                    exitFound = false
+                                                    isRunning = true
+                                                end
+                                            else
+                                                exitFound = false
+                                                isRunning = true
+                                            end
                                         end
-                                    else
+                                    end)
+                                    if not success then
                                         exitFound = false
-                                        isRunning = true
+                                                isRunning = true
                                     end
                                 else
                                     exitFound = false
                                     isRunning = true
                                 end
                             end
-                        else
-                            exitFound = false
-                            isRunning = true
+                        end)
+                        if not success then
+                           exitFound = false
+                                                isRunning = true 
                         end
                     end
+                else
+                    exitFound = false
+                    isRunning = true
                 end
-            else
-                exitFound = false
-                isRunning = true
             end
+        end)
+        if not success then
+           exitFound = false
+                                                isRunning = true 
         end
-        wait(1)
+        wait(0.5)
     end
 end
 
@@ -273,48 +291,72 @@ local exitFoundd = false
 function items()
     while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
         task.wait(1)
-        for _, model in pairs(workspace:GetChildren()) do
-            if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
-                exitFoundd = true
-                isRunningg = false
-                while exitFoundd  and dd and model:FindFirstChild("LootSpawns") do
-                    for _, part in ipairs(model.LootSpawns:GetChildren()) do
-                        task.wait()
-                        if part:IsA("BasePart") then
-                            for _, partt in pairs(part:GetChildren()) do
-                                if partt.Name == "Model" then 
-                                    for _, parttt in pairs(partt:GetChildren()) do
-                                        if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
-                                            local triggerPos = part.Position
-                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
-                                            if distance < 100 then
-                                                fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                    exitFoundd = true
+                    isRunningg = false
+                    while exitFoundd and dd and model:FindFirstChild("LootSpawns") do
+                        for _, part in ipairs(model.LootSpawns:GetChildren()) do
+                            task.wait()
+                            local success, result = pcall(function()
+                                if part:IsA("BasePart") then
+                                    for _, partt in pairs(part:GetChildren()) do
+                                        local success, result = pcall(function()
+                                            if partt.Name == "Model" then 
+                                                for _, parttt in pairs(partt:GetChildren()) do
+                                                    local success, result = pcall(function()
+                                                        if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
+                                                            local triggerPos = part.Position
+                                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                                            if distance < 100 then
+                                                                fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                                exitFoundd = false
+                                                                break
+                                                            else
+                                                                exitFoundd = false
+                                                                isRunningg = true
+                                                            end
+                                                        else
+                                                            exitFoundd = false
+                                                            isRunningg = true
+                                                        end
+                                                    end)
+                                                    if not success then
+                                                        exitFoundd = false
+                    isRunningg = true
+                                                    end
+                                                end
+                                            else
                                                 exitFoundd = false
-                                          break
-   else
-                                            exitFoundd = false
-                                            isRunningg = true
+                                                isRunningg = true
                                             end
-                                        else
+                                        end)
+                                        if not success then
                                             exitFoundd = false
-                                            isRunningg = true
+                    isRunningg = true
                                         end
                                     end
                                 else
                                     exitFoundd = false
                                     isRunningg = true
                                 end
+                            end)
+                            if not success then
+                                exitFoundd = false
+                    isRunningg = true
                             end
-                        else
-                            exitFoundd = false
-                            isRunningg = true
                         end
                     end
+                else
+                    exitFoundd = false
+                    isRunningg = true
                 end
-            else
-                exitFoundd = false
-                isRunningg = true
             end
+        end)
+        if not success then
+            exitFoundd = false
+                    isRunningg = true
         end
     end
 end
@@ -322,52 +364,76 @@ end
 function ite()
     while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
         task.wait(1)
-        for _, model in pairs(workspace:GetChildren()) do
-            if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
-                exitFoundd = true
-                isRunningg = false
-                while exitFoundd  and dd and model:FindFirstChild("LootSpawns") do
-                    for _, part in ipairs(model.LootSpawns:GetChildren()) do
-                        task.wait()
-                        if part:IsA("BasePart") then
-                            for _, partt in pairs(part:GetChildren()) do
-                                if partt.Name == "Model" then 
-                                    for _, parttt in pairs(partt:GetChildren()) do
-                                        if parttt:IsA("Part") then
-                                            local triggerPos = part.Position
-                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
-                                            if distance < 100 then
-                                                fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                    exitFoundd = true
+                    isRunningg = false
+                    while exitFoundd and dd and model:FindFirstChild("LootSpawns") do
+                        for _, part in ipairs(model.LootSpawns:GetChildren()) do
+                            task.wait()
+                            local success, result = pcall(function()
+                                if part:IsA("BasePart") then
+                                    for _, partt in pairs(part:GetChildren()) do
+                                        local success, result = pcall(function()
+                                            if partt.Name == "Model" then 
+                                                for _, parttt in pairs(partt:GetChildren()) do
+                                                    local success, result = pcall(function()
+                                                        if parttt:IsA("Part") then
+                                                            local triggerPos = part.Position
+                                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                                            if distance < 100 then
+                                                                fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                                exitFoundd = false
+                                                                break
+                                                            else
+                                                                exitFoundd = false
+                                                                isRunningg = true
+                                                            end
+                                                        else
+                                                            exitFoundd = false
+                                                            isRunningg = true
+                                                        end
+                                                    end)
+                                                    if not success then
+                                                        exitFoundd = false
+                    isRunningg = true
+                                                    end
+                                                end
+                                            else
                                                 exitFoundd = false
-                                                
-                                                break
-else
-                                            exitFoundd = false
-                                            isRunningg = true
+                                                isRunningg = true
                                             end
-                                        else
+                                        end)
+                                        if not success then
                                             exitFoundd = false
-                                            isRunningg = true
+                    isRunningg = true
                                         end
                                     end
                                 else
                                     exitFoundd = false
                                     isRunningg = true
                                 end
+                            end)
+                            if not success then
+                                exitFoundd = false
+                    isRunningg = true
                             end
-                        else
-                            exitFoundd = false
-                            isRunningg = true
                         end
                     end
+                else
+                    exitFoundd = false
+                    isRunningg = true
                 end
-            else
-                exitFoundd = false
-                isRunningg = true
             end
+        end)
+        if not success then
+            exitFoundd = false
+                    isRunningg = true
         end
     end
 end
+
 
 function item()
 dd = not dd
@@ -448,7 +514,7 @@ end
 Sec:CreateToggle("Esp ALL", esp)
 Ki:CreateToggle("Kill Aura", killAura)
 Ki:CreateToggle("Instant Kill", kill)
-Su:CreateToggle("Rescatar (Beta 0.3)", curar)
+Su:CreateToggle("Aura Rescatar (Beta 0.2)", curar)
 Su:CreateToggle("No Trap Killer", Trap)
 Su:CreateToggle("Auto Escape", Escap)
 Su:CreateToggle("Aura Items", item)
