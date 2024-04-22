@@ -163,7 +163,7 @@ function curar()
                 if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
-                    if distance > 5 and distance <= 150 and distance < minDistance then
+                    if distance > 5 and distance <= 80 and distance < minDistance then
                         targetPlayer = players
                         minDistance = distance
 else
@@ -448,7 +448,7 @@ end
 Sec:CreateToggle("Esp ALL", esp)
 Ki:CreateToggle("Kill Aura", killAura)
 Ki:CreateToggle("Instant Kill", kill)
-Su:CreateToggle("Rescatar (Beta 0.2)", curar)
+Su:CreateToggle("Rescatar (Beta 0.3)", curar)
 Su:CreateToggle("No Trap Killer", Trap)
 Su:CreateToggle("Auto Escape", Escap)
 Su:CreateToggle("Aura Items", item)
