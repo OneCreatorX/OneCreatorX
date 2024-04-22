@@ -166,7 +166,9 @@ function curar()
                     if distance > 5 and distance <= 150 and distance < minDistance then
                         targetPlayer = players
                         minDistance = distance
+else
                     end
+else
                 end
             end
             if targetPlayer then
@@ -289,7 +291,8 @@ function items()
                                                 fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
                                                 exitFoundd = false
                                           break
-            exitFoundd = false
+   else
+                                            exitFoundd = false
                                             isRunningg = true
                                             end
                                         else
@@ -338,6 +341,9 @@ function ite()
                                                 exitFoundd = false
                                                 
                                                 break
+else
+                                            exitFoundd = false
+                                            isRunningg = true
                                             end
                                         else
                                             exitFoundd = false
@@ -419,7 +425,7 @@ function curarse()
             local targetPlayer = nil
             local minDistance = 900
             for _, players in ipairs(game.Players:GetPlayers()) do
-                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and Players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled = false then
+                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and Players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
                     if distance > 3 and distance <= 900 and distance < minDistance then
