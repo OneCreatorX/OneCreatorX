@@ -152,8 +152,6 @@ end
 local j = false 
 function curar()
     j = not j
-    while j do
-        end
 end
 
 local x = false 
