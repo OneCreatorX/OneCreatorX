@@ -172,7 +172,8 @@ else
                 end
             end
             if targetPlayer then
-                targetPlayer.Character.HumanoidRootPart.Position = Player.Character.HumanoidRootPart.Position  
+                targetPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Player.Character.HumanoidRootPart.Position))
+            
             end
         end
         task.wait()
@@ -478,43 +479,50 @@ function Trappp()
     Trapp()
 end
 
--- RatTraps
-
 local o = false
 
 function curarse()
     o = not o
     while o do
         task.wait()
-        if o and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
-            local rootPos = Player.Character.HumanoidRootPart.Position
-            local targetPlayer = nil
-            local minDistance = 900
-            for _, players in ipairs(game.Players:GetPlayers()) do
-                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and Players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
-                    local targetPos = players.Character.HumanoidRootPart.Position
-                    local distance = (rootPos - targetPos).magnitude
-                    if distance > 3 and distance <= 900 and distance < minDistance then
-                        targetPlayer = players
-                        minDistance = distance
-else
+        local success, result = pcall(function()
+            if o and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
+                local rootPos = Player.Character.HumanoidRootPart.Position
+                local targetPlayer = nil
+                local minDistance = 900
+                for _, players in ipairs(game.Players:GetPlayers()) do
+                    if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
+                        local targetPos = players.Character.HumanoidRootPart.Position
+                        local distance = (rootPos - targetPos).magnitude
+                        if distance > 3 and distance <= 900 and distance < minDistance then
+                            targetPlayer = players
+                            minDistance = distance
+                        end
+                    else
+                        targetPlayer = nil
                     end
-else
                 end
+                if targetPlayer then
+                    Player.Character:SetPrimaryPartCFrame(CFrame.new(targetPlayer.Character.HumanoidRootPart.Position))
+                else
+
+                end
+            else
+
             end
-            if targetPlayer then
-                Player.Character:SetPrimaryPartCFrame(CFrame.new(targetPlayer.Character.HumanoidRootPart.Position))
-else
-            end
+        end)
+        if not success then
+            
         end
         task.wait()
     end
 end
 
+
 Sec:CreateToggle("Esp ALL", esp)
 Ki:CreateToggle("Kill Aura", killAura)
 Ki:CreateToggle("Instant Kill", kill)
-Su:CreateToggle("Aura Rescatar (Beta 0.2)", curar)
+Su:CreateToggle("Aura Rescatar (Beta 0.4)", curar)
 Su:CreateToggle("No Trap Killer", Trap)
 Su:CreateToggle("Auto Escape", Escap)
 Su:CreateToggle("Aura Items", item)
