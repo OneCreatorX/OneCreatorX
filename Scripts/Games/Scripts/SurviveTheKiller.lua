@@ -163,7 +163,7 @@ function curar()
                 if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
-                    if distance > 5 and distance <= 900 and distance < minDistance then
+                    if distance > 5 and distance <= 150 and distance < minDistance then
                         targetPlayer = players
                         minDistance = distance
                     end
@@ -205,7 +205,7 @@ end
 
 function Escape()
     while isRunning and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
-        task.wait(2)
+        task.wait(1)
         for _, model in pairs(workspace:GetChildren()) do
             if model:IsA("Model") and model:FindFirstChild("Exits") then
                 exitFound = true
@@ -213,7 +213,7 @@ function Escape()
                 while exitFound and d and model.Exits do
                     task.wait(1)
                     for _, part in ipairs(model.Exits:GetChildren()) do
-                        task.wait(2)
+                        task.wait(1)
                         if part:IsA("Model") then
                             for _, partt in ipairs(part.Trigger:GetChildren()) do
                                 if partt.Name == "ExitIcon" then
@@ -222,6 +222,7 @@ function Escape()
                                         local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
                                         if distance < 1500 then
 Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door1.Position))
+task.wait(0.3)
 Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door2.Position))
 task.wait(0.3)
 Player.Character:SetPrimaryPartCFrame(CFrame.new(triggerPos))                                          .
@@ -287,8 +288,9 @@ function items()
                                             if distance < 100 then
                                                 fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
                                                 exitFoundd = false
-                                                
-                                                break
+                                          break
+            exitFoundd = false
+                                            isRunningg = true
                                             end
                                         else
                                             exitFoundd = false
@@ -417,7 +419,7 @@ function curarse()
             local targetPlayer = nil
             local minDistance = 900
             for _, players in ipairs(game.Players:GetPlayers()) do
-                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") then
+                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and Players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled = false then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
                     if distance > 3 and distance <= 900 and distance < minDistance then
