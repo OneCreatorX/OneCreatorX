@@ -1,12 +1,227 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.4) ~  Much Love, Ferib 
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local Win = Lib:NewWindow("Testing")
+local Sec = Win:NewSection("General")
+local Ki = Win:NewSection("Killer")
+local Su = Win:NewSection("Survivor")
+local Sec2 = Win:NewSection("Credits: OneCreatorX")
+local Players = game:GetService("Players")
+local Humanoid = Players.LocalPlayer.Character
+local Player = Players.LocalPlayer
+local Humanoid = Player.Character:WaitForChild("Humanoid")
 
-]]--
+local b = false
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v23,v24) local v25={};for v32=1, #v23 do v6(v25,v0(v4(v1(v2(v23,v32,v32 + 1 )),v1(v2(v24,1 + (v32% #v24) ,1 + (v32% #v24) + 1 )))%256 ));end return v5(v25);end local v8=loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))();local v9=v8:NewWindow(v7("\229\198\200\49\239\181\192","\126\177\163\187\69\134\219\167"));local v10=v9:NewSection(v7("\4\200\36\192\238\34\193","\156\67\173\74\165"));local v11=v9:NewSection(v7("\31\190\69\26\185\52","\38\84\215\41\118\220\70"));local v12=v9:NewSection(v7("\99\3\48\4\247\70\25\48","\158\48\118\66\114"));local v13=v9:NewSection(v7("\136\54\21\50\122\177\232\241\100\63\56\118\134\233\174\37\4\57\97\157","\155\203\68\112\86\19\197"));local v14=game:GetService(v7("\118\209\55\229\69\106\246","\152\38\189\86\156\32\24\133"));local v15=game:GetService(v7("\206\82\183\74\245\84\166\82\249\83\148\82\243\69\166\65\249","\38\156\55\199"));local v16=v14.LocalPlayer.Character;local v17=v14.LocalPlayer;local v16=v17.Character:WaitForChild(v7("\128\104\113\41\29\123\243\71","\35\200\29\28\72\115\20\154"));local v18=false;local function v19() local v26={};for v33,v34 in ipairs(game.Players:GetPlayers()) do if v34.Character then local v35=0 -0 ;local v36;local v37;while true do if (v35==(1821 -(1483 + 338))) then v36=false;for v41,v42 in ipairs(v34.Character:GetChildren()) do if (v42.Name==v7("\50\177\216\217\136","\84\121\223\177\191\237\76")) then v36=true;break;end end v35=1;end if (v35==1) then v37=v34.Character:FindFirstChild(v7("\149\87\196\165\14\81\55","\161\219\54\169\192\90\48\80"));if  not v37 then local v44=0;local v45;local v46;local v47;local v48;local v49;local v50;while true do if (v44==(1699 -(1229 + 466))) then local v54=578 -(386 + 192) ;while true do if (v54==1) then for v80,v81 in ipairs(game.Players:GetPlayers()) do if (v81~=v34) then local v94=v81.Character;if v94 then local v100=false;for v105,v106 in ipairs(v94:GetChildren()) do if (v106.Name==v7("\144\215\75\91\27","\126\219\185\34\61")) then v100=true;break;end end if v100 then v49=v94:FindFirstChild(v7("\36\219\83\115\112\120\250\227\62\193\81\102\78\118\225\243","\135\108\174\62\18\30\23\147"));break;end end end end v44=1211 -(696 + 510) ;break;end if (v54==0) then local v76=0 -0 ;while true do if (v76==1) then v54=1263 -(1091 + 171) ;break;end if (v76==(0 + 0)) then v49=nil;v50=v34.Character:FindFirstChildOfClass(v7("\1\212\33\137\39\206\37\140","\232\73\161\76"));v76=3 -2 ;end end end end end if (v44==6) then v48.Parent=v47;if v49 then local v71=0 -0 ;while true do if (v71==0) then v48.Text="K";v48.TextColor3=Color3.fromRGB(629 -(123 + 251) ,0 -0 ,0);break;end end end v47.Parent=v45.Parent;v44=705 -(208 + 490) ;end if (v44==(1 + 2)) then v48.Size=UDim2.new(1 + 0 ,836 -(660 + 176) ,1 + 0 ,202 -(14 + 188) );v48.BackgroundTransparency=676 -(534 + 141) ;v48.TextColor3=v46;v44=2 + 2 ;end if ((7 + 0)==v44) then table.insert(v26,v47);break;end if (v44==(5 + 0)) then if v36 then local v72=0 -0 ;local v73;while true do if ((0 -0)==v72) then v73=0;while true do if ((0 -0)==v73) then v48.Text="K";v48.TextColor3=Color3.fromRGB(137 + 118 ,0 + 0 ,0);break;end end break;end end else local v74=396 -(115 + 281) ;local v75;while true do if (v74==0) then v75=0 -0 ;while true do if (v75==(0 + 0)) then v48.Text="S";v48.TextColor3=Color3.fromRGB(0 -0 ,935 -680 ,867 -(550 + 317) );break;end end break;end end end v48.FontSize=Enum.FontSize.Size10;v48.TextScaled=true;v44=8 -2 ;end if (v44==(1 -0)) then local v64=0 -0 ;while true do if (v64==(286 -(134 + 151))) then v47.StudsOffset=Vector3.new(1665 -(970 + 695) ,5 -2 ,1990 -(582 + 1408) );v44=2;break;end if (v64==(0 -0)) then v47.Adornee=v45;v47.Size=UDim2.new(0 -0 ,753 -553 ,1824 -(1195 + 629) ,52 -12 );v64=1;end end end if (v44==(241 -(187 + 54))) then v45=v34.Character:WaitForChild(v7("\97\87\13\36\71\77\9\33\123\77\15\49\121\67\18\49","\69\41\34\96"));v46=Color3.new();v47=Instance.new(v7("\158\202\219\6\0\36\189\209\211\45\23\34","\75\220\163\183\106\98"));v44=781 -(162 + 618) ;end if (v44==(2 + 0)) then v47.AlwaysOnTop=true;v47.Name=v7("\44\187\134\50\237\3\189","\185\98\218\235\87");v48=Instance.new(v7("\255\57\63\242\242\171\201\57\43","\202\171\92\71\134\190"));v44=3;end end elseif v36 then if (v37.TextLabel.Text~="K") then local v67=0;while true do if (v67==0) then v37.TextLabel.Text="K";v37.TextLabel.TextColor3=Color3.fromRGB(170 + 85 ,0,0 -0 );break;end end end elseif (v37.TextLabel.Text~="S") then local v68=0;while true do if (v68==(0 -0)) then v37.TextLabel.Text="S";v37.TextLabel.TextColor3=Color3.fromRGB(0 + 0 ,1891 -(1373 + 263) ,1000 -(451 + 549) );break;end end end break;end end end end return v26;end function esp() local v27=0 + 0 ;local v28;while true do if (v27==0) then v28=0 -0 ;while true do if (v28==(0 -0)) then v18= not v18;while v18 do local v43=1384 -(746 + 638) ;while true do if (v43==(0 + 0)) then v19();wait(1);break;end end end break;end end break;end end end local v20=false;function killAura() local v29=0 -0 ;while true do if (v29==(341 -(218 + 123))) then v20= not v20;while v20 do local v39=0;local v40;while true do if ((1581 -(1535 + 46))==v39) then v40=0 + 0 ;while true do if (v40==(0 + 0)) then if (v20 and v17.Character and v17.Character:FindFirstChild(v7("\158\252\39\202\22\161\58\195\132\230\37\223\40\175\33\211","\167\214\137\74\171\120\206\83")) and v17.Character:FindFirstChild(v7("\160\254\59\91\253","\199\235\144\82\61\152"))) then local v69=560 -(306 + 254) ;local v70;while true do if (v69==0) then v70=v17.Character.HumanoidRootPart.Position;task.wait(1 + 1 );v69=1 -0 ;end if (v69==1) then for v90,v91 in ipairs(game.Players:GetPlayers()) do if ((v91~=v17) and v91.Character and v91.Character:FindFirstChild(v7("\47\3\180\42\9\25\176\47\53\25\182\63\55\23\171\63","\75\103\118\217"))) then local v95=v91.Character.HumanoidRootPart.Position;local v96=(v70-v95).magnitude;if (v96<=(1487 -(899 + 568))) then v91.Character.HumanoidRootPart.CFrame=CFrame.new(v70);end end end break;end end end task.wait(2 + 0 );break;end end break;end end end break;end end end local v21=false;function kill() local v30=0 -0 ;while true do if (v30==0) then local v38=603 -(268 + 335) ;while true do if (v38==(290 -(60 + 230))) then v21= not v21;while v21 do if (v21 and v17.Character and v17.Character:FindFirstChild(v7("\239\65\125\21\183\17\206\80\66\27\182\10\247\85\98\0","\126\167\52\16\116\217")) and v17.Character:FindFirstChild(v7("\227\32\41\134\177","\156\168\78\64\224\212\121"))) then local v51=0;local v52;local v53;while true do if (v51==(573 -(426 + 146))) then while true do if (v52==(1 + 0)) then for v92,v93 in ipairs(game.Players:GetPlayers()) do if ((v93~=v17) and v93.Character and v93.Character:FindFirstChild(v7("\47\251\168\207\9\225\172\202\53\225\170\218\55\239\183\218","\174\103\142\197"))) then local v97=v93.Character.HumanoidRootPart.Position;local v98=(v53-v97).magnitude;if (v98<=(2356 -(282 + 1174))) then v93.Character.HumanoidRootPart.CFrame=CFrame.new(v53);end end end break;end if (v52==(811 -(569 + 242))) then local v87=0 -0 ;while true do if (v87==(0 + 0)) then local v99=0;while true do if (1==v99) then v87=1025 -(706 + 318) ;break;end if (v99==(1251 -(721 + 530))) then v53=v17.Character.HumanoidRootPart.Position;task.wait(1271.3 -(945 + 326) );v99=2 -1 ;end end end if (v87==(1 + 0)) then v52=701 -(271 + 429) ;break;end end end end break;end if (v51==(0 + 0)) then v52=1500 -(1408 + 92) ;v53=nil;v51=1087 -(461 + 625) ;end end end end v38=1289 -(993 + 295) ;end if (v38==1) then v30=1;break;end end end if (v30==(1 + 0)) then task.wait();break;end end end local v22=false;function curar() local v31=0;while true do if ((1171 -(418 + 753))==v31) then v22= not v22;while v22 do end break;end end end v10:CreateToggle(v7("\115\59\79\120\4\114\212","\152\54\72\63\88\69\62"),esp);v11:CreateToggle(v7("\255\205\226\80\148\229\251\78\213","\60\180\164\142"),killAura);v11:CreateToggle(v7("\113\80\22\61\38\227\6\24\117\12\37\43","\114\56\62\101\73\71\141"),kill);v12:CreateToggle(v7("\138\236\200\199\185\253\218\214\248\161\249\193\172\232\146","\164\216\137\187"),curar);
+local function createNameTag()
+    local nameTags = {}
+
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.Character then
+            local hasKnife = false
+            for _, model in ipairs(player.Character:GetChildren()) do
+                if model.Name == "Knife" then
+                    hasKnife = true
+                    break
+                end
+            end
+
+            local existingNameTag = player.Character:FindFirstChild("NameTag")
+            if not existingNameTag then
+                local playerPart = player.Character:WaitForChild("HumanoidRootPart")
+                local nameColor = Color3.new()
+
+                local billboardGui = Instance.new("BillboardGui")
+                billboardGui.Adornee = playerPart
+                billboardGui.Size = UDim2.new(0, 200, 0, 40)
+                billboardGui.StudsOffset = Vector3.new(0, 3, 0)
+                billboardGui.AlwaysOnTop = true
+                billboardGui.Name = "NameTag"
+
+                local nameLabel = Instance.new("TextLabel")
+                nameLabel.Size = UDim2.new(1, 0, 1, 0)
+                nameLabel.BackgroundTransparency = 1
+                nameLabel.TextColor3 = nameColor
+
+                local killer = nil
+                local playerHumanoid = player.Character:FindFirstChildOfClass("Humanoid")
+                for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
+                    if otherPlayer ~= player then
+                        local otherCharacter = otherPlayer.Character
+                        if otherCharacter then
+                            local otherHasKnife = false
+                            for _, model in ipairs(otherCharacter:GetChildren()) do
+                                if model.Name == "Knife" then
+                                    otherHasKnife = true
+                                    break
+                                end
+                            end
+                            if otherHasKnife then
+                                killer = otherCharacter:FindFirstChild("HumanoidRootPart")
+                                break
+                            end
+                        end
+                    end
+                end
+
+                if hasKnife then
+                    nameLabel.Text = "K"
+                    nameLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                else
+                    nameLabel.Text = "S"
+                    nameLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+                end
+
+                nameLabel.FontSize = Enum.FontSize.Size10
+                nameLabel.TextScaled = true
+                nameLabel.Parent = billboardGui
+
+                if killer then
+                    nameLabel.Text = "K"
+                    nameLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                end
+
+                billboardGui.Parent = playerPart.Parent
+
+                table.insert(nameTags, billboardGui)
+            elseif hasKnife then
+                if existingNameTag.TextLabel.Text ~= "K" then
+                    existingNameTag.TextLabel.Text = "K"
+                    existingNameTag.TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                end
+            else
+                if existingNameTag.TextLabel.Text ~= "S" then
+                    existingNameTag.TextLabel.Text = "S"
+                    existingNameTag.TextLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+                end
+            end
+        end
+    end
+
+    return nameTags
+end
+
+function esp()
+    b = not b
+    while b do
+        createNameTag()
+        wait(1)
+    end
+end
+
+local c = false
+function killAura()
+    c = not c
+    while c do
+        if c and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Knife") then
+            local rootPos = Player.Character.HumanoidRootPart.Position
+task.wait(2)
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= Player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local targetPos = player.Character.HumanoidRootPart.Position
+                    local distance = (rootPos - targetPos).magnitude
+                    if distance <= 20 then
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(rootPos)
+                    end
+                end
+            end
+        end
+        task.wait(2)
+    end
+end
+
+local u = false
+function kill()
+    u = not u
+    while u do
+        if u and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Knife") then
+            local rootPos = Player.Character.HumanoidRootPart.Position
+task.wait(0.3)
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= Player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local targetPos = player.Character.HumanoidRootPart.Position
+                    local distance = (rootPos - targetPos).magnitude
+                    if distance <= 900 then
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(rootPos)
+                    end
+                end
+            end
+        end
+end
+        task.wait()
+end
+
+local j = false 
+function curar()
+    j = not j
+    while j do
+        end
+end
+
+local x = false 
+function Trap()
+    x = not x
+    while x do
+task.wait(1)
+for _, item in pairs(workspace:GetChildren()) do
+     if  item:IsA("Model") and item.Name == "Trap" then
+ item:Destroy()
+end
+end
+        end
+end
+
+local d = false 
+local isRunning = false
+local exitFound = false
+
+function control()
+task.wait(30)
+if d then
+isRunning = true 
+else
+isRunning = false 
+end
+end
+
+function Escape()
+    isRunning = not isRunning
+    while isRunning and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+task.wait(2)
+        for _, model in pairs(workspace:GetChildren()) do
+            if model:IsA("Model") and model:FindFirstChild("Exits") then
+                exitFound = true
+                 isRunning = false
+                while exitFound and model.Exits do
+               task.wait(1)
+                    for _, part in ipairs(model.Exits:GetDescendants()) do
+task.wait(0.5)
+                        if part:IsA("BasePart") and part.Name == "EffectPart" then
+                            if part.Transparency == 0 then
+                                local triggerPos = part.Parent.Parent.Trigger.Position
+                                local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                if distance < 1000 then
+                                    Player.Character.HumanoidRootPart.Position = triggerPos
+                                end
+                                exitFound = false
+                               control()
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        task.wait(1)
+    end
+end
+
+function Escap()
+d = not d
+isRunning = not isRunning
+end
+
+Sec:CreateToggle("Esp ALL", esp)
+Ki:CreateToggle("Kill Aura", killAura)
+Ki:CreateToggle("Instant Kill", kill)
+Su:CreateToggle("Rescatar (Beta)", curar)
+Su:CreateToggle("No Trap Killer", Trap)
+Su:CreateToggle("Auto Escape", Escap)
