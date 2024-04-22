@@ -312,7 +312,7 @@ function items()
                                                             if distance < 100 then
                                                                 fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
                                                                 exitFoundd = false
-                                                                break
+                                                                
                                                             else
                                                                 exitFoundd = false
                                                                 isRunningg = true
@@ -385,7 +385,7 @@ function ite()
                                                             if distance < 100 then
                                                                 fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
                                                                 exitFoundd = false
-                                                                break
+                                                                
                                                             else
                                                                 exitFoundd = false
                                                                 isRunningg = true
