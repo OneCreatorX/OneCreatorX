@@ -183,7 +183,6 @@ end
 end
 
 function Escape()
-    isRunning = not isRunning
     while isRunning and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
 task.wait(2)
         for _, model in pairs(workspace:GetChildren()) do
@@ -216,8 +215,65 @@ end
 
 function Escap()
 d = not d
+Escape()
 isRunning = not isRunning
 end
+
+local dd = false 
+local isRunningg = false
+local exitFoundd = false
+
+function contro()
+if dd then
+isRunningg = true 
+else
+isRunningg = false 
+end
+end
+
+function items()
+    while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+        task.wait(2)
+        for _, model in pairs(workspace:GetChildren()) do
+            if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                exitFoundd = true
+                isRunningg = false
+                while exitFoundd and model.LootSpawns do
+                    task.wait(1)
+                    for _, part in ipairs(model.LootSpawns:GetChildren()) do
+                        task.wait(0.2)
+                        if part:IsA("BasePart") then
+                            for _, partt in pairs(part:GetChildren()) do
+                                if partt.Name == "Model" then 
+                                    for _, parttt in pairs(partt:GetChildren()) do
+                                        if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
+                                            local triggerPos = part.Position
+                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                            if distance < 25 then
+                                                fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                exitFoundd = false
+                                                contro()
+                                                break
+                                            end
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        task.wait(1)
+    end
+end
+
+function item()
+dd = not dd
+items()
+isRunningg = not isRunningg
+end
+
 
 Sec:CreateToggle("Esp ALL", esp)
 Ki:CreateToggle("Kill Aura", killAura)
@@ -225,3 +281,4 @@ Ki:CreateToggle("Instant Kill", kill)
 Su:CreateToggle("Rescatar (Beta)", curar)
 Su:CreateToggle("No Trap Killer", Trap)
 Su:CreateToggle("Auto Escape", Escap)
+Su:CreateToggle("Aura Items", item)
