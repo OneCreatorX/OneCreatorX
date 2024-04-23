@@ -226,7 +226,7 @@ function Escape()
                                                 if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
                                                     local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
                                                     if distance < 1500 then
- 
+ Player.Character.Humanoid.Jump = true  
 hh = CFrame.new(partt.Parent.Parent.Doorway.Door1.Position)  Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door1.Position))                          
 task.wait(0.2)
 hh = CFrame.new(partt.Parent.Parent.Doorway.Door2.Position) 
@@ -631,9 +631,7 @@ local function seat()
     if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and  Player.Character:FindFirstChild("LeftFoot") then
 game.workspace._Lobby.Benches.Bench.Seat.Position = Vector3.new(1, -20, 1)
 task.wait(0.2)
-        game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.1, 0)
-task.wait(1)
-game.workspace._Lobby.Benches.Bench.Seat.Position = Vector3.new(0, -0.5, 0)
+        game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.2, 0)
     end
 end
 
@@ -650,14 +648,15 @@ function esconder()
                 local character = game.Players.LocalPlayer.Character
                 local killer = otherPlayer.Character
 
-                if character and killer then
+                while character and killer do
                     local playerPosition = character:WaitForChild("HumanoidRootPart").Position
                     local killerPosition = killer:WaitForChild("HumanoidRootPart").Position
                     local distance = (playerPosition - killerPosition).Magnitude
 
                     if distance <= 25 then
                         if character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("LeftFoot") then
-        game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.1, 0)
+        game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.15, 0)
+task.wait(2)
                         end 
                     elseif distance > 21 and distance <= 22 then
 
@@ -704,7 +703,7 @@ Sec:CreateTextbox("Speed", function(value)
        
 end)
 
-Sec:CreateButton("Esconderse(agachate)", seat)
+Su:CreateButton("Esconderse(agachate)", seat)
 Sec:CreateToggle("Esp ALL", esp)
 Sec:CreateButton("Full Bright ", fb)
 Ki:CreateToggle("Kill Aura", killAura)
