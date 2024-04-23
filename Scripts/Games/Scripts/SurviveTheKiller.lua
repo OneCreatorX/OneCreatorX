@@ -225,7 +225,7 @@ function Escape()
                                                 local triggerPos = partt.Parent.Position
                                                 if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
                                                     local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
-                                                    if distance < 1500 then
+                                                    if distance < 7000 and game.Players.LocalPlayer.Team == game.Teams.Survivor then
  Player.Character.Humanoid.Jump = true  
 hh = CFrame.new(partt.Parent.Parent.Doorway.Door1.Position)  Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door1.Position))                          
 task.wait(0.2)
@@ -716,6 +716,6 @@ Su:CreateToggle("Tp Items", tp)
 Su:CreateToggle("No Trap Map", Trappp)
 Su:CreateToggle("Auto Curarse", curarse)
 Su:CreateToggle("Auto Esconderse(beta)", esconder)
-Sec2:CreateButton("Copy Link YouTube", copyToClipboard("https://youtube.com/@OneCreatorX"))
-Sec2:CreateButton("Copy Link Discord", copyToClipboard("https://discord.com/invite/23kFrRBSfD"))
+-- Sec2:CreateButton("Copy Link YouTube", copyToClipboard("https://youtube.com/@OneCreatorX"))
+-- Sec2:CreateButton("Copy Link Discord", copyToClipboard("https://discord.com/invite/23kFrRBSfD"))
 tpwalk()
