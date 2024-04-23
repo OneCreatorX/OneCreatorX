@@ -9,6 +9,18 @@ local Humanoid = game.Players.LocalPlayer.Character
 local Player = game.Players.LocalPlayer
 local Humanoid = Player.Character:WaitForChild("Humanoid")
 local hh = game.workspace._Lobby.Benches.Bench.Seat.CFrame
+local ii = false
+
+function hhhh()
+    while true do
+        wait(0.1)
+        local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+    end
+end
 
 local function copyToClipboard(text)
     if syn then
@@ -299,12 +311,8 @@ function items()
                 if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
                     exitFoundd = true
                     isRunningg = false
-                    local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
-local amountParts = string.split(amountText, "/")
-local x = tonumber(amountParts[1])
-local y = tonumber(amountParts[2])
-
-while exitFoundd and dd and not (x == y) and model:FindFirstChild("LootSpawns") do
+                    
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
                         for _, part in ipairs(model.LootSpawns:GetChildren()) do
                             task.wait()
                             local success, result = pcall(function()
@@ -377,12 +385,8 @@ function ite()
                 if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
                     exitFoundd = true
                     isRunningg = false
-                    local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
-local amountParts = string.split(amountText, "/")
-local x = tonumber(amountParts[1])
-local y = tonumber(amountParts[2])
 
-while exitFoundd and dd and not (x == y) and model:FindFirstChild("LootSpawns") do
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
                         for _, part in ipairs(model.LootSpawns:GetChildren()) do
                             task.wait()
                             local success, result = pcall(function()
@@ -466,13 +470,11 @@ function tpitems()
                 if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
                     exitFoundd = true
                     isRunningg = false
-                    local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
-local amountParts = string.split(amountText, "/")
-local x = tonumber(amountParts[1])
-local y = tonumber(amountParts[2])
+                   
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
+                        for _, part in
 
-while exitFoundd and dd and not (x == y) and model:FindFirstChild("LootSpawns") do
-                        for _, part in ipairs(model.LootSpawns:GetChildren()) do
+ ipairs(model.LootSpawns:GetChildren()) do
                             task.wait(0.1)
                             local success, result = pcall(function()
                                 if part:IsA("BasePart") then
@@ -484,12 +486,8 @@ while exitFoundd and dd and not (x == y) and model:FindFirstChild("LootSpawns") 
                                                         if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
                                                             local triggerPos = part.Position
                                                             local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
-                 local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
-local amountParts = string.split(amountText, "/")
-local x = tonumber(amountParts[1])
-local y = tonumber(amountParts[2])
-
-                                                            if distance < 300 and not (x == y) then
+                 
+                                                            if distance < 300 and not ii then
 
   local tp = part.Position + Vector3.new(0, 3, 0)
     Player.Character:SetPrimaryPartCFrame(CFrame.new(tp))
@@ -717,3 +715,4 @@ Su:CreateToggle("Auto Esconderse(beta)", esconder)
 -- Sec2:CreateButton("Copy Link YouTube", copyToClipboard("https://youtube.com/@OneCreatorX"))
 -- Sec2:CreateButton("Copy Link Discord", copyToClipboard("https://discord.com/invite/23kFrRBSfD"))
 tpwalk()
+hhhh()
