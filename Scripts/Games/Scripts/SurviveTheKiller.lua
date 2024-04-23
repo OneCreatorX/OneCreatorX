@@ -646,7 +646,7 @@ function esconder()
                 local character = game.Players.LocalPlayer.Character
                 local killer = otherPlayer.Character
 
-                while character and killer do
+                if character and killer then
                     local playerPosition = character:WaitForChild("HumanoidRootPart").Position
                     local killerPosition = killer:WaitForChild("HumanoidRootPart").Position
                     local distance = (playerPosition - killerPosition).Magnitude
