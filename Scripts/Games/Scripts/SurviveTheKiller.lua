@@ -811,14 +811,14 @@ local function seatesconderse()
                     if weld then
                         weld.C0 = CFrame.new(0, -5, 0)
                                 end
-                            elseif distance > 20 and distance <= 23 and not Player.Character.Humanoid.Sit then
+end
+                            elseif distance > 20 and distance <= 30 and not Player.Character.Humanoid.Sit then
                                 local weld = b:FindFirstChild("SeatWeld")
                                 if weld then
                                     weld.C0 = CFrame.new(0, 1, 0)
                                     task.wait(1)
-                                    if not Player.Character.Humanoid.Sit then
                                         Player.Character.Humanoid.Sit = false
-                                    end
+else
                                 end
                             end
                         end
