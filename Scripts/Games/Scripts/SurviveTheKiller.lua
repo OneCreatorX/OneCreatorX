@@ -629,8 +629,6 @@ end
 
 local function seat()
     if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and  Player.Character:FindFirstChild("LeftFoot") then
-game.workspace._Lobby.Benches.Bench.Seat.Position = Vector3.new(1, -20, 1)
-task.wait(0.2)
         game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.2, 0)
     end
 end
@@ -655,8 +653,8 @@ function esconder()
 
                     if distance <= 25 then
                         if character and character:FindFirstChild("HumanoidRootPart") and character:FindFirstChild("LeftFoot") then
-        game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.15, 0)
-task.wait(2)
+        game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.05, 0)
+task.wait()
                         end 
                     elseif distance > 21 and distance <= 22 then
 
