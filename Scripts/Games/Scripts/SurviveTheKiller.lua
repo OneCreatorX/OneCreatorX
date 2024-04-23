@@ -620,14 +620,14 @@ function Trappp()
     Trapp()
 end
 
-local o = false
+local gggg = false
 
 function curarse()
-    o = not o
-    while o do
+    gggg = not gggg
+    while gggg do
         task.wait()
         local success, result = pcall(function()
-            if o and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
+            if gggg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
                 local rootPos = Player.Character.HumanoidRootPart.Position
                 local targetPlayer = nil
                 local minDistance = 900
@@ -635,7 +635,7 @@ function curarse()
                     if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
                         local targetPos = players.Character.HumanoidRootPart.Position
                         local distance = (rootPos - targetPos).magnitude
-                        if distance > 4 and distance <= 1500 and distance < minDistance then
+                        if distance > 100 and distance <= 1500 and distance < minDistance then
                             targetPlayer = players
                             minDistance = distance
                         end
@@ -646,10 +646,10 @@ function curarse()
                 if targetPlayer then
                     Player.Character:SetPrimaryPartCFrame(CFrame.new(targetPlayer.Character.HumanoidRootPart.Position))
                 else
-
+targetPlayer = nil
                 end
             else
-
+targetPlayer = nil
             end
         end)
         if not success then
@@ -676,7 +676,7 @@ function Curatp()
                 if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
                     local targetPos = players.Character.HumanoidRootPart.Position
                     local distance = (rootPos - targetPos).magnitude
-                    if distance <= 9 then
+                    if distance <= 10 then
                         nearbyPlayer = players
                     elseif distance > 9 and distance <= 1000 and distance < minDistance then
                         local killerNearby = false
@@ -728,7 +728,7 @@ while w do
     Lighting.FogEnd = 100000
     Lighting.GlobalShadows = false
     Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
-task.wait(0.5)
+task.wait(0.3)
 end
 end
 
@@ -804,20 +804,22 @@ local function seatesconderse()
                             if distance < 15 and not Player.Character.Humanoid.Sit and Player.Team ~= game.Teams.Killer then
                                 local b = be.Seat
                 if b and not b:FindFirstChild("SeatWeld") then
-                    b.Size = Vector3.new(4, 1, 4)
+                    
                     b.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.2, 0)
                     wait(1)
                     local weld = b:FindFirstChild("SeatWeld")
                     if weld then
                         weld.C0 = CFrame.new(0, -5, 0)
+                                        task.wait(1)
                                 end
 end
                             elseif distance > 20 and distance <= 30 and not Player.Character.Humanoid.Sit then
-                                local weld = b:FindFirstChild("SeatWeld")
+                                
                                 if weld then
                                     weld.C0 = CFrame.new(0, 1, 0)
                                     task.wait(1)
                                         Player.Character.Humanoid.Sit = false
+                                       task.wait(1)
 else
                                 end
                             end
