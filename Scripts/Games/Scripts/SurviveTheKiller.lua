@@ -632,6 +632,8 @@ local function seat()
 game.workspace._Lobby.Benches.Bench.Seat.Position = Vector3.new(1, -20, 1)
 task.wait(0.2)
         game.workspace._Lobby.Benches.Bench.Seat.Position = Player.Character.LeftFoot.Position - Vector3.new(0, 0.1, 0)
+task.wait(1)
+game.workspace._Lobby.Benches.Bench.Seat.Position = Vector3.new(0, -0.5, 0)
     end
 end
 
@@ -666,9 +668,45 @@ function esconder()
     end
 end
 
+function fb()
+    local Lighting = game:GetService("Lighting")
+    Lighting.Brightness = 2
+    Lighting.ClockTime = 14
+    Lighting.FogEnd = 100000
+    Lighting.GlobalShadows = false
+    Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end
 
-Su:CreateButton("Esconderse(agachate)", seat)
+
+local RunService = game:GetService("RunService")
+
+local tpwalking = false
+local speed = 15
+
+function tpwalk()
+    local speaker = game.Players.LocalPlayer
+    local chr = speaker.Character
+    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+    
+    if chr and hum and hum.Parent then
+        local hb = RunService.Heartbeat
+        while chr and hum and hum.Parent do
+            local delta = hb:Wait()
+            hum.WalkSpeed = speed
+        end
+    end
+end
+
+Sec:CreateTextbox("Speed", function(value)
+    print(value)
+        speed = value
+        tpwalking = speed > 15
+       
+end)
+
+Sec:CreateButton("Esconderse(agachate)", seat)
 Sec:CreateToggle("Esp ALL", esp)
+Sec:CreateButton("Full Bright ", fb)
 Ki:CreateToggle("Kill Aura", killAura)
 Ki:CreateToggle("Instant Kill", kill)
 Su:CreateToggle("Aura Rescte(Beta 0.7)", curar)
@@ -681,3 +719,4 @@ Su:CreateToggle("Auto Curarse", curarse)
 Su:CreateToggle("Auto Esconderse(beta)", esconder)
 Sec2:CreateButton("Copy Link YouTube", copyToClipboard("https://youtube.com/@OneCreatorX"))
 Sec2:CreateButton("Copy Link Discord", copyToClipboard("https://discord.com/invite/23kFrRBSfD"))
+tpwalk()
