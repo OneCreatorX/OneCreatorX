@@ -82,7 +82,7 @@ local tb = Instance.new("TextButton", f)
 
 local ddg = Instance.new("TextLabel", f)
     ddg.Name = "DD"
-    ddg.Text = "Loading GamePass or possible error"
+    ddg.Text = "Loading GamePass wait 5s"
     ddg.Size = UDim2.new(1, 0, 0, 30)
     ddg.Position = UDim2.new(0, 0, 0.27, 0)
     ddg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -131,8 +131,13 @@ end
 
     bb.MouseButton1Click:Connect(PSG)
 
-    tb.MouseButton1Click:Connect(PIL)local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
+    tb.MouseButton1Click:Connect(PIL)
+
 local function CI()
+ task.wait(5)
+ddg.Text = "Possible error Rejoin"
+ddg.Text
+local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
     local selId
     local isLoop = false
 
