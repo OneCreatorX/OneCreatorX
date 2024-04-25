@@ -42,7 +42,104 @@ local function CI()
 
     local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
 
-    local opts = {}
+function p(text)
+    selId = text
+end
+
+local bb = Instance.new("TextButton", f)
+    bb.Name = "BB"
+    bb.Text = "Buy GPass (1)"
+    bb.Size = UDim2.new(0.5, -5, 0, 30)
+    bb.Position = UDim2.new(0, 0, 0.2, 40)
+    bb.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    bb.TextColor3 = Color3.fromRGB(255, 255, 255)
+    bb.Font = Enum.Font.Gotham
+    bb.TextSize = 14
+
+local tbq = Instance.new("TextBox", f)
+tbq.Name = "TBx"
+tbq.Text = "ID or write all/escribe all"
+tbq.Size = UDim2.new(1, -5, 0, 30)
+tbq.Position = UDim2.new(0, 5, 0.45, 40)
+tbq.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+tbq.TextColor3 = Color3.fromRGB(255, 255, 255)
+tbq.Font = Enum.Font.Gotham
+tbq.TextSize = 12
+tbq.FocusLost:Connect(function()
+    local userInput = tbq.Text
+    if type(userInput) == "string" then
+        p(userInput:lower())
+    else
+       p(userInput)
+    end
+end)
+
+
+local tb = Instance.new("TextButton", f)
+    tb.Name = "TB"
+    tb.Text = "Auto Buy: OFF"
+    tb.Size = UDim2.new(0.5, -5, 0, 30)
+    tb.Position = UDim2.new(0.5, 5, 0.2, 40)
+    tb.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    tb.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tb.Font = Enum.Font.Gotham
+    tb.TextSize = 14
+
+
+local ddg = Instance.new("TextLabel", f)
+    ddg.Name = "DD"
+    ddg.Text = "Loading GamePass or possible error"
+    ddg.Size = UDim2.new(1, 0, 0, 30)
+    ddg.Position = UDim2.new(0, 0, 0.27, 0)
+    ddg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    ddg.TextColor3 = Color3.fromRGB(255, 255, 255)
+    ddg.Font = Enum.Font.Gotham
+    ddg.TextSize = 11
+
+    local function PSG()
+    if selId ~= "all" then
+        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
+    else
+        for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
+            for f, v in pairs(p) do
+                if f == "DeveloperProductId" or f == "ProductId" then
+                    task.defer(function()
+                        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
+                    end)
+                end
+            end
+        end
+    end
+end
+
+local function PIL()
+    isLoop = not isLoop
+    tb.Text = isLoop and "Auto Buy: ON" or " Auto Buy: OFF"
+    if selId and isLoop then
+        while isLoop do
+            if selId ~= "all" then
+                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
+            else
+                for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
+                    for f, v in pairs(p) do
+                        if f == "DeveloperProductId" or f == "ProductId" then
+                            task.defer(function()
+                                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
+                            end)
+                        end
+                    end
+                end
+            end
+            task.wait(0.1)
+        end
+    end
+end
+
+    bb.MouseButton1Click:Connect(PSG)
+
+    tb.MouseButton1Click:Connect(PIL)
+
+local opts = {}
 
     for _, p in pairs(devP) do
         table.insert(opts, p.Name)
@@ -84,7 +181,7 @@ local function CI()
             ddm.Visible = false
         end)
     end
-
+ ddg.Visible = false
     ddm.Visible = false
 
     local function CD()
@@ -93,89 +190,6 @@ local function CI()
 
     dd.MouseButton1Click:Connect(CD)
 
-    local function PSG()
-    if selId ~= "all" then
-        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
-    else
-        for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
-            for f, v in pairs(p) do
-                if f == "DeveloperProductId" or f == "ProductId" then
-                    task.defer(function()
-                        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
-                    end)
-                end
-            end
-        end
-    end
-end
-
-local function PIL()
-    isLoop = not isLoop
-    tb.Text = isLoop and "Auto Buy: ON" or " Auto Buy: OFF"
-    if selId and isLoop then
-        while isLoop do
-            if selId ~= "all" then
-                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
-            else
-                for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
-                    for f, v in pairs(p) do
-                        if f == "DeveloperProductId" or f == "ProductId" then
-                            task.defer(function()
-                                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
-                            end)
-                        end
-                    end
-                end
-            end
-            task.wait(0.1)
-        end
-    end
-end
-
-
-    local bb = Instance.new("TextButton", f)
-    bb.Name = "BB"
-    bb.Text = "Buy GPass (1)"
-    bb.Size = UDim2.new(0.5, -5, 0, 30)
-    bb.Position = UDim2.new(0, 0, 0.2, 40)
-    bb.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    bb.TextColor3 = Color3.fromRGB(255, 255, 255)
-    bb.Font = Enum.Font.Gotham
-    bb.TextSize = 14
-    bb.MouseButton1Click:Connect(PSG)
-
-    local tb = Instance.new("TextButton", f)
-    tb.Name = "TB"
-    tb.Text = "Auto Buy: OFF"
-    tb.Size = UDim2.new(0.5, -5, 0, 30)
-    tb.Position = UDim2.new(0.5, 5, 0.2, 40)
-    tb.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    tb.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tb.Font = Enum.Font.Gotham
-    tb.TextSize = 14
-    tb.MouseButton1Click:Connect(PIL)
-
-function p(text)
-    selId = text
-end
-
-local tbq = Instance.new("TextBox", f)
-tbq.Name = "TBx"
-tbq.Text = "ID or write all(buy all)"
-tbq.Size = UDim2.new(1, -5, 0, 30)
-tbq.Position = UDim2.new(0, 5, 0.45, 40)
-tbq.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-tbq.TextColor3 = Color3.fromRGB(255, 255, 255)
-tbq.Font = Enum.Font.Gotham
-tbq.TextSize = 12
-tbq.FocusLost:Connect(function()
-    local userInput = tbq.Text
-    if type(userInput) == "string" then
-        p(userInput:lower())
-    else
-       p(userInput)
-    end
-end)
 end
 
 CI()
