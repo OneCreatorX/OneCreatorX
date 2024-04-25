@@ -36,12 +36,6 @@ t.TextColor3 = Color3.fromRGB(255, 255, 255)
 t.Font = Enum.Font.GothamBold
 t.TextSize = 20
 
-local function CI()
-    local selId
-    local isLoop = false
-
-    local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
-
 function p(text)
     selId = text
 end
@@ -137,7 +131,10 @@ end
 
     bb.MouseButton1Click:Connect(PSG)
 
-    tb.MouseButton1Click:Connect(PIL)
+    tb.MouseButton1Click:Connect(PIL)local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
+local function CI()
+    local selId
+    local isLoop = false
 
 local opts = {}
 
