@@ -208,6 +208,7 @@ end
 local function PSG()
 isLoop = not isLoop
 while isLoop do
+task.wait(0.1)
     if selId == "all" then 
         for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
             for f, v in pairs(p) do
@@ -229,12 +230,11 @@ while isLoop do
         game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
     end
 end
-task.wait(0.1)
 end
 
-    bb.MouseButton1Click:Connect(PSG)
+    tb.MouseButton1Click:Connect(PSG)
 
-    tb.MouseButton1Click:Connect(PIL)
+    bb.MouseButton1Click:Connect(PIL)
 
 
 local dera = true
