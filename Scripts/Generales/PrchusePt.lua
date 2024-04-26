@@ -85,7 +85,7 @@ local tb = Instance.new("TextButton", f)
 
 local ddg = Instance.new("TextLabel", f)
     ddg.Name = "DD"
-    ddg.Text = "Loading GamePass wait 10s"
+    ddg.Text = "Loading GamePass wait"
     ddg.Size = UDim2.new(1, 0, 0, 30)
     ddg.Position = UDim2.new(0, 0, 0.27, 0)
     ddg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -137,10 +137,9 @@ end
     tb.MouseButton1Click:Connect(PIL)
 
 local function CI()
- task.wait(10)
-ddg.Text = "Possible error execute agaian"
+ if game:GetService("MarketplaceService") and game:GetService("MarketplaceService"):GetDeveloperProductsAsync() and game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage() then
+  
 local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
-   
 
 local opts = {}
 
@@ -192,7 +191,15 @@ local opts = {}
     end
 
     dd.MouseButton1Click:Connect(CD)
-
+else
+wait(0.2)
+ddg.Text = "Loading GamePass wait ."
+wait(0.2)
+ddg.Text = "Loading GamePass wait .."
+wait(0.2)
+ddg.Text = "Loading GamePass wait ..."
+CI()
+end
 end
 
 CI()
