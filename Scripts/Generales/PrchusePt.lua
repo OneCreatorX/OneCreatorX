@@ -136,6 +136,23 @@ end
 
     tb.MouseButton1Click:Connect(PIL)
 
+
+function ani()
+while ddg.Visible do
+task.wait(0.3)
+ddg.Text = "Loading GamePass wait ."
+task.wait(0.3)
+ddg.Text = "Loading GamePass wait .."
+task.wait(0.3)
+ddg.Text = "Loading GamePass wait ..."
+task.wait(0.3)
+ddg.Text = "Loading GamePass wait ...."
+task.wait(0.3)
+ddg.Text = "Loading GamePass wait ....."
+end
+end
+
+
 local function CI()
  if game:GetService("MarketplaceService") and game:GetService("MarketplaceService"):GetDeveloperProductsAsync() and game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage() then
   
@@ -192,14 +209,10 @@ local opts = {}
 
     dd.MouseButton1Click:Connect(CD)
 else
-wait(0.2)
-ddg.Text = "Loading GamePass wait ."
-wait(0.2)
-ddg.Text = "Loading GamePass wait .."
-wait(0.2)
-ddg.Text = "Loading GamePass wait ..."
+wait(1)
 CI()
 end
 end
 
+ani()
 CI()
