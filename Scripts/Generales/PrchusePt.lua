@@ -158,6 +158,8 @@ local function CI()
   
 local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
 
+ddg.Text = "Ready All - Loaded successfully "
+task.wait(3)
 local opts = {}
 
     for _, p in pairs(devP) do
