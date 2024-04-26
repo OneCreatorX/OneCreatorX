@@ -39,9 +39,77 @@ t.TextColor3 = Color3.fromRGB(255, 255, 255)
 t.Font = Enum.Font.GothamBold
 t.TextSize = 20
 
-function p(text)
-    selId = text
+
+local tbq = Instance.new("TextBox", f)
+tbq.Name = "TBx"
+tbq.Text = " cmds: ID - all - tryid - allcopy - tryidcopy"
+tbq.Size = UDim2.new(1, -5, 0, 30)
+tbq.Position = UDim2.new(0, 5, 0.45, 40)
+tbq.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+tbq.TextColor3 = Color3.fromRGB(255, 255, 255)
+tbq.Font = Enum.Font.Gotham
+tbq.TextSize = 10
+
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
 end
+
+
+function p(text)
+    if text == "tryidcopy" then 
+        local foundObjs = findObjectsWithID()
+        local credits = "OneCreatorX\n\n"
+        local allIDs = ""
+        for _, obj in ipairs(foundObjs) do
+            allIDs = allIDs .. "{ OneCreatorX: " .. obj.Value .. " }\n"
+        end
+        copyToClipboard(credits .. allIDs .. credits)
+tbq.Text = "Ready tryidcopy ids copy clipboard :)"
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "YT:OneCreatorX",
+            Text = "Possible IDs Copy",
+            Duration = 5,
+ })
+wait(2)
+tbq.Text = " cmds: ID - all - tryid - allcopy - tryidcopy"
+    elseif text == "allcopy" then 
+        local gamePassInfo = {}
+        for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
+            local gamePass = {
+                Name = p.Name,
+                ID = p.DeveloperProductId or p.ProductId
+            }
+            table.insert(gamePassInfo, gamePass)
+        end
+        local credits = "OneCreatorX\n\n"
+        local allGamePass = ""
+        for _, gamePass in ipairs(gamePassInfo) do
+            allGamePass = allGamePass .. "{ Name: " .. gamePass.Name .. ", ID: " .. gamePass.ID .. " }\n"
+        end
+        copyToClipboard(credits .. allGamePass .. credits)
+tbq.Text = "Ready all ids copy clipboard :)"
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "YT:OneCreatorX",
+            Text = "IDs Copy",
+            Duration = 5,
+  })
+wait(2)
+tbq.Text = " cmds: ID - all - tryid - allcopy - tryidcopy"
+  elseif text == "id" then  
+tbq.Text = "no use id u write  example 123456 "
+wait(4)
+tbq.Text = " cmds: ID - all - tryid - allcopy - tryidcopy"
+    else
+        selId = text
+    end
+end
+
 
 local bb = Instance.new("TextButton", f)
     bb.Name = "BB"
@@ -53,15 +121,6 @@ local bb = Instance.new("TextButton", f)
     bb.Font = Enum.Font.Gotham
     bb.TextSize = 14
 
-local tbq = Instance.new("TextBox", f)
-tbq.Name = "TBx"
-tbq.Text = "ID or write all/escribe all"
-tbq.Size = UDim2.new(1, -5, 0, 30)
-tbq.Position = UDim2.new(0, 5, 0.45, 40)
-tbq.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-tbq.TextColor3 = Color3.fromRGB(255, 255, 255)
-tbq.Font = Enum.Font.Gotham
-tbq.TextSize = 12
 tbq.FocusLost:Connect(function()
     local userInput = tbq.Text
     if type(userInput) == "string" then
@@ -93,10 +152,37 @@ local ddg = Instance.new("TextLabel", f)
     ddg.Font = Enum.Font.Gotham
     ddg.TextSize = 11
 
-    local function PSG()
-    if selId ~= "all" then
-        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
-    else
+
+function findObjectsWithID()
+    local objs = {}
+    
+    local function search(obj)
+        for _, child in ipairs(obj:GetDescendants()) do
+            if child:IsA("ObjectValue") or child:IsA("NumberValue") or child:IsA("BoolValue") or child:IsA("IntValue") or child:IsA("StringValue") then
+                if child:IsA("NumberValue") then
+                    if child.Value and type(child.Value) == "number" and child.Value >= 100000 then
+                        table.insert(objs, child)
+                    end
+                elseif child:IsA("StringValue") then
+                    if child.Value and type(child.Value) == "string" and #child.Value >= 6 and tonumber(child.Value) then
+                        table.insert(objs, child)
+                    end
+                end
+
+                if child.Name and #child.Name >= 6 and tonumber(child.Name) then
+                    table.insert(objs, child)
+                end
+            end
+        end
+    end
+    
+    search(game)
+    
+    return objs
+end
+
+    local function PIL()
+    if selId == "all" then
         for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
             for f, v in pairs(p) do
                 if f == "DeveloperProductId" or f == "ProductId" then
@@ -106,29 +192,39 @@ local ddg = Instance.new("TextLabel", f)
                 end
             end
         end
+    elseif selId == "tryid" then 
+        local foundObjs = findObjectsWithID()
+        for _, obj in ipairs(foundObjs) do
+            task.defer(function()
+                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, obj.Value, true)
+            end)
+        end
+    else
+        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
     end
 end
 
-local function PIL()
-    isLoop = not isLoop
-    tb.Text = isLoop and "Auto Buy: ON" or " Auto Buy: OFF"
-    if selId and isLoop then
-        while isLoop do
-            if selId ~= "all" then
-                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
-            else
-                for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
-                    for f, v in pairs(p) do
-                        if f == "DeveloperProductId" or f == "ProductId" then
-                            task.defer(function()
-                                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
-                            end)
-                        end
-                    end
+
+local function PSG()
+    if selId == "all" then
+        for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
+            for f, v in pairs(p) do
+                if f == "DeveloperProductId" or f == "ProductId" then
+                    task.defer(function()
+                        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
+                    end)
                 end
             end
-            task.wait(0.1)
         end
+    elseif selId == "tryid" then 
+        local foundObjs = findObjectsWithID()
+        for _, obj in ipairs(foundObjs) do
+            task.defer(function()
+                game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, obj.Value, true)
+            end)
+        end
+    else
+        game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, selId, true)
     end
 end
 
