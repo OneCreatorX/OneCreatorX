@@ -207,6 +207,7 @@ end
 
 local function PSG()
 isLoop = not isLoop
+tb.Text = isLoop and "Auto Buy: ON" or "Auto Buy: OFF"
 while isLoop do
 task.wait(0.1)
     if selId == "all" then 
@@ -314,7 +315,6 @@ local opts = {}
     dd.MouseButton1Click:Connect(CD)
 else
 wait(1.6)
-ani()
 CI()
 end
 end
