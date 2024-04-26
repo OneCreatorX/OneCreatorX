@@ -1,12 +1,1023 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.4) ~  Much Love, Ferib 
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local Win = Lib:NewWindow("Survive The Killer v1.4")
+local Sec = Win:NewSection("General")
+local Ki = Win:NewSection("Killer")
+local Su = Win:NewSection("Survivor")
+local Sut = Win:NewSection("Survivor Teleports")
+local Sec2 = Win:NewSection("Credits: OneCreatorX")
+local Players = game:GetService("Players")
+local Humanoid = game.Players.LocalPlayer.Character
+local Player = game.Players.LocalPlayer
+local Humanoid = Player.Character:WaitForChild("Humanoid")
+local hh = game.workspace._Lobby.Benches.Bench.Seat.CFrame
+local rm = game.ReplicatedStorage.Communication.Events
+local ii = false
 
-]]--
+local function clickButton(btn)
+    local pos = btn.AbsolutePosition
+    local size = btn.AbsoluteSize
+    local centerX = pos.X + size.X / 1
+    local centerY = pos.Y + size.Y / 1
+    game:GetService("VirtualInputManager"):SendMouseButtonEvent(centerX, centerY, 0, true, game, 1)
+    wait() 
+    game:GetService("VirtualInputManager"):SendMouseButtonEvent(centerX, centerY, 0, false, game, 1)
+end
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v48,v49) local v50={};for v84=1, #v48 do v6(v50,v0(v4(v1(v2(v48,v84,v84 + 1 )),v1(v2(v49,1 + (v84% #v49) ,1 + (v84% #v49) + 1 )))%256 ));end return v5(v50);end local v8=loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))();local v9=v8:NewWindow(v7("\226\214\201\51\239\173\194\94\229\203\222\101\205\178\203\18\212\209\155\51\183\245\147","\126\177\163\187\69\134\219\167"));local v10=v9:NewSection(v7("\4\200\36\192\238\34\193","\156\67\173\74\165"));local v11=v9:NewSection(v7("\31\190\69\26\185\52","\38\84\215\41\118\220\70"));local v12=v9:NewSection(v7("\99\3\48\4\247\70\25\48","\158\48\118\66\114"));local v13=v9:NewSection(v7("\152\49\2\32\122\179\244\185\100\36\51\127\160\235\164\54\4\37","\155\203\68\112\86\19\197"));local v14=v9:NewSection(v7("\101\207\51\248\73\108\246\162\6\242\56\249\99\106\224\249\82\210\36\196","\152\38\189\86\156\32\24\133"));local v15=game:GetService(v7("\204\91\166\95\249\69\180","\38\156\55\199"));local v16=game.Players.LocalPlayer.Character;local v17=game.Players.LocalPlayer;local v16=v17.Character:WaitForChild(v7("\128\104\113\41\29\123\243\71","\35\200\29\28\72\115\20\154"));local v18=game.workspace._Lobby.Benches.Bench.Seat.CFrame;local v19=game.ReplicatedStorage.Communication.Events;local v20=false;local function v21(v51) local v52=0 + 0 ;local v53;local v54;local v55;local v56;while true do if (v52==(557 -(419 + 135))) then game:GetService(v7("\141\95\219\180\47\81\60\232\181\70\220\180\23\81\62\192\188\83\219","\161\219\54\169\192\90\48\80")):SendMouseButtonEvent(v55,v56,0 + 0 ,false,game,1);break;end if (v52==(0 + 0)) then v53=v51.AbsolutePosition;v54=v51.AbsoluteSize;v52=1;end if (2==v52) then game:GetService(v7("\47\182\195\203\152\45\56\48\177\193\202\153\1\53\23\190\214\218\159","\84\121\223\177\191\237\76")):SendMouseButtonEvent(v55,v56,1068 -(566 + 502) ,true,game,1);wait();v52=300 -(45 + 252) ;end if (v52==(1 + 0)) then v55=v53.X + (v54.X/(1 + 0)) ;v56=v53.Y + (v54.Y/(2 -1)) ;v52=435 -(114 + 319) ;end end end local function v22(v57) if syn then syn.write_clipboard(v57);else setclipboard(v57);end end local v23=false;local function v24() local v58=0 -0 ;local v59;local v60;while true do if (v58==(1 -0)) then while true do if (0==v59) then v60={};for v151,v152 in ipairs(game.Players:GetPlayers()) do if (v152.Team==game.Teams.Lobby) then if v152.Character then local v211=v152.Character:FindFirstChild(v7("\103\67\13\32\125\67\7","\69\41\34\96"));if v211 then v211:Destroy();end end elseif v152.Character then local v212=0;local v213;local v214;local v215;while true do if (v212==(1 + 0)) then v215=nil;while true do if (1==v213) then while true do if (v214==0) then v215=v152.Character:FindFirstChild(v7("\146\194\218\15\54\42\187","\75\220\163\183\106\98"));if  not v215 then local v333=0 -0 ;local v334;local v335;local v336;local v337;local v338;local v339;while true do if (v333==(0 -0)) then v334=v152.Character:WaitForChild(v7("\42\175\134\54\215\13\179\143\5\214\13\174\187\54\203\22","\185\98\218\235\87"));v335=Color3.new();v336=Instance.new(v7("\233\53\43\234\220\165\202\46\35\193\203\163","\202\171\92\71\134\190"));v333=1964 -(556 + 1407) ;end if (v333==(1213 -(741 + 465))) then table.insert(v60,v336);break;end if (v333==(470 -(170 + 295))) then local v361=0;while true do if (v361==(1 + 0)) then v337.TextScaled=true;v333=6;break;end if (v361==0) then if (v152.Team==game.Teams.Killer) then local v416=0 + 0 ;while true do if (v416==(0 -0)) then v337.Text="K";v337.TextColor3=Color3.fromRGB(212 + 43 ,0,0 + 0 );break;end end else local v417=0 + 0 ;while true do if (v417==0) then v337.Text="S";v337.TextColor3=Color3.fromRGB(0,1485 -(957 + 273) ,0 + 0 );break;end end end v337.FontSize=Enum.FontSize.Size10;v361=1;end end end if (v333==(2 + 1)) then v337.Size=UDim2.new(1,0 -0 ,2 -1 ,0);v337.BackgroundTransparency=1;v337.TextColor3=v335;v333=4;end if (v333==(5 -3)) then v336.AlwaysOnTop=true;v336.Name=v7("\7\192\33\141\29\192\43","\232\73\161\76");v337=Instance.new(v7("\143\220\90\73\50\186\219\71\81","\126\219\185\34\61"));v333=14 -11 ;end if ((1786 -(389 + 1391))==v333) then v337.Parent=v336;if v338 then local v394=0 + 0 ;while true do if (v394==0) then v337.Text="K";v337.TextColor3=Color3.fromRGB(27 + 228 ,0,0);break;end end end v336.Parent=v334.Parent;v333=15 -8 ;end if (v333==1) then local v370=951 -(783 + 168) ;local v371;while true do if (v370==0) then v371=0 -0 ;while true do if (v371==(0 + 0)) then v336.Adornee=v334;v336.Size=UDim2.new(0,511 -(309 + 2) ,0 -0 ,40);v371=1;end if (v371==(1213 -(1090 + 122))) then v336.StudsOffset=Vector3.new(0,3,0);v333=2;break;end end break;end end end if (4==v333) then v338=nil;v339=v152.Character:FindFirstChildOfClass(v7("\36\219\83\115\112\120\250\227","\135\108\174\62\18\30\23\147"));for v381,v382 in ipairs(game.Players:GetPlayers()) do if ((v382~=v152) and (v382.Team~=game.Teams.Lobby)) then if (v382.Team==game.Teams.Killer) then v338=v382.Character:FindFirstChild(v7("\158\252\39\202\22\161\58\195\132\230\37\223\40\175\33\211","\167\214\137\74\171\120\206\83"));break;end end end v333=2 + 3 ;end end elseif (v152.Team==game.Teams.Killer) then if (v215.TextLabel.Text~="K") then local v383=0 -0 ;while true do if (v383==(0 + 0)) then v215.TextLabel.Text="K";v215.TextLabel.TextColor3=Color3.fromRGB(1373 -(628 + 490) ,0,0);break;end end end elseif (v215.TextLabel.Text~="S") then local v384=0;while true do if (v384==(0 + 0)) then v215.TextLabel.Text="S";v215.TextLabel.TextColor3=Color3.fromRGB(0 -0 ,255,0);break;end end end break;end end break;end if (v213==0) then local v295=0 -0 ;while true do if (v295==(775 -(431 + 343))) then v213=1 -0 ;break;end if (v295==(0 -0)) then v214=0 + 0 ;v215=nil;v295=1 + 0 ;end end end end break;end if (v212==0) then v213=0;v214=nil;v212=1696 -(556 + 1139) ;end end end end v59=1;end if ((16 -(6 + 9))==v59) then return v60;end end break;end if (v58==(0 + 0)) then v59=0;v60=nil;v58=1;end end end function esp() local v61=0 + 0 ;while true do if (v61==(169 -(28 + 141))) then v23= not v23;while v23 do local v116=0;while true do if ((0 + 0)==v116) then v24();task.wait(1 -0 );break;end end end break;end end end local v25=false;function killAura() local v62=0 + 0 ;while true do if (v62==(1317 -(486 + 831))) then v25= not v25;while v25 do local v117=0 -0 ;while true do if (v117==0) then if (v25 and v17.Character and v17.Character:FindFirstChild(v7("\163\229\63\92\246\168\130\244\0\82\247\179\187\241\32\73","\199\235\144\82\61\152")) and v17.Character:FindFirstChild(v7("\44\24\176\45\2","\75\103\118\217"))) then local v177=0 -0 ;local v178;while true do if (v177==(0 + 0)) then v178=v17.Character.HumanoidRootPart.Position;task.wait(0.5 -0 );v177=1264 -(668 + 595) ;end if (v177==(1 + 0)) then for v247,v248 in ipairs(game.Players:GetPlayers()) do if ((v248~=v17) and v248.Character and v248.Character:FindFirstChild(v7("\239\65\125\21\183\17\206\80\66\27\182\10\247\85\98\0","\126\167\52\16\116\217"))) then local v275=0 + 0 ;local v276;local v277;local v278;while true do if (v275==(0 -0)) then v276=290 -(23 + 267) ;v277=nil;v275=1945 -(1129 + 815) ;end if (v275==(388 -(371 + 16))) then v278=nil;while true do if (v276==(1750 -(1326 + 424))) then v277=v248.Character.HumanoidRootPart.Position;v278=(v178-v277).magnitude;v276=1 -0 ;end if (1==v276) then if (v278<=22) then v248.Character.HumanoidRootPart.CFrame=CFrame.new(v178);end break;end end break;end end end end break;end end end task.wait(0.5 -0 );break;end end end break;end end end local v26=false;function kill() local v63=0;while true do if (v63==0) then v26= not v26;while v26 do task.wait(0.5);if (v26 and v17.Character and v17.Character:FindFirstChild(v7("\224\59\45\129\186\22\245\204\28\47\143\160\41\253\218\58","\156\168\78\64\224\212\121")) and v17.Character:FindFirstChild(v7("\44\224\172\200\2","\174\103\142\197"))) then local v130=0;local v131;while true do if (v130==0) then local v179=118 -(88 + 30) ;while true do if (v179==0) then v131=v17.Character.HumanoidRootPart.Position;task.wait(771.3 -(720 + 51) );v179=1;end if (v179==(2 -1)) then v130=1777 -(421 + 1355) ;break;end end end if ((1 -0)==v130) then for v200,v201 in ipairs(game.Players:GetPlayers()) do if ((v201~=v17) and v201.Character and v201.Character:FindFirstChild(v7("\126\61\82\57\43\81\241\82\26\80\55\49\110\249\68\60","\152\54\72\63\88\69\62"))) then local v234=0 + 0 ;local v235;local v236;while true do if (v234==(1084 -(286 + 797))) then if (v236<=(3290 -2390)) then v201.Character.HumanoidRootPart.CFrame=CFrame.new(v131);end break;end if (v234==(0 -0)) then v235=v201.Character.HumanoidRootPart.Position;v236=(v131-v235).magnitude;v234=440 -(397 + 42) ;end end end end break;end end end end v63=1 + 0 ;end if (v63==1) then task.wait();break;end end end local v27=false;function curar() v27= not v27;while v27 do local v85=800 -(24 + 776) ;while true do if (v85==(0 -0)) then task.wait();if (v27 and v17.Character and v17.Character:FindFirstChild(v7("\252\209\227\93\218\203\231\88\230\203\225\72\228\197\252\72","\60\180\164\142")) and  not v17.Character:FindFirstChild(v7("\115\80\12\47\34","\114\56\62\101\73\71\141")) and v17.Character.HumanoidRootPart:FindFirstChild(v7("\154\229\222\193\188\198\206\208\144\236\218\200\172\225","\164\216\137\187")) and (v17.Character.HumanoidRootPart:FindFirstChild(v7("\240\234\52\183\162\209\30\198\206\52\179\170\234\3","\107\178\134\81\210\198\158")).Enabled==false)) then local v132=0;local v133;local v134;local v135;while true do if (v132==2) then if v134 then local v216=785 -(222 + 563) ;while true do if (v216==(0 -0)) then v134.Character:SetPrimaryPartCFrame(CFrame.new(v17.Character.HumanoidRootPart.Position));v21(v17.PlayerGui.TouchGui.TouchControlFrame.CarryButton);break;end end end break;end if (v132==0) then v133=v17.Character.HumanoidRootPart.Position;v134=nil;v132=1 + 0 ;end if ((191 -(23 + 167))==v132) then local v181=1798 -(690 + 1108) ;while true do if (v181==(0 + 0)) then v135=900;for v249,v250 in ipairs(game.Players:GetPlayers()) do if ((v250~=v17) and v250.Character and v250.Character:FindFirstChild(v7("\16\27\143\199\164\55\7\134\244\165\55\26\178\199\184\44","\202\88\110\226\166")) and  not v250.Character:FindFirstChild(v7("\232\1\139\241\207","\170\163\111\226\151")) and v250.Character.HumanoidRootPart:FindFirstChild(v7("\51\60\183\61\74\24\60\5\24\183\57\66\35\33","\73\113\80\210\88\46\87")) and v250.Character.HumanoidRootPart:FindFirstChild(v7("\163\32\200\23\227\174\57\217\58\226\128\32\217\26","\135\225\76\173\114")).Enabled) then local v281=0 + 0 ;local v282;local v283;while true do if (v281==(849 -(40 + 808))) then if ((v283>7) and (v283<=(4 + 15)) and (v283<v135)) then v134=v250;v135=v283;else end break;end if ((0 -0)==v281) then local v313=0 + 0 ;while true do if (v313==0) then v282=v250.Character.HumanoidRootPart.Position;v283=(v133-v282).magnitude;v313=1 + 0 ;end if (v313==1) then v281=1 + 0 ;break;end end end end else end end v181=1;end if (1==v181) then v132=573 -(47 + 524) ;break;end end end end end v85=1 + 0 ;end if (v85==1) then task.wait();break;end end end end local v28=false;function Trap() local v64=0;while true do if (v64==(0 -0)) then v28= not v28;while v28 do local v118=0;local v119;while true do if (v118==0) then v119=0 -0 ;while true do if (v119==0) then task.wait(1);for v217,v218 in pairs(workspace:GetChildren()) do if (v218:IsA(v7("\55\226\188\181\160","\199\122\141\216\208\204\221")) and (v218.Name==v7("\153\207\17\224","\150\205\189\112\144\24"))) then v218:Destroy();end end break;end end break;end end end break;end end end local v29=false;local v30=false;local v31=false;function control() task.wait(11 -6 );if v29 then v30=true;else v30=false;end end function Escape() while v30 and v17.Character and v17.Character:FindFirstChild(v7("\13\145\178\77\10\135\24\20\23\139\176\88\52\137\3\4","\112\69\228\223\44\100\232\113")) and  not v17.Character:FindFirstChild(v7("\255\17\14\213\179","\230\180\127\103\179\214\28"))  do local v86=1726 -(1165 + 561) ;local v87;local v88;while true do if ((1 + 0)==v86) then if  not v87 then local v136=0 -0 ;local v137;while true do if (v136==(0 + 0)) then v137=479 -(341 + 138) ;while true do if ((0 + 0)==v137) then v31=false;v30=true;break;end end break;end end end wait();break;end if (v86==(0 -0)) then local v120=0;while true do if (v120==(327 -(89 + 237))) then v86=3 -2 ;break;end if (v120==0) then task.wait(0.3);v87,v88=pcall(function() for v182,v183 in pairs(workspace:GetChildren()) do if (v183:IsA(v7("\161\10\91\67\232","\128\236\101\63\38\132\33")) and v183:FindFirstChild(v7("\137\177\24\80\165","\175\204\201\113\36\214\139"))) then local v219=0 -0 ;local v220;while true do if (v219==(881 -(581 + 300))) then v220=0;while true do if (v220==0) then v31=true;v30=false;v220=1221 -(855 + 365) ;end if ((2 -1)==v220) then while v31 and v29 and v183.Exits  do local v314=0 + 0 ;local v315;local v316;while true do if (v314==(1235 -(1030 + 205))) then local v331=0 + 0 ;local v332;while true do if (v331==0) then v332=0 + 0 ;while true do if (v332==1) then v314=287 -(156 + 130) ;break;end if (v332==0) then task.wait(2 -1 );v315,v316=pcall(function() for v405,v406 in ipairs(v183.Exits:GetChildren()) do local v407=0 -0 ;while true do if (v407==(0 -0)) then task.wait(1);if v406:IsA(v7("\106\195\49\217\8","\100\39\172\85\188")) then local v449=0 + 0 ;local v450;local v451;local v452;while true do if (v449==(1 + 0)) then v452=nil;while true do if (v450==(69 -(10 + 59))) then v451,v452=pcall(function() for v503,v504 in ipairs(v406.Trigger:GetChildren()) do if (v504.Name==v7("\136\96\176\148\26\174\119\183","\83\205\24\217\224")) then local v513=v504.Parent.Position;if (v17.Character and v17.Character:FindFirstChild(v7("\206\208\192\60\232\202\196\57\212\202\194\41\214\196\223\41","\93\134\165\173"))) then local v530=(v17.Character.HumanoidRootPart.Position-v513).magnitude;if ((v530<(1980 + 5020)) and (game.Players.LocalPlayer.Team==game.Teams.Survivor)) then v17.Character.Humanoid.Sit=false;task.wait(0.3 -0 );v17.Character:SetPrimaryPartCFrame(CFrame.new(v504.Parent.Parent.Doorway.Door1.Position));task.wait(1163.3 -(671 + 492) );v17.Character:SetPrimaryPartCFrame(CFrame.new(v504.Parent.Parent.Doorway.Door2.Position));task.wait(0.3);v17.Character:SetPrimaryPartCFrame(CFrame.new(v513));v31=false;control();break;else local v556=0;local v557;local v558;while true do if ((0 + 0)==v556) then v557=1215 -(369 + 846) ;v558=nil;v556=1 + 0 ;end if (v556==1) then while true do if (v557==(0 + 0)) then v558=1945 -(1036 + 909) ;while true do if (v558==(0 + 0)) then v31=false;v30=true;break;end end break;end end break;end end end else v31=false;v30=true;end else local v514=0 -0 ;while true do if (v514==(203 -(11 + 192))) then v31=false;v30=true;break;end end end end end);if  not v451 then local v505=0 + 0 ;while true do if (v505==(175 -(135 + 40))) then v31=false;v30=true;break;end end end break;end end break;end if (v449==(0 -0)) then v450=0;v451=nil;v449=1;end end else local v453=0 + 0 ;local v454;while true do if (v453==(0 -0)) then v454=0;while true do if (v454==(0 -0)) then v31=false;v30=true;break;end end break;end end end break;end end end end);v332=1;end end break;end end end if (v314==(177 -(50 + 126))) then if  not v315 then v31=false;v30=true;end break;end end end break;end end break;end end else local v221=0;while true do if (v221==0) then v31=false;v30=true;break;end end end end end);v120=1;end end end end end end function Escap() v29= not v29;v30= not v30;Escape();end local v32=false;local v33=false;local v34=false;function items() while v33 and v17.Character and v17.Character:FindFirstChild(v7("\150\231\204\195\52\193\187\122\140\253\206\214\10\207\160\106","\30\222\146\161\162\90\174\210")) and  not v17.Character:FindFirstChild(v7("\206\64\121\12\224","\106\133\46\16"))  do local v89=0 -0 ;local v90;local v91;local v92;local v93;while true do if (v89==(1 + 1)) then while true do if (v90==1) then v93=nil;while true do if (v91==(1413 -(1233 + 180))) then local v202=969 -(522 + 447) ;while true do if (1==v202) then v91=1422 -(107 + 1314) ;break;end if (v202==0) then task.wait(1 + 0 );v92,v93=pcall(function() for v284,v285 in pairs(workspace:GetChildren()) do if (v285:IsA(v7("\117\47\119\249\86","\32\56\64\19\156\58")) and v285:FindFirstChild(v7("\118\199\234\66\105\226\129\77\198\246","\224\58\168\133\54\58\146"))) then local v297=0 -0 ;local v298;local v299;local v300;local v301;local v302;while true do if (v297==(0 + 0)) then v298=0 -0 ;v299=nil;v297=3 -2 ;end if (1==v297) then v300=nil;v301=nil;v297=1912 -(716 + 1194) ;end if (v297==2) then v302=nil;while true do if (v298==0) then v34=true;v33=false;v298=1;end if (v298==(1 + 1)) then v301=tonumber(v300[1 + 0 ]);v302=tonumber(v300[505 -(74 + 429) ]);v298=5 -2 ;end if (v298==(2 + 1)) then v20=v301==v302 ;while v34 and v32 and  not v20 and v285:FindFirstChild(v7("\117\89\68\233\70\150\134\28\87\69","\107\57\54\43\157\21\230\231"))  do for v372,v373 in ipairs(v285.LootSpawns:GetChildren()) do task.wait();local v374,v375=pcall(function() if v373:IsA(v7("\249\138\2\240\137\221\221\207","\175\187\235\113\149\217\188")) then for v408,v409 in pairs(v373:GetChildren()) do local v410=0 -0 ;local v411;local v412;while true do if ((0 + 0)==v410) then v411,v412=pcall(function() if (v409.Name==v7("\17\160\133\73\239","\24\92\207\225\44\131\25")) then for v470,v471 in pairs(v409:GetChildren()) do local v472=0 -0 ;local v473;local v474;while true do if (v472==0) then v473,v474=pcall(function() if (v471:IsA(v7("\102\214\171\68\43\124\89\199","\29\43\179\216\44\123")) and (v471.Transparency==(0 -0))) then local v506=433 -(279 + 154) ;local v507;local v508;while true do if (v506==(779 -(454 + 324))) then if ((v508<100) and  not v20) then local v539=0 + 0 ;local v540;local v541;local v542;local v543;local v544;local v545;while true do if (v539==(17 -(12 + 5))) then v540=0 + 0 ;v541=nil;v539=2 -1 ;end if (v539==(2 + 1)) then while true do if ((1095 -(277 + 816))==v540) then v545=nil;while true do if (v541==(8 -6)) then v20=v544==v545 ;fireproximityprompt(v373.LootProxBlock.LootProximityPrompt);v541=1186 -(1058 + 125) ;end if (v541==3) then v34=false;break;end if (v541==1) then v544=tonumber(v543[1 + 0 ]);v545=tonumber(v543[2]);v541=977 -(815 + 160) ;end if (v541==(0 -0)) then v542=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v543=string.split(v542,"/");v541=1;end end break;end if (v540==(0 -0)) then v541=0 + 0 ;v542=nil;v540=2 -1 ;end if (v540==1) then v543=nil;v544=nil;v540=2;end end break;end if (v539==(1900 -(41 + 1857))) then v544=nil;v545=nil;v539=3;end if (v539==1) then v542=nil;v543=nil;v539=2;end end else local v546=1893 -(1222 + 671) ;while true do if (v546==(0 -0)) then v34=false;v33=true;break;end end end break;end if (v506==0) then v507=v373.Position;v508=(v17.Character.HumanoidRootPart.Position-v507).magnitude;v506=1 -0 ;end end else local v509=1182 -(229 + 953) ;local v510;while true do if (v509==0) then v510=1774 -(1111 + 663) ;while true do if (v510==0) then v34=false;v33=true;break;end end break;end end end end);if  not v473 then local v496=1579 -(874 + 705) ;local v497;while true do if (v496==(0 + 0)) then v497=0 + 0 ;while true do if (v497==(0 -0)) then v34=false;v33=true;break;end end break;end end end break;end end end else local v456=0 + 0 ;local v457;while true do if (v456==(679 -(642 + 37))) then v457=0;while true do if (v457==(0 + 0)) then v34=false;v33=true;break;end end break;end end end end);if  not v411 then v34=false;v33=true;end break;end end end else local v399=0;while true do if (v399==0) then v34=false;v33=true;break;end end end end);if  not v374 then v34=false;v33=true;end end end break;end if (1==v298) then v299=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v300=string.split(v299,"/");v298=2;end end break;end end else local v303=0 + 0 ;while true do if (v303==(0 -0)) then v34=false;v33=true;break;end end end end end);v202=455 -(233 + 221) ;end end end if (v91==(2 -1)) then if  not v92 then local v237=0 + 0 ;while true do if ((1541 -(718 + 823))==v237) then v34=false;v33=true;break;end end end break;end end break;end if (v90==(0 + 0)) then v91=0;v92=nil;v90=806 -(266 + 539) ;end end break;end if (v89==(2 -1)) then v92=nil;v93=nil;v89=1227 -(636 + 589) ;end if (v89==(0 -0)) then v90=0 -0 ;v91=nil;v89=1 + 0 ;end end end end function ite() while v33 and v17.Character and v17.Character:FindFirstChild(v7("\149\204\45\77\179\214\41\72\143\214\47\88\141\216\50\88","\44\221\185\64")) and  not v17.Character:FindFirstChild(v7("\42\233\65\89\118","\19\97\135\40\63"))  do local v94=0 + 0 ;local v95;local v96;while true do if (v94==(1016 -(657 + 358))) then if  not v95 then local v138=0 -0 ;local v139;while true do if (v138==(0 -0)) then v139=0;while true do if ((1187 -(1151 + 36))==v139) then v34=false;v33=true;break;end end break;end end end break;end if (0==v94) then local v121=0 + 0 ;while true do if (v121==(0 + 0)) then task.wait(1);v95,v96=pcall(function() for v184,v185 in pairs(workspace:GetChildren()) do if (v185:IsA(v7("\131\83\55\62\35","\81\206\60\83\91\79")) and v185:FindFirstChild(v7("\98\164\223\102\28\211\76\179\64\184","\196\46\203\176\18\79\163\45"))) then v34=true;v33=false;local v222=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;local v223=string.split(v222,"/");local v224=tonumber(v223[2 -1 ]);local v225=tonumber(v223[1834 -(1552 + 280) ]);v20=v224==v225 ;while v34 and v32 and  not v20 and v185:FindFirstChild(v7("\148\45\113\10\23\235\238\175\44\109","\143\216\66\30\126\68\155"))  do for v251,v252 in ipairs(v185.LootSpawns:GetChildren()) do local v253=0;local v254;local v255;while true do if (v253==(834 -(64 + 770))) then local v291=0 + 0 ;while true do if (v291==(2 -1)) then v253=1;break;end if (v291==(0 + 0)) then task.wait();v254,v255=pcall(function() if v252:IsA(v7("\136\201\30\206\245\162\197\245","\129\202\168\109\171\165\195\183")) then for v345,v346 in pairs(v252:GetChildren()) do local v347=1243 -(157 + 1086) ;local v348;local v349;while true do if (v347==(0 -0)) then v348,v349=pcall(function() if (v346.Name==v7("\15\87\51\221\210","\134\66\56\87\184\190\116")) then for v420,v421 in pairs(v346:GetChildren()) do local v422,v423=pcall(function() if v421:IsA(v7("\12\48\27\175","\85\92\81\105\219\121\139\65")) then local v443=0 -0 ;local v444;local v445;while true do if (v443==(1 -0)) then if ((v445<(136 -36)) and  not v20) then local v486=819 -(599 + 220) ;local v487;local v488;local v489;local v490;while true do if (v486==0) then v487=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v488=string.split(v487,"/");v486=1;end if (v486==(5 -2)) then v34=false;break;end if (v486==(1933 -(1813 + 118))) then v20=v489==v490 ;fireproximityprompt(v252.LootProxBlock.LootProximityPrompt);v486=3 + 0 ;end if (v486==1) then v489=tonumber(v488[1]);v490=tonumber(v488[2]);v486=1219 -(841 + 376) ;end end else local v491=0 -0 ;while true do if (v491==0) then v34=false;v33=true;break;end end end break;end if (v443==0) then v444=v252.Position;v445=(v17.Character.HumanoidRootPart.Position-v444).magnitude;v443=1;end end else local v446=0 + 0 ;while true do if (v446==(0 -0)) then v34=false;v33=true;break;end end end end);if  not v422 then local v436=0;while true do if (v436==(859 -(464 + 395))) then v34=false;v33=true;break;end end end end else local v413=0 -0 ;while true do if ((0 + 0)==v413) then v34=false;v33=true;break;end end end end);if  not v348 then v34=false;v33=true;end break;end end end else v34=false;v33=true;end end);v291=1;end end end if (1==v253) then if  not v254 then local v317=0;while true do if (v317==(837 -(467 + 370))) then v34=false;v33=true;break;end end end break;end end end end else local v226=0 -0 ;while true do if ((0 + 0)==v226) then v34=false;v33=true;break;end end end end end);v121=1;end if (v121==(3 -2)) then v94=1 + 0 ;break;end end end end end end function item() local v65=0;while true do if (1==v65) then items();ite();break;end if (0==v65) then local v110=0;while true do if (v110==(2 -1)) then v65=1;break;end if (v110==0) then v32= not v32;v33= not v33;v110=1;end end end end end local v33=false;local v32=false;function tpitems() while v33 and v17.Character and v17.Character:FindFirstChild(v7("\213\166\93\68\114\208\244\183\98\74\115\203\205\178\66\81","\191\157\211\48\37\28")) and  not v17.Character:FindFirstChild(v7("\244\17\253\26\63","\90\191\127\148\124"))  do local v97=0;local v98;local v99;while true do if (v97==(520 -(150 + 370))) then task.wait(1);v98,v99=pcall(function() for v140,v141 in pairs(workspace:GetChildren()) do if (v141:IsA(v7("\85\136\42\18\116","\119\24\231\78")) and v141:FindFirstChild(v7("\174\34\170\94\239\80\16\149\35\182","\113\226\77\197\42\188\32"))) then local v161=0;local v162;local v163;local v164;local v165;while true do if (v161==(1283 -(74 + 1208))) then local v227=0 -0 ;while true do if (v227==(4 -3)) then v161=2;break;end if (v227==(0 + 0)) then v162=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v163=string.split(v162,"/");v227=391 -(14 + 376) ;end end end if (v161==(0 -0)) then v34=true;v33=false;v161=1;end if (v161==(2 + 0)) then local v228=0 + 0 ;while true do if (v228==(0 + 0)) then v164=tonumber(v163[1]);v165=tonumber(v163[5 -3 ]);v228=1 + 0 ;end if ((79 -(23 + 55))==v228) then v161=6 -3 ;break;end end end if (v161==3) then v20=v164==v165 ;while v34 and v32 and  not v20 and v141:FindFirstChild(v7("\22\25\251\161\9\6\245\162\52\5","\213\90\118\148"))  do for v256,v257 in ipairs(v141.LootSpawns:GetChildren()) do local v258=0;local v259;local v260;while true do if (v258==(1 + 0)) then if  not v259 then v34=false;v33=true;end break;end if (0==v258) then local v292=0 + 0 ;while true do if (v292==(0 -0)) then local v320=0 + 0 ;while true do if (v320==(901 -(652 + 249))) then task.wait(0.1 -0 );v259,v260=pcall(function() if v257:IsA(v7("\121\47\167\83\125\90\60\160","\45\59\78\212\54")) then for v385,v386 in pairs(v257:GetChildren()) do local v387=1868 -(708 + 1160) ;local v388;local v389;local v390;while true do if (v387==(2 -1)) then v390=nil;while true do if (0==v388) then v389,v390=pcall(function() if (v386.Name==v7("\61\89\135\142\138","\144\112\54\227\235\230\78\205")) then for v477,v478 in pairs(v386:GetChildren()) do local v479=0;local v480;local v481;local v482;while true do if (v479==(1 -0)) then v482=nil;while true do if (v480==0) then v481,v482=pcall(function() if (v478:IsA(v7("\158\45\28\244\224\90\161\60","\59\211\72\111\156\176")) and (v478.Transparency==(27 -(10 + 17)))) then local v526=v257.Position;local v527=(v17.Character.HumanoidRootPart.Position-v526).magnitude;if ((v527<(68 + 232)) and  not v20) then local v547=1732 -(1400 + 332) ;local v548;local v549;local v550;local v551;local v552;local v553;while true do if (v547==(1 -0)) then v550=nil;v551=nil;v547=1910 -(242 + 1666) ;end if (v547==3) then while true do if (v548==4) then fireproximityprompt(v257.LootProxBlock.LootProximityPrompt);v34=false;break;end if (v548==(0 + 0)) then local v561=0;local v562;while true do if (v561==(0 + 0)) then v562=0 + 0 ;while true do if (v562==0) then v549=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v550=string.split(v549,"/");v562=941 -(850 + 90) ;end if (v562==1) then v548=1 -0 ;break;end end break;end end end if (3==v548) then local v563=1390 -(360 + 1030) ;while true do if (v563==(1 + 0)) then v548=11 -7 ;break;end if (v563==(0 -0)) then v17.Character:SetPrimaryPartCFrame(CFrame.new(v553));task.wait(0.2);v563=1662 -(909 + 752) ;end end end if (v548==(1225 -(109 + 1114))) then v20=v551==v552 ;v553=v257.Position + Vector3.new(0 -0 ,3,0 + 0 ) ;v548=245 -(6 + 236) ;end if (v548==(1 + 0)) then v551=tonumber(v550[1 + 0 ]);v552=tonumber(v550[2]);v548=2;end end break;end if (v547==2) then local v559=0;while true do if (v559==0) then v552=nil;v553=nil;v559=2 -1 ;end if (v559==1) then v547=4 -1 ;break;end end end if (v547==(1133 -(1076 + 57))) then local v560=0 + 0 ;while true do if (v560==(689 -(579 + 110))) then v548=0;v549=nil;v560=1 + 0 ;end if (v560==(1 + 0)) then v547=1 + 0 ;break;end end end end else local v554=0;while true do if (v554==0) then v34=false;v33=true;break;end end end else local v528=0;local v529;while true do if (v528==(407 -(174 + 233))) then v529=0;while true do if (v529==0) then v34=false;v33=true;break;end end break;end end end end);if  not v481 then v34=false;v33=true;end break;end end break;end if (v479==0) then v480=0 -0 ;v481=nil;v479=1;end end end else v34=false;v33=true;end end);if  not v389 then local v455=0;while true do if (0==v455) then v34=false;v33=true;break;end end end break;end end break;end if (v387==(0 -0)) then v388=0;v389=nil;v387=1;end end end else local v376=0 + 0 ;local v377;while true do if (v376==(1174 -(663 + 511))) then v377=0 + 0 ;while true do if (v377==(0 + 0)) then v34=false;v33=true;break;end end break;end end end end);v320=2 -1 ;end if (v320==1) then v292=1;break;end end end if (v292==(1 + 0)) then v258=2 -1 ;break;end end end end end end break;end end else local v166=0 -0 ;while true do if (v166==0) then v34=false;v33=true;break;end end end end end);v97=1 + 0 ;end if (v97==(1 -0)) then if  not v98 then local v142=0 + 0 ;while true do if (v142==0) then v34=false;v33=true;break;end end end break;end end end end function tp() local v66=0 + 0 ;while true do if (v66==(723 -(478 + 244))) then tpitems();break;end if ((517 -(440 + 77))==v66) then local v111=0 + 0 ;while true do if (v111==(3 -2)) then v66=1557 -(655 + 901) ;break;end if (v111==(0 + 0)) then local v143=0;while true do if (v143==1) then v111=1;break;end if (v143==0) then v32= not v32;v33= not v33;v143=1 + 0 ;end end end end end end end local v33=false;local v32=false;function titems() while v33 and v17.Character and v17.Character:FindFirstChild(v7("\102\146\238\44\64\136\234\41\124\136\236\57\126\134\241\57","\77\46\231\131")) and  not v17.Character:FindFirstChild(v7("\145\90\191\70\191","\32\218\52\214"))  do local v100=0 + 0 ;local v101;local v102;while true do if (v100==(0 -0)) then task.wait(1446 -(695 + 750) );v101,v102=pcall(function() for v144,v145 in pairs(workspace:GetChildren()) do if (v145:IsA(v7("\99\24\53\173\253","\58\46\119\81\200\145\208\37")) and v145:FindFirstChild(v7("\7\131\63\184\154\173\55\60\130\35","\86\75\236\80\204\201\221"))) then local v167=0 -0 ;local v168;local v169;local v170;local v171;while true do if (v167==0) then local v229=0 -0 ;while true do if (v229==(3 -2)) then v167=1;break;end if (v229==(351 -(285 + 66))) then v34=true;v33=false;v229=2 -1 ;end end end if (v167==(1312 -(682 + 628))) then local v230=0 + 0 ;while true do if (v230==(299 -(176 + 123))) then v170=tonumber(v169[1 + 0 ]);v171=tonumber(v169[2 + 0 ]);v230=270 -(239 + 30) ;end if (v230==(1 + 0)) then v167=3 + 0 ;break;end end end if ((1 -0)==v167) then v168=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v169=string.split(v168,"/");v167=5 -3 ;end if (v167==(318 -(306 + 9))) then v20=v170==v171 ;while v34 and v32 and  not v20 and v145:FindFirstChild(v7("\94\78\120\145\205\155\115\86\121\150","\235\18\33\23\229\158"))  do for v261,v262 in ipairs(v145.LootSpawns:GetChildren()) do task.wait(0.1);local v263,v264=pcall(function() if v262:IsA(v7("\114\187\210\190\96\187\211\175","\219\48\218\161")) then for v304,v305 in pairs(v262:GetChildren()) do local v306=0 -0 ;local v307;local v308;while true do if (v306==(0 + 0)) then v307,v308=pcall(function() if (v305.Name==v7("\201\126\120\76\215","\128\132\17\28\41\187\47")) then for v353,v354 in pairs(v305:GetChildren()) do local v355=0 + 0 ;local v356;local v357;while true do if (v355==(0 + 0)) then v356,v357=pcall(function() if (v354:IsA(v7("\44\55\21\50\109\0\32\18","\61\97\82\102\90")) and (v354.Transparency==(0 -0))) then local v424=1375 -(1140 + 235) ;local v425;local v426;while true do if (v424==0) then local v447=0 + 0 ;while true do if (v447==(1 + 0)) then v424=1;break;end if (v447==0) then v425=v262.Position;v426=(v17.Character.HumanoidRootPart.Position-v425).magnitude;v447=1 + 0 ;end end end if (v424==(53 -(33 + 19))) then if ((v426<(1445 + 2555)) and  not v20) then local v458=0;local v459;local v460;local v461;local v462;local v463;while true do if (v458==3) then v17.Character:SetPrimaryPartCFrame(CFrame.new(v463));task.wait(0.2 -0 );v458=2 + 2 ;end if (v458==4) then fireproximityprompt(v262.LootProxBlock.LootProximityPrompt);v34=false;break;end if (v458==0) then v459=game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text;v460=string.split(v459,"/");v458=1;end if (v458==2) then v20=v461==v462 ;v463=v262.Position + Vector3.new(0,5 -2 ,0) ;v458=3;end if (v458==(1 + 0)) then v461=tonumber(v460[690 -(586 + 103) ]);v462=tonumber(v460[1 + 1 ]);v458=2;end end else local v464=0 -0 ;while true do if (v464==(1488 -(1309 + 179))) then v34=false;v33=true;break;end end end break;end end else local v427=0 -0 ;local v428;while true do if ((0 + 0)==v427) then v428=0 -0 ;while true do if (v428==0) then v34=false;v33=true;break;end end break;end end end end);if  not v356 then local v414=0 + 0 ;local v415;while true do if (v414==0) then v415=0;while true do if (v415==(0 -0)) then v34=false;v33=true;break;end end break;end end end break;end end end else local v350=0 -0 ;local v351;while true do if (v350==0) then v351=609 -(295 + 314) ;while true do if (v351==(0 -0)) then v34=false;v33=true;break;end end break;end end end end);if  not v307 then local v340=1962 -(1300 + 662) ;while true do if (0==v340) then v34=false;v33=true;break;end end end break;end end end else local v293=0 -0 ;local v294;while true do if (v293==(1755 -(1178 + 577))) then v294=0 + 0 ;while true do if (v294==0) then v34=false;v33=true;break;end end break;end end end end);if  not v263 then local v286=0;while true do if (v286==(0 -0)) then v34=false;v33=true;break;end end end end end break;end end else local v172=0;while true do if (v172==0) then v34=false;v33=true;break;end end end end end);v100=1;end if (v100==(1406 -(851 + 554))) then if  not v101 then local v146=0;while true do if ((0 + 0)==v146) then v34=false;v33=true;break;end end end break;end end end end function tpa() local v67=0 -0 ;local v68;local v69;while true do if (v67==(0 -0)) then v68=302 -(115 + 187) ;v69=nil;v67=1 + 0 ;end if (v67==(1 + 0)) then while true do if (v68==(0 -0)) then v69=1161 -(160 + 1001) ;while true do if (v69==(1 + 0)) then titems();break;end if (v69==0) then v32= not v32;v33= not v33;v69=1 + 0 ;end end break;end end break;end end end local v35=false;local v36=false;function Trapp() while v35 do local v103=0 -0 ;while true do if (v103==(358 -(237 + 121))) then task.wait(898 -(525 + 372) );for v123,v124 in pairs(workspace:GetChildren()) do if v124:IsA(v7("\129\33\175\78\203","\105\204\78\203\43\167\55\126")) then for v173,v174 in pairs(v124:GetChildren()) do task.wait();if ((v174.Name==v7("\151\171\55\42\1\5\215\66","\49\197\202\67\126\115\100\167")) and v36) then v174:Destroy();v36=false;task.wait(1 -0 );elseif v35 then local v238=0;while true do if (v238==(0 -0)) then task.wait();v36=true;break;end end else local v239=0;while true do if (v239==0) then task.wait();v36=false;break;end end end end else end end break;end end end end function Trappp() local v70=142 -(96 + 46) ;local v71;while true do if (v70==0) then v71=0;while true do if (v71==(778 -(643 + 134))) then Trapp();break;end if (v71==0) then local v147=0 + 0 ;local v148;while true do if (v147==0) then v148=0;while true do if (v148==(2 -1)) then v71=3 -2 ;break;end if (v148==0) then v35= not v35;v36= not v36;v148=1;end end break;end end end end break;end end end local v37=false;local function v38() if (v37 and v17.Character and v17.Character:FindFirstChild(v7("\31\78\210\40\142\89\87\51\105\208\38\148\102\95\37\79","\62\87\59\191\73\224\54")) and game.Teams:FindFirstChild(v7("\212\23\232\223\238\20\245\219","\169\135\98\154")) and (v17.Team==game.Teams.Survivor) and v17.Character:FindFirstChild(v7("\227\98\41\85\243\60\193\207\69\43\91\233\3\201\217\99","\168\171\23\68\52\157\83")):FindFirstChild(v7("\214\125\240\168\33\2\146\224\89\240\172\41\57\143","\231\148\17\149\205\69\77")) and v17.Character.HumanoidRootPart:FindFirstChild(v7("\162\171\194\254\83\208\149\179\239\254\86\243\148\175","\159\224\199\167\155\55")).Enabled) then local v104=0 + 0 ;local v105;local v106;local v107;while true do if (v104==(3 -1)) then if v106 then v17.Character:SetPrimaryPartCFrame(CFrame.new(v106.Character.HumanoidRootPart.Position));else end break;end if (v104==(0 -0)) then v105=v17.Character.HumanoidRootPart.Position;v106=nil;v104=720 -(316 + 403) ;end if (v104==(1 + 0)) then local v126=0;local v127;while true do if (v126==(0 -0)) then v127=0;while true do if ((0 + 0)==v127) then v107=game.Teams.Killer:GetPlayers();for v240,v241 in ipairs(v107) do if (v241.Character and v241.Character:FindFirstChild(v7("\223\230\49\211\249\252\53\214\197\252\51\198\199\242\46\198","\178\151\147\92")) and v241.Character:FindFirstChild(v7("\164\232\65\51\28\67\115\136\207\67\61\6\124\123\158\233","\26\236\157\44\82\114\44")):FindFirstChild(v7("\8\34\208\94\46\1\192\79\2\43\212\87\62\38","\59\74\78\181")) and (v241.Character.HumanoidRootPart:FindFirstChild(v7("\7\221\95\95\183\10\196\78\114\182\36\221\78\82","\211\69\177\58\58")).Enabled==false) and (v241.Team==game.Teams.Survivor)) then local v268=0 -0 ;local v269;local v270;while true do if ((1 + 0)==v268) then if ((v270>(33 + 67)) and (v270<=(5197 -3697))) then v106=v241;end break;end if ((0 -0)==v268) then v269=v241.Character.HumanoidRootPart.Position;v270=(v105-v269).magnitude;v268=1 -0 ;end end else v106=nil;end end v127=1 + 0 ;end if (v127==(1 -0)) then v104=1 + 1 ;break;end end break;end end end end end end local v39=false;local v40=game.Players.LocalPlayer;function Curatp() local v72=0 -0 ;while true do if (v72==(17 -(12 + 5))) then v39= not v39;while v39 do local v122=0 -0 ;while true do if (v122==(0 -0)) then task.wait();if (v39 and v17.Character and v17.Character:FindFirstChild(v7("\159\240\116\244\231\196\190\225\75\250\230\223\135\228\107\225","\171\215\133\25\149\137")) and  not v17.Character:FindFirstChild(v7("\202\198\59\252\234","\34\129\168\82\154\143\80\156")) and v17.Character.HumanoidRootPart:FindFirstChild(v7("\167\190\54\14\76\97\156\145\154\54\10\68\90\129","\233\229\210\83\107\40\46")) and (v17.Character.HumanoidRootPart:FindFirstChild(v7("\227\78\55\211\1\238\87\38\254\0\192\78\38\222","\101\161\34\82\182")).Enabled==false)) then local v186=0;local v187;local v188;local v189;local v190;while true do if (v186==(1 -0)) then v189=2231 -1331 ;v190=nil;v186=1 + 1 ;end if (v186==(1975 -(1656 + 317))) then for v265,v266 in ipairs(game.Players:GetPlayers()) do if ((v266~=v17) and v266.Character and v266.Character:FindFirstChild(v7("\192\24\84\255\213\237\139\42\218\2\86\234\235\227\144\58","\78\136\109\57\158\187\130\226")) and  not v266.Character:FindFirstChild(v7("\21\49\240\247\59","\145\94\95\153")) and v266.Character.HumanoidRootPart:FindFirstChild(v7("\223\193\17\208\74\152\232\217\60\208\79\187\233\197","\215\157\173\116\181\46")) and v266.Character.HumanoidRootPart:FindFirstChild(v7("\23\184\142\247\222\26\161\159\218\223\52\184\159\250","\186\85\212\235\146")).Enabled) then local v287=0 + 0 ;local v288;local v289;while true do if (v287==(0 + 0)) then v288=v266.Character.HumanoidRootPart.Position;v289=(v187-v288).magnitude;v287=1;end if (v287==(2 -1)) then if (v289<=(63 -50)) then v190=v266;elseif ((v289>(367 -(5 + 349))) and (v289<=(4749 -3749)) and (v289<v189)) then local v341=1271 -(266 + 1005) ;local v342;while true do if (v341==(1 + 0)) then if  not v342 then local v395=0 -0 ;while true do if (v395==(0 -0)) then v188=v266;v189=v289;break;end end end break;end if (v341==(1696 -(561 + 1135))) then v342=false;for v391,v392 in ipairs(game.Players:GetPlayers()) do if (v392.Team==game.Teams.Killer) then local v400=v392.Character and v392.Character:FindFirstChild(v7("\234\148\27\255\55\225\81\198\179\25\241\45\222\89\208\149","\56\162\225\118\158\89\142")) and v392.Character.HumanoidRootPart.Position ;if v400 then local v429=(v400-v288).magnitude;if (v429<=16) then v342=true;break;end end end end v341=1 -0 ;end end end break;end end end end if v190 then v188=v190;end v186=9 -6 ;end if ((1069 -(507 + 559))==v186) then if v188 then local v271=0 -0 ;local v272;while true do if (v271==(3 -2)) then task.wait(0.1);v21(v17.PlayerGui.TouchGui.TouchControlFrame.CarryButton);v271=390 -(212 + 176) ;end if (v271==(908 -(250 + 655))) then task.wait(0.3 -0 );v21(game.Players.LocalPlayer.PlayerGui.GameHUD.DropPlayer.Button);break;end if (v271==(2 -0)) then task.wait(0.1 -0 );v17.Character:SetPrimaryPartCFrame(v272);v271=3;end if (v271==0) then v272=v17.Character.HumanoidRootPart.CFrame;v17.Character:SetPrimaryPartCFrame(CFrame.new(v188.Character.HumanoidRootPart.Position));v271=1957 -(1869 + 87) ;end end end break;end if (v186==(0 -0)) then local v242=1901 -(484 + 1417) ;while true do if (v242==(2 -1)) then v186=1;break;end if (v242==(0 -0)) then v187=v17.Character.HumanoidRootPart.Position;v188=nil;v242=774 -(48 + 725) ;end end end end end break;end end end break;end end end local v41=false;function fb() local v73=0;local v74;while true do if (v73==0) then v74=0 -0 ;while true do if (v74==(0 -0)) then v41= not v41;while v41 do local v153=0 + 0 ;local v154;while true do if (v153==2) then v154.GlobalShadows=false;v154.OutdoorAmbient=Color3.fromRGB(341 -213 ,36 + 92 ,128);v153=1 + 2 ;end if (v153==3) then task.wait(853.3 -(152 + 701) );break;end if (v153==(1312 -(430 + 881))) then v154.ClockTime=14;v154.FogEnd=100000;v153=1 + 1 ;end if (v153==(895 -(557 + 338))) then v154=game:GetService(v7("\112\12\199\167\54\209\82\2","\184\60\101\160\207\66"));v154.Brightness=1 + 1 ;v153=2 -1 ;end end end break;end end break;end end end local v42=game:GetService(v7("\3\151\114\143\52\144\106\181\50\135","\220\81\226\28"));local v43=false;local v44=15;function tpwalk() local v75=0 -0 ;local v76;local v77;local v78;while true do if (v75==1) then v78=v77 and v77:FindFirstChildWhichIsA(v7("\59\192\143\250\228\200\26\209","\167\115\181\226\155\138")) ;if (v77 and v78 and v78.Parent) then local v128=v42.Heartbeat;while v77 and v78 and v78.Parent  do local v149=0;local v150;while true do if ((0 -0)==v149) then v150=v128:Wait();v78.WalkSpeed=v44;break;end end end end break;end if (v75==(0 -0)) then v76=game.Players.LocalPlayer;v77=v76.Character;v75=1;end end end v10:CreateTextbox(v7("\209\50\226\89\127","\166\130\66\135\60\27\17"),function(v79) print(v79);v44=v79;v43=v44>(816 -(499 + 302)) ;end);local function v45() if (v17.Character and v17.Character:FindFirstChild(v7("\108\95\195\116\62\75\67\202\71\63\75\94\254\116\34\80","\80\36\42\174\21")) and v17.Character:FindFirstChild(v7("\98\21\49\110\104\31\56\110","\26\46\112\87"))) then for v114,v115 in pairs(game.workspace._Lobby.Benches:GetChildren()) do if (v115:IsA(v7("\148\44\175\113\179","\212\217\67\203\20\223\223\37")) and  not v115.Seat:FindFirstChild(v7("\137\136\169\198\141\136\164\214","\178\218\237\200"))) then local v129=v115.Seat;if (v129 and  not v129:FindFirstChild(v7("\133\176\231\196\129\176\234\212","\176\214\213\134"))) then v129.Size=Vector3.new(870 -(39 + 827) ,2 -1 ,4);v129.Position=v17.Character.LeftFoot.Position;local v158=v17.Character:FindFirstChild(v7("\220\184\187\213\166\89\80\240\159\185\219\188\102\88\230\185","\57\148\205\214\180\200\54")).CFrame;wait(0.3);local v159=v129:FindFirstChild(v7("\33\248\52\32\65\23\241\49","\22\114\157\85\84"));if (v159 and v17.Character.Humanoid.Sit) then v159.C0=CFrame.new(0, -(11 -6),0 -0 );wait(7 -2 );v159.C0=CFrame.new(0 + 0 ,5,0 -0 );task.wait(0.3 + 0 );local v193=v159.Parent;v17.Character.Humanoid.Sit=false;task.wait(0.05);v17.Character:FindFirstChild(v7("\236\222\30\197\83\249\161\192\249\28\203\73\198\169\214\223","\200\164\171\115\164\61\150")).Anchored=true;task.wait(0.1 -0 );v193.CFrame=CFrame.new(0, -(114 -(103 + 1)),0);task.wait(554.1 -(475 + 79) );v17.Character:FindFirstChild(v7("\150\225\14\68\141\177\253\7\119\140\177\224\51\68\145\170","\227\222\148\99\37")).Anchored=false;v17.Character:FindFirstChild(v7("\27\71\95\247\247\60\91\86\196\246\60\70\98\247\235\39","\153\83\50\50\150")).CFrame=v158;task.wait(0.2);v17.Character.Humanoid.Jump=true;break;else end end end end end end local v39;local v46=false;local function v47() local v80=0 -0 ;local v81;while true do if (v80==0) then v81=0 -0 ;while true do if ((0 + 0)==v81) then v46= not v46;while v46 and v17.Character and v17.Character:FindFirstChild(v7("\117\99\126\29\125\164\68\89\68\124\19\103\155\76\79\98","\45\61\22\19\124\19\203")) and v17.Character:FindFirstChild(v7("\237\23\11\225\36\127\182\213","\217\161\114\109\149\98\16"))  do task.wait();local v160=false;for v175,v176 in pairs(game.workspace._Lobby.Benches:GetChildren()) do if (v176:IsA(v7("\63\47\60\121\176","\20\114\64\88\28\220")) and v176.Seat and v176.Seat:FindFirstChild(v7("\2\4\211\160\207\213\177\53","\221\81\97\178\212\152\176"))) then local v208=v176.Seat;if (v208 and v208:FindFirstChild(v7("\254\226\28\239\45\200\235\25","\122\173\135\125\155"))) then local v243=0;local v244;local v245;while true do if (v243==0) then v244=0 + 0 ;v245=nil;v243=1504 -(1395 + 108) ;end if (v243==(2 -1)) then while true do if (0==v244) then v245=v208:FindFirstChild(v7("\183\196\1\173\8\52\196\128","\168\228\161\96\217\95\81"));if v245 then local v324=1204 -(7 + 1197) ;local v325;while true do if (v324==(1 + 0)) then if v325 then local v378=0 + 0 ;local v379;local v380;while true do if (v378==(320 -(27 + 292))) then if (v379 and v380) then local v430=0;local v431;while true do if (v430==0) then v431=(v379-v380).magnitude;if (v46 and (v431<2000000) and  not v17.Character.Humanoid.Sit and  not v160) then local v465=0 -0 ;while true do if (v465==0) then local v493=0;while true do if (v493==1) then v465=1 -0 ;break;end if (v493==0) then v208.Position=v17.Character.LeftFoot.Position;wait(0.8 -0 );v493=1;end end end if (v465==(1 -0)) then v245.C0=CFrame.new(0 -0 , -5,0);break;end end elseif (v46 and (v431>0) and (v431<=(164 -(43 + 96))) and v17.Character.Humanoid.Sit) then if (v245.C0~=CFrame.new(0 -0 , -(11 -6),0 + 0 )) then v245.C0=CFrame.new(0, -5,0 + 0 );end elseif (v46 and (v431>(52 -25)) and (v431<=(12 + 18)) and v17.Character.Humanoid.Sit) then if (v245.C0==CFrame.new(0 -0 , -(2 + 3),0 + 0 )) then local v501=0;local v502;while true do if (v501==(1753 -(1414 + 337))) then v17.Character:FindFirstChild(v7("\51\248\139\80\227\50\48\31\223\137\94\249\13\56\9\249","\89\123\141\230\49\141\93")).Anchored=false;v17.Character:FindFirstChild(v7("\219\100\251\13\30\69\250\117\196\3\31\94\195\112\228\24","\42\147\17\150\108\112")).CFrame=v39;task.wait(0.2);v17.Character.Humanoid.Jump=true;break;end if (v501==(1941 -(1642 + 298))) then v17.Character.Humanoid.Sit=false;v17.Character:FindFirstChild(v7("\230\107\191\2\139\193\119\182\49\138\193\106\130\2\151\218","\229\174\30\210\99")).Anchored=true;v502.CFrame=CFrame.new(0, -(52 -32),0);task.wait(0.1 -0 );v501=5 -3 ;end if (v501==0) then v245.C0=CFrame.new(0,2 + 3 ,0);v502=v245.Parent;task.wait();v17.Character:FindFirstChild(v7("\172\84\85\47\138\78\81\42\182\78\87\58\180\64\74\58","\78\228\33\56")).Anchored=false;v501=1 + 0 ;end end elseif (v17 and Character and (v245.C0==CFrame.new(972 -(357 + 615) ,4 + 1 ,0 -0 )) and (v431>(24 + 3)) and (v431<=30) and v17.Character.Humanoid.Sit) then local v511=0 -0 ;local v512;while true do if (v511==(2 + 0)) then v17.Character:FindFirstChild(v7("\118\214\248\228\34\207\87\199\199\234\35\212\110\194\231\241","\160\62\163\149\133\76")).CFrame=v39;task.wait(0.2);v17.Character.Humanoid.Jump=true;break;end if (0==v511) then v512=v245.Parent;task.wait();v17.Character:FindFirstChild(v7("\39\179\32\126\233\231\6\162\31\112\232\252\63\167\63\107","\136\111\198\77\31\135")).Anchored=false;v17.Character.Humanoid.Sit=false;v511=1;end if (v511==(1 + 0)) then v17.Character:FindFirstChild(v7("\42\28\170\87\179\235\30\173\48\6\168\66\141\229\5\189","\201\98\105\199\54\221\132\119")).Anchored=true;v512.CFrame=CFrame.new(0 + 0 , -(1321 -(384 + 917)),697 -(128 + 569) );task.wait(1543.1 -(1407 + 136) );v17.Character:FindFirstChild(v7("\145\25\142\32\12\58\165\189\62\140\46\22\5\173\171\24","\204\217\108\227\65\98\85")).Anchored=false;v511=2;end end end end break;end end end break;end if (v378==(1887 -(687 + 1200))) then v379=v325.Character and v325.Character:FindFirstChild(v7("\243\196\35\93\33\88\210\213\28\83\32\67\235\208\60\72","\55\187\177\78\60\79")) and v325.Character.HumanoidRootPart.Position ;v380=v17.Character and v17.Character:FindFirstChild(v7("\5\219\82\234\72\192\137\41\252\80\228\82\255\129\63\218","\224\77\174\63\139\38\175")) and v17.Character.HumanoidRootPart.Position ;v378=1711 -(556 + 1154) ;end end end break;end if (v324==0) then local v352=0 -0 ;while true do if ((95 -(9 + 86))==v352) then local v393=0;while true do if (v393==(422 -(275 + 146))) then v352=1 + 0 ;break;end if (v393==(64 -(29 + 35))) then v160=true;v325=game.Teams.Killer and game.Teams.Killer:GetPlayers()[4 -3 ] ;v393=1;end end end if (v352==1) then v324=2 -1 ;break;end end end end end break;end end break;end end end end end if  not v160 then for v209,v210 in pairs(game.workspace._Lobby.Benches:GetChildren()) do if (v210:IsA(v7("\251\175\9\42\207","\163\182\192\109\79")) and v210.Seat and  not v210.Seat:FindFirstChild(v7("\7\35\1\212\194\49\42\4","\149\84\70\96\160"))) then local v246=v210.Seat;if v246 then local v273=0;local v274;while true do if (v273==1) then if v274 then local v321=0;local v322;local v323;while true do if ((4 -3)==v321) then if (v322 and v323) then local v358=0 + 0 ;local v359;local v360;while true do if (v358==(1012 -(53 + 959))) then v359=408 -(312 + 96) ;v360=nil;v358=1;end if (v358==(1 -0)) then while true do if (v359==0) then v360=(v322-v323).magnitude;if (v46 and (v360<(308 -(147 + 138))) and  not v17.Character.Humanoid.Sit) then local v437=899 -(813 + 86) ;local v438;while true do if (v437==(0 + 0)) then v39=v17.Character:FindFirstChild(v7("\211\187\191\41\245\161\187\44\201\161\189\60\203\175\160\60","\72\155\206\210")).CFrame;v246.Position=v17.Character.LeftFoot.Position;v437=1 -0 ;end if (v437==1) then local v469=492 -(18 + 474) ;while true do if (v469==(0 + 0)) then wait(0.5 -0 );v438=v246:FindFirstChild(v7("\117\127\85\26\4\67\118\80","\83\38\26\52\110"));v469=1087 -(860 + 226) ;end if (v469==(304 -(121 + 182))) then v437=1 + 1 ;break;end end end if (v437==2) then if v438 then v438.C0=CFrame.new(0, -(1245 -(988 + 252)),0 + 0 );end break;end end end break;end end break;end end end break;end if ((0 + 0)==v321) then v322=v274.Character and v274.Character:FindFirstChild(v7("\16\19\0\236\54\9\4\233\10\9\2\249\8\7\31\249","\141\88\102\109")) and v274.Character.HumanoidRootPart.Position ;v323=v17.Character and v17.Character:FindFirstChild(v7("\155\70\199\113\20\50\92\197\129\92\197\100\42\60\71\213","\161\211\51\170\16\122\93\53")) and v17.Character.HumanoidRootPart.Position ;v321=1;end end end break;end if (v273==(1970 -(49 + 1921))) then local v312=0;while true do if (1==v312) then v273=891 -(223 + 667) ;break;end if (v312==(52 -(51 + 1))) then v246.Size=Vector3.new(4,1 -0 ,8 -4 );v274=game.Teams.Killer and game.Teams.Killer:GetPlayers()[1] ;v312=1126 -(146 + 979) ;end end end end end end end end end break;end end break;end end end function copyd() v22("https://discord.com/invite/23kFrRBSfD");end function copyy() v22("https://youtube.com/@OneCreatorX");end function curars() local v82=0 + 0 ;while true do if (v82==(605 -(311 + 294))) then v37= not v37;if v37 then game:GetService(v7("\106\2\41\117\93\5\49\79\91\18","\38\56\119\71")).Heartbeat:Connect(v38);end break;end end end function fix() game.Players.LocalPlayer.PlayerGui.ScreenFX.Enabled=false;end v10:CreateToggle(v7("\214\252\72\150\21\90\242\246\93\196\54","\54\147\143\56\182\69"),esp);v10:CreateToggle(v7("\240\148\243\69\159\244\147\246\78\215\194\193","\191\182\225\159\41"),fb);v10:CreateButton(v7("\14\1\43\90\133\131\199\57\1\45\21\222\148","\162\75\114\72\53\235\231"),v45);v10:CreateButton(v7("\170\53\92\231\87\66\191\63\86\231\86\12\204\16\75\227\87\11\130\59","\98\236\92\36\130\51"),fix);v11:CreateToggle(v7("\143\16\0\182\5\137\160\34\165","\80\196\121\108\218\37\200\213"),killAura);v11:CreateToggle(v7("\41\125\17\107\74\0\158\64\88\11\115\71","\234\96\19\98\31\43\110"),kill);v12:CreateToggle(v7("\39\10\64\198\236\90\142\10\15\18\247\160\96\152\78\61\18\150\229","\235\102\127\50\167\204\18"),curar);v12:CreateToggle(v7("\126\174\181\23\86\47\64\225\222\42\72\34\85\179","\78\48\193\149\67\36"),Trap);v13:CreateToggle(v7("\17\11\148\23\1\21\13\131\25\81\53","\33\80\126\224\120"),Escap);v12:CreateToggle(v7("\205\189\23\203\28\201\187\0\203\82\232\173\17\215\89\164\138\67\150\21","\60\140\200\99\164"),v47);v12:CreateToggle(v7("\166\225\22\39\226\164\251\8\42\167\132\224\68\15\182\130\249\23","\194\231\148\100\70"),item);v13:CreateToggle(v7("\101\67\205\175\243\203\82\12\232\183\243\197\85","\168\38\44\161\195\150"),tp);v13:CreateToggle(v7("\163\243\142\122\53\235\162\86\169\232\135\123\35\160\130\88\172\243\128\116\41\161","\118\224\156\226\22\80\136\214"),tpa);v12:CreateToggle(v7("\108\225\25\180\80\239\73\192\111\239\73","\224\34\142\57"),Trappp);v13:CreateToggle(v7("\234\183\133\237\127\240\68\11\204\231\237\216\127\225","\110\190\199\165\189\19\145\61"),Curatp);v14:CreateButton(v7("\249\228\103\241\203\235\211\229\124\168\178\200\207\223\98\234\142","\167\186\139\23\136\235"),copyy);v14:CreateButton(v7("\57\186\152\20\90\153\129\3\17\245\172\4\9\182\135\31\30","\109\122\213\232"),copyd);tpwalk();hhhh();
+
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
+end
+
+local b = false
+
+local function createNameTag()
+    local nameTags = {}
+
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.Team == game.Teams.Lobby then
+            if player.Character then
+                local existingNameTag = player.Character:FindFirstChild("NameTag")
+                if existingNameTag then
+                    existingNameTag:Destroy()
+                end
+            end
+        else
+            if player.Character then
+                local existingNameTag = player.Character:FindFirstChild("NameTag")
+                if not existingNameTag then
+                    local playerPart = player.Character:WaitForChild("HumanoidRootPart")
+                    local nameColor = Color3.new()
+
+                    local billboardGui = Instance.new("BillboardGui")
+                    billboardGui.Adornee = playerPart
+                    billboardGui.Size = UDim2.new(0, 200, 0, 40)
+                    billboardGui.StudsOffset = Vector3.new(0, 3, 0)
+                    billboardGui.AlwaysOnTop = true
+                    billboardGui.Name = "NameTag"
+
+                    local nameLabel = Instance.new("TextLabel")
+                    nameLabel.Size = UDim2.new(1, 0, 1, 0)
+                    nameLabel.BackgroundTransparency = 1
+                    nameLabel.TextColor3 = nameColor
+
+                    local killer = nil
+                    local playerHumanoid = player.Character:FindFirstChildOfClass("Humanoid")
+                    for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
+                        if otherPlayer ~= player and otherPlayer.Team ~= game.Teams.Lobby then
+                            if otherPlayer.Team == game.Teams.Killer then
+                                killer = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
+                                break
+                            end
+                        end
+                    end
+
+                    if player.Team == game.Teams.Killer then
+                        nameLabel.Text = "K"
+                        nameLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                    else
+                        nameLabel.Text = "S"
+                        nameLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+                    end
+
+                    nameLabel.FontSize = Enum.FontSize.Size10
+                    nameLabel.TextScaled = true
+                    nameLabel.Parent = billboardGui
+
+                    if killer then
+                        nameLabel.Text = "K"
+                        nameLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                    end
+
+                    billboardGui.Parent = playerPart.Parent
+
+                    table.insert(nameTags, billboardGui)
+                elseif player.Team == game.Teams.Killer then
+                    if existingNameTag.TextLabel.Text ~= "K" then
+                        existingNameTag.TextLabel.Text = "K"
+                        existingNameTag.TextLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+                    end
+                else
+                    if existingNameTag.TextLabel.Text ~= "S" then
+                        existingNameTag.TextLabel.Text = "S"
+                        existingNameTag.TextLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+                    end
+                end
+            end
+        end
+    end
+
+    return nameTags
+end
+
+function esp()
+    b = not b
+    while b do
+        createNameTag()
+        task.wait(1)
+    end
+end
+
+local c = false
+function killAura()
+    c = not c
+    while c do
+        if c and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Knife") then
+            local rootPos = Player.Character.HumanoidRootPart.Position
+task.wait(0.5)
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= Player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local targetPos = player.Character.HumanoidRootPart.Position
+                    local distance = (rootPos - targetPos).magnitude
+                    if distance <= 22 then
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(rootPos)
+                    end
+                end
+            end
+        end
+        task.wait(0.5)
+    end
+end
+
+local u = false
+function kill()
+    u = not u
+    while u do
+task.wait(0.5)
+        if u and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("Knife") then
+            local rootPos = Player.Character.HumanoidRootPart.Position
+task.wait(0.3)
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= Player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    local targetPos = player.Character.HumanoidRootPart.Position
+                    local distance = (rootPos - targetPos).magnitude
+                    if distance <= 900 then
+                        player.Character.HumanoidRootPart.CFrame = CFrame.new(rootPos)
+                    end
+                end
+            end
+        end
+end
+        task.wait()
+end
+
+local j = false 
+function curar()
+    j = not j
+    while j do
+        task.wait()
+        if j and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
+            local rootPos = Player.Character.HumanoidRootPart.Position
+            local targetPlayer = nil
+            local minDistance = 900
+            for _, players in ipairs(game.Players:GetPlayers()) do
+                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
+                    local targetPos = players.Character.HumanoidRootPart.Position
+                    local distance = (rootPos - targetPos).magnitude
+                    if distance > 7 and distance <= 19 and distance < minDistance then
+                        targetPlayer = players
+                        minDistance = distance
+else
+                    end
+else
+                end
+            end
+            if targetPlayer then
+ targetPlayer.Character:SetPrimaryPartCFrame(CFrame.new(Player.Character.HumanoidRootPart.Position))  
+clickButton(Player.PlayerGui.TouchGui.TouchControlFrame.CarryButton)
+            end
+        end
+        task.wait()
+    end
+end
+
+local x = false 
+function Trap()
+    x = not x
+    while x do
+task.wait(1)
+for _, item in pairs(workspace:GetChildren()) do
+     if  item:IsA("Model") and item.Name == "Trap" then
+ item:Destroy()
+end
+end
+        end
+end
+
+local d = false 
+local isRunning = false
+local exitFound = false
+
+function control()
+task.wait(5)
+if d then
+isRunning = true 
+else
+isRunning = false 
+end
+end
+
+function Escape()
+    while isRunning and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+        task.wait(0.3)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("Exits") then
+                    exitFound = true
+                    isRunning = false
+                    while exitFound and d and model.Exits do
+                        task.wait(1)
+                        local success, result = pcall(function()
+                            for _, part in ipairs(model.Exits:GetChildren()) do
+                                task.wait(1)
+                                if part:IsA("Model") then
+                                    local success, result = pcall(function()
+                                        for _, partt in ipairs(part.Trigger:GetChildren()) do
+                                            if partt.Name == "ExitIcon" then
+                                                local triggerPos = partt.Parent.Position
+                                                if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") then
+                                                    local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                                    if distance < 7000 and game.Players.LocalPlayer.Team == game.Teams.Survivor then
+ Player.Character.Humanoid.Sit = false 
+task.wait(0.3) Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door1.Position))                          
+task.wait(0.3)
+Player.Character:SetPrimaryPartCFrame(CFrame.new(partt.Parent.Parent.Doorway.Door2.Position))
+task.wait(0.3)   
+Player.Character:SetPrimaryPartCFrame(CFrame.new(triggerPos))                                     
+                                                        exitFound = false
+                                                        control()
+                                                        break
+                                                    else
+                                                        exitFound = false
+                                                        isRunning = true
+                                                    end
+                                                else
+                                                    exitFound = false
+                                                    isRunning = true
+                                                end
+                                            else
+                                                exitFound = false
+                                                isRunning = true
+                                            end
+                                        end
+                                    end)
+                                    if not success then
+                                        exitFound = false
+                                                isRunning = true
+                                    end
+                                else
+                                    exitFound = false
+                                    isRunning = true
+                                end
+                            end
+                        end)
+                        if not success then
+                           exitFound = false
+                                                isRunning = true 
+                        end
+                    end
+                else
+                    exitFound = false
+                    isRunning = true
+                end
+            end
+        end)
+        if not success then
+           exitFound = false
+                                                isRunning = true 
+        end
+        wait()
+    end
+end
+
+function Escap()
+d = not d
+isRunning = not isRunning
+Escape()
+end
+
+local dd = false 
+local isRunningg = false
+local exitFoundd = false
+
+
+function items()
+    while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+        task.wait(1)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                    exitFoundd = true
+                    isRunningg = false
+  
+local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+                     
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
+                        for _, part in ipairs(model.LootSpawns:GetChildren()) do
+                            task.wait()
+                            local success, result = pcall(function()
+                                if part:IsA("BasePart") then
+                                    for _, partt in pairs(part:GetChildren()) do
+                                        local success, result = pcall(function()
+                                            if partt.Name == "Model" then 
+                                                for _, parttt in pairs(partt:GetChildren()) do
+                                                    local success, result = pcall(function()
+                                                        if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
+                                                            local triggerPos = part.Position
+                                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                                            if distance < 100 and not ii then
+ 
+local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+                                                                   fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                                exitFoundd = false
+                                                                
+                                                            else
+                                                                exitFoundd = false
+                                                                isRunningg = true
+                                                            end
+                                                        else
+                                                            exitFoundd = false
+                                                            isRunningg = true
+                                                        end
+                                                    end)
+                                                    if not success then
+                                                        exitFoundd = false
+                    isRunningg = true
+                                                    end
+                                                end
+                                            else
+                                                exitFoundd = false
+                                                isRunningg = true
+                                            end
+                                        end)
+                                        if not success then
+                                            exitFoundd = false
+                    isRunningg = true
+                                        end
+                                    end
+                                else
+                                    exitFoundd = false
+                                    isRunningg = true
+                                end
+                            end)
+                            if not success then
+                                exitFoundd = false
+                    isRunningg = true
+                            end
+                        end
+                    end
+                else
+                    exitFoundd = false
+                    isRunningg = true
+                end
+            end
+        end)
+        if not success then
+            exitFoundd = false
+                    isRunningg = true
+        end
+    end
+end
+
+function ite()
+    while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+        task.wait(1)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                    exitFoundd = true
+                    isRunningg = false
+local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+    
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
+                        for _, part in ipairs(model.LootSpawns:GetChildren()) do
+                            task.wait()
+                            local success, result = pcall(function()
+                                if part:IsA("BasePart") then
+                                    for _, partt in pairs(part:GetChildren()) do
+                                        local success, result = pcall(function()
+                                            if partt.Name == "Model" then 
+                                                for _, parttt in pairs(partt:GetChildren()) do
+                                                    local success, result = pcall(function()
+                                                        if parttt:IsA("Part") then
+                                                            local triggerPos = part.Position
+                                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                                                            if distance < 100 and not ii then
+    
+local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+                                                                fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                                exitFoundd = false
+                                                                
+                                                            else
+                                                                exitFoundd = false
+                                                                isRunningg = true
+                                                            end
+                                                        else
+                                                            exitFoundd = false
+                                                            isRunningg = true
+                                                        end
+                                                    end)
+                                                    if not success then
+                                                        exitFoundd = false
+                    isRunningg = true
+                                                    end
+                                                end
+                                            else
+                                                exitFoundd = false
+                                                isRunningg = true
+                                            end
+                                        end)
+                                        if not success then
+                                            exitFoundd = false
+                    isRunningg = true
+                                        end
+                                    end
+                                else
+                                    exitFoundd = false
+                                    isRunningg = true
+                                end
+                            end)
+                            if not success then
+                                exitFoundd = false
+                    isRunningg = true
+                            end
+                        end
+                    end
+                else
+                    exitFoundd = false
+                    isRunningg = true
+                end
+            end
+        end)
+        if not success then
+            exitFoundd = false
+                    isRunningg = true
+        end
+    end
+end
+
+
+function item()
+dd = not dd
+isRunningg = not isRunningg
+items()
+ite()
+end
+
+local isRunningg = false
+local dd = false
+
+function tpitems()
+    while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+        task.wait(1)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                    exitFoundd = true
+                    isRunningg = false
+ local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+                      
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
+                        for _, part in
+
+ ipairs(model.LootSpawns:GetChildren()) do
+                            task.wait(0.1)
+                            local success, result = pcall(function()
+                                if part:IsA("BasePart") then
+                                    for _, partt in pairs(part:GetChildren()) do
+                                        local success, result = pcall(function()
+                                            if partt.Name == "Model" then 
+                                                for _, parttt in pairs(partt:GetChildren()) do
+                                                    local success, result = pcall(function()
+                                                        if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
+                                                            local triggerPos = part.Position
+                                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                 
+                                                            if distance < 300 and not ii then
+
+local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+    
+  local tp = part.Position + Vector3.new(0, 3, 0)
+    Player.Character:SetPrimaryPartCFrame(CFrame.new(tp))
+task.wait(0.2)
+fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                                exitFoundd = false
+                                                                
+                                                            else
+                                                                exitFoundd = false
+                                                                isRunningg = true
+                                                            end
+                                                        else
+                                                            exitFoundd = false
+                                                            isRunningg = true
+                                                        end
+                                                    end)
+                                                    if not success then
+                                                        exitFoundd = false
+                    isRunningg = true
+                                                    end
+                                                end
+                                            else
+                                                exitFoundd = false
+                                                isRunningg = true
+                                            end
+                                        end)
+                                        if not success then
+                                            exitFoundd = false
+                    isRunningg = true
+                                        end
+                                    end
+                                else
+                                    exitFoundd = false
+                                    isRunningg = true
+                                end
+                            end)
+                            if not success then
+                                exitFoundd = false
+                    isRunningg = true
+                            end
+                        end
+                    end
+                else
+                    exitFoundd = false
+                    isRunningg = true
+                end
+            end
+        end)
+        if not success then
+            exitFoundd = false
+                    isRunningg = true
+        end
+    end
+end
+
+function tp()
+dd = not dd
+isRunningg = not isRunningg
+tpitems()
+end
+
+
+local isRunningg = false
+local dd = false
+
+function titems()
+    while isRunningg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") do
+        task.wait(1)
+        local success, result = pcall(function()
+            for _, model in pairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChild("LootSpawns") then
+                    exitFoundd = true
+                    isRunningg = false
+ local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+                      
+while exitFoundd and dd and not ii and model:FindFirstChild("LootSpawns") do
+                        for _, part in
+
+ ipairs(model.LootSpawns:GetChildren()) do
+                            task.wait(0.1)
+                            local success, result = pcall(function()
+                                if part:IsA("BasePart") then
+                                    for _, partt in pairs(part:GetChildren()) do
+                                        local success, result = pcall(function()
+                                            if partt.Name == "Model" then 
+                                                for _, parttt in pairs(partt:GetChildren()) do
+                                                    local success, result = pcall(function()
+                                                        if parttt:IsA("MeshPart") and parttt.Transparency == 0 then
+                                                            local triggerPos = part.Position
+                                                            local distance = (Player.Character.HumanoidRootPart.Position - triggerPos).magnitude
+                 
+                                                            if distance < 4000 and not ii then
+
+local amountText = game.Players.LocalPlayer.PlayerGui.GameHUD.PlayerHUD.XP.RoundInfo.Backpack.Amount.Text
+        local amountParts = string.split(amountText, "/")
+        local x = tonumber(amountParts[1])
+        local y = tonumber(amountParts[2])
+        ii = (x == y)
+    
+  local tp = part.Position + Vector3.new(0, 3, 0)
+    Player.Character:SetPrimaryPartCFrame(CFrame.new(tp))
+task.wait(0.2)
+fireproximityprompt(part.LootProxBlock.LootProximityPrompt)
+                                                                exitFoundd = false
+                                                                
+                                                            else
+                                                                exitFoundd = false
+                                                                isRunningg = true
+                                                            end
+                                                        else
+                                                            exitFoundd = false
+                                                            isRunningg = true
+                                                        end
+                                                    end)
+                                                    if not success then
+                                                        exitFoundd = false
+                    isRunningg = true
+                                                    end
+                                                end
+                                            else
+                                                exitFoundd = false
+                                                isRunningg = true
+                                            end
+                                        end)
+                                        if not success then
+                                            exitFoundd = false
+                    isRunningg = true
+                                        end
+                                    end
+                                else
+                                    exitFoundd = false
+                                    isRunningg = true
+                                end
+                            end)
+                            if not success then
+                                exitFoundd = false
+                    isRunningg = true
+                            end
+                        end
+                    end
+                else
+                    exitFoundd = false
+                    isRunningg = true
+                end
+            end
+        end)
+        if not success then
+            exitFoundd = false
+                    isRunningg = true
+        end
+    end
+end
+
+function tpa()
+dd = not dd
+isRunningg = not isRunningg
+titems()
+end
+
+
+local aa = false
+local aaa = false
+
+function Trapp()
+    while aa do
+        task.wait(1)
+        for _, model in pairs(workspace:GetChildren()) do
+            if model:IsA("Model") then
+                for _, modell in pairs(model:GetChildren()) do
+    task.wait()
+                    if modell.Name == "RatTraps" and aaa then
+                        modell:Destroy()
+                        aaa = false
+                        task.wait(1)
+                    else
+                        if aa then
+                           task.wait()
+                            aaa = true
+                        else
+                  task.wait()
+                            aaa = false
+                        end
+                    end
+                end
+            else
+            end
+        end
+    end
+end
+
+function Trappp()
+    aa = not aa
+    aaa = not aaa
+    Trapp()
+end
+
+local gggg = false
+
+local function curarse()
+    if gggg and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and game.Teams:FindFirstChild("Survivor") and Player.Team == game.Teams.Survivor and Player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
+        local rootPos = Player.Character.HumanoidRootPart.Position
+        local targetPlayer = nil
+        local players = game.Teams.Killer:GetPlayers()
+        for _, player in ipairs(players) do
+            if player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false and player.Team == game.Teams.Survivor then
+                local targetPos = player.Character.HumanoidRootPart.Position
+                local distance = (rootPos - targetPos).magnitude
+                if distance > 100 and distance <= 1500 then
+                    targetPlayer = player
+                end
+            else
+                targetPlayer = nil
+            end
+        end
+        if targetPlayer then
+            Player.Character:SetPrimaryPartCFrame(CFrame.new(targetPlayer.Character.HumanoidRootPart.Position))
+else
+        end
+    end
+end
+
+local ff = false
+
+local player = game.Players.LocalPlayer
+
+function Curatp()
+    ff = not ff
+    while ff do
+        task.wait()
+        if ff and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
+            local rootPos = Player.Character.HumanoidRootPart.Position
+            local targetPlayer = nil
+            local minDistance = 900
+            local nearbyPlayer = nil
+            for _, players in ipairs(game.Players:GetPlayers()) do
+                if players ~= Player and players.Character and players.Character:FindFirstChild("HumanoidRootPart") and not players.Character:FindFirstChild("Knife") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and players.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled then
+                    local targetPos = players.Character.HumanoidRootPart.Position
+                    local distance = (rootPos - targetPos).magnitude
+                    if distance <= 13 then
+                        nearbyPlayer = players
+                    elseif distance > 13 and distance <= 1000 and distance < minDistance then
+                        local killerNearby = false
+                        for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
+                            if otherPlayer.Team == game.Teams.Killer then
+                                local killerPos = otherPlayer.Character and otherPlayer.Character:FindFirstChild("HumanoidRootPart") and otherPlayer.Character.HumanoidRootPart.Position
+                                if killerPos then
+                                    local killerDistance = (killerPos - targetPos).magnitude
+                                    if killerDistance <= 16 then
+                                        killerNearby = true
+                                        break
+                                    end
+                                end
+                            end
+                        end
+                        if not killerNearby then
+                            targetPlayer = players
+                            minDistance = distance
+                        end
+                    end
+                end
+            end
+            if nearbyPlayer then
+                targetPlayer = nearbyPlayer
+            end
+            if targetPlayer then
+                local ss = Player.Character.HumanoidRootPart.CFrame
+                Player.Character:SetPrimaryPartCFrame(CFrame.new(targetPlayer.Character.HumanoidRootPart.Position))
+
+                task.wait(0.1)
+clickButton(Player.PlayerGui.TouchGui.TouchControlFrame.CarryButton)
+task.wait(0.1)
+                Player.Character:SetPrimaryPartCFrame(ss)
+task.wait(0.3)
+clickButton(game.Players.LocalPlayer.PlayerGui.GameHUD.DropPlayer.Button)
+            end
+        end
+    end
+end
+
+
+local w = false
+function fb()
+w = not w
+while w do
+    local Lighting = game:GetService("Lighting")
+    Lighting.Brightness = 2
+    Lighting.ClockTime = 14
+    Lighting.FogEnd = 100000
+    Lighting.GlobalShadows = false
+    Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+task.wait(0.3)
+end
+end
+
+
+local RunService = game:GetService("RunService")
+
+local tpwalking = false
+local speed = 15
+
+function tpwalk()
+    local speaker = game.Players.LocalPlayer
+    local chr = speaker.Character
+    local hum = chr and chr:FindFirstChildWhichIsA("Humanoid")
+    
+    if chr and hum and hum.Parent then
+        local hb = RunService.Heartbeat
+        while chr and hum and hum.Parent do
+            local delta = hb:Wait()
+            hum.WalkSpeed = speed
+        end
+    end
+end
+
+Sec:CreateTextbox("Speed", function(value)
+    print(value)
+        speed = value
+        tpwalking = speed > 15
+       
+end)
+
+
+local function seat()
+    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and  Player.Character:FindFirstChild("LeftFoot") then
+        for _, be in pairs(game.workspace._Lobby.Benches:GetChildren()) do
+            if be:IsA("Model") and not be.Seat:FindFirstChild("SeatWeld") then
+                local b = be.Seat
+                if b and not b:FindFirstChild("SeatWeld") then
+                    b.Size = Vector3.new(4, 1, 4)
+                    b.Position = Player.Character.LeftFoot.Position
+local ff = Player.Character:FindFirstChild("HumanoidRootPart").CFrame
+                    wait(0.4)
+                    local weld = b:FindFirstChild("SeatWeld")
+                    if weld and Player.Character.Humanoid.Sit then
+                        weld.C0 = CFrame.new(0, -5, 0)
+                        wait(5)
+                        weld.C0 = CFrame.new(0, 5, 0)
+task.wait(0.3)
+local ww = weld.Parent                                                         Player.Character.Humanoid.Sit = false
+task.wait(0.05)
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = true 
+task.wait(0.1)
+ww.CFrame = CFrame.new(0, -10, 0)
+task.wait(0.1)  
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
+Player.Character:FindFirstChild("HumanoidRootPart").CFrame = ff
+task.wait(0.2)
+Player.Character.Humanoid.Jump = true 
+break
+else
+                    end
+                end
+            end
+        end
+    end
+end
+
+
+local ff
+
+local e = false
+local function seatesconderse()
+    e = not e
+    while e and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("LeftFoot") do
+        task.wait()
+        local hasWeld = false
+        for _, be in pairs(game.workspace._Lobby.Benches:GetChildren()) do
+            if be:IsA("Model") and be.Seat and be.Seat:FindFirstChild("SeatWeld") then
+                local b = be.Seat
+                if b and b:FindFirstChild("SeatWeld") then
+                    local weld = b:FindFirstChild("SeatWeld")
+                    if weld then
+                        hasWeld = true
+                        local killer = game.Teams.Killer and game.Teams.Killer:GetPlayers()[1]
+                        if killer then
+                            local killerPos = killer.Character and killer.Character:FindFirstChild("HumanoidRootPart") and killer.Character.HumanoidRootPart.Position
+                            local playerPos = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character.HumanoidRootPart.Position
+                            if killerPos and playerPos then
+                                local distance = (killerPos - playerPos).magnitude
+                                if e and distance < 2000000 and not Player.Character.Humanoid.Sit and not hasWeld then
+                                    b.Position = Player.Character.LeftFoot.Position
+                                    wait(0.8)
+                                    weld.C0 = CFrame.new(0, -5, 0)
+                                elseif e and distance > 0 and distance <= 25 and Player.Character.Humanoid.Sit then
+                                   if weld.C0 ~= CFrame.new(0, -5, 0) then
+                                        weld.C0 = CFrame.new(0, -5, 0)
+                                    end
+                                elseif e and distance > 29  and distance <= 32 and Player.Character.Humanoid.Sit then
+                                    if weld.C0 == CFrame.new(0, -5, 0) then
+                                        weld.C0 = CFrame.new(0, 5, 0)
+                                 local ww = weld.Parent      
+task.wait()         
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
+Player.Character.Humanoid.Sit = false                                         Player.Character:FindFirstChild("HumanoidRootPart").Anchored = true
+ww.CFrame = CFrame.new(0, -20, 0)  
+task.wait(0.1)
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
+Player.Character:FindFirstChild("HumanoidRootPart").CFrame = ff
+task.wait(0.2)
+Player.Character.Humanoid.Jump = true 
+                           elseif Player and Character and weld.C0 == CFrame.new(0, 5, 0) and distance > 29 and distance <= 32 and Player.Character.Humanoid.Sit then
+     local ww = weld.Parent  
+task.wait()                          
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
+                             Player.Character.Humanoid.Sit = false
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = true
+ww.CFrame = CFrame.new(0, -20, 0)  
+task.wait(0.1)
+Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
+Player.Character:FindFirstChild("HumanoidRootPart").CFrame = ff
+task.wait(0.2)
+Player.Character.Humanoid.Jump = true 
+
+                                        
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+
+        if not hasWeld then
+            for _, be in pairs(game.workspace._Lobby.Benches:GetChildren()) do
+                if be:IsA("Model") and be.Seat and not be.Seat:FindFirstChild("SeatWeld") then
+                    local b = be.Seat
+                    if b then
+                        b.Size = Vector3.new(4, 1, 4)
+                        local killer = game.Teams.Killer and game.Teams.Killer:GetPlayers()[1]
+                        if killer then
+                            local killerPos = killer.Character and killer.Character:FindFirstChild("HumanoidRootPart") and killer.Character.HumanoidRootPart.Position
+                            local playerPos = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character.HumanoidRootPart.Position
+                            if killerPos and playerPos then
+                                local distance = (killerPos - playerPos).magnitude
+
+                                if e and distance < 24 and not Player.Character.Humanoid.Sit then
+ff = Player.Character:FindFirstChild("HumanoidRootPart").CFrame
+
+                                    b.Position = Player.Character.LeftFoot.Position
+                                    wait(0.5)
+                                    local weld = b:FindFirstChild("SeatWeld")
+                                    if weld then
+                                        weld.C0 = CFrame.new(0, -5, 0)
+end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+end
+
+function copyd()
+copyToClipboard("https://discord.com/invite/23kFrRBSfD")
+end
+
+function copyy()
+copyToClipboard("https://youtube.com/@OneCreatorX")
+end
+
+function curars()
+gggg = not gggg
+if gggg then
+game:GetService("RunService").Heartbeat:Connect(curarse)
+end
+end
+
+function fix()
+game.Players.LocalPlayer.PlayerGui.ScreenFX.Enabled = false
+end
+
+Sec:CreateToggle("Esp Players", esp)
+Sec:CreateToggle("Full Bright ", fb)
+Sec:CreateButton("Esconderse 5s", seat)
+Sec:CreateButton("Fixed Screen Loading", fix)
+Ki:CreateToggle("Kill Aura", killAura)
+Ki:CreateToggle("Instant Kill", kill)
+Su:CreateToggle("Aura Help Plrs(B 1)", curar)
+Su:CreateToggle("No Trap Killer", Trap)
+Sut:CreateToggle("Auto Escape", Escap)
+Su:CreateToggle("Auto Esconderse(B 2)", seatesconderse)
+Su:CreateToggle("Aura Collect Items", item)
+Sut:CreateToggle("Collect Items", tp)
+Sut:CreateToggle("Collect Items(T.Lobby)", tpa)
+Su:CreateToggle("No Trap Map", Trappp)
+-- Sut:CreateToggle("Auto Curarse(break)", curars)
+Sut:CreateToggle("Tp Player Help", Curatp)
+Sec2:CreateButton("Copy Link YouTube", copyy)
+Sec2:CreateButton("Copy Link Discord", copyd)
+tpwalk()
+hhhh()
