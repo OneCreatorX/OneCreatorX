@@ -45,7 +45,7 @@ end
 
 local bb = Instance.new("TextButton", f)
     bb.Name = "BB"
-    bb.Text = "Buy GPass (1)"
+    bb.Text = "Buy One(1)"
     bb.Size = UDim2.new(0.5, -5, 0, 30)
     bb.Position = UDim2.new(0, 0, 0.2, 40)
     bb.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -85,7 +85,7 @@ local tb = Instance.new("TextButton", f)
 
 local ddg = Instance.new("TextLabel", f)
     ddg.Name = "DD"
-    ddg.Text = "Loading GamePass wait 5s"
+    ddg.Text = "Loading GamePass wait 10s"
     ddg.Size = UDim2.new(1, 0, 0, 30)
     ddg.Position = UDim2.new(0, 0, 0.27, 0)
     ddg.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
@@ -137,8 +137,8 @@ end
     tb.MouseButton1Click:Connect(PIL)
 
 local function CI()
- task.wait(5)
-ddg.Text = "Possible error Rejoin"
+ task.wait(10)
+ddg.Text = "Possible error execute agaian"
 local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
    
 
