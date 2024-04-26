@@ -16,6 +16,9 @@ if not sg then
     sg.Enabled = true
 end
 
+local selId
+    local isLoop = false
+
 local f = Instance.new("Frame", sg)
 f.Name = "CF"
 f.Size = UDim2.new(0, 250, 0, 150)
@@ -136,10 +139,8 @@ end
 local function CI()
  task.wait(5)
 ddg.Text = "Possible error Rejoin"
-ddg.Text
 local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
-    local selId
-    local isLoop = false
+   
 
 local opts = {}
 
