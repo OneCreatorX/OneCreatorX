@@ -137,8 +137,9 @@ end
     tb.MouseButton1Click:Connect(PIL)
 
 
+local dera = true
 function ani()
-while ddg.Visible do
+if dera then
 task.wait(0.3)
 ddg.Text = "Loading GamePass wait ."
 task.wait(0.3)
@@ -157,7 +158,8 @@ local function CI()
  if game:GetService("MarketplaceService") and game:GetService("MarketplaceService"):GetDeveloperProductsAsync() and game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage() then
   
 local devP = game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()
-
+ dera = false 
+task.wait(1.5)
 ddg.Text = "Ready All - Loaded successfully "
 task.wait(3)
 local opts = {}
@@ -211,10 +213,10 @@ local opts = {}
 
     dd.MouseButton1Click:Connect(CD)
 else
-wait(1)
+wait(1.6)
+ani()
 CI()
 end
 end
 
-ani()
 CI()
