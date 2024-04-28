@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Survive The Killer v1.4")
+local Win = Lib:NewWindow("Survive The Killer v1.6")
 local Sec = Win:NewSection("General")
 local Ki = Win:NewSection("Killer")
 local Su = Win:NewSection("Survivor")
@@ -9,8 +9,6 @@ local Players = game:GetService("Players")
 local Humanoid = game.Players.LocalPlayer.Character
 local Player = game.Players.LocalPlayer
 local Humanoid = Player.Character:WaitForChild("Humanoid")
-local hh = game.workspace._Lobby.Benches.Bench.Seat.CFrame
-local rm = game.ReplicatedStorage.Communication.Events
 local ii = false
 
 local function clickButton(btn)
@@ -734,7 +732,7 @@ local function curarse()
             if player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("BleedOutHealth") and player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false and player.Team == game.Teams.Survivor then
                 local targetPos = player.Character.HumanoidRootPart.Position
                 local distance = (rootPos - targetPos).magnitude
-                if distance > 100 and distance <= 1500 then
+                if distance > 5 and distance <= 1500 then
                     targetPlayer = player
                 end
             else
@@ -756,7 +754,7 @@ function Curatp()
     ff = not ff
     while ff do
         task.wait()
-        if ff and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and not Player.Character:FindFirstChild("Knife") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
+        if ff and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Team == game.Teams.Survivor and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth") and Player.Character.HumanoidRootPart:FindFirstChild("BleedOutHealth").Enabled == false then
             local rootPos = Player.Character.HumanoidRootPart.Position
             local targetPlayer = nil
             local minDistance = 900
@@ -767,7 +765,7 @@ function Curatp()
                     local distance = (rootPos - targetPos).magnitude
                     if distance <= 13 then
                         nearbyPlayer = players
-                    elseif distance > 13 and distance <= 1000 and distance < minDistance then
+                    elseif distance > 13 and distance <= 10000 and distance < minDistance then
                         local killerNearby = false
                         for _, otherPlayer in ipairs(game.Players:GetPlayers()) do
                             if otherPlayer.Team == game.Teams.Killer then
@@ -817,12 +815,105 @@ while w do
     Lighting.FogEnd = 100000
     Lighting.GlobalShadows = false
     Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+    Lighting.ScreenTint.Enabled = false
+    Lighting.ColorCorrection.Enabled = false
 task.wait(0.3)
 end
 end
 
+local b = game.workspace._Lobby.Benches.Bench.Seat
+
+local function seat()
+    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and  Player.Character:FindFirstChild("LeftFoot") then
+                    local h = b.Position
+                     wait()
+                    b.Size = Vector3.new(4, 1, 4)
+                    b.Position = Player.Character.LeftFoot.Position
+                    wait(0.4)
+                    b.Position = h
+                    else
+    end
+end
+
+
+local ff
+
+local e = false
+
+local function hideSeat()
+    if e and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Team == game.Teams.Survivor then
+        task.wait()
+        local player = game.Players.LocalPlayer
+        local character = player.Character
+        local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+        local killer = game.Teams.Killer and game.Teams.Killer:GetPlayers()[1]
+
+        if character and humanoid and killer then
+            local playerPos = character:FindFirstChild("HumanoidRootPart").Position
+            local killerPos = killer.Character and killer.Character:FindFirstChild("HumanoidRootPart") and killer.Character.HumanoidRootPart.Position
+
+            if playerPos and killerPos then
+                local playerPosNoY = Vector3.new(playerPos.X, 0, playerPos.Z)
+                local killerPosNoY = Vector3.new(killerPos.X, 0, killerPos.Z)
+                local distance = (killerPosNoY - playerPosNoY).magnitude
+
+                local heightDifference = math.abs(killerPos.Y - playerPos.Y)
+
+                if distance < 29 and heightDifference <= 7 and not humanoid.Sit then
+                    local h = b.Position
+                    wait()
+                    b.Position = Player.Character.LeftFoot.Position
+                    wait(0.4)
+                    b.Position = h
+                elseif distance > 30 and distance < 45 and humanoid.Sit then
+                    humanoid.Sit = false
+                end
+            end
+        end
+    end
+end
+
+
+function copyd()
+copyToClipboard("https://discord.com/invite/23kFrRBSfD")
+end
+
+function copyy()
+copyToClipboard("https://youtube.com/@OneCreatorX")
+end
+
+function esconder()
+e = not e
+end
+
+function fix()
+game.Players.LocalPlayer.PlayerGui.ScreenFX.Enabled = false
+end
+
+
+
+Sec:CreateToggle("Esp Players", esp)
+Sec:CreateToggle("Full Bright ", fb)
+Sec:CreateButton("Esconderse", seat)
+Sec:CreateButton("Fixed Screen Loading", fix)
+Ki:CreateToggle("Kill Aura", killAura)
+Ki:CreateToggle("Instant Kill", kill)
+Su:CreateToggle("Aura Help Plrs(B 1)", curar)
+Su:CreateToggle("No Trap Killer", Trap)
+Sut:CreateToggle("Auto Escape", Escap)
+Su:CreateToggle("Auto Esconderse(B 9)", esconder)
+Su:CreateToggle("Aura Collect Items", item)
+Sut:CreateToggle("Collect Items", tp)
+Sut:CreateToggle("Collect Items(T.Lobby)", tpa)
+Su:CreateToggle("No Trap Map", Trappp)
+-- Sut:CreateToggle("Auto Curarse)", curars)
+Sut:CreateToggle("Tp Player Help", Curatp)
+Sec2:CreateButton("Copy Link YouTube", copyy)
+Sec2:CreateButton("Copy Link Discord", copyd)
 
 local RunService = game:GetService("RunService")
+RunService.RenderStepped:Connect(hideSeat)
+
 
 local tpwalking = false
 local speed = 15
@@ -842,182 +933,8 @@ function tpwalk()
 end
 
 Sec:CreateTextbox("Speed", function(value)
-    print(value)
         speed = value
         tpwalking = speed > 15
        
-end)
-
-
-local function seat()
-    if Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and  Player.Character:FindFirstChild("LeftFoot") then
-        for _, be in pairs(game.workspace._Lobby.Benches:GetChildren()) do
-            if be:IsA("Model") and not be.Seat:FindFirstChild("SeatWeld") then
-                local b = be.Seat
-                if b and not b:FindFirstChild("SeatWeld") then
-                    b.Size = Vector3.new(4, 1, 4)
-                    b.Position = Player.Character.LeftFoot.Position
-local ff = Player.Character:FindFirstChild("HumanoidRootPart").CFrame
-                    wait(0.4)
-                    local weld = b:FindFirstChild("SeatWeld")
-                    if weld and Player.Character.Humanoid.Sit then
-                        weld.C0 = CFrame.new(0, -5, 0)
-                        wait(5)
-                        weld.C0 = CFrame.new(0, 5, 0)
-task.wait(0.3)
-local ww = weld.Parent                                                         Player.Character.Humanoid.Sit = false
-task.wait(0.05)
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = true 
-task.wait(0.1)
-ww.CFrame = CFrame.new(0, -10, 0)
-task.wait(0.1)  
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
-Player.Character:FindFirstChild("HumanoidRootPart").CFrame = ff
-task.wait(0.2)
-Player.Character.Humanoid.Jump = true 
-break
-else
-                    end
-                end
-            end
-        end
-    end
-end
-
-
-local ff
-
-local e = false
-local function seatesconderse()
-    e = not e
-    while e and Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character:FindFirstChild("LeftFoot") do
-        task.wait()
-        local hasWeld = false
-        for _, be in pairs(game.workspace._Lobby.Benches:GetChildren()) do
-            if be:IsA("Model") and be.Seat and be.Seat:FindFirstChild("SeatWeld") then
-                local b = be.Seat
-                if b and b:FindFirstChild("SeatWeld") then
-                    local weld = b:FindFirstChild("SeatWeld")
-                    if weld then
-                        hasWeld = true
-                        local killer = game.Teams.Killer and game.Teams.Killer:GetPlayers()[1]
-                        if killer then
-                            local killerPos = killer.Character and killer.Character:FindFirstChild("HumanoidRootPart") and killer.Character.HumanoidRootPart.Position
-                            local playerPos = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character.HumanoidRootPart.Position
-                            if killerPos and playerPos then
-                                local distance = (killerPos - playerPos).magnitude
-                                if e and distance < 2000000 and not Player.Character.Humanoid.Sit and not hasWeld then
-                                    b.Position = Player.Character.LeftFoot.Position
-                                    wait(0.8)
-                                    weld.C0 = CFrame.new(0, -5, 0)
-                                elseif e and distance > 0 and distance <= 25 and Player.Character.Humanoid.Sit then
-                                   if weld.C0 ~= CFrame.new(0, -5, 0) then
-                                        weld.C0 = CFrame.new(0, -5, 0)
-                                    end
-                                elseif e and distance > 29  and distance <= 32 and Player.Character.Humanoid.Sit then
-                                    if weld.C0 == CFrame.new(0, -5, 0) then
-                                        weld.C0 = CFrame.new(0, 5, 0)
-                                 local ww = weld.Parent      
-task.wait()         
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
-Player.Character.Humanoid.Sit = false                                         Player.Character:FindFirstChild("HumanoidRootPart").Anchored = true
-ww.CFrame = CFrame.new(0, -20, 0)  
-task.wait(0.1)
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
-Player.Character:FindFirstChild("HumanoidRootPart").CFrame = ff
-task.wait(0.2)
-Player.Character.Humanoid.Jump = true 
-                           elseif Player and Character and weld.C0 == CFrame.new(0, 5, 0) and distance > 29 and distance <= 32 and Player.Character.Humanoid.Sit then
-     local ww = weld.Parent  
-task.wait()                          
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
-                             Player.Character.Humanoid.Sit = false
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = true
-ww.CFrame = CFrame.new(0, -20, 0)  
-task.wait(0.1)
-Player.Character:FindFirstChild("HumanoidRootPart").Anchored = false
-Player.Character:FindFirstChild("HumanoidRootPart").CFrame = ff
-task.wait(0.2)
-Player.Character.Humanoid.Jump = true 
-
-                                        
-                                    end
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end
-
-        if not hasWeld then
-            for _, be in pairs(game.workspace._Lobby.Benches:GetChildren()) do
-                if be:IsA("Model") and be.Seat and not be.Seat:FindFirstChild("SeatWeld") then
-                    local b = be.Seat
-                    if b then
-                        b.Size = Vector3.new(4, 1, 4)
-                        local killer = game.Teams.Killer and game.Teams.Killer:GetPlayers()[1]
-                        if killer then
-                            local killerPos = killer.Character and killer.Character:FindFirstChild("HumanoidRootPart") and killer.Character.HumanoidRootPart.Position
-                            local playerPos = Player.Character and Player.Character:FindFirstChild("HumanoidRootPart") and Player.Character.HumanoidRootPart.Position
-                            if killerPos and playerPos then
-                                local distance = (killerPos - playerPos).magnitude
-
-                                if e and distance < 24 and not Player.Character.Humanoid.Sit then
-ff = Player.Character:FindFirstChild("HumanoidRootPart").CFrame
-
-                                    b.Position = Player.Character.LeftFoot.Position
-                                    wait(0.5)
-                                    local weld = b:FindFirstChild("SeatWeld")
-                                    if weld then
-                                        weld.C0 = CFrame.new(0, -5, 0)
-end
-                                end
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
-end
-
-function copyd()
-copyToClipboard("https://discord.com/invite/23kFrRBSfD")
-end
-
-function copyy()
-copyToClipboard("https://youtube.com/@OneCreatorX")
-end
-
-function curars()
-gggg = not gggg
-if gggg then
-game:GetService("RunService").Heartbeat:Connect(curarse)
-end
-end
-
-function fix()
-game.Players.LocalPlayer.PlayerGui.ScreenFX.Enabled = false
-end
-
-Sec:CreateToggle("Esp Players", esp)
-Sec:CreateToggle("Full Bright ", fb)
-Sec:CreateButton("Esconderse 5s", seat)
-Sec:CreateButton("Fixed Screen Loading", fix)
-Ki:CreateToggle("Kill Aura", killAura)
-Ki:CreateToggle("Instant Kill", kill)
-Su:CreateToggle("Aura Help Plrs(B 1)", curar)
-Su:CreateToggle("No Trap Killer", Trap)
-Sut:CreateToggle("Auto Escape", Escap)
-Su:CreateToggle("Auto Esconderse(B 2)", seatesconderse)
-Su:CreateToggle("Aura Collect Items", item)
-Sut:CreateToggle("Collect Items", tp)
-Sut:CreateToggle("Collect Items(T.Lobby)", tpa)
-Su:CreateToggle("No Trap Map", Trappp)
--- Sut:CreateToggle("Auto Curarse(break)", curars)
-Sut:CreateToggle("Tp Player Help", Curatp)
-Sec2:CreateButton("Copy Link YouTube", copyy)
-Sec2:CreateButton("Copy Link Discord", copyd)
+end) 
 tpwalk()
-hhhh()
