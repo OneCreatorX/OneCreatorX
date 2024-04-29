@@ -57,7 +57,7 @@ wait()
                 collectHeart(heartPart)
             until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 5
             if not closestHeart.Parent then
-                moveHearts() 
+else
             end
         else
             wait()
