@@ -1,12 +1,128 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.4) ~  Much Love, Ferib 
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local Win = Lib:NewWindow("Collect For UGC v4")
+local Sec = Win:NewSection("Options")
+local Sec2 = Win:NewSection("Credits: OneCreatorX")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local walking = false
+local b = false
+local speed = 120
 
-]]--
+local RS = game:GetService("RunService")
+local WS = game:GetService("Workspace")
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v41,v42) local v43={};for v50=1, #v41 do v6(v43,v0(v4(v1(v2(v41,v50,v50 + 1 )),v1(v2(v42,1 + (v50% #v42) ,1 + (v50% #v42) + 1 )))%256 ));end return v5(v43);end local v8=loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))();local v9=v8:NewWindow(v7("\242\204\215\41\227\184\211\94\247\204\201\101\211\156\228\94\199\145","\126\177\163\187\69\134\219\167"));local v10=v9:NewSection(v7("\12\221\62\204\243\45\222","\156\67\173\74\165"));local v11=v9:NewSection(v7("\23\165\76\18\181\50\85\110\247\102\24\185\5\84\49\182\93\25\174\30","\38\84\215\41\118\220\70"));local v12=game:GetService(v7("\96\26\35\11\251\66\5","\158\48\118\66\114"));local v13=v12.LocalPlayer;local v14=false;local v15=false;local v16=120;local v17=game:GetService(v7("\153\49\30\5\118\183\237\162\39\21","\155\203\68\112\86\19\197"));local v18=game:GetService(v7("\113\210\36\247\83\104\228\251\67","\152\38\189\86\156\32\24\133"));local v19=game:GetService(v7("\206\66\169\117\249\69\177\79\255\82","\38\156\55\199"));local v20={Vector3.new( -131,61 -48 ,74 + 141 ),Vector3.new(27 + 13 ,35 -22 ,181 + 29 ),Vector3.new(560 -(10 + 438) ,13,172 + 40 ),Vector3.new(467 -344 ,13,104 + 22 ),Vector3.new(94 + 21 ,13, -149),Vector3.new( -(264 -(163 + 91)),1943 -(1869 + 61) , -(61 + 157)),Vector3.new( -(394 -282),19 -6 , -(26 + 164)),Vector3.new( -(186 + 12),1487 -(1329 + 145) , -(1047 -(140 + 831)))};local function v21() local v44=1850 -(1409 + 441) ;local v45;while true do if ((719 -(15 + 703))==v44) then while v14 do for v54=1 + 0 , #v20 do if  not v14 then break;end local v55=v20[v54];local v56=(v55-v45.Character.HumanoidRootPart.Position).unit;repeat local v68=438 -(262 + 176) ;local v69;local v70;while true do if (v68==(1722 -(345 + 1376))) then while true do if ((688 -(198 + 490))==v69) then local v73=0 -0 ;while true do if (v73==(2 -1)) then v69=1;break;end if ((1206 -(696 + 510))==v73) then v70=v56 * v16 ;v45.Character.HumanoidRootPart.Velocity=v70;v73=1 -0 ;end end end if ((1263 -(1091 + 171))==v69) then wait(0.1 + 0 );break;end end break;end if (v68==(0 -0)) then v69=0;v70=nil;v68=1;end end until ((v55-v45.Character.HumanoidRootPart.Position).magnitude<(29 -20)) or  not v14  v45.Character.HumanoidRootPart.Velocity=Vector3.new();wait(374.1 -(123 + 251) );end end break;end if (v44==0) then v45=game.Players.LocalPlayer;v14= not v14;v44=4 -3 ;end end end local function v22() local v46=698 -(208 + 490) ;while true do if (v46==(0 + 0)) then if v15 then local v58=0;local v59;local v60;local v61;while true do if (v58==(0 + 0)) then v59=836 -(660 + 176) ;v60=nil;v58=1 + 0 ;end if (1==v58) then v61=nil;while true do if ((203 -(14 + 188))==v59) then for v74,v75 in ipairs(v61) do local v76=675 -(534 + 141) ;local v77;while true do if (v76==0) then v77=(v75.Position-v60).Magnitude;if (v77<(31 + 44)) then local v88=0 + 0 ;while true do if (v88==0) then v75.Transparency=1 + 0 ;v75.Position=v60;break;end end end break;end end end break;end if (v59==0) then local v71=0 -0 ;while true do if (v71==(0 -0)) then v60=v13.Character.HumanoidRootPart.Position;v61=v18.Map.Interactable.Hearts:GetChildren();v71=2 -1 ;end if (v71==(1 + 0)) then v59=1 + 0 ;break;end end end end break;end end end if v15 then local v62=0;local v63;local v64;local v65;while true do if (v62==(397 -(115 + 281))) then v65=nil;while true do if (v63==(2 -1)) then for v78,v79 in ipairs(v65) do if v79:IsA(v7("\133\114\120\45\31","\35\200\29\28\72\115\20\154")) then local v81=0 + 0 ;local v82;local v83;local v84;local v85;while true do if (v81==2) then while true do if (v82==(7 -4)) then v21();wait();break;end if (v82==(3 -2)) then local v91=0;local v92;while true do if (v91==(867 -(550 + 317))) then v92=0 -0 ;while true do if (v92==(1 -0)) then v82=5 -3 ;break;end if (v92==(285 -(134 + 151))) then local v97=1665 -(970 + 695) ;while true do if (v97==0) then v84=v79.Heart;v85=v84.Position;v97=1 -0 ;end if ((1991 -(582 + 1408))==v97) then v92=1;break;end end end end break;end end end if (v82==0) then v83=game.Players.LocalPlayer;v14=false;v82=3 -2 ;end if (v82==2) then v83.Character.Humanoid:MoveTo(v85);repeat local v94=0;local v95;while true do if (v94==0) then wait();v95=(v84.Position-v64).Magnitude;v94=1 -0 ;end if (v94==1) then if (v95<75) then local v98=0 -0 ;while true do if (v98==(1824 -(1195 + 629))) then v84.Transparency=1;v84.Position=v64;break;end end end break;end end until (v83:DistanceFromCharacter(v85)<(66 -16)) or  not v79.Parent  v82=244 -(187 + 54) ;end end break;end if (v81==1) then v84=nil;v85=nil;v81=782 -(162 + 618) ;end if (v81==0) then v82=0 + 0 ;v83=nil;v81=1 + 0 ;end end end end break;end if (v63==(0 -0)) then v64=v13.Character.HumanoidRootPart.Position;v65=v18.Map.Interactable.rareHearts:GetChildren();v63=1 -0 ;end end break;end if (v62==0) then v63=0;v64=nil;v62=1 + 0 ;end end end break;end end end local v23=Instance.new(v7("\41\190\195\203","\84\121\223\177\191\237\76"));v23.Size=Vector3.new(1781 -(1373 + 263) ,1000.1 -(451 + 549) ,46 + 99 );v23.Anchored=true;v23.CanCollide=false;v23.Shape=Enum.PartType.Cylinder;v23.Transparency=0.3 -0 ;v23.Color=Color3.new(0 -0 ,1384 -(746 + 638) ,0);v23.Parent=v18;local v32=Instance.new(v7("\136\70\204\163\51\81\60\236\190\69\193","\161\219\54\169\192\90\48\80"));v32.MeshType=Enum.MeshType.Cylinder;v32.Scale=Vector3.new(135,0.1 + 0 ,204 -69 );v32.Parent=v23;v32.TextureId="rbxassetid://15189831814";local function v38() if (v13.Character and v15) then local v51=341 -(218 + 123) ;local v52;while true do if (v51==(1581 -(1535 + 46))) then v52=v13.Character.HumanoidRootPart.Position;v23.Position=Vector3.new(v52.X,v52.Y-(v13.Character.HumanoidRootPart.Size.Y/(1 + 0)) ,v52.Z);break;end end end end local function v39() v15= not v15;end v10:CreateToggle(v7("\104\87\20\42\9\117\1\41\66","\69\41\34\96"),v21);function copyd() copyToClipboard("https://discord.com/invite/23kFrRBSfD");end function copyy() copyToClipboard("https://youtube.com/@OneCreatorX");end workspace.Camera.FieldOfView=15 + 85 ;for v47,v48 in ipairs(workspace.Map.Terrain:GetChildren()) do if (v48.Name~=v7("\145\194\222\4","\75\220\163\183\106\98")) then v48:Destroy();end end v17.Heartbeat:Connect(v38);v17.Heartbeat:Connect(v22);v10:CreateToggle(v7("\35\175\153\54\153\42\191\138\37\205\17","\185\98\218\235\87"),v39);v11:CreateButton(v7("\232\51\55\255\158\134\194\50\44\166\231\165\222\8\50\228\219","\202\171\92\71\134\190"),copyy);v11:CreateButton(v7("\10\206\60\145\105\237\37\134\34\129\8\129\58\194\35\154\45","\232\73\161\76"),copyd);game:GetService(v7("\139\213\67\68\27\169\202","\126\219\185\34\61")).LocalPlayer.Idled:Connect(function() game:GetService(v7("\58\199\76\102\107\118\255\210\31\203\76","\135\108\174\62\18\30\23\147")):CaptureController();game:GetService(v7("\128\224\56\223\13\175\63\242\165\236\56","\167\214\137\74\171\120\206\83")):ClickButton2(Vector2.new());end);v10:CreateTextbox(v7("\184\224\55\88\252","\199\235\144\82\61\152"),function(v49) v16=v49;end);
+local RunService = game:GetService("RunService")
+
+local function moveHearts()
+    local player = game.Players.LocalPlayer
+    local PPos = player.Character.HumanoidRootPart.Position
+    local Hearts = WS.Map.Interactable.Hearts:GetChildren()
+    local function calculateVelocity(targetPosition, speed)
+        local direction = (targetPosition - PPos).unit
+        return direction * speed
+    end
+
+    local function collectHeart(heartPart)
+        local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
+        local dist = (HPos - PPos).magnitude
+        if dist < 17 then
+            heartPart.Transparency = 1
+            heartPart.Position = PPos
+        end
+    end
+
+    while b do
+        local minDist = math.huge
+        local closestHeart = nil
+
+        for _, H in ipairs(Hearts) do
+            local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
+            local dist = (HPos - PPos).magnitude
+            if dist < 17 then
+                collectHeart(H)
+            elseif dist < minDist then
+                minDist = dist
+                closestHeart = H
+            end
+        end
+
+        if closestHeart then
+            local heartPart = closestHeart
+            local targetPosition = heartPart.Position
+            local velocity = calculateVelocity(targetPosition, speed)
+            player.Character.HumanoidRootPart.Velocity = velocity
+
+            repeat
+                wait()
+                collectHeart(heartPart)
+            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 15
+
+            if not closestHeart.Parent then
+                moveHearts() 
+            end
+        else
+            wait(0.1)
+        end
+    end
+end
+
+function has()
+b = not b
+if b then 
+moveHearts()
+end
+end
+
+local AC = Instance.new("Part")
+AC.Size = Vector3.new(0, 0.1, 0)
+AC.Anchored = true
+AC.CanCollide = false
+AC.Shape = Enum.PartType.Cylinder
+AC.Transparency = 0.9
+AC.Color = Color3.new(0, 0, 0)
+AC.Parent = WS
+
+local CircleMesh = Instance.new("SpecialMesh")
+CircleMesh.MeshType = Enum.MeshType.Cylinder 
+CircleMesh.Scale = Vector3.new(25, 0.1, 25)
+CircleMesh.Parent = AC
+CircleMesh.TextureId = "rbxassetid://15189831814"
+
+local function updateAuraCircle()
+    if Player.Character and b then
+        local PPos = Player.Character.HumanoidRootPart.Position
+        AC.Position = Vector3.new(PPos.X, PPos.Y - Player.Character.HumanoidRootPart.Size.Y / 1, PPos.Z)
+    end
+end
+
+function copyd()
+    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
+end
+
+function copyy()
+    copyToClipboard("https://youtube.com/@OneCreatorX")
+end
+
+workspace.Camera.FieldOfView = 100
+
+for _, f in ipairs(workspace.Map.Terrain:GetChildren()) do
+    if f.Name ~= "Main" then
+        f:Destroy()
+    end
+end
+
+RS.Heartbeat:Connect(updateAuraCircle)
+RS.Heartbeat:Connect(moveHearts)
+
+Sec:CreateToggle("Auto Hears", has)
+Sec2:CreateButton("Copy Link YouTube", copyy)
+Sec2:CreateButton("Copy Link Discord", copyd)
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
+
+Sec:CreateTextbox("Speed", function(value)
+        speed = value
+        
+end)
