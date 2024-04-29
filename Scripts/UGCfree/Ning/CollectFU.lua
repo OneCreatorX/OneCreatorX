@@ -1,12 +1,11 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect For UGC v5")
+local Win = Lib:NewWindow("Collect For UGC v7")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
-local walking = false
 local b = false
-local speed = 75
+local speed = 70
 
 local RS = game:GetService("RunService")
 local WS = game:GetService("Workspace")
@@ -14,7 +13,7 @@ local WS = game:GetService("Workspace")
 local function moveHearts()
     local player = game.Players.LocalPlayer
     local PPos = player.Character.HumanoidRootPart.Position
-    local Hearts = WS.Map.Interactable: GetDescendants()
+    local Hearts = WS.Map.Interactable:GetDescendants()
     local function calculateVelocity(targetPosition, speed)
         local direction = (targetPosition - PPos).unit
         return direction * speed
@@ -34,6 +33,7 @@ local function moveHearts()
         local closestHeart = nil
 
         for _, H in ipairs(Hearts) do
+
             if H:IsA("MeshPart") and H.Transparency ~= 1 then
                 local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
                 local dist = (HPos - PPos).magnitude
@@ -50,28 +50,40 @@ local function moveHearts()
             local heartPart = closestHeart
             local targetPosition = heartPart.Position
             local velocity = calculateVelocity(targetPosition, speed)
-            player.Character.HumanoidRootPart.Velocity = velocity
+            
 
             repeat
-                wait(0.1)
+player.Character.HumanoidRootPart.Velocity = velocity
+wait()
                 collectHeart(heartPart)
             until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 5
-
             if not closestHeart.Parent then
                 moveHearts() 
             end
         else
-            wait(0.1)
+            wait()
         end
     end
 end
 
 function has()
-b = not b
-if b then 
-moveHearts()
+    b = not b
+    if b then 
+        moveHearts()
+        for _, da in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if da:IsA("BasePart") then 
+                da.CanCollide = false 
+            end
+        end
+    else
+        for _, da in ipairs(game.Players.LocalPlayer.Character:GetChildren()) do
+            if da:IsA("BasePart") then 
+                da.CanCollide = true
+            end
+        end
+    end
 end
-end
+
 
 local AC = Instance.new("Part")
 AC.Size = Vector3.new(0, 0.1, 0)
