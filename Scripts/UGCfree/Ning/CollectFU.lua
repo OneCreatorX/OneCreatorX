@@ -51,9 +51,8 @@ local function moveHearts()
             local targetPosition = heartPart.Position
             local velocity = calculateVelocity(targetPosition, speed)
             
-
-            repeat
 player.Character.HumanoidRootPart.Velocity = velocity
+            repeat
 wait()
                 collectHeart(heartPart)
             until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 5
