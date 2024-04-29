@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect For UGC v4")
+local Win = Lib:NewWindow("Collect For UGC v5")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
@@ -25,7 +25,7 @@ local function moveHearts()
     local function collectHeart(heartPart)
         local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
         local dist = (HPos - PPos).magnitude
-        if dist < 17 then
+        if dist < 15 then
             heartPart.Transparency = 1
             heartPart.Position = PPos
         end
@@ -38,7 +38,7 @@ local function moveHearts()
         for _, H in ipairs(Hearts) do
             local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
             local dist = (HPos - PPos).magnitude
-            if dist < 17 then
+            if dist < 15 then
                 collectHeart(H)
             elseif dist < minDist then
                 minDist = dist
@@ -55,13 +55,13 @@ local function moveHearts()
             repeat
                 wait()
                 collectHeart(heartPart)
-            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 15
+            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 10
 
             if not closestHeart.Parent then
                 moveHearts() 
             end
         else
-            wait(0.1)
+            wait()
         end
     end
 end
@@ -78,7 +78,7 @@ AC.Size = Vector3.new(0, 0.1, 0)
 AC.Anchored = true
 AC.CanCollide = false
 AC.Shape = Enum.PartType.Cylinder
-AC.Transparency = 0.9
+AC.Transparency = 0.5
 AC.Color = Color3.new(0, 0, 0)
 AC.Parent = WS
 
