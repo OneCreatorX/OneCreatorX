@@ -1,8 +1,11 @@
-print("execute")
 local function convertToNumber(priceString)
+    if type(priceString) == "number" then
+        return priceString
+    end
+    
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
     local multiplier = 1
-    print(priceString)
+    
     if not numericValue then
         numericValue = priceString
     end
