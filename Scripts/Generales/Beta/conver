@@ -1,25 +1,18 @@
-local function conver(priceString)
-    local suffixes = {
-        K = 1000,
-        M = 1000000,
-        B = 1000000000,
-        T = 1000000000000,
-        Q = 1000000000000000,
-        QQ = 1000000000000000000,
-        S = 1000000000000000000000,
-        SS = 1000000000000000000000000
-    }
-    
+local function convertToNumber(priceString)
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
+    local multiplier = 1
     
-    if not numericValue then
-        numericValue = tonumber(priceString)
-        suffix = ""
+    if suffix == "K" then
+        multiplier = 1000
+    elseif suffix == "M" then
+        multiplier = 1000000
+    elseif suffix == "B" then
+        multiplier = 1000000000
+    elseif suffix == "T" then
+        multiplier = 1000000000000
     end
     
-    local multiplier = suffixes[suffix] or 1
+    local convertedPrice = tonumber(numericValue) * multiplier
     
-    return tonumber(numericValue) * multiplier
+    return convertedPrice
 end
-
-return conver
