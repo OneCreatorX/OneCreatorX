@@ -55,7 +55,7 @@ player.Character.HumanoidRootPart.Velocity = velocity
             repeat
 wait()
                 collectHeart(heartPart)
-            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 5
+            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 4
             if not closestHeart.Parent then
 else
             end
