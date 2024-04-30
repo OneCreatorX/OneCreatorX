@@ -17,4 +17,4 @@ local function conver(priceString)
     return tonumber(numericValue) * multiplier
 end
 
-return convertToNumber
+return conver
