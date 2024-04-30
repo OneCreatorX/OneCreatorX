@@ -1,4 +1,3 @@
-print("Execute")
 local function convertToNumber(priceString)
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
     local multiplier = 1
@@ -17,3 +16,5 @@ local function convertToNumber(priceString)
     
     return convertedPrice
 end
+
+return convertToNumber
