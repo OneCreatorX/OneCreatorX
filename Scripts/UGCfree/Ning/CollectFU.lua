@@ -150,3 +150,10 @@ StarterGui:SetCore("SendNotification", {
             Text = "Mejor si es alto",
             Duration = 10,
         })
+
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "ID Image",
+            Text = "Is Roblox Image",
+            Duration = 10,
+        })
