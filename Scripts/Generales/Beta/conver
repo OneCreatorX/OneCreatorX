@@ -12,6 +12,11 @@ local function conver(priceString)
     
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
     
+    if not numericValue then
+        numericValue = tonumber(priceString)
+        suffix = ""
+    end
+    
     local multiplier = suffixes[suffix] or 1
     
     return tonumber(numericValue) * multiplier
