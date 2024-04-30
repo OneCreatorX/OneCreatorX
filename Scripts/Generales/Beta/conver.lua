@@ -1,7 +1,7 @@
 local function convertToNumber(priceString)
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
     local multiplier = 1
-    
+    print(priceString)
     if not numericValue then
         numericValue = priceString
     end
