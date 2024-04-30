@@ -127,6 +127,13 @@ Sec:CreateTextbox("Speed Auto Hears 70", function(value)
 end)
 
 Sec:CreateTextbox("ID Texture", function(value)
+        local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "UseID Image: 12345",
+            Text = "Is Roblox Image - No URL",
+            Duration = 10,
+        })
+        
     skyID = "rbxassetid://" .. value
     game.Lighting.Sky.SkyboxBk = skyID
     game.Lighting.Sky.SkyboxDn = skyID
@@ -149,11 +156,4 @@ StarterGui:SetCore("SendNotification", {
             Title = "better more high",
             Text = "Mejor si es alto",
             Duration = 10,
-        })
-
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-            Title = "ID Image",
-            Text = "Is Roblox Image",
-            Duration = 10,
-        })
+    })
