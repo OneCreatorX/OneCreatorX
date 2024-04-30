@@ -1,3 +1,4 @@
+print("Execute")
 local function convertToNumber(priceString)
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
     local multiplier = 1
