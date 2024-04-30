@@ -2,6 +2,10 @@ local function convertToNumber(priceString)
     local numericValue, suffix = priceString:match("(%d+%.?%d*)(%a*)")
     local multiplier = 1
     
+    if not numericValue then
+        numericValue = priceString
+    end
+    
     if suffix == "K" then
         multiplier = 1000
     elseif suffix == "M" then
