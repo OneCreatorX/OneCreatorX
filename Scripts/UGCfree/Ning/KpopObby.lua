@@ -52,7 +52,7 @@ function ta()
 h = not h
 while h do
 ga()
-wait(35)
+wait(39)
 end
 end
 
