@@ -65,11 +65,6 @@ else
     end
 end
 
-function has()
-    b = not b
-end
-
-
 function copyd()
     copyToClipboard("https://discord.com/invite/23kFrRBSfD")
 end
@@ -129,14 +124,14 @@ part.Transparency = 1
 part.Parent = game.Workspace
 
 local function updatePartPosition()
-    if b and character and character:IsDescendantOf(game.Workspace) and leftFoot then
-        local footPosition = leftFoot.Position - Vector3.new(0, leftFoot.Size.Y/0.33, 0)
+    while b and character and character:IsDescendantOf(game.Workspace) and leftFoot do
+        local footPosition = leftFoot.Position - Vector3.new(0, leftFoot.Size.Y/0.30, 0)
         part.Position = footPosition
+         wait()
     end
 end
 
 
-RunService.RenderStepped:Connect(updatePartPosition)
 local da = false
 function save()
 da = not da
@@ -156,6 +151,13 @@ else
 end
 end
 end
+
+function has()
+    b = not b
+    updatePartPosition()
+end
+
+
 
 Sec:CreateToggle("Auto Hearts", has)
 Sec:CreateToggle("Auto Save Heart", save)
