@@ -55,12 +55,12 @@ while go do
 goo()
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
-            Title = "Auto Start in 5s",
+            Title = "Auto Start in 3s",
             Text = "Inicia Automáticamente en 5s",
-            Duration = 8,
+            Duration = 5,
         })
 
-wait(5)
+wait(3)
 end
 end
 
@@ -105,12 +105,12 @@ while gy do
 gi()
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
-            Title = "Auto Start in 5s",
+            Title = "Auto Start in 3s",
             Text = "Inicia Automáticamente en 5s",
-            Duration = 8,
+            Duration = 5,
         })
 
-wait(5)
+wait(3)
 end
 end
 
@@ -153,12 +153,12 @@ while h do
 ga()
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
-            Title = "Auto Start in 5s",
+            Title = "Auto Start in 3s",
             Text = "Inicia Automáticamente en 5s",
-            Duration = 8,
+            Duration = 5,
         })
 
-wait(5)
+wait(3)
 end
 end
 
