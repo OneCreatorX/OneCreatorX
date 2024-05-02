@@ -165,14 +165,17 @@ end
 function dance()
 fy = not fy
 while fy do 
-for i = 1, 8 do
-local args = {
-    [1] = i
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("UnlockDance"):FireServer(unpack(args))
-task.wait(0.3)
-end
+        task.wait(0.1)
+for _, a in ipairs(workspace:GetDescendants()) do
+            task.wait(0.1)
+    if a:IsA("Model") then
+        local modelName = a.Name
+        local collectibleNumber = modelName:match("Collectible(%d+)")
+        if collectibleNumber and a:FindFirstChild("Hitbox") then
+            a.Hitbox.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+        end
+    end
+        end
 end
 end
 
@@ -198,7 +201,7 @@ end
 Sec:CreateToggle("Auto Obby 1", ta)
 Sec:CreateToggle("Auto Obby 2", ti)
 Sec:CreateToggle("Auto Obby 3", too)
--- Sec:CreateToggle("Auto Desblock Dances", dance)
+Sec:CreateToggle("Auto Collect", dance)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
