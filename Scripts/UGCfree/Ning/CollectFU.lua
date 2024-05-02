@@ -131,7 +131,7 @@ local function updatePartPosition()
     end
 end
 
-
+game.Players.LocalPlayer.Character.Humanoid.HipHeight = 3
 local da = false
 function save()
 da = not da
