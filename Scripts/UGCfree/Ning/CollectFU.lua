@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect For UGC v8")
+local Win = Lib:NewWindow("Collect For UGC v9")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
@@ -22,7 +22,7 @@ local function moveHearts()
     local function collectHeart(heartPart)
         local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
         local dist = (HPos - PPos).magnitude
-        if dist < 10 then
+        if dist < 5 then
             heartPart.Transparency = 1
             heartPart.Position = PPos
         end
@@ -37,7 +37,7 @@ local function moveHearts()
             if H:IsA("MeshPart") and H.Transparency ~= 1 then
                 local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
                 local dist = (HPos - PPos).magnitude
-                if dist < 10 then
+                if dist < 5 then
                     collectHeart(H)
                 elseif dist < minDist then
                     minDist = dist
@@ -55,7 +55,7 @@ player.Character.HumanoidRootPart.Velocity = velocity
             repeat
 wait()
                 collectHeart(heartPart)
-            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 4
+            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 3
             if not closestHeart.Parent then
 else
             end
@@ -112,9 +112,19 @@ CircleMesh.Scale = Vector3.new(522.132, 34.9476, 611.233)
 CircleMesh.Parent = AC
 CircleMesh.TextureId = skyID
 
-RS.Heartbeat:Connect(moveHearts)
+game:GetService("RunService").RenderStepped:Connect(moveHearts)
 
-Sec:CreateToggle("Auto Hears", has)
+local da = false
+function save()
+da = not da
+while da do
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("saveHearts"):FireServer()
+wait(30)
+end
+end
+
+Sec:CreateToggle("Auto Hearts", has)
+Sec:CreateToggle("Auto Save Heart", save)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
