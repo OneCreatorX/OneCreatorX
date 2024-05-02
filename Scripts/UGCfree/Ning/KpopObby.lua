@@ -52,7 +52,15 @@ function ta()
 h = not h
 while h do
 ga()
-wait(39)
+
+wait(5)
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Auto Start in 5s",
+            Text = "Inicia Automáticamente en 5s",
+            Duration = 20,
+        })
+
 end
 end
 
