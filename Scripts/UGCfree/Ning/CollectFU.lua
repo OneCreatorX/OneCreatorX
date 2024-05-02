@@ -78,13 +78,6 @@ function copyy()
     copyToClipboard("https://youtube.com/@OneCreatorX")
 end
 
-workspace.Camera.FieldOfView = 100
-
-for _, f in ipairs(workspace.Map.Terrain:GetDescendants()) do
-    if f.Name ~= "Main" and f.Name ~= "islandTop" then
-        f:Destroy()
-    end
-end
 
 local parent = workspace.Map.Terrain.Main
 workspace.Map.Terrain.Main.islandTop.Transparency = 1
@@ -134,8 +127,7 @@ end
 end
 end
 
-Sec:CreateToggle("Auto Hearts", has)
-Sec:CreateToggle("Auto Save Heart", save)
+
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
@@ -165,16 +157,11 @@ StarterGui:SetCore("SendNotification", {
     CircleMesh.TextureId = skyID
 end)
  
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-            Title = "No Use Character low",
-            Text = "No uses personaje bajito",
-            Duration = 10,
-        })
+
 
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
-            Title = "better more high",
-            Text = "Mejor si es alto",
+            Title = "temporarily in maintenance ",
+            Text = "En Mantenimiento Temporal",
             Duration = 10,
     })
