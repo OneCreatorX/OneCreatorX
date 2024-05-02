@@ -118,8 +118,18 @@ local da = false
 function save()
 da = not da
 while da do
+if game.ReplicatedStorage.Events:FindFirstChild("saveHearts") then
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("saveHearts"):FireServer()
-wait(30)
+wait(10)
+else
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Server No Support",
+            Text = "Server Desactualizado",
+            Duration = 10,
+        })
+da = false
+break
 end
 end
 
