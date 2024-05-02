@@ -198,7 +198,7 @@ end
 Sec:CreateToggle("Auto Obby 1", ta)
 Sec:CreateToggle("Auto Obby 2", ti)
 Sec:CreateToggle("Auto Obby 3", too)
-Sec:CreateToggle("Auto Desblock Dances", dance)
+-- Sec:CreateToggle("Auto Desblock Dances", dance)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
