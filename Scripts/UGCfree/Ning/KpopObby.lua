@@ -7,13 +7,64 @@ local Player = Players.LocalPlayer
 local h = false
 local fy = false
 local gy = false
-
+local go = false
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+
+local points = {
+    Vector3.new(1, 28, -191),
+    Vector3.new(-35, 77, -284),
+    Vector3.new(-42, 116, -374),
+    Vector3.new(78, 123, -366),
+    Vector3.new(81, 42, -367),
+    Vector3.new(84, -1, -365)
+    
+}
+
+local totalTime = 35
+local timePerSegment = totalTime / (#points - 1)
+
+local function goo()
+    for i = 1, #points - 1 do
+        local startTime = tick()
+        local endTime = startTime + timePerSegment
+        local startPosition = points[i]
+        local endPosition = points[i + 1]
+
+        while tick() < endTime do
+            local currentTime = tick()
+            local alpha = (currentTime - startTime) / timePerSegment
+            local newPosition = startPosition:Lerp(endPosition, alpha)
+            humanoidRootPart.CFrame = CFrame.new(newPosition)
+            RunService.RenderStepped:Wait()
+        end
+
+
+        humanoidRootPart.CFrame = CFrame.new(endPosition)
+    end
+end
+
+function too()
+go = not go
+while go do
+goo()
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Auto Start in 5s",
+            Text = "Inicia Automáticamente en 5s",
+            Duration = 8,
+        })
+
+wait(5)
+end
+end
+
+
 
 local points = {
     Vector3.new(122, 28, -52),
@@ -145,7 +196,8 @@ end
 
 
 Sec:CreateToggle("Auto Obby 1", ta)
-Sec:CreateToggle("Auto Obby 1", ti)
+Sec:CreateToggle("Auto Obby 2", ti)
+Sec:CreateToggle("Auto Obby 3", too)
 Sec:CreateToggle("Auto Desblock Dances", dance)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
