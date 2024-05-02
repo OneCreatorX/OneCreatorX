@@ -132,6 +132,7 @@ da = false
 break
 end
 end
+end
 
 Sec:CreateToggle("Auto Hearts", has)
 Sec:CreateToggle("Auto Save Heart", save)
