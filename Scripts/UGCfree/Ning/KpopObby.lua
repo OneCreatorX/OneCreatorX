@@ -6,7 +6,7 @@ local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local h = false
 local fy = false
-
+local gy = false
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -14,6 +14,54 @@ local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local points = {
+    Vector3.new(122, 28, -52),
+    Vector3.new(164, 44, -62),
+    Vector3.new(246, 44, -62),
+    Vector3.new(296, 45, -62),
+    Vector3.new(328, 74, -73),
+    Vector3.new(316, 139, 30),
+    Vector3.new(318, 137, 76)
+}
+
+local totalTime = 35
+local timePerSegment = totalTime / (#points - 1)
+
+local function gi()
+    for i = 1, #points - 1 do
+        local startTime = tick()
+        local endTime = startTime + timePerSegment
+        local startPosition = points[i]
+        local endPosition = points[i + 1]
+
+        while tick() < endTime do
+            local currentTime = tick()
+            local alpha = (currentTime - startTime) / timePerSegment
+            local newPosition = startPosition:Lerp(endPosition, alpha)
+            humanoidRootPart.CFrame = CFrame.new(newPosition)
+            RunService.RenderStepped:Wait()
+        end
+
+
+        humanoidRootPart.CFrame = CFrame.new(endPosition)
+    end
+end
+
+function ti()
+gy = not gy
+while gy do
+gi()
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Auto Start in 5s",
+            Text = "Inicia Automáticamente en 5s",
+            Duration = 8,
+        })
+
+wait(5)
+end
+end
 
 local points = {
     Vector3.new(-110, 30, -45),
@@ -25,7 +73,7 @@ local points = {
     Vector3.new(-423, 76, 25)
 }
 
-local totalTime = 40
+local totalTime = 36
 local timePerSegment = totalTime / (#points - 1)
 
 local function ga()
@@ -52,15 +100,14 @@ function ta()
 h = not h
 while h do
 ga()
-
-wait(5)
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "Auto Start in 5s",
             Text = "Inicia Automáticamente en 5s",
-            Duration = 20,
+            Duration = 8,
         })
 
+wait(5)
 end
 end
 
@@ -98,6 +145,7 @@ end
 
 
 Sec:CreateToggle("Auto Obby 1", ta)
+Sec:CreateToggle("Auto Obby 1", ti)
 Sec:CreateToggle("Auto Desblock Dances", dance)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
