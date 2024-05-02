@@ -139,7 +139,7 @@ Sec:CreateTextbox("Speed Auto Hears 70", function(value)
              speed = value
 end)
 
-Sec:CreateTextbox("ID Texture", function(value)
+-- Sec:CreateTextbox("ID Texture", function(value)
         local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "UseID Image: 12345",
@@ -163,5 +163,5 @@ local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "temporarily in maintenance ",
             Text = "En Mantenimiento Temporal",
-            Duration = 10,
+            Duration = 20,
     })
