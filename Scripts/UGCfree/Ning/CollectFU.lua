@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect For UGC v9")
+local Win = Lib:NewWindow("Collect For UGC v10")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
@@ -78,6 +78,13 @@ function copyy()
     copyToClipboard("https://youtube.com/@OneCreatorX")
 end
 
+workspace.Camera.FieldOfView = 100
+
+for _, f in ipairs(workspace.Map.Terrain:GetDescendants()) do
+    if f.Name ~= "Main" and f.Name ~= "islandTop" then
+        f:Destroy()
+    end
+end
 
 local parent = workspace.Map.Terrain.Main
 workspace.Map.Terrain.Main.islandTop.Transparency = 1
@@ -107,6 +114,29 @@ CircleMesh.TextureId = skyID
 
 game:GetService("RunService").RenderStepped:Connect(moveHearts)
 
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local leftFoot = character:WaitForChild("LeftFoot")
+
+local part = Instance.new("Part")
+part.Size = Vector3.new(5, 1, 5)
+part.Anchored = true
+part.CanCollide = true
+part.Transparency = 1
+part.Parent = game.Workspace
+
+local function updatePartPosition()
+    if b and character and character:IsDescendantOf(game.Workspace) and leftFoot then
+        local footPosition = leftFoot.Position - Vector3.new(0, leftFoot.Size.Y/0.33, 0)
+        part.Position = footPosition
+    end
+end
+
+
+RunService.RenderStepped:Connect(updatePartPosition)
 local da = false
 function save()
 da = not da
@@ -127,7 +157,8 @@ end
 end
 end
 
-
+Sec:CreateToggle("Auto Hearts", has)
+Sec:CreateToggle("Auto Save Heart", save)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
@@ -139,7 +170,7 @@ Sec:CreateTextbox("Speed Auto Hears 70", function(value)
              speed = value
 end)
 
--- Sec:CreateTextbox("ID Texture", function(value)
+Sec:CreateTextbox("ID Texture", function(value)
         local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "UseID Image: 12345",
@@ -157,11 +188,9 @@ StarterGui:SetCore("SendNotification", {
     CircleMesh.TextureId = skyID
 end)
  
-
-
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
-            Title = "temporarily in maintenance ",
-            Text = "En Mantenimiento Temporal",
+            Title = "New System No Dectec",
+            Text = "Anti Delete Hearts(Testing)",
             Duration = 20,
-    })
+        })
