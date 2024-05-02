@@ -28,7 +28,7 @@ local points = {
 local totalTime = 40
 local timePerSegment = totalTime / (#points - 1)
 
-local function movePlayerThroughPoints()
+local function ga()
     for i = 1, #points - 1 do
         local startTime = tick()
         local endTime = startTime + timePerSegment
