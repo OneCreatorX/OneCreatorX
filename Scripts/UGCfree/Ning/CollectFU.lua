@@ -1,6 +1,7 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect For UGC v12")
+local Win = Lib:NewWindow("Collect For UGC")
 local Sec = Win:NewSection("Options")
+local Sec3 = Win:NewSection("Info Script")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -10,6 +11,14 @@ local ya = false
 
 local RS = game:GetService("RunService")
 local WS = game:GetService("Workspace")
+
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
+end
 
 local function moveHearts()
     local player = game.Players.LocalPlayer
@@ -139,8 +148,15 @@ end
 end
 end
 
+
+function sa()
+end
+
 Sec:CreateToggle("Auto Hearts", has)
 Sec:CreateToggle("Auto Save Heart", save)
+Sec3:CreateButton("Versión 12", sa)
+Sec3:CreateButton("Update: 04-05-24", sa)
+Sec3:CreateButton("System 95% + Safe", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
@@ -173,7 +189,7 @@ end)
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "New System Better",
-            Text = "Anti Delete Hearts(90% safe)",
+            Text = "Anti Delete Hearts(95% safe)",
             Duration = 15,
         })
 
@@ -184,13 +200,20 @@ StarterGui:SetCore("SendNotification", {
             Duration = 15,
         })
 
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Recommend ",
+            Text = "Disabled Log console",
+            Duration = 15,
+        })
+
 local player = game.Players.LocalPlayer
 
 local function onLongFall()
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Warn u falling +3s",
-        Text = "Auto Stop in 1",
+        Title = "WARN WARN WARN",
+        Text = "Auto Stop NOW ACTIVE",
         Duration = 3,
     })
     b = false
@@ -209,7 +232,7 @@ local StarterGui = game:GetService("StarterGui")
 else
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Anti Freefall Ready",
+        Title = "Anti dectect Ready",
         Text = "u are safe, by OneCreatorX",
         Duration = 10,
     })
