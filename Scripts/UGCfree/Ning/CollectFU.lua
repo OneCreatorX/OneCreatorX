@@ -68,7 +68,6 @@ local function moveHearts()
             until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 3
             
             if not closestHeart.Parent then
-               
             end
         else
             wait()
@@ -173,7 +172,7 @@ Sec:CreateTextbox("ID Texture", function(value)
 StarterGui:SetCore("SendNotification", {
             Title = "UseID Image: 12345",
             Text = "Is Roblox Image - No URL",
-            Duration = 10,
+            Duration = 5,
         })
         
     skyID = "rbxassetid://" .. value
@@ -190,14 +189,21 @@ local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "New System Better",
             Text = "Anti Delete Hearts(95% safe)",
-            Duration = 15,
+            Duration = 10,
         })
 
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "Testing New system ",
             Text = "Reset Character Teste",
-            Duration = 15,
+            Duration = 10,
+        })
+
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "much Time AFK +4 hs",
+            Text = "maybe 55 - 60 avoid (baibai)",
+            Duration = 5,
         })
 
 local player = game.Players.LocalPlayer
@@ -206,7 +212,7 @@ local function onLongFall()
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "WARN WARN WARN",
-        Text = "Auto Stop NOW ACTIVE",
+        Text = "Auto Stop ACTIVE",
         Duration = 3,
     })
     b = false
@@ -219,7 +225,7 @@ local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Auto Start ",
         Text = "u are safe, by OneCreatorX",
-        Duration = 10,
+        Duration = 5,
     })
     b = true
 else
@@ -227,7 +233,7 @@ local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Anti dectect Ready",
         Text = "u are safe, by OneCreatorX",
-        Duration = 10,
+        Duration = 5,
     })
 end
 end
@@ -250,7 +256,7 @@ player.Character.Humanoid.StateChanged:Connect(function(oldState, newState)
 end)
 
 player.ChildAdded:Connect(function(child)
-    wait(1)
+    task.wait(1)
     onCharacterAdded()
 player.Character.Humanoid.StateChanged:Connect(function(oldState, newState)
     if newState == Enum.HumanoidStateType.Freefall then
