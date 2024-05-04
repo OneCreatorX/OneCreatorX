@@ -1,12 +1,207 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.4) ~  Much Love, Ferib 
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local Win = Lib:NewWindow("AFK FOR UGC")
+local Sec = Win:NewSection("Options")
+local Sec3 = Win:NewSection("Info Script")
+local Sec2 = Win:NewSection("Credits: OneCreatorX")
 
-]]--
+local tF = workspace:WaitForChild("Tokens")
+local pp = game.Players.LocalPlayer
+local gates = workspace.Scriptables.Gates
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v38,v39) local v40={};for v72=1, #v38 do v6(v40,v0(v4(v1(v2(v38,v72,v72 + 1 )),v1(v2(v39,1 + (v72% #v39) ,1 + (v72% #v39) + 1 )))%256 ));end return v5(v40);end local v8=loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))();local v9=v8:NewWindow(v7("\240\229\240\101\192\148\245\94\228\228\248","\126\177\163\187\69\134\219\167"));local v10=v9:NewSection(v7("\12\221\62\204\243\45\222","\156\67\173\74\165"));local v11=v9:NewSection(v7("\29\185\79\25\252\21\69\38\190\89\2","\38\84\215\41\118\220\70"));local v12=v9:NewSection(v7("\115\4\39\22\247\68\5\120\82\209\94\19\1\0\251\81\2\45\0\198","\158\48\118\66\114"));local v13=workspace:WaitForChild(v7("\159\43\27\51\125\182","\155\203\68\112\86\19\197"));local v14=game.Players.LocalPlayer;local v15=workspace.Scriptables.Gates;local function v16(v41) for v73,v74 in ipairs(v41:GetDescendants()) do if v74:IsA(v7("\100\220\37\249\112\121\247\236","\152\38\189\86\156\32\24\133")) then v74.CFrame=CFrame.new(v14.Character.HumanoidRootPart.Position);end end end local function v17() for v75=1,1005 -(451 + 549)  do local v76=0;local v77;local v78;while true do if (v76==0) then v77=v13:FindFirstChild(v7("\198\88\169\67","\38\156\55\199")   .. v75 );v78=v15:FindFirstChild(v7("\143\124\104\45","\35\200\29\28\72\115\20\154")   .. (v75-(1 + 0)) );v76=1 -0 ;end if (v76==(1 -0)) then if (v77 and  not v78) then v16(v77);end break;end end end end local v18=game.Players.LocalPlayer;local v19=workspace.Scriptables.Chests;local v20=workspace.Scriptables.Gates;local v21={v7("\58\183\212\204\153\125","\84\121\223\177\191\237\76"),v7("\152\94\204\179\46\2","\161\219\54\169\192\90\48\80"),v7("\106\74\5\54\93\17","\69\41\34\96"),v7("\159\203\210\25\22\127","\75\220\163\183\106\98"),v7("\33\178\142\36\205\87","\185\98\218\235\87")};local v22=game.Players.LocalPlayer;local v23=workspace.Scriptables.Chests;local v15=workspace.Scriptables.Gates;local v24=false;local v25=15;local v26=game:GetService(v7("\251\61\51\238\216\163\197\56\46\232\217\153\206\46\49\239\221\175","\202\171\92\71\134\190"));local function v27(v42) local v43=1581 -(1535 + 46) ;local v44;local v45;local v46;local v47;local v48;while true do if (v43==(2 + 0)) then return v47~=nil ;end if ((0 + 0)==v43) then v44=v42.HumanoidRootPart.Position;v45=v42.HumanoidRootPart.CFrame.LookVector * (562 -(306 + 254)) ;v43=1 + 0 ;end if ((1 -0)==v43) then v46=Ray.new(v44,v45);v47,v48=workspace:FindPartOnRay(v46,v42);v43=1469 -(899 + 568) ;end end end local function v28(v49) local v50=0;local v51;local v52;local v53;local v54;local v55;local v56;local v57;while true do if (v50==2) then local v88=0;while true do if (v88==(1 + 0)) then v57=v26:CreatePath({[v7("\45\201\91\124\106\69\242\227\5\219\77","\135\108\174\62\18\30\23\147")]=4 -2 ,[v7("\151\238\47\197\12\134\54\206\177\225\62","\167\214\137\74\171\120\206\83")]=5,[v7("\170\247\55\83\236\132\138\254\24\72\245\183","\199\235\144\82\61\152")]=true,[v7("\38\17\188\37\19\60\172\38\23\62\188\34\0\30\173","\75\103\118\217")]=607 -(268 + 335) ,[v7("\230\83\117\26\173\51\198\76\67\24\182\14\194","\126\167\52\16\116\217")]=330 -(60 + 230) ,[v7("\233\41\37\142\160\46\253\196\37\33\130\184\28\218\196\33\47\146","\156\168\78\64\224\212\121")]=572.75 -(426 + 146) ,[v7("\38\233\160\192\19\195\164\214\38\237\166\203\11\235\183\207\19\231\170\192","\174\103\142\197")]=300,[v7("\119\47\90\54\49\115\249\78\27\79\61\32\90","\152\54\72\63\88\69\62")]=v53.WalkSpeed});v50=3;break;end if (v88==0) then if (v56<=10) then v53:Move(Vector3.new(0 + 0 ,1456 -(282 + 1174) ,811 -(569 + 242) ));return;end if v27(v52) then local v103=0 -0 ;local v104;local v105;while true do if (v103==(1 + 0)) then while true do if (v104==0) then v105=CFrame.new( -(1026 -(706 + 318)),0, -(1253 -(721 + 530)));v55=(v54.CFrame * v105).p;break;end end break;end if (v103==0) then v104=1271 -(945 + 326) ;v105=nil;v103=2 -1 ;end end end v88=1 + 0 ;end end end if (v50==(703 -(271 + 429))) then v57:ComputeAsync(v55,v49);if (v57.Status==Enum.PathStatus.Success) then local v95=0 + 0 ;local v96;while true do if (v95==(1500 -(1408 + 92))) then v96=v57:GetWaypoints();for v106,v107 in ipairs(v96) do local v108=1086 -(461 + 625) ;while true do if (v108==(1289 -(993 + 295))) then local v110=0 + 0 ;local v111;while true do if (v110==(1171 -(418 + 753))) then v111=0;while true do if (v111==1) then v108=2;break;end if ((0 + 0)==v111) then local v115=0 + 0 ;while true do if ((0 + 0)==v115) then v55=v54.Position;v56=(v55-v49).magnitude;v115=1 + 0 ;end if (v115==1) then v111=530 -(406 + 123) ;break;end end end end break;end end end if (v108==0) then v53:MoveTo(v107.Position);v53.MoveToFinished:Wait();v108=1770 -(1749 + 20) ;end if ((1 + 1)==v108) then if (v56<=(1327 -(1249 + 73))) then local v113=0 + 0 ;while true do if (v113==0) then local v114=0;while true do if (v114==(1145 -(466 + 679))) then v53:Move(Vector3.new(0 -0 ,0 -0 ,1900 -(106 + 1794) ));return;end end end end end break;end end end break;end end else warn(v7("\228\197\250\84\210\205\224\88\221\202\233\28\210\197\231\80\209\192\174\72\219\132\237\83\217\212\251\72\209\132\254\93\192\204\174\72\219\132\234\89\199\208\231\82\213\208\231\83\218\138","\60\180\164\142"));end break;end if (v50==(1 + 0)) then v54=v52:WaitForChild(v7("\147\204\79\92\16\180\208\70\111\17\180\205\114\92\12\175","\126\219\185\34\61"));v55=v54.Position;v56=(v55-v49).magnitude;v50=2;end if ((0 + 0)==v50) then local v91=0 -0 ;while true do if ((2 -1)==v91) then v53=v52:WaitForChild(v7("\1\212\33\137\39\206\37\140","\232\73\161\76"));v50=1;break;end if (v91==(114 -(4 + 110))) then v51=game.Players.LocalPlayer;v52=v51.Character or v51.CharacterAdded:Wait() ;v91=585 -(57 + 527) ;end end end end end local function v29() local v58=nil;local v59=math.huge;for v79=1,1432 -(41 + 1386)  do local v80=v23:FindFirstChild(v7("\123\86\0\58\51","\114\56\62\101\73\71\141")   .. v79 );local v81=v15:FindFirstChild(v7("\159\232\207\193","\164\216\137\187")   .. (v79-(104 -(17 + 86))) );if (v80 and  not v81 and (v79<v59)) then local v92=0 + 0 ;local v93;while true do if (v92==0) then v93=0 -0 ;while true do if (0==v93) then v58=v80;v59=v79;break;end end break;end end end end if v58 then local v83=0 -0 ;local v84;local v85;while true do if (v83==(167 -(122 + 44))) then while true do if (0==v84) then v85=v58.PrimaryPart.Position + Vector3.new(17 -7 ,0,0 -0 ) ;v28(v85);break;end end break;end if (v83==(0 + 0)) then v84=0;v85=nil;v83=1 + 0 ;end end end end local v30=false;local function v31() local v60=0 -0 ;local v61;while true do if (v60==(65 -(30 + 35))) then v61=0 + 0 ;while true do if (v61==(1257 -(1043 + 214))) then v30= not v30;while v30 do local v98=0 -0 ;local v99;local v100;while true do if (v98==(1212 -(323 + 889))) then v99,v100=pcall(function() local v109=0 -0 ;while true do if (v109==(580 -(361 + 219))) then v29();wait(320.2 -(53 + 267) );break;end end end);if  not v99 then else end break;end end end break;end end break;end end end local v30=false;local function v32() v30= not v30;while v30 do local v82=0 + 0 ;while true do if (v82==(413 -(15 + 398))) then game:GetService(v7("\224\227\33\190\175\253\10\198\227\53\129\178\241\25\211\225\52","\107\178\134\81\210\198\158")):WaitForChild(v7("\29\24\135\200\190\43","\202\88\110\226\166")):WaitForChild(v7("\224\3\139\244\193","\170\163\111\226\151")):FireServer();task.wait();break;end end end end local v30=false;local function v33() local v62=0;local v63;while true do if ((982 -(18 + 964))==v62) then v63=0 -0 ;while true do if (v63==0) then v30= not v30;while v30 do local v101=0;local v102;while true do if ((0 + 0)==v101) then v102=0 + 0 ;while true do if (v102==(850 -(20 + 830))) then game:GetService(v7("\35\53\162\52\71\52\40\5\53\182\11\90\56\59\16\55\183","\73\113\80\210\88\46\87")):WaitForChild(v7("\164\58\200\28\243\146","\135\225\76\173\114")):WaitForChild(v7("\40\232\186\185\190\169\175","\199\122\141\216\208\204\221")):FireServer();task.wait(5);break;end end break;end end end break;end end break;end end end local v30=false;local function v34() local v64=0;local v65;while true do if (v64==(0 + 0)) then v65=0;while true do if (v65==0) then v30= not v30;while v30 do v17();task.wait(5);end break;end end break;end end end local v30=false;local function v35() local v66=0;while true do if (v66==(126 -(116 + 10))) then v30= not v30;while v30 do local v94=0 + 0 ;while true do if ((738 -(542 + 196))==v94) then game.ReplicatedStorage.Events.WheelSpin:FireServer(v7("\131\210\2\253\121\250","\150\205\189\112\144\24"));task.wait(10 -5 );break;end end end break;end end end game:GetService(v7("\21\136\190\85\1\154\2","\112\69\228\223\44\100\232\113")).LocalPlayer.Idled:Connect(function() local v67=0;local v68;while true do if (v67==(0 + 0)) then v68=0;while true do if (v68==(0 + 0)) then game:GetService(v7("\226\22\21\199\163\125\138\225\12\2\193","\230\180\127\103\179\214\28")):CaptureController();game:GetService(v7("\186\12\77\82\241\64\236\185\22\90\84","\128\236\101\63\38\132\33")):ClickButton2(Vector2.new());break;end end break;end end end);local v36=workspace.Zones:GetChildren();local v37=workspace.ClientTokens;v37.ChildAdded:Connect(function(v69) local v70=0 + 0 ;local v71;while true do if (0==v70) then v71=0 -0 ;while true do if (v71==(0 -0)) then task.wait(0.2);if v69:IsA(v7("\142\168\2\65\134\234\221\184","\175\204\201\113\36\214\139")) then v69:Destroy();end break;end end break;end end end);function copyd() copyToClipboard("https://discord.com/invite/23kFrRBSfD");end function copyy() copyToClipboard("https://youtube.com/@OneCreatorX");end v10:CreateToggle(v7("\102\217\33\211\68\100\192\60\223\15","\100\39\172\85\188"),v32);v10:CreateToggle(v7("\140\109\173\143\115\142\112\188\147\39","\83\205\24\217\224"),v31);v10:CreateToggle(v7("\199\208\217\50\166\241\194\54\227\203\222","\93\134\165\173"),v34);v10:CreateToggle(v7("\159\231\213\205\122\252\183\124\183\224\213\202","\30\222\146\161\162\90\174\210"),v33);v10:CreateToggle(v7("\196\91\100\5\165\125\96\3\235","\106\133\46\16"),v35);v11:CreateButton("Update: 03/05/24",v30);v11:CreateButton(v7("\110\37\97\239\83\79\86\96\37","\32\56\64\19\156\58"),v30);v12:CreateButton(v7("\121\199\245\79\26\222\137\84\195\165\111\85\231\180\79\202\224","\224\58\168\133\54\58\146"),copyy);v12:CreateButton(v7("\122\89\91\228\53\170\142\5\82\22\111\244\102\133\136\25\93","\107\57\54\43\157\21\230\231"),copyd);
+local function movePartsToPlayerPosition(zone)
+    for _, part in ipairs(zone:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.CFrame = CFrame.new(pp.Character.HumanoidRootPart.Position)
+        end
+    end
+end
+
+
+local function tk()
+    for i = 1, 5 do
+        local zone = tF:FindFirstChild("Zone" .. i)
+        local gate = gates:FindFirstChild("Gate" .. (i - 1))
+
+        if zone and not gate then
+            movePartsToPlayerPosition(zone)
+        end
+    end
+end 
+
+local p = game.Players.LocalPlayer
+local c = workspace.Scriptables.Chests
+local g = workspace.Scriptables.Gates
+local n = { "Chest1", "Chest2", "Chest3", "Chest4", "Chest5" }
+
+
+local player = game.Players.LocalPlayer
+local chests = workspace.Scriptables.Chests
+local gates = workspace.Scriptables.Gates
+local autoChest = false
+
+local destinationThreshold = 15
+local PathfindingService = game:GetService("PathfindingService")
+
+local function isStuck(character)
+    local rayOrigin = character.HumanoidRootPart.Position
+    local rayDirection = character.HumanoidRootPart.CFrame.LookVector * 2
+    local ray = Ray.new(rayOrigin, rayDirection)
+    local hit, position = workspace:FindPartOnRay(ray, character)
+
+    return hit ~= nil
+end
+
+local function moveToDestination(destination)
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:WaitForChild("Humanoid")
+    local torso = character:WaitForChild("HumanoidRootPart")
+
+    local currentPosition = torso.Position
+    local distanceToDestination = (currentPosition - destination).magnitude
+    if distanceToDestination <= 10 then
+        humanoid:Move(Vector3.new(0, 0, 0))
+        return  
+    end
+
+    if isStuck(character) then
+        local adjustment = CFrame.new(-2, 0, -2)
+        currentPosition = (torso.CFrame * adjustment).p
+    end
+
+    local path = PathfindingService:CreatePath({
+        AgentRadius = 2,
+        AgentHeight = 5,
+        AgentCanJump = true,
+        AgentJumpHeight = 4,
+        AgentMaxSlope = 40,
+        AgentWalkableFloor = 0.75,
+        AgentMaxAcceleration = 300,
+        AgentMaxSpeed = humanoid.WalkSpeed
+    })
+
+    path:ComputeAsync(currentPosition, destination)
+    if path.Status == Enum.PathStatus.Success then
+        local waypoints = path:GetWaypoints()
+        for _, waypoint in ipairs(waypoints) do
+            humanoid:MoveTo(waypoint.Position)
+            humanoid.MoveToFinished:Wait()
+            currentPosition = torso.Position
+            distanceToDestination = (currentPosition - destination).magnitude
+            if distanceToDestination <= 5 then
+                humanoid:Move(Vector3.new(0, 0, 0))
+                return
+            end
+        end
+    else
+        warn("Pathfinding failed to compute path to destination.")
+    end
+end
+
+local function moveToChest()
+    local closestChest = nil
+    local lowestNumber = math.huge
+
+    for i = 1, 5 do
+        local chest = chests:FindFirstChild("Chest" .. i)
+        local gate = gates:FindFirstChild("Gate" .. (i - 1))
+
+        if chest and not gate and i < lowestNumber then
+            closestChest = chest
+            lowestNumber = i
+        end
+    end
+
+    if closestChest then
+        local destinationPosition = closestChest.PrimaryPart.Position + Vector3.new(10, 0, 0)
+        moveToDestination(destinationPosition)
+    end
+end
+
+local a = false
+local function cofre()
+    a = not a
+    while a do
+        local success, error = pcall(function()
+            moveToChest()
+            task.wait(2)
+        end)
+
+        if not success then
+        else
+        end
+    end
+end
+
+
+local a = false
+local function click()
+    a = not a
+    while a do
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Click"):FireServer()
+        task.wait()
+    end
+end
+
+local a = false
+local function Rebirth()
+    a = not a
+    while a do
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rebirth"):FireServer()
+        task.wait(5)
+    end
+end
+
+local a = false
+local function Tokens()
+    a = not a
+    while a do
+        tk()
+        task.wait(5)
+    end
+end
+
+local a = false
+local function Spin()
+    a = not a
+    while a do
+        game.ReplicatedStorage.Events.WheelSpin:FireServer("Normal")
+        task.wait(5)
+    end
+end
+
+
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
+
+local zones = workspace.Zones:GetChildren()
+
+local clientTokensFolder = workspace.ClientTokens
+
+clientTokensFolder.ChildAdded:Connect(function(child)
+    task.wait(0.2)
+    if child:IsA("BasePart") then
+        child:Destroy()
+    end
+end)
+
+function copyd()
+    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
+end
+
+function copyy()
+    copyToClipboard("https://youtube.com/@OneCreatorX")
+end
+
+Sec:CreateToggle("Auto Click", click)
+Sec:CreateToggle("Auto Chest", cofre)
+Sec:CreateToggle("Auto Tokens", Tokens)
+Sec:CreateToggle("Auto Rebirth", Rebirth)
+Sec:CreateToggle("Auto Spin", Spin)
+Sec3:CreateButton("Update: 03/05/24", a)
+Sec3:CreateButton("Version 6", a)
+Sec2:CreateButton("Copy Link YouTube", copyy)
+Sec2:CreateButton("Copy Link Discord", copyd)
