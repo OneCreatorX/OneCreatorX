@@ -22,28 +22,28 @@ end
 
 local function moveHearts()
     local player = game.Players.LocalPlayer
-    local PPos = player.Character.HumanoidRootPart.Position
-    local Hearts = WS.Map.Interactable:GetDescendants()
-    local function calculateVelocity(targetPosition, speed)
-        local direction = (targetPosition - PPos).unit
-        return direction * speed
-    end
-
-    local function collectHeart(heartPart)
-        local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
-        local dist = (HPos - PPos).magnitude
-        if dist < 5 then
-            heartPart.Transparency = 1
-            heartPart.Position = PPos
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and b then
+        local PPos = player.Character.HumanoidRootPart.Position
+        local Hearts = WS.Map.Interactable:GetDescendants()
+        
+        local function calculateVelocity(targetPosition, speed)
+            local direction = (targetPosition - PPos).unit
+            return direction * speed
         end
-    end
-
-    if b then
+        
+        local function collectHeart(heartPart)
+            local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
+            local dist = (HPos - PPos).magnitude
+            if dist < 5 then
+                heartPart.Transparency = 1
+                heartPart.Position = PPos
+            end
+        end
+        
         local minDist = math.huge
         local closestHeart = nil
 
         for _, H in ipairs(Hearts) do
-
             if H:IsA("MeshPart") and H.Transparency ~= 1 then
                 local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
                 local dist = (HPos - PPos).magnitude
@@ -60,20 +60,25 @@ local function moveHearts()
             local heartPart = closestHeart
             local targetPosition = heartPart.Position
             local velocity = calculateVelocity(targetPosition, speed)
+            player.Character.HumanoidRootPart.Velocity = velocity
             
-player.Character.HumanoidRootPart.Velocity = velocity
             repeat
-wait()
+                wait()
                 collectHeart(heartPart)
             until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 3
+            
             if not closestHeart.Parent then
-else
+               
             end
         else
             wait()
         end
     end
 end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    pcall(moveHearts)
+end)
 
 function has()
     b = not b
@@ -122,11 +127,6 @@ CircleMesh.MeshType = Enum.MeshType.Cylinder
 CircleMesh.Scale = Vector3.new(522.132, 34.9476, 611.233)
 CircleMesh.Parent = AC
 CircleMesh.TextureId = skyID
-
-game:GetService("RunService").RenderStepped:Connect(moveHearts)
-
-
-
 
 local da = false
 function save()
@@ -197,13 +197,6 @@ local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "Testing New system ",
             Text = "Reset Character Teste",
-            Duration = 15,
-        })
-
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-            Title = "Recommend ",
-            Text = "Disabled Log console",
             Duration = 15,
         })
 
