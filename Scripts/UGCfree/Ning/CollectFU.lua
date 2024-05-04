@@ -1,11 +1,12 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect For UGC v10")
+local Win = Lib:NewWindow("Collect For UGC v12")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local b = false
 local speed = 68
+local ya = false
 
 local RS = game:GetService("RunService")
 local WS = game:GetService("Workspace")
@@ -65,6 +66,12 @@ else
     end
 end
 
+function has()
+    b = not b
+  ya = not ya
+end
+
+
 function copyd()
     copyToClipboard("https://discord.com/invite/23kFrRBSfD")
 end
@@ -109,27 +116,6 @@ CircleMesh.TextureId = skyID
 
 game:GetService("RunService").RenderStepped:Connect(moveHearts)
 
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local leftFoot = character:WaitForChild("LeftFoot")
-
-local part = Instance.new("Part")
-part.Size = Vector3.new(5, 1, 5)
-part.Anchored = true
-part.CanCollide = true
-part.Transparency = 1
-part.Parent = game.Workspace
-
-local function updatePartPosition()
-    while b and character and character:IsDescendantOf(game.Workspace) and leftFoot do
-        local footPosition = leftFoot.Position - Vector3.new(0, leftFoot.Size.Y/0.30, 0)
-        part.Position = footPosition
-         wait()
-    end
-end
 
 
 
@@ -152,13 +138,6 @@ else
 end
 end
 end
-
-function has()
-    b = not b
-    updatePartPosition()
-end
-
-
 
 Sec:CreateToggle("Auto Hearts", has)
 Sec:CreateToggle("Auto Save Heart", save)
@@ -193,7 +172,76 @@ end)
  
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
-            Title = "New System No Dectec",
-            Text = "Anti Delete Hearts(Testing)",
-            Duration = 20,
+            Title = "New System Better",
+            Text = "Anti Delete Hearts(90% safe)",
+            Duration = 15,
         })
+
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Testing New system ",
+            Text = "Reset Character Teste",
+            Duration = 15,
+        })
+
+local player = game.Players.LocalPlayer
+
+local function onLongFall()
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Warn u falling +3s",
+        Text = "Auto Stop in 1",
+        Duration = 3,
+    })
+    b = false
+    player.Character.Humanoid.Health = 0
+end
+
+local function onCharacterAdded()
+if ya then
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Auto Start ",
+        Text = "u are safe, by OneCreatorX",
+        Duration = 10,
+    })
+    b = true
+else
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Anti Freefall Ready",
+        Text = "u are safe, by OneCreatorX",
+        Duration = 10,
+    })
+end
+end
+
+local function checkFreefall()
+    if player.Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
+        wait(3)
+        if player.Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
+            onLongFall()
+        end
+    end
+end
+
+player.Character.Humanoid.StateChanged:Connect(function(oldState, newState)
+    if newState == Enum.HumanoidStateType.Freefall then
+        checkFreefall()
+    else
+
+    end
+end)
+
+player.ChildAdded:Connect(function(child)
+    wait(1)
+    onCharacterAdded()
+player.Character.Humanoid.StateChanged:Connect(function(oldState, newState)
+    if newState == Enum.HumanoidStateType.Freefall then
+        checkFreefall()
+    else
+
+    end
+end)
+
+end)
