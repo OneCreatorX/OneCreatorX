@@ -184,9 +184,15 @@ RunService.Heartbeat:Connect(function()
     
     local playerPosition = localPlayer.Character.PrimaryPart.Position
     local targetPosition = positions[currentTarget]
-    local distance = (targetPosition - playerPosition).magnitude
+
+    -- Crear vectores que ignoren la componente Y (altura)
+    local flatPlayerPosition = Vector3.new(playerPosition.X, 0, playerPosition.Z)
+    local flatTargetPosition = Vector3.new(targetPosition.X, 0, targetPosition.Z)
+
+    -- Calcular la distancia ignorando la altura
+    local distance = (flatTargetPosition - flatPlayerPosition).magnitude
     
-    if distance < 13 then
+    if distance < 6 then  -- Ajusta este valor según sea necesario para la sensibilidad de proximidad
         currentTarget = currentTarget + 1 
         if currentTarget > #positions then
             currentTarget = 1 
@@ -195,6 +201,7 @@ RunService.Heartbeat:Connect(function()
         moveTo(targetPosition)  
     end
 end)
+
 
 Sec:CreateToggle("Auto Walk Farm", waa)
 
