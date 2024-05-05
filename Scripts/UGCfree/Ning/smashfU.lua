@@ -89,13 +89,6 @@ end)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Eficiencia del kill Aura",
-        Text = "Depende del Ping",
-        Duration = 5,
-    })
-
-local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
         Title = "Aura kill efficiency",
         Text = "Depends on Ping",
         Duration = 5,
