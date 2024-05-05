@@ -67,13 +67,46 @@ end
 function sa()
 end
 
+
+local function movePlayerToBugPosition()
+    local bugsFolder = workspace:FindFirstChild("Bugs")
+    if not bugsFolder then return end 
+
+    local allBugs = bugsFolder:GetChildren()
+
+    local player = game.Players.LocalPlayer
+    local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+    if not humanoidRootPart then return end 
+
+    local playerPosition = humanoidRootPart.Position
+
+    for _, bug in ipairs(allBugs) do
+        if bug.PrimaryPart then
+            local bugPosition = bug.PrimaryPart.Position
+            local newPosition = Vector3.new(bugPosition.X, playerPosition.Y, bugPosition.Z) 
+            humanoidRootPart.CFrame = CFrame.new(newPosition)
+            break
+        end
+    end
+end
+
+local taa = false
+
+function tpp()
+taa = not taa
+while taa do
+wait(0.1)
+movePlayerToBugPosition()
+end
+end
+
 Sec3:CreateButton("Update 05/05/24", sa)
-Sec3:CreateButton("Version 1.5", sa)
+Sec3:CreateButton("Version 1.7", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
-
-Sec:CreateTextbox("Speed", function(value)
+Sec:CreateToggle("Tp Farm", tpp)
+Sec:CreateTextbox("Speed 300-500", function(value)
              speed = value
     speede()
 end)
@@ -81,7 +114,7 @@ end)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Version 1.5 Here",
+        Title = "Version 1.7 Here",
         Text = "Much improvements",
         Duration = 5,
     })
