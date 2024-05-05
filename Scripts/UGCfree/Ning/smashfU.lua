@@ -68,7 +68,7 @@ function sa()
 end
 
 Sec3:CreateButton("Update 05/05/24", sa)
-Sec3:CreateButton("Version 1", sa)
+Sec3:CreateButton("Version 1.5", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
@@ -81,7 +81,7 @@ end)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Version 1 Here",
+        Title = "Version 1.5 Here",
         Text = "Much improvements",
         Duration = 5,
     })
@@ -106,15 +106,6 @@ task.wait(0.3)
         child:Destroy()
     end
 end)
-
-
-local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "Version 0.3 Here",
-        Text = "Anti Lag Ready",
-        Duration = 5,
-    })
-
 
 
 local Workspace = game:GetService("Workspace")
@@ -166,7 +157,7 @@ RunService.Heartbeat:Connect(function()
     local targetPosition = positions[currentTarget]
     local distance = (targetPosition - playerPosition).magnitude
     
-    if distance < 5 then
+    if distance < 18 then
         currentTarget = currentTarget + 1 
         if currentTarget > #positions then
             currentTarget = 1 
@@ -177,6 +168,30 @@ RunService.Heartbeat:Connect(function()
 end)
 
 Sec:CreateToggle("Auto Walk Farm", waa)
+local gg = false
+
+function ocultarse()
+gg = not gg
+local e 
+if gg then
+local part = workspace.Map.Dirt
+workspace.Map.Grass.Transparency = 1
+part.Size = Vector3.new(275, 0.001, 275)
+part.Position = Vector3.new(0, -17, 0)
+local player = game.Players.LocalPlayer
+local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+if humanoidRootPart then
+ e = humanoidRootPart.Position
+    local newPosition = humanoidRootPart.Position - Vector3.new(0, 6, 0)
+    humanoidRootPart.CFrame = CFrame.new(newPosition)
+else
+humanoidRootPart.CFrame = CFrame.new(e)
+end
+end
+end
+
+Sec:CreateButton("Hide/Ocultar", ocultarse)
+
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
