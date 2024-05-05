@@ -165,7 +165,7 @@ RunService.Heartbeat:Connect(function()
     
     if distance < 5 then
         currentTarget = currentTarget + 1 
-        if wa and currentTarget > #positions then
+        if currentTarget > #positions then
             currentTarget = 1 
         end
     else
@@ -173,7 +173,7 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
-Sec:CreateButton("Auto Walk Farm", waa)
+Sec:CreateToggle("Auto Walk Farm", waa)
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
