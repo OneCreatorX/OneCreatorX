@@ -67,20 +67,12 @@ end
 function sa()
 end
 
-function ha()
-local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = " add Soon Update",
-        Text = "Actualización Próximamente",
-        Duration = 5,
-    })
-end
 Sec3:CreateButton("Update 05/05/24", sa)
-Sec3:CreateButton("Version 0.3", sa)
+Sec3:CreateButton("Version 1", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
-Sec:CreateButton("Auto Walk Farm(soon)", ha)
+
 Sec:CreateTextbox("Speed", function(value)
              speed = value
     speede()
@@ -89,8 +81,8 @@ end)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Eficiencia del kill Aura",
-        Text = "Depende del Ping",
+        Title = "Version 1 Here",
+        Text = "Much improvements",
         Duration = 5,
     })
 
@@ -132,6 +124,56 @@ Workspace.ChildAdded:Connect(function(child)
         child:Destroy()
     end
 end)
+
+
+local wa = false
+
+function waa()
+wa = not wa
+end
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+
+local function moveTo(position)
+    local localPlayer = Players.LocalPlayer
+    if not localPlayer or not localPlayer.Character or not localPlayer.Character:FindFirstChild("Humanoid") then
+        return
+    end
+    
+    local humanoid = localPlayer.Character:FindFirstChild("Humanoid")
+    humanoid:MoveTo(position)
+end
+
+local positions = {
+    Vector3.new(82, -1, 71),
+    Vector3.new(-75, -1, 77),
+    Vector3.new(-74, -1, -70),
+    Vector3.new(72, -1, -64)
+}
+
+local currentTarget = 1
+
+RunService.Heartbeat:Connect(function()
+    if wa and not Players.LocalPlayer or not Players.LocalPlayer.Character or not Players.LocalPlayer.Character.PrimaryPart then
+        return
+    end
+    
+    local playerPosition = Players.LocalPlayer.Character.PrimaryPart.Position
+    local targetPosition = positions[currentTarget]
+    local distance = (targetPosition - playerPosition).magnitude
+    
+    if distance < 5 then
+        currentTarget = currentTarget + 1 
+        if wa and currentTarget > #positions then
+            currentTarget = 1 
+        end
+    else
+        moveTo(targetPosition)  
+    end
+end)
+
+Sec:CreateButton("Auto Walk Farm", waa)
 
 while true do wait()
 hitRandomBugs()
