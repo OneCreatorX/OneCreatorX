@@ -186,7 +186,7 @@ RunService.Heartbeat:Connect(function()
     local targetPosition = positions[currentTarget]
     local distance = (targetPosition - playerPosition).magnitude
     
-    if distance < 18 then
+    if distance < 13 then
         currentTarget = currentTarget + 1 
         if currentTarget > #positions then
             currentTarget = 1 
