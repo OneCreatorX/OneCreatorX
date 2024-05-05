@@ -106,7 +106,7 @@ Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
 Sec:CreateToggle("Tp Farm", tpp)
-Sec:CreateTextbox("Speed 300-500", function(value)
+Sec:CreateTextbox("Speed 0 - 500", function(value)
              speed = value
     speede()
 end)
