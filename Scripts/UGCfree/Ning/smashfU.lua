@@ -96,7 +96,7 @@ local StarterGui = game:GetService("StarterGui")
 
 
 for _, y in ipairs(Workspace.Effects:GetChildren()) do
-       y:Desteoy()
+       y:Destroy()
 end
 
 Workspace.Effects.ChildAdded:Connect(function(child)
