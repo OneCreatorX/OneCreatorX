@@ -76,7 +76,7 @@ local StarterGui = game:GetService("StarterGui")
     })
 end
 Sec3:CreateButton("Update 05/05/24", sa)
-Sec3:CreateButton("Version 0.1", sa)
+Sec3:CreateButton("Version 0.3", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
@@ -100,6 +100,35 @@ local StarterGui = game:GetService("StarterGui")
         Text = "Depends on Ping",
         Duration = 5,
     })
+
+
+for _, y in ipairs(Workspace.Effects:GetChildren()) do
+       y:Desteoy()
+end
+
+Workspace.Effects.ChildAdded:Connect(function(child)
+    if child:IsA("Part") and child.Name == "Part" then
+        child:Destroy()
+    end
+end)
+
+
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Version 0.3 Here",
+        Text = "Anti Lag Ready",
+        Duration = 5,
+    })
+
+
+
+local Workspace = game:GetService("Workspace")
+
+Workspace.ChildAdded:Connect(function(child)
+    if child:IsA("Part") and child.Name == "Part" then
+        child:Destroy()
+    end
+end)
 
 while true do wait()
 hitRandomBugs()
