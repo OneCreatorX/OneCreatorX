@@ -129,7 +129,7 @@ end)
 local wa = false
 
 function waa()
-wa = not wa
+    wa = not wa
 end
 
 local Players = game:GetService("Players")
@@ -155,11 +155,14 @@ local positions = {
 local currentTarget = 1
 
 RunService.Heartbeat:Connect(function()
-    if wa and not Players.LocalPlayer or not Players.LocalPlayer.Character or not Players.LocalPlayer.Character.PrimaryPart then
+    if not wa then return end
+    
+    local localPlayer = Players.LocalPlayer
+    if not localPlayer or not localPlayer.Character or not localPlayer.Character.PrimaryPart then
         return
     end
     
-    local playerPosition = Players.LocalPlayer.Character.PrimaryPart.Position
+    local playerPosition = localPlayer.Character.PrimaryPart.Position
     local targetPosition = positions[currentTarget]
     local distance = (targetPosition - playerPosition).magnitude
     
