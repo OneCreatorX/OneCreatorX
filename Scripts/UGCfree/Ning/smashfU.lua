@@ -89,18 +89,28 @@ end)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
+        Title = "Eficiencia del kill Aura",
+        Text = "Depende del Ping",
+        Duration = 5,
+    })
+
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
         Title = "Aura kill efficiency",
         Text = "Depends on Ping",
         Duration = 5,
     })
 
 
-for _, y in ipairs(Workspace.Effects:GetChildren()) do
-       y:Destroy()
+for _, y in ipairs(Workspace.Effects:GetDescendants()) do
+       if y:IsA("BasePart") then
+y.Transparency = 1
+end
 end
 
 Workspace.Effects.ChildAdded:Connect(function(child)
-    if child:IsA("Part") and child.Name == "Part" then
+task.wait(0.3)
+    if child:IsA("BasePart") and child.Name == "BasePart" then
         child:Destroy()
     end
 end)
