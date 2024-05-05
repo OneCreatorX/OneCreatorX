@@ -106,10 +106,6 @@ Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
 Sec:CreateToggle("Tp Farm", tpp)
-Sec:CreateTextbox("Speed 0 - 500", function(value)
-             speed = value
-    speede()
-end)
 
 
 local StarterGui = game:GetService("StarterGui")
@@ -201,6 +197,12 @@ RunService.Heartbeat:Connect(function()
 end)
 
 Sec:CreateToggle("Auto Walk Farm", waa)
+
+Sec:CreateTextbox("Speed 0 - 500", function(value)
+             speed = value
+    speede()
+end)
+
 local gg = false
 
 function ocultarse()
