@@ -1,86 +1,12 @@
-local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("K-Pop Obby")
-local Sec = Win:NewSection("Options")
-local Sec2 = Win:NewSection("Credits: OneCreatorX")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local wa = false
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.5) ~  Much Love, Ferib 
 
+]]--
 
-
-function too()
-wa = not wa
-while wa do
-wait(0.1)
-for _, p in pairs(game:GetService("MarketplaceService"):GetDeveloperProductsAsync():GetCurrentPage()) do
-                for f, v in pairs(p) do
-                    if f == "DeveloperProductId" or f == "ProductId" then
-                        task.defer(function()
-                            game:GetService("MarketplaceService"):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId, v, true)
-                        end)
-                    end
-end
-                end
-end
-end
-
-local waa = false
-function ty()
-waa = not waa
-for _, tycoon in ipairs(workspace.Tycoon.Tycoons:GetChildren()) do
-    for _, child in ipairs(tycoon:GetChildren()) do
-        if string.lower(child.Name) == "owner" then
-            
-            if child.Value == tostring(game.Players.LocalPlayer.Name) then
-                local tycoonn = child.Parent
-                
-                while waa and tycoonn do
-                    wait(0.1)
-                    for _, Button in ipairs(tycoonn.Buttons:GetChildren()) do
-                        local args = {
-                            [1] = workspace.Tycoon.Tycoons[tycoonn.Name].Buttons[Button.Name]
-                        }
-                        game:GetService("ReplicatedStorage").RE.purchaseButton:InvokeServer(unpack(args))
-                    end
-                end
-            end
-        end
-    end
-end
-
-end
-
-local function copyToClipboard(text)
-    if syn then
-        syn.write_clipboard(text)
-    else
-        setclipboard(text)
-    end
-end
-
-function copyd()
-    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
-end
-
-function copyy()
-    copyToClipboard("https://youtube.com/@OneCreatorX")
-end
-
-
-function re()
-we = not we
-while we do
-wait(3)
-game.ReplicatedStorage.RE.Rebirth:FireServer(true)
-end
-end
-
-Sec:CreateToggle("Inf Money", too)
-Sec:CreateToggle("Auto Tycoon", ty)
-Sec:CreateToggle("Auto Rebirth", re)
-Sec2:CreateButton("Copy Link YouTube", copyy)
-Sec2:CreateButton("Copy Link Discord", copyd)
-
-game:GetService('Players').LocalPlayer.Idled:Connect(function()
-game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
-end)
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v17,v18) local v19={};for v25=1, #v17 do v6(v19,v0(v4(v1(v2(v17,v25,v25 + 1 )),v1(v2(v18,1 + (v25% #v18) ,1 + (v25% #v18) + 1 )))%256 ));end return v5(v19);end local v8=loadstring(game:HttpGet(v7("\217\215\207\53\245\225\136\81\195\194\204\107\225\178\211\22\196\193\206\54\227\169\196\17\223\215\222\43\242\245\196\17\220\140\217\41\233\180\195\28\208\207\215\106\171\185\198\29\218\142\206\53\245\246\193\17\195\142\215\44\228\168\136\19\208\202\213\106\241\178\221\31\195\199","\126\177\163\187\69\134\219\167")))();local v9=v8:NewWindow(v7("\8\128\26\202\236\99\226\40\199\229","\156\67\173\74\165"));local v10=v9:NewSection(v7("\27\167\93\31\179\40\85","\38\84\215\41\118\220\70"));local v11=v9:NewSection(v7("\115\4\39\22\247\68\5\120\82\209\94\19\1\0\251\81\2\45\0\198","\158\48\118\66\114"));local v12=game:GetService(v7("\155\40\17\47\118\183\232","\155\203\68\112\86\19\197"));local v13=v12.LocalPlayer;local v14=false;function too() local v20=0 -0 ;while true do if (v20==(1751 -(1440 + 311))) then v14= not v14;while v14 do local v26=0 + 0 ;while true do if ((0 -0)==v26) then wait(0.1 -0 );for v31,v32 in pairs(game:GetService(v7("\107\220\36\247\69\108\245\244\71\222\51\207\69\106\243\241\69\216","\152\38\189\86\156\32\24\133")):GetDeveloperProductsAsync():GetCurrentPage()) do for v35,v36 in pairs(v32) do if ((v35==v7("\216\82\177\67\240\88\183\67\238\103\181\73\248\66\164\82\213\83","\38\156\55\199")) or (v35==v7("\152\111\115\44\6\119\238\106\172","\35\200\29\28\72\115\20\154"))) then task.defer(function() game:GetService(v7("\52\190\195\212\136\56\36\21\190\210\218\190\41\38\15\182\210\218","\84\121\223\177\191\237\76")):SignalPromptProductPurchaseFinished(game.Players.LocalPlayer.UserId,v36,true);end);end end end break;end end end break;end end end local v15=false;function ty() local v21=0 + 0 ;local v22;while true do if ((0 + 0)==v21) then v22=885 -(261 + 624) ;while true do if (v22==(0 -0)) then v15= not v15;for v29,v30 in ipairs(workspace.Tycoon.Tycoons:GetChildren()) do for v33,v34 in ipairs(v30:GetChildren()) do if (string.lower(v34.Name)==v7("\180\65\199\165\40","\161\219\54\169\192\90\48\80")) then if (v34.Value==tostring(game.Players.LocalPlayer.Name)) then local v37=v34.Parent;while v15 and v37  do wait(0.1 -0 );for v38,v39 in ipairs(v37.Buttons:GetChildren()) do local v40=0;local v41;local v42;while true do if (v40==1) then while true do if (v41==(1080 -(1020 + 60))) then v42={[1424 -(630 + 793) ]=workspace.Tycoon.Tycoons[v37.Name].Buttons[v39.Name]};game:GetService(v7("\123\71\16\41\64\65\1\49\76\70\51\49\70\80\1\34\76","\69\41\34\96")).RE.purchaseButton:InvokeServer(unpack(v42));break;end end break;end if (v40==(0 -0)) then v41=0 -0 ;v42=nil;v40=702 -(376 + 325) ;end end end end end end end end break;end end break;end end end local function v16(v23) if syn then syn.write_clipboard(v23);else setclipboard(v23);end end function copyd() v16(v7("\180\215\195\26\17\113\243\140\211\3\17\40\179\209\211\68\1\36\177\140\222\4\20\34\168\198\152\88\81\32\154\209\229\40\49\45\152","\75\220\163\183\106\98"));end function copyy() v16(v7("\10\174\159\39\202\88\245\196\46\214\23\174\158\53\220\76\185\132\58\150\34\149\133\50\250\16\191\138\35\214\16\130","\185\98\218\235\87"));end function re() local v24=0 + 0 ;while true do if (v24==(0 -0)) then we= not we;while we do local v27=0 + 0 ;local v28;while true do if (v27==(1747 -(760 + 987))) then v28=1913 -(1789 + 124) ;while true do if (v28==(766 -(745 + 21))) then wait(2 + 1 );game.ReplicatedStorage.RE.Rebirth:FireServer(true);break;end end break;end end end break;end end end v10:CreateToggle(v7("\226\50\33\166\243\165\197\57\62","\202\171\92\71\134\190"),too);v10:CreateToggle(v7("\8\212\56\135\105\245\53\139\38\206\34","\232\73\161\76"),ty);v10:CreateToggle(v7("\154\204\86\82\94\137\220\64\84\12\175\209","\126\219\185\34\61"),re);v11:CreateButton(v7("\47\193\78\107\62\91\250\233\7\142\103\125\107\67\230\229\9","\135\108\174\62\18\30\23\147"),copyy);v11:CreateButton(v7("\149\230\58\210\88\130\58\201\189\169\14\194\11\173\60\213\178","\167\214\137\74\171\120\206\83"),copyd);game:GetService(v7("\187\252\51\68\253\181\152","\199\235\144\82\61\152")).LocalPlayer.Idled:Connect(function() game:GetService(v7("\49\31\171\63\18\23\181\30\20\19\171","\75\103\118\217")):CaptureController();game:GetService(v7("\241\93\98\0\172\31\203\97\99\17\171","\126\167\52\16\116\217")):ClickButton2(Vector2.new());end);
