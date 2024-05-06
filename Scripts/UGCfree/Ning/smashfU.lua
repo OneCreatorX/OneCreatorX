@@ -68,49 +68,80 @@ function sa()
 end
 
 
-local function movePlayerToBugPosition()
+local function movePlayerToNearestBug()
     local bugsFolder = workspace:FindFirstChild("Bugs")
-    if not bugsFolder then return end 
+    if not bugsFolder then return end  -- Verifica si el folder de bugs existe
 
     local allBugs = bugsFolder:GetChildren()
 
     local player = game.Players.LocalPlayer
     local humanoidRootPart = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-    if not humanoidRootPart then return end 
+    if not humanoidRootPart then return end  -- Verifica si el jugador tiene un HumanoidRootPart
 
     local playerPosition = humanoidRootPart.Position
+    local nearestBug = nil
+    local shortestDistance = math.huge  -- Inicializa con un valor muy grande
 
+    -- Encuentra el bug más cercano
     for _, bug in ipairs(allBugs) do
         if bug.PrimaryPart then
             local bugPosition = bug.PrimaryPart.Position
-            local newPosition = Vector3.new(bugPosition.X, playerPosition.Y, bugPosition.Z) 
-            humanoidRootPart.CFrame = CFrame.new(newPosition)
-            break
+            local distance = (bugPosition - playerPosition).magnitude  -- Calcula la distancia al bug
+            if distance < shortestDistance then
+                shortestDistance = distance
+                nearestBug = bug
+            end
         end
     end
+
+    -- Mueve al jugador hacia el bug más cercano
+    if nearestBug and nearestBug.PrimaryPart then
+        local nearestBugPosition = nearestBug.PrimaryPart.Position
+        local newPosition = Vector3.new(nearestBugPosition.X, playerPosition.Y, nearestBugPosition.Z)
+        player.Character.Humanoid.WalkToPoint = newPosition
+    end
 end
+
 
 local taa = false
 
 function tpp()
 taa = not taa
 while taa do
-wait(0.1)
-movePlayerToBugPosition()
+task.wait(0.1)
+movePlayerToNearestBug()
 end
 end
 
+local lagg = false
+function lag()
+lagg = not lagg
+for _, y in ipairs(Workspace.Bugs:GetDescendants()) do
+       if y:IsA("BasePart") then
+y.Transparency = 1
+end
+end
+
+Workspace.Bugs.ChildAdded:Connect(function(child)
+for _, y in ipairs(child:GetDescendants()) do
+       if y:IsA("BasePart") and lagg then
+y.Transparency = 1
+end
+end
+end)
+end
+
+
 Sec3:CreateButton("Update 05/05/24", sa)
-Sec3:CreateButton("Version 1.7", sa)
+Sec3:CreateButton("Version 1.9", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
--- Sec:CreateToggle("Tp Farm", tpp)
-
+Sec:CreateToggle("Hide Bugs -Lag", lag)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Version 1.7 Here",
+        Title = "Version 1.9 Here",
         Text = "Much improvements",
         Duration = 5,
     })
@@ -129,12 +160,15 @@ y.Transparency = 1
 end
 end
 
+
 Workspace.Effects.ChildAdded:Connect(function(child)
 task.wait(0.3)
-    if child:IsA("BasePart") and child.Name == "BasePart" then
+    if child:IsA("BasePart") then
         child:Destroy()
     end
 end)
+
+
 
 
 local Workspace = game:GetService("Workspace")
@@ -185,14 +219,12 @@ RunService.Heartbeat:Connect(function()
     local playerPosition = localPlayer.Character.PrimaryPart.Position
     local targetPosition = positions[currentTarget]
 
-    -- Crear vectores que ignoren la componente Y (altura)
     local flatPlayerPosition = Vector3.new(playerPosition.X, 0, playerPosition.Z)
     local flatTargetPosition = Vector3.new(targetPosition.X, 0, targetPosition.Z)
 
-    -- Calcular la distancia ignorando la altura
     local distance = (flatTargetPosition - flatPlayerPosition).magnitude
     
-    if distance < 6 then  -- Ajusta este valor según sea necesario para la sensibilidad de proximidad
+    if distance < 6 then 
         currentTarget = currentTarget + 1 
         if currentTarget > #positions then
             currentTarget = 1 
@@ -203,8 +235,8 @@ RunService.Heartbeat:Connect(function()
 end)
 
 
-Sec:CreateToggle("Auto Walk Farm", waa)
-
+Sec:CreateToggle("Walk Farm v1", waa)
+Sec:CreateToggle("Walk Farm v2", tpp)
 -- Sec:CreateTextbox("Speed 0 - 500", function(value)
            --  speed = value
    -- speede()
