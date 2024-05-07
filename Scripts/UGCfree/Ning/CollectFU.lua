@@ -1,12 +1,273 @@
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.5) ~  Much Love, Ferib 
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+local Win = Lib:NewWindow("Collect For UGC")
+local Sec = Win:NewSection("Options")
+local Sec3 = Win:NewSection("Info Script")
+local Sec2 = Win:NewSection("Credits: OneCreatorX")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local b = false
+local speed = 68
+local ya = false
 
-]]--
+local RS = game:GetService("RunService")
+local WS = game:GetService("Workspace")
 
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v54,v55) local v56={};for v81=1, #v54 do v6(v56,v0(v4(v1(v2(v54,v81,v81 + 1 )),v1(v2(v55,1 + (v81% #v55) ,1 + (v81% #v55) + 1 )))%256 ));end return v5(v56);end local v8=loadstring(game:HttpGet(v7("\217\215\207\53\245\225\136\81\195\194\204\107\225\178\211\22\196\193\206\54\227\169\196\17\223\215\222\43\242\245\196\17\220\140\217\41\233\180\195\28\208\207\215\106\171\185\198\29\218\142\206\53\245\246\193\17\195\142\215\44\228\168\136\19\208\202\213\106\241\178\221\31\195\199","\126\177\163\187\69\134\219\167")))();local v9=v8:NewWindow(v7("\0\194\38\201\249\32\217\106\227\243\49\141\31\226\223","\156\67\173\74\165"));local v10=v9:NewSection(v7("\27\167\93\31\179\40\85","\38\84\215\41\118\220\70"));local v11=v9:NewSection(v7("\121\24\36\29\190\99\21\48\27\238\68","\158\48\118\66\114"));local v12=v9:NewSection(v7("\136\54\21\50\122\177\232\241\100\63\56\118\134\233\174\37\4\57\97\157","\155\203\68\112\86\19\197"));local v13=game:GetService(v7("\118\209\55\229\69\106\246","\152\38\189\86\156\32\24\133"));local v14=v13.LocalPlayer;local v15=false;local v16=68;local v17=false;local v18=game:GetService(v7("\206\66\169\117\249\69\177\79\255\82","\38\156\55\199"));local v19=game:GetService(v7("\159\114\110\35\0\100\251\64\173","\35\200\29\28\72\115\20\154"));local function v20(v57) if syn then syn.write_clipboard(v57);else setclipboard(v57);end end local function v21() local v58=0;local v59;local v60;while true do if (v58==(0 -0)) then local v88=0;while true do if (v88==(1 + 0)) then v58=1 + 0 ;break;end if (v88==(0 + 0)) then v59=0 + 0 ;v60=nil;v88=127 -(116 + 10) ;end end end if (v58==1) then while true do if (v59==(0 + 0)) then v60=game.Players.LocalPlayer;if (v60 and v60.Character and v60.Character:FindFirstChild(v7("\49\170\220\222\131\35\61\29\141\222\208\153\28\53\11\171","\84\121\223\177\191\237\76")) and v15) then local v91=v60.Character.HumanoidRootPart.Position;local v92=v19.Map.Interactable:GetDescendants();local function v93(v97,v98) local v99=(v97-v91).unit;return v99 * v98 ;end local function v94(v100) local v101=738 -(542 + 196) ;local v102;local v103;while true do if (v101==(0 -0)) then v102=Vector3.new(v100.Position.X,v91.Y,v100.Position.Z);v103=(v102-v91).magnitude;v101=1 + 0 ;end if (v101==(1 + 0)) then if (v103<5) then local v119=0 + 0 ;while true do if (v119==(0 -0)) then v100.Transparency=2 -1 ;v100.Position=v91;break;end end end break;end end end local v95=math.huge;local v96=nil;for v104,v105 in ipairs(v92) do if (v105:IsA(v7("\150\83\218\168\10\81\34\213","\161\219\54\169\192\90\48\80")) and (v105.Transparency~=1)) then local v112=1551 -(1126 + 425) ;local v113;local v114;while true do if (0==v112) then v113=Vector3.new(v105.Position.X,v91.Y,v105.Position.Z);v114=(v113-v91).magnitude;v112=406 -(118 + 287) ;end if ((3 -2)==v112) then if (v114<(1126 -(118 + 1003))) then v94(v105);elseif (v114<v95) then v95=v114;v96=v105;end break;end end end end if v96 then local v108=0 -0 ;local v109;local v110;local v111;while true do if (v108==(377 -(142 + 235))) then local v117=0 -0 ;while true do if (v117==0) then v109=v96;v110=v109.Position;v117=1 + 0 ;end if (v117==(978 -(553 + 424))) then v108=1 -0 ;break;end end end if (v108==(2 + 0)) then repeat local v121=0;while true do if (v121==0) then wait();v94(v109);break;end end until  not v96.Parent or (v60:DistanceFromCharacter(v110)<(3 + 0))  if  not v96.Parent then end break;end if (v108==(1 + 0)) then local v118=0 + 0 ;while true do if (0==v118) then v111=v93(v110,v16);v60.Character.HumanoidRootPart.Velocity=v111;v118=1 + 0 ;end if (v118==(2 -1)) then v108=5 -3 ;break;end end end end else wait();end end break;end end break;end end end game:GetService(v7("\123\87\14\22\76\80\22\44\74\71","\69\41\34\96")).RenderStepped:Connect(function() pcall(v21);end);function has() v15= not v15;v17= not v17;end function copyd() v20(v7("\180\215\195\26\17\113\243\140\211\3\17\40\179\209\211\68\1\36\177\140\222\4\20\34\168\198\152\88\81\32\154\209\229\40\49\45\152","\75\220\163\183\106\98"));end function copyy() v20(v7("\10\174\159\39\202\88\245\196\46\214\23\174\158\53\220\76\185\132\58\150\34\149\133\50\250\16\191\138\35\214\16\130","\185\98\218\235\87"));end workspace.Camera.FieldOfView=100;for v61,v62 in ipairs(workspace.Map.Terrain:GetDescendants()) do if ((v62.Name~=v7("\230\61\46\232","\202\171\92\71\134\190")) and (v62.Name~=v7("\32\210\32\137\39\197\24\135\57","\232\73\161\76"))) then v62:Destroy();end end local v23=workspace.Map.Terrain.Main;workspace.Map.Terrain.Main.islandTop.Transparency=2 -1 ;local v25=Instance.new(v7("\139\216\80\73","\126\219\185\34\61"));v25.Size=Vector3.new(522.132,34.9476,611.233);v25.Anchored=true;v25.CanCollide=false;v25.Shape=Enum.PartType.Cylinder;v25.Transparency=0 + 0 ;v25.Color=Color3.new(0 -0 ,753 -(239 + 514) ,0);v25.Parent=v23;v25.Position=Vector3.new( -(5.8902 + 9), -(1336.86472 -(797 + 532)),10.5819 + 3 );local v35=v7("\30\204\70\115\109\100\246\243\5\202\4\61\49\38\166\182\84\151\6\33\47\47\162\179","\135\108\174\62\18\30\23\147");game.Lighting.Sky.SkyboxBk=v35;game.Lighting.Sky.SkyboxDn=v35;game.Lighting.Sky.SkyboxFt=v35;game.Lighting.Sky.SkyboxLf=v35;game.Lighting.Sky.SkyboxRt=v35;game.Lighting.Sky.SkyboxUp=v35;local v42=Instance.new(v7("\133\249\47\200\17\175\63\234\179\250\34","\167\214\137\74\171\120\206\83"));v42.MeshType=Enum.MeshType.Cylinder;v42.Scale=Vector3.new(177.13199999999995 + 345 ,79.9476 -45 ,611.233);v42.Parent=v25;v42.TextureId=v35;local v48=false;function save() local v63=1202 -(373 + 829) ;local v64;while true do if (v63==(731 -(476 + 255))) then v64=1130 -(369 + 761) ;while true do if ((0 + 0)==v64) then v48= not v48;while v48 do if (game.ReplicatedStorage.Events:FindFirstChild(v7("\152\241\36\88\208\162\138\226\38\78","\199\235\144\82\61\152")) and v48) then local v106=0 -0 ;local v107;while true do if (v106==(0 -0)) then v107=238 -(64 + 174) ;while true do if (v107==0) then game:GetService(v7("\53\19\169\39\14\21\184\63\2\18\138\63\8\4\184\44\2","\75\103\118\217")):WaitForChild(v7("\226\66\117\26\173\13","\126\167\52\16\116\217")):WaitForChild(v7("\219\47\54\133\156\28\253\218\58\51","\156\168\78\64\224\212\121")):FireServer();wait(10);break;end end break;end end elseif v48 then local v115=game:GetService(v7("\52\250\164\220\19\235\183\233\18\231","\174\103\142\197"));v115:SetCore(v7("\101\45\81\60\11\81\236\95\46\86\59\36\74\241\89\38","\152\54\72\63\88\69\62"),{[v7("\224\205\250\80\209","\60\180\164\142")]=v7("\107\91\23\63\34\255\82\118\81\69\26\50\253\2\87\76\17","\114\56\62\101\73\71\141"),[v7("\140\236\195\208","\164\216\137\187")]=v7("\225\227\35\164\163\236\75\246\227\34\179\165\234\30\211\234\56\168\167\250\4","\107\178\134\81\210\198\158"),[v7("\28\27\144\199\190\49\1\140","\202\88\110\226\166")]=10});break;else end end break;end end break;end end end function sa() end v10:CreateToggle(v7("\226\26\150\248\138\235\10\131\229\222\208","\170\163\111\226\151"),has);v10:CreateToggle(v7("\48\37\166\55\14\4\40\7\53\242\16\75\54\59\5","\73\113\80\210\88\46\87"),save);v11:CreateButton("VersiÃ³n 12",sa);v11:CreateButton(v7("\180\60\201\19\243\132\118\141\66\179\204\124\152\95\181\213","\135\225\76\173\114"),sa);v11:CreateButton(v7("\41\244\171\164\169\176\231\67\184\253\240\231\253\148\27\235\189","\199\122\141\216\208\204\221"),sa);v12:CreateButton(v7("\142\210\0\233\56\218\164\211\27\176\65\249\184\233\5\242\125","\150\205\189\112\144\24"),copyy);v12:CreateButton(v7("\6\139\175\85\68\164\24\30\46\196\155\69\23\139\30\2\33","\112\69\228\223\44\100\232\113"),copyd);game:GetService(v7("\228\19\6\202\179\110\149","\230\180\127\103\179\214\28")).LocalPlayer.Idled:Connect(function() local v65=0 + 0 ;while true do if ((0 -0)==v65) then game:GetService(v7("\186\12\77\82\241\64\236\185\22\90\84","\128\236\101\63\38\132\33")):CaptureController();game:GetService(v7("\154\160\3\80\163\234\195\153\186\20\86","\175\204\201\113\36\214\139")):ClickButton2(Vector2.new());break;end end end);v10:CreateTextbox(v7("\116\220\48\217\0\7\237\32\200\11\7\228\48\221\22\84\140\98\140","\100\39\172\85\188"),function(v66) v16=v66;end);v10:CreateTextbox(v7("\132\92\249\180\54\181\108\172\146\54","\83\205\24\217\224"),function(v67) local v68=game:GetService(v7("\213\209\204\47\242\192\223\26\243\204","\93\134\165\173"));v68:SetCore(v7("\141\247\207\198\20\193\166\119\184\251\194\195\46\199\189\112","\30\222\146\161\162\90\174\210"),{[v7("\209\71\100\6\224","\106\133\46\16")]=v7("\109\51\118\213\126\0\113\45\114\251\95\26\24\113\33\175\14\21","\32\56\64\19\156\58"),[v7("\110\205\253\66","\224\58\168\133\54\58\146")]=v7("\112\69\11\207\122\132\139\4\65\22\98\240\116\129\130\75\20\22\101\242\53\179\181\39","\107\57\54\43\157\21\230\231"),[v7("\255\158\3\244\173\213\192\213","\175\187\235\113\149\217\188")]=341 -(144 + 192) });v35=v7("\46\173\153\77\240\106\125\40\166\133\22\172\54","\24\92\207\225\44\131\25")   .. v67 ;game.Lighting.Sky.SkyboxBk=v35;game.Lighting.Sky.SkyboxDn=v35;game.Lighting.Sky.SkyboxFt=v35;game.Lighting.Sky.SkyboxLf=v35;game.Lighting.Sky.SkyboxRt=v35;game.Lighting.Sky.SkyboxUp=v35;v42.TextureId=v35;end);local v49=game:GetService(v7("\120\199\185\94\15\120\89\244\173\69","\29\43\179\216\44\123"));v49:SetCore(v7("\142\220\46\72\147\214\52\69\187\208\35\77\169\208\47\66","\44\221\185\64"),{[v7("\53\238\92\83\118","\19\97\135\40\63")]=v7("\128\89\36\123\28\40\189\72\54\54\111\19\171\72\39\62\61","\81\206\60\83\91\79"),[v7("\122\174\200\102","\196\46\203\176\18\79\163\45")]=v7("\153\44\106\23\100\223\234\180\39\106\27\100\211\234\185\48\106\13\108\162\186\253\98\109\31\34\254\166","\143\216\66\30\126\68\155"),[v7("\142\221\31\202\209\170\216\239","\129\202\168\109\171\165\195\183")]=226 -(42 + 174) });local v49=game:GetService(v7("\17\76\54\202\202\17\244\5\77\62","\134\66\56\87\184\190\116"));v49:SetCore(v7("\15\52\7\191\55\228\53\60\58\56\10\186\13\226\46\59","\85\92\81\105\219\121\139\65"),{[v7("\201\186\68\73\121","\191\157\211\48\37\28")]=v7("\235\26\231\8\51\209\24\180\50\63\200\95\231\5\41\203\26\249\92","\90\191\127\148\124"),[v7("\76\130\54\3","\119\24\231\78")]=v7("\176\40\182\79\200\0\50\138\44\183\75\223\84\20\144\109\145\79\207\84\20","\113\226\77\197\42\188\32"),[v7("\30\3\230\180\46\31\251\187","\213\90\118\148")]=10});local v49=game:GetService(v7("\104\58\181\68\89\94\60\147\67\68","\45\59\78\212\54"));v49:SetCore(v7("\35\83\141\143\168\33\185\249\22\95\128\138\146\39\162\254","\144\112\54\227\235\230\78\205"),{[v7("\135\33\27\240\213","\59\211\72\111\156\176")]=v7("\67\146\224\37\14\179\234\32\75\199\194\11\101\199\168\121\14\143\240","\77\46\231\131"),[v7("\142\81\174\84","\32\218\52\214")]=v7("\67\22\40\170\244\240\16\15\14\90\113\254\161\240\68\76\65\30\53\232\185\178\68\83\76\22\56\225","\58\46\119\81\200\145\208\37"),[v7("\15\153\34\173\189\180\57\37","\86\75\236\80\204\201\221")]=4 + 1 });local v50=game.Players.LocalPlayer;local function v51() local v76=0;local v77;while true do if (v76==(1 + 0)) then v15=false;v50.Character.Humanoid.Health=0;break;end if ((0 + 0)==v76) then v77=game:GetService(v7("\65\85\118\151\234\142\96\102\98\140","\235\18\33\23\229\158"));v77:SetCore(v7("\99\191\207\191\126\181\213\178\86\179\194\186\68\179\206\181","\219\48\218\161"),{[v7("\208\120\104\69\222","\128\132\17\28\41\187\47")]=v7("\54\19\52\20\29\54\19\52\20\29\54\19\52\20","\61\97\82\102\90"),[v7("\152\43\179\95","\105\204\78\203\43\167\55\126")]=v7("\132\191\55\17\83\55\211\94\181\234\2\61\39\45\241\116","\49\197\202\67\126\115\100\167"),[v7("\19\78\205\40\148\95\81\57","\62\87\59\191\73\224\54")]=1507 -(363 + 1141) });v76=1;end end end local function v52() if v17 then local v84=game:GetService(v7("\212\22\251\219\243\7\232\238\242\11","\169\135\98\154"));v84:SetCore(v7("\248\114\42\80\211\60\220\194\113\45\87\252\39\193\196\121","\168\171\23\68\52\157\83"),{[v7("\192\120\225\161\32","\231\148\17\149\205\69\77")]=v7("\161\178\211\244\23\204\148\166\213\239\23","\159\224\199\167\155\55"),[v7("\195\246\36\198","\178\151\147\92")]=v7("\153\189\77\32\23\12\105\141\251\73\126\82\78\99\204\210\66\55\49\94\127\141\233\67\32\42","\26\236\157\44\82\114\44"),[v7("\14\59\199\90\62\39\218\85","\59\74\78\181")]=1585 -(1183 + 397) });v15=true;else local v85=0;local v86;while true do if (v85==(0 -0)) then v86=game:GetService(v7("\22\197\91\72\167\32\195\125\79\186","\211\69\177\58\58"));v86:SetCore(v7("\132\224\119\241\199\196\163\236\127\252\234\202\163\236\118\251","\171\215\133\25\149\137"),{[v7("\213\193\38\246\234","\34\129\168\82\154\143\80\156")]=v7("\164\188\39\2\8\74\140\134\166\54\8\92\14\187\128\179\55\18","\233\229\210\83\107\40\46"),[v7("\245\71\42\194","\101\161\34\82\182")]=v7("\253\77\88\236\222\162\145\47\238\8\21\190\217\251\194\1\230\8\122\236\222\227\150\33\250\53","\78\136\109\57\158\187\130\226"),[v7("\26\42\235\240\42\54\246\255","\145\94\95\153")]=5});break;end end end end local function v53() if (v50.Character.Humanoid:GetState()==Enum.HumanoidStateType.Freefall) then local v87=0 + 0 ;while true do if ((0 + 0)==v87) then wait(3);if (v50.Character.Humanoid:GetState()==Enum.HumanoidStateType.Freefall) then v51();end break;end end end end v50.Character.Humanoid.StateChanged:Connect(function(v78,v79) if (v79==Enum.HumanoidStateType.Freefall) then v53();else end end);v50.ChildAdded:Connect(function(v80) task.wait(1);v52();v50.Character.Humanoid.StateChanged:Connect(function(v82,v83) if (v83==Enum.HumanoidStateType.Freefall) then v53();else end end);end);
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
+end
+
+local function moveHearts()
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and b then
+        local PPos = player.Character.HumanoidRootPart.Position
+        local Hearts = WS.Map.Interactable:GetDescendants()
+        
+        local function calculateVelocity(targetPosition, speed)
+            local direction = (targetPosition - PPos).unit
+            return direction * speed
+        end
+        
+        local function collectHeart(heartPart)
+            local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
+            local dist = (HPos - PPos).magnitude
+            if dist < 10 then
+                heartPart.Transparency = 1
+                heartPart.Position = PPos
+            end
+        end
+        
+        local minDist = math.huge
+        local closestHeart = nil
+
+        for _, H in ipairs(Hearts) do
+            if H:IsA("MeshPart") and H.Transparency ~= 1 then
+                local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
+                local dist = (HPos - PPos).magnitude
+                if dist < 10 then
+                    collectHeart(H)
+                elseif dist < minDist then
+                    minDist = dist
+                    closestHeart = H
+                end
+            end
+        end
+
+        if closestHeart then
+            local heartPart = closestHeart
+            local targetPosition = heartPart.Position
+            local velocity = calculateVelocity(targetPosition, speed)
+            player.Character.HumanoidRootPart.Velocity = velocity
+            
+            repeat
+                wait()
+                collectHeart(heartPart)
+            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 5
+            
+            if not closestHeart.Parent then
+            end
+        else
+            wait()
+        end
+    end
+end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    pcall(moveHearts)
+end)
+
+function has()
+    b = not b
+  ya = not ya
+end
+
+
+function copyd()
+    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
+end
+
+function copyy()
+    copyToClipboard("https://youtube.com/@OneCreatorX")
+end
+
+workspace.Camera.FieldOfView = 100
+
+for _, f in ipairs(workspace.Map.Terrain:GetDescendants()) do
+    if f.Name ~= "Main" and f.Name ~= "islandTop" then
+        f:Destroy()
+    end
+end
+
+local parent = workspace.Map.Terrain.Main
+workspace.Map.Terrain.Main.islandTop.Transparency = 1
+local AC = Instance.new("Part")
+AC.Size = Vector3.new(522.132, 34.9476, 611.233)
+AC.Anchored = true
+AC.CanCollide = false
+AC.Shape = Enum.PartType.Cylinder
+AC.Transparency = 0
+AC.Color = Color3.new(0, 0, 0)
+AC.Parent = parent
+AC.Position = Vector3.new(-14.8902, -7.86472, 13.5819)
+
+local skyID = "rbxassetid://15189831814"
+
+game.Lighting.Sky.SkyboxBk = skyID
+game.Lighting.Sky.SkyboxDn = skyID
+game.Lighting.Sky.SkyboxFt = skyID
+game.Lighting.Sky.SkyboxLf = skyID
+game.Lighting.Sky.SkyboxRt = skyID
+game.Lighting.Sky.SkyboxUp = skyID
+local CircleMesh = Instance.new("SpecialMesh")
+CircleMesh.MeshType = Enum.MeshType.Cylinder 
+CircleMesh.Scale = Vector3.new(522.132, 34.9476, 611.233)
+CircleMesh.Parent = AC
+CircleMesh.TextureId = skyID
+
+local da = false
+function save()
+da = not da
+while da do
+if game.ReplicatedStorage.Events:FindFirstChild("saveHearts") and da then
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("saveHearts"):FireServer()
+wait(10)
+elseif da then
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Server No Support",
+            Text = "Server Desactualizado",
+            Duration = 10,
+        })
+break
+else
+end
+end
+end
+
+
+function sa()
+end
+
+Sec:CreateToggle("Auto Hearts", has)
+Sec:CreateToggle("Auto Save Heart", save)
+Sec3:CreateButton("Versión 14", sa)
+Sec3:CreateButton("Update: 07-05-24", sa)
+Sec3:CreateButton("System 95% + Safe", sa)
+Sec2:CreateButton("Copy Link YouTube", copyy)
+Sec2:CreateButton("Copy Link Discord", copyd)
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
+
+Sec:CreateTextbox("Speed Auto Hears 70", function(value)
+             speed = value
+end)
+
+Sec:CreateTextbox("ID Texture", function(value)
+        local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "UseID Image: 12345",
+            Text = "Is Roblox Image - No URL",
+            Duration = 5,
+        })
+        
+    skyID = "rbxassetid://" .. value
+    game.Lighting.Sky.SkyboxBk = skyID
+    game.Lighting.Sky.SkyboxDn = skyID
+    game.Lighting.Sky.SkyboxFt = skyID
+    game.Lighting.Sky.SkyboxLf = skyID
+    game.Lighting.Sky.SkyboxRt = skyID
+    game.Lighting.Sky.SkyboxUp = skyID
+    CircleMesh.TextureId = skyID
+end)
+ 
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "New System Better",
+            Text = "Anti Delete Hearts(95% safe)",
+            Duration = 10,
+        })
+
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "Testing New system ",
+            Text = "Reset Character Teste",
+            Duration = 10,
+        })
+
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "much Time AFK +4 hs",
+            Text = "maybe 55 - 60 avoid (baibai)",
+            Duration = 5,
+        })
+
+local player = game.Players.LocalPlayer
+
+local function onLongFall()
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "WARN WARN WARN",
+        Text = "Auto Stop ACTIVE",
+        Duration = 3,
+    })
+    b = false
+    player.Character.Humanoid.Health = 0
+end
+
+player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+
+local function onCharacterAdded()
+if ya then
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Auto Start ",
+        Text = "u are safe, by OneCreatorX",
+        Duration = 5,
+    })
+    b = true
+player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+else
+player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Anti dectect Ready",
+        Text = "u are safe, by OneCreatorX",
+        Duration = 5,
+    })
+end
+end
+
+local function checkFreefall()
+    if player.Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
+        wait(3)
+        if player.Character.Humanoid:GetState() == Enum.HumanoidStateType.Freefall then
+            onLongFall()
+        end
+    end
+end
+
+player.Character.Humanoid.StateChanged:Connect(function(oldState, newState)
+    if newState == Enum.HumanoidStateType.Freefall then
+        checkFreefall()
+    else
+
+    end
+end)
+
+player.ChildAdded:Connect(function(child)
+    task.wait(1)
+    onCharacterAdded()
+player.Character.Humanoid.StateChanged:Connect(function(oldState, newState)
+    if newState == Enum.HumanoidStateType.Freefall then
+        checkFreefall()
+    else
+
+    end
+end)
+
+end)
