@@ -164,18 +164,7 @@ end
 Workspace.Effects.ChildAdded:Connect(function(child)
 task.wait(0.3)
     if child:IsA("BasePart") then
-        child:Destroy()
-    end
-end)
-
-
-
-
-local Workspace = game:GetService("Workspace")
-
-Workspace.ChildAdded:Connect(function(child)
-    if child:IsA("Part") and child.Name == "Part" then
-        child:Destroy()
+        child.Transparency = 1
     end
 end)
 
@@ -269,6 +258,11 @@ local Workspace = game:GetService("Workspace")
 local Lighting = game:GetService("Lighting")
 local RunService = game:GetService("RunService")
 
+local m = game.Workspace.Map
+m.Waves2:Destroy()
+m.Barriers:Destroy()
+m.Background:Destroy()
+
 Lighting.GlobalShadows = false
 Lighting.FogEnd = 9e9
 Lighting.Ambient = Color3.new(0, 0, 0)
@@ -276,7 +270,7 @@ Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
 Lighting.EnvironmentDiffuseScale = 0
 Lighting.EnvironmentSpecularScale = 0
 
-settings().Rendering.QualityLevel = 1
+settings().Rendering.QualityLevel = 0
 
 local function disableEffects(obj)
     if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Fire") or obj:IsA("Smoke") then
@@ -291,10 +285,13 @@ for _, obj in ipairs(Workspace:GetDescendants()) do
     disableEffects(obj)
 end
 
--- Manejar nuevos descendientes de manera agresiva
 Workspace.DescendantAdded:Connect(function(child)
-    RunService.Heartbeat:Wait()  -- Esperar un ciclo de renderizado
+    RunService.Heartbeat:Wait()
     disableEffects(child)
+end)
+
+Workspace.ChildAdded:Connect(function(child)
+        child:Destroy()
 end)
 end
 
@@ -306,6 +303,6 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 
-while true do wait()
-hitRandomBugs()
-end
+game:GetService("RunService").Heartbeat:Connect(function()
+    hitRandomBugs()
+end)
