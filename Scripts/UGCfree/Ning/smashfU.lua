@@ -45,7 +45,7 @@ local function hitRandomBugs()
         if bug.PrimaryPart then
             local bugPosition = bug.PrimaryPart.Position
             local distance = (bugPosition - playerPosition).magnitude
-            if distance <= 20 and b then
+            if distance <= 50 and b then
                 table.insert(nearbyBugs, bug)
             end
         end
@@ -132,7 +132,7 @@ end)
 end
 
 
-Sec3:CreateButton("Update 07/05/24", sa)
+Sec3:CreateButton("Update 06/05/24", sa)
 Sec3:CreateButton("Version 2.1", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
@@ -298,6 +298,14 @@ end
 Sec:CreateButton("Hide/Ocultar", ocultarse)
 Sec:CreateButton("AntiLag v2 ++OP", OP)
 
+
+for i,w in (game.Workspace.UGC:GetDescendants()) do
+     if w:IsA("Part") then
+if w.Name ~= "Root" then
+      w:Destroy()
+end
+end
+end
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
