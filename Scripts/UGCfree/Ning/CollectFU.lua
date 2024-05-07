@@ -219,7 +219,7 @@ local function onLongFall()
     player.Character.Humanoid.Health = 0
 end
 
-player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+player.Character.HumanoidRootPart.Size = Vector3.new(30, 1, 30)
 
 local function onCharacterAdded()
 if ya then
@@ -230,9 +230,9 @@ local StarterGui = game:GetService("StarterGui")
         Duration = 5,
     })
     b = true
-player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+player.Character.HumanoidRootPart.Size = Vector3.new(30, 1, 30)
 else
- player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+ player.Character.HumanoidRootPart.Size = Vector3.new(30, 1, 30)
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Anti dectect Ready",
