@@ -132,7 +132,7 @@ end)
 end
 
 
-Sec3:CreateButton("Update 06/05/24", sa)
+Sec3:CreateButton("Update 07/05/24", sa)
 Sec3:CreateButton("Version 2.1", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
