@@ -232,7 +232,7 @@ local StarterGui = game:GetService("StarterGui")
     b = true
 player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
 else
-player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
+ player.Character.HumanoidRootPart.Size = player.Character.HumanoidRootPart.Size + Vector3.new(30, 0, 30)
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Anti dectect Ready",
