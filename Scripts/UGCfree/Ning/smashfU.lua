@@ -45,7 +45,7 @@ local function hitRandomBugs()
         if bug.PrimaryPart then
             local bugPosition = bug.PrimaryPart.Position
             local distance = (bugPosition - playerPosition).magnitude
-            if distance <= 100 and b then
+            if distance <= 20 and b then
                 table.insert(nearbyBugs, bug)
             end
         end
@@ -132,8 +132,8 @@ end)
 end
 
 
-Sec3:CreateButton("Update 05/05/24", sa)
-Sec3:CreateButton("Version 1.9", sa)
+Sec3:CreateButton("Update 06/05/24", sa)
+Sec3:CreateButton("Version 2.1", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec:CreateToggle("Kill Aura", hh)
@@ -141,7 +141,7 @@ Sec:CreateToggle("Hide Bugs -Lag", lag)
 
 local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Version 1.9 Here",
+        Title = "Version 2.1 Here",
         Text = "Much improvements",
         Duration = 5,
     })
@@ -264,7 +264,42 @@ end
 end
 end
 
+function OP()
+local Workspace = game:GetService("Workspace")
+local Lighting = game:GetService("Lighting")
+local RunService = game:GetService("RunService")
+
+Lighting.GlobalShadows = false
+Lighting.FogEnd = 9e9
+Lighting.Ambient = Color3.new(0, 0, 0)
+Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
+Lighting.EnvironmentDiffuseScale = 0
+Lighting.EnvironmentSpecularScale = 0
+
+settings().Rendering.QualityLevel = 1
+
+local function disableEffects(obj)
+    if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Fire") or obj:IsA("Smoke") then
+        obj.Enabled = false
+    elseif obj:IsA("Explosion") then
+        obj.BlastPressure = 0
+        obj.BlastRadius = 0
+    end
+end
+
+for _, obj in ipairs(Workspace:GetDescendants()) do
+    disableEffects(obj)
+end
+
+-- Manejar nuevos descendientes de manera agresiva
+Workspace.DescendantAdded:Connect(function(child)
+    RunService.Heartbeat:Wait()  -- Esperar un ciclo de renderizado
+    disableEffects(child)
+end)
+end
+
 Sec:CreateButton("Hide/Ocultar", ocultarse)
+Sec:CreateButton("AntiLag v2 ++OP", OP)
 
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
