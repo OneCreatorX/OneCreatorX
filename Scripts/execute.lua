@@ -8,8 +8,8 @@ sg.Parent = playerGui
 
 local frame = Instance.new("Frame")
 frame.Name = "ControlFrame"
-frame.Size = UDim2.new(0, 200, 0, 50)
-frame.Position = UDim2.new(0.5, -100, 0.9, -50)
+frame.Size = UDim2.new(0, 200, 0, 60)
+frame.Position = UDim2.new(0.45, -100, 0.1, -50)
 frame.BackgroundColor3 = Color3.fromRGB(40, 20, 10)
 frame.BorderSizePixel = 1
 frame.Style = Enum.FrameStyle.DropShadow
@@ -19,7 +19,7 @@ frame.Draggable = true
 
 local title = Instance.new("TextLabel")
 title.Name = "Title"
-title.Text = "OneCreatorX"
+title.Text = "YT@OneCreatorX"
 title.Size = UDim2.new(1, 0, 0, 30)
 title.Position = UDim2.new(0, 0, 0, 0)
 title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
@@ -30,8 +30,8 @@ title.Parent = frame
 
 local textbox = Instance.new("TextBox")
 textbox.Name = "ScriptTextBox"
-textbox.Size = UDim2.new(0.9, 0, 0.6, 0)
-textbox.Position = UDim2.new(0.05, 0, 0.3, 0) 
+textbox.Size = UDim2.new(1, 0, 0.6, 0)
+textbox.Position = UDim2.new(0.28, 0, 0.7, 0) 
 textbox.BackgroundTransparency = 1 
 textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
 textbox.Font = Enum.Font.SourceSans
