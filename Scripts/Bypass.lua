@@ -1,11 +1,10 @@
+task.wait(3)
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "YT:OneCreatorX",
             Text = "Loading Bypass",
             Duration = 5,
         })
-task.wait(5)
-
 local coreGui = game:GetService("CoreGui")
 local fileList = coreGui:GetChildren()
 
@@ -13,39 +12,33 @@ table.sort(fileList, function(a, b)
     return a:GetDebugId() > b:GetDebugId()
 end)
 
-local ultimoArchivo1 = fileList[#fileList]
-local ultimoArchivo2 = fileList[#fileList - 1]
-
 local archivoMasLargo
 local archivoMasCorto
 
-
 repeat
-    if ultimoArchivo1 and ultimoArchivo2 then
-        if #ultimoArchivo1.Name > #ultimoArchivo2.Name then
-            archivoMasLargo = ultimoArchivo1
-            archivoMasCorto = ultimoArchivo2
+    if #fileList >= 2 then
+        if #fileList[#fileList].Name > #fileList[#fileList - 1].Name then
+            archivoMasLargo = fileList[#fileList]
+            archivoMasCorto = fileList[#fileList - 1]
         else
-            archivoMasLargo = ultimoArchivo2
-            archivoMasCorto = ultimoArchivo1
+            archivoMasLargo = fileList[#fileList - 1]
+            archivoMasCorto = fileList[#fileList]
         end
     end
 
-    if not (archivoMasCorto.MainFrame and archivoMasCorto.MainFrame.KeySection and archivoMasCorto.MainFrame.KeySection.Buttons and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox) then
+    if not (archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")) then
         task.wait(1)
-        ultimoArchivo1 = fileList[#fileList]
-        ultimoArchivo2 = fileList[#fileList - 1]
+        fileList = coreGui:GetChildren()
     end
-until archivoMasCorto.MainFrame and archivoMasCorto.MainFrame.KeySection and archivoMasCorto.MainFrame.KeySection.Buttons and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox
+until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
 
 local propertyName = "Text"
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "YT:OneCreatorX",
-            Text = "Ready, Type: Bypass",
+            Text = "Ready cmd: Bypass",
             Duration = 5,
         })
-
 local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
 event:Connect(function()
     local newText = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
