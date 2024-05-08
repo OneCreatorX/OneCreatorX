@@ -1,4 +1,4 @@
-task.wait(3)
+task.wait(5)
 local coreGui = game:GetService("CoreGui")
 local fileList = coreGui:GetChildren()
 
@@ -22,9 +22,13 @@ if ultimoArchivo1 and ultimoArchivo2 then
 end
 
 if archivoMasCorto then
-    while not archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Visible do
+    while true do
+    if not archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Visible then
         wait()
+else
+ break
     end
+        end
 
     wait(1)
     archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
