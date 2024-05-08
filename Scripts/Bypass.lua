@@ -5,12 +5,6 @@ StarterGui:SetCore("SendNotification", {
             Duration = 5,
         })
 task.wait(5)
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-            Title = "YT:OneCreatorX",
-            Text = "Loading Bypass",
-            Duration = 5,
-        })
 
 local coreGui = game:GetService("CoreGui")
 local fileList = coreGui:GetChildren()
@@ -25,12 +19,6 @@ local ultimoArchivo2 = fileList[#fileList - 1]
 local archivoMasLargo
 local archivoMasCorto
 
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-            Title = "YT:OneCreatorX",
-            Text = "Loading Bypass",
-            Duration = 5,
-        })
 
 repeat
     if ultimoArchivo1 and ultimoArchivo2 then
@@ -57,6 +45,7 @@ StarterGui:SetCore("SendNotification", {
             Text = "Ready, Type: Bypass",
             Duration = 5,
         })
+
 local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
 event:Connect(function()
     local newText = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
