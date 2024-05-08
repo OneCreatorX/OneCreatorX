@@ -1,4 +1,4 @@
-task.wait(5)
+task.wait(2)
 local coreGui = game:GetService("CoreGui")
 local fileList = coreGui:GetChildren()
 
@@ -21,17 +21,10 @@ if ultimoArchivo1 and ultimoArchivo2 then
     end
 end
 
-if archivoMasCorto then
-    while true do
-    if not archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Visible then
-        wait()
-else
- break
-    end
-        end
-
-    wait(1)
-    archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
+function by()
+if archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox then 
+wait(1)
+ archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
     wait(0.2)
     archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key.."
     wait(0.2)
@@ -59,9 +52,11 @@ else
     wait(2)
 
     archivoMasCorto.Enabled = false
+else
+by()
 end
-
-wait(5)
+end
+wait(2)
 
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "ControlGui"
