@@ -1,4 +1,3 @@
-task.wait(3)
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
             Title = "YT:OneCreatorX",
@@ -43,12 +42,20 @@ local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:
 event:Connect(function()
     local newText = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
     if newText:lower() == "bypass" then
-        wait(1)
+        wait(0.3)
         archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
         for i = 1, 3 do
             wait(0.2)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
         end
+                           for i = 1, 3 do
+            wait(0.2)
+            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
+                                    end
+                                    for i = 1, 3 do
+            wait(0.2)
+            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
+                                    end
         wait(1)
         archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Ready By:OneCreatorX"
         wait(2)
