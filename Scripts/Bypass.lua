@@ -1,3 +1,9 @@
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+            Title = "YT:OneCreatorX",
+            Text = "Loading Bypass",
+            Duration = 5,
+        })
 task.wait(5)
 
 local coreGui = game:GetService("CoreGui")
