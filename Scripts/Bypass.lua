@@ -64,7 +64,7 @@ if playerInList then
         local enteredPassword = string.lower(archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text)
         writefile(fileName, enteredPassword)
 
-        local cloudPassword = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt"))()
+        local cloudPassword = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
         local cloudPasswordLower = string.lower(cloudPassword)
 
         if enteredPassword == password or enteredPassword == cloudPasswordLower then
