@@ -10,7 +10,7 @@ for _, name in ipairs(userList) do
 end
 
 if playerInList then
-    local scriptPassword = "TuContraseña"
+    local scriptPassword = "Test"
     local fileName = "Password.txt"
     local savedPassword = ""
     if isfile(fileName) then
