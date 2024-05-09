@@ -1,9 +1,4 @@
- local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "YT:OneCreatorX",
-        Text = "Loading Bypass",
-        Duration = 5,
-    })
+ 
 
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
 local userList = string.lower(userListScript):gsub("%s+", ""):split(",")
@@ -20,12 +15,6 @@ end
 
 if playerInList then
     
-StarterGui:SetCore("SendNotification", {
-        Title = "YT:OneCreatorX",
-        Text = "User authorized ✓",
-        Duration = 5,
-    })
-
     local coreGui = game:GetService("CoreGui")
     local fileList = coreGui:GetChildren()
 
@@ -105,9 +94,5 @@ StarterGui:SetCore("SendNotification", {
         end
     end)
 else
-    StarterGui:SetCore("SendNotification", {
-        Title = "YT:OneCreatorX",
-        Text = "User not authorized X",
-        Duration = 5,
-    })
+    
 end
