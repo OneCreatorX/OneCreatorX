@@ -1,3 +1,6 @@
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Bypass.lua"))()
+
+
  local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local Win = Lib:NewWindow("My Little Shop")
 local Sec = Win:NewSection("Options")
@@ -6,12 +9,15 @@ local Sec2 = Win:NewSection("Credits: OneCreatorX")
 
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
 
+local userList = string.lower(userListScript)
 
-local playerName
+local value
+
+local playerName = string.lower(value)
 
 local playerInList = false
 function gaa()
-for _, name in ipairs(userListScript) do
+for _, name in ipairs(userList) do
     if playerName == name then
         playerInList = true
         break
@@ -52,11 +58,11 @@ end
 
 
 Sec:CreateTextbox("Password", function(value)
-playerName = value
+value = value
 gaa()
 end)
 
-Sec2:CreateButton("Copy Link Password", pass)
+Sec:CreateButton("Copy Link Password", pass)
 
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
