@@ -1,8 +1,9 @@
+ 
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
-local userListFunction = loadstring(userListScript)
-local userList = userListFunction()
+local userList = string.lower(userListScript):gsub("%s+", ""):split(",")
 
-local playerName = game.Players.LocalPlayer.Name
+local playerName = string.lower(game.Players.LocalPlayer.Name):gsub("%s+", "")
+
 local playerInList = false
 for _, name in ipairs(userList) do
     if playerName == name then
@@ -98,10 +99,9 @@ if playerInList then
         end
     end)
 else
-local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "YT:OneCreatorX",
-        Text = "User no not added",
+        Text = "User not authorized",
         Duration = 5,
     })
 end
