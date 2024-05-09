@@ -47,10 +47,24 @@ if playerInList then
         Duration = 5,
     })
 
-    local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
-    event:Connect(function()
-        local newText = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
-        if newText:lower() == "bypass" then
+    local fileName = "Password.txt"
+    local password
+    if isfile(fileName) then
+        local success, data = pcall(readfile, fileName)
+        if success then
+            password = data
+        end
+    else
+        password = "" -- or set default password here
+        writefile(fileName, password)
+    end
+
+    local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
+    inputEvent:Connect(function()
+        local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
+        writefile(fileName, enteredPassword)
+        if enteredPassword == password then
+            -- Password is correct, continue with the flow
             wait(0.3)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
             for i = 1, 3 do
@@ -97,27 +111,6 @@ if playerInList then
                     archivoMasLargo.Enabled = not archivoMasLargo.Enabled
                 end)
             end
-        end
-    end)
-
-    local fileName = "Password.txt"
-    local password
-    if isfile(fileName) then
-        local success, data = pcall(readfile, fileName)
-        if success then
-            password = data
-        end
-    else
-        password = "" -- or set default password here
-        writefile(fileName, password)
-    end
-
-    local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
-    inputEvent:Connect(function()
-        local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
-        writefile(fileName, enteredPassword) -- Save entered password to file regardless of correctness
-        if enteredPassword == password then
-            -- Password is correct, continue with the flow
         else
             -- Incorrect password, notify the user
             StarterGui:SetCore("SendNotification", {
