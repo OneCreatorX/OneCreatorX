@@ -2,7 +2,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreato
 
 
  local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("My Little Shop")
+local Win = Lib:NewWindow("Password")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 
