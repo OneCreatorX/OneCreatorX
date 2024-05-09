@@ -5,12 +5,13 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5,
 })
 
-wait(2) 
+wait(2)  -- Espera 2 segundos para que se muestre la notificación
 
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
-local userList = userListScript:split(", ")
+local userList = userListScript:lower():gsub("%s+", ""):split(",")
 
-local playerName = game.Players.LocalPlayer.Name
+local playerName = game.Players.LocalPlayer.Name:lower():gsub("%s+", "")
+
 local playerInList = false
 for _, name in ipairs(userList) do
     if playerName == name then
