@@ -40,13 +40,13 @@ if playerInList then
     until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
 
     local propertyName = "Text"
-    local StarterGui = game:GetService("StarterGui")
+   local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "YT:OneCreatorX",
-        Text = "Ready cmd: Bypass",
+        Text = "Ready Cheking Pass",
         Duration = 5,
     })
-
+    
     local fileName = "Password.txt"
     local password
     if isfile(fileName) then
@@ -55,7 +55,7 @@ if playerInList then
             password = data
         end
     else
-        password = "" -- or set default password here
+        password = ""
         writefile(fileName, password)
     end
 
@@ -63,8 +63,16 @@ if playerInList then
     inputEvent:Connect(function()
         local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
         writefile(fileName, enteredPassword)
-        if enteredPassword == password then
-            -- Password is correct, continue with the flow
+        
+        local cloudPassword = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt"))()
+        
+        if enteredPassword == password or enteredPassword == cloudPassword then
+            local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "YT:OneCreatorX",
+        Text = "Correct Pass",
+        Duration = 5,
+    })
             wait(0.3)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
             for i = 1, 3 do
@@ -121,5 +129,10 @@ if playerInList then
         end
     end)
 else
-    -- Player not in the list, handle accordingly
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "YT:OneCreatorX",
+        Text = "User not authorized",
+        Duration = 5,
+    })
 end
