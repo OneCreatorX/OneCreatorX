@@ -80,6 +80,12 @@ if playerInList then
             local offset = screenHeight * 0.05
 
             if archivoMasLargo then
+             for _, h in(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
+                     if h.Name == "scriptTitle" then
+                    if h.Text == "Bypassed" then
+                     h.Parent.Visible = false
+                   end end end 
+     
                 local imageButton = Instance.new("ImageButton")
                 imageButton.Image = "rbxassetid://15844306310"
                 imageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
