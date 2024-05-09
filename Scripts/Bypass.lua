@@ -29,12 +29,6 @@ local fileName = "LocalPassword.txt"
 local scriptPassword = "bypass"
 
 function Welcome()
-    local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "Correct Pass",
-        Text = " YT:@OneCreatorX",
-        Duration = 5,
-    })
     wait(0.3)
     archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
     for i = 1, 3 do
@@ -125,6 +119,12 @@ else
         local userInputPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
         if userInputPassword == scriptPassword then
             writefile(fileName, userInputPassword)
+                local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Correct Pass",
+        Text = " YT:@OneCreatorX",
+        Duration = 5,
+    })
             Welcome()
         else
  
