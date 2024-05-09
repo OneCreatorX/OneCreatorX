@@ -86,10 +86,10 @@ local function gaa(password)
     local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
     local userList = {}
     for name in userListScript:gmatch("%S+") do
-        table.insert(userList, name:lower())
+        table.insert(userList, name:string.lower())
     end
 
-    local playerName = password:lower()
+    local playerName = password:string.lower()
     local playerInList = false
     for _, name in ipairs(userList) do
         if playerName == name then
