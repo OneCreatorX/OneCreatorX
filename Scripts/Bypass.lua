@@ -55,9 +55,9 @@ function Welcome()
     archivoMasCorto.Enabled = false
 
     local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "ControlGui"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
+screenGui.Name = "ControlGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     local screenHeight = game:GetService("GuiService"):GetScreenResolution().Y
     local offset = screenHeight * 0.05
 
