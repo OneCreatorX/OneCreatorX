@@ -53,7 +53,7 @@ screenGui.Name = "ControlGui"
 screenGui.ResetOnSpawn = false
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     local screenHeight = game:GetService("GuiService"):GetScreenResolution().Y
-    local offset = screenHeight * 0.05
+    local offset = screenHeight * 0.03
 
     if archivoMasLargo then
         for _, h in pairs(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
