@@ -1,12 +1,4 @@
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-    Title = "YT:OneCreatorX",
-    Text = "Loading Bypass",
-    Duration = 5,
-})
-
-wait(2)  -- Espera 2 segundos para que se muestre la notificación
-
+ 
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
 local userList = string.lower(userListScript):gsub("%s+", ""):split(",")
 
