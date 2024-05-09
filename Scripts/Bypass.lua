@@ -64,7 +64,11 @@ if playerInList then
     local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
     inputEvent:Connect(function()
         local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
-        
+        StarterGui:SetCore("SendNotification", {
+                Title = "Password rrect",
+                Text = "Please ect password.",
+                Duration = 5,
+            })
         -- Comparar la contraseña ingresada con la contraseña del script y la contraseña local
         if enteredPassword == scriptPassword or enteredPassword == localPassword then
             -- Contraseña correcta, continuar con la ejecución
