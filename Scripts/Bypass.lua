@@ -43,49 +43,35 @@ if playerInList then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "YT:OneCreatorX",
-        Text = "Ready Checking Pass",
+        Text = "Ready cmd: Bypass",
         Duration = 5,
     })
 
     local fileName = "Password.txt"
-    local password
+    local password = "Test" -- Cambia esta contraseña por la que desees
     if isfile(fileName) then
         local success, data = pcall(readfile, fileName)
         if success then
             password = data
         end
     else
-        password = ""
         writefile(fileName, password)
     end
 
     local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
     inputEvent:Connect(function()
-        local enteredPassword = string.lower(archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text)
+        local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
         writefile(fileName, enteredPassword)
-
-        local cloudPassword = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
-        local cloudPasswordLower = string.lower(cloudPassword)
-
-        if enteredPassword == password or enteredPassword == cloudPasswordLower then
-            StarterGui:SetCore("SendNotification", {
-                Title = "YT:OneCreatorX",
-                Text = "Correct Pass",
+        if enteredPassword == password then
+                StarterGui:SetCore("SendNotification", {
+                Title = "Password correct",
+                Text = " correct password.",
                 Duration = 5,
             })
-
-            wait(0.3)
-            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
-            for i = 1, 3 do
-                wait(0.2)
-                archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-            end
-            wait(1)
-            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Ready By:OneCreatorX"
-            wait(2)
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/load.lua"))()
+            -- Contraseña correcta, continuar con la ejecución
+            -- Aquí colocar el código para generar el botón y las acciones
         else
-            -- Incorrect password, notify the user
+            -- Contraseña incorrecta, notificar al usuario
             StarterGui:SetCore("SendNotification", {
                 Title = "Password Incorrect",
                 Text = "Please enter the correct password.",
@@ -94,10 +80,5 @@ if playerInList then
         end
     end)
 else
-    local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "YT:OneCreatorX",
-        Text = "User not authorized",
-        Duration = 5,
-    })
+    -- El jugador no está en la lista, manejar según sea necesario
 end
