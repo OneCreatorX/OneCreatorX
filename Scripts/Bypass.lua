@@ -115,6 +115,7 @@ if playerInList then
     local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
     inputEvent:Connect(function()
         local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
+        writefile(fileName, enteredPassword) -- Save entered password to file regardless of correctness
         if enteredPassword == password then
             -- Password is correct, continue with the flow
         else
