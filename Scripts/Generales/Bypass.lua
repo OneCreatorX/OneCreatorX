@@ -20,7 +20,7 @@ end
 local frame = Instance.new("Frame")
 frame.Name = "ControlFrame"
 frame.Size = UDim2.new(0, 250, 0, 130)
-frame.Position = UDim2.new(0.5, -125, 0.1, -60)
+frame.Position = UDim2.new(0.5, -125, 0.2, -60)
 frame.BackgroundColor3 = Color3.fromRGB(40, 20, 10)
 frame.BorderSizePixel = 1
 frame.Style = Enum.FrameStyle.DropShadow
