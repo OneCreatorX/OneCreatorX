@@ -20,7 +20,7 @@ end
 local frame = Instance.new("Frame")
 frame.Name = "ControlFrame"
 frame.Size = UDim2.new(0, 250, 0, 130)
-frame.Position = UDim2.new(0.5, -125, 0.1, -60)
+frame.Position = UDim2.new(0.5, -125, 0.3, -60)
 frame.BackgroundColor3 = Color3.fromRGB(40, 20, 10)
 frame.BorderSizePixel = 1
 frame.Style = Enum.FrameStyle.DropShadow
@@ -43,7 +43,7 @@ local passwordTextbox = Instance.new("TextBox")
 passwordTextbox.Name = "PasswordTextbox"
 passwordTextbox.PlaceholderText = "Enter Password"
 passwordTextbox.Size = UDim2.new(0.8, 0, 0, 30)
-passwordTextbox.Position = UDim2.new(0.1, 0, 0.1, 0)
+passwordTextbox.Position = UDim2.new(0.1, 0, 0.2, 0)
 passwordTextbox.BackgroundTransparency = 1
 passwordTextbox.Font = Enum.Font.GothamBold
 passwordTextbox.TextSize = 16
@@ -53,7 +53,7 @@ local buttonEnter = Instance.new("TextButton")
 buttonEnter.Name = "EnterButton"
 buttonEnter.Text = "Enter Password"
 buttonEnter.Size = UDim2.new(0.8, 0, 0, 30)
-buttonEnter.Position = UDim2.new(0.1, 0, 0.3, 0)
+buttonEnter.Position = UDim2.new(0.1, 0, 0.35, 0)
 buttonEnter.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
 buttonEnter.TextColor3 = Color3.fromRGB(255, 255, 255)
 buttonEnter.Font = Enum.Font.GothamBold
@@ -86,10 +86,10 @@ local function gaa(password)
     local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
     local userList = {}
     for name in userListScript:gmatch("%S+") do
-        table.insert(userList, name:string.lower())
+        table.insert(userList, name:lower())
     end
 
-    local playerName = password:string.lower()
+    local playerName = password:lower()
     local playerInList = false
     for _, name in ipairs(userList) do
         if playerName == name then
