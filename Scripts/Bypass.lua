@@ -1,4 +1,24 @@
--- Verificar si el jugador está en la lista de usuarios permitidos
+-- Contraseña del script
+local scriptPassword = "Test"
+
+-- Archivo para almacenar la contraseña localmente
+local fileName = "Password.txt"
+
+-- Función para obtener la contraseña guardada localmente
+local function getLocalPassword()
+    if isfile(fileName) then
+        return readfile(fileName)
+    else
+        return nil
+    end
+end
+
+-- Función para establecer la contraseña localmente
+local function setLocalPassword(password)
+    writefile(fileName, password)
+end
+
+-- Verificar si el jugador está en la lista de usuarios
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
 local userList = string.lower(userListScript):gsub("%s+", ""):split(",")
 local playerName = string.lower(game.Players.LocalPlayer.Name):gsub("%s+", "")
@@ -11,36 +31,44 @@ for _, name in ipairs(userList) do
 end
 
 if playerInList then
-    -- Contraseña del script
-    local scriptPassword = "Test"
+    local coreGui = game:GetService("CoreGui")
+    local fileList = coreGui:GetChildren()
 
-    -- Leer la contraseña guardada en el archivo local
-    local fileName = "Password.txt"
-    local savedPassword = ""
-    if isfile(fileName) then
-        savedPassword = readfile(fileName)
-    else
-        -- Si no existe un archivo de contraseña, establecer una contraseña predeterminada
-        savedPassword = "ContraseñaPredeterminada"
-        writefile(fileName, savedPassword)
-    end
+    table.sort(fileList, function(a, b)
+        return a:GetDebugId() > b:GetDebugId()
+    end)
 
-    -- Función para verificar si la contraseña ingresada por el usuario es correcta
-    local function checkPassword(inputPassword)
-        return inputPassword == savedPassword or inputPassword == scriptPassword
-    end
+    local archivoMasLargo
+    local archivoMasCorto
 
-    -- Evento para verificar la contraseña cuando el usuario pierde el enfoque del cuadro de texto
+    repeat
+        if #fileList >= 2 then
+            if #fileList[#fileList].Name > #fileList[#fileList - 1].Name then
+                archivoMasLargo = fileList[#fileList]
+                archivoMasCorto = fileList[#fileList - 1]
+            else
+                archivoMasLargo = fileList[#fileList - 1]
+                archivoMasCorto = fileList[#fileList]
+            end
+        end
+
+        if not (archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")) then
+            task.wait(1)
+            fileList = coreGui:GetChildren()
+        end
+    until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
+
+    -- Obtener la contraseña local
+    local localPassword = getLocalPassword()
+
     local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
     inputEvent:Connect(function()
         local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
-        if checkPassword(enteredPassword) then
-            -- Contraseña correcta, continuar con el flujo del programa
-                StarterGui:SetCore("SendNotification", {
-                Title = "Pass Incorrect",
-                Text = "the correct password.",
-                Duration = 5,
-            })
+        
+        -- Comparar la contraseña ingresada con la contraseña del script y la contraseña local
+        if enteredPassword == scriptPassword or enteredPassword == localPassword then
+            -- Contraseña correcta, continuar con la ejecución
+            -- Aquí colocar el código para generar el botón y las acciones
         else
             -- Contraseña incorrecta, notificar al usuario
             StarterGui:SetCore("SendNotification", {
@@ -50,8 +78,6 @@ if playerInList then
             })
         end
     end)
-
-    -- Si el usuario necesita cambiar la contraseña, puedes agregar un flujo para manejarlo aquí
 else
-    -- El jugador no está en la lista, manejarlo según sea necesario
+    -- El jugador no está en la lista, manejar según sea necesario
 end
