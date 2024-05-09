@@ -1,15 +1,14 @@
-task.wait(2)
 local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "YT:OneCreatorX",
-        Text = "Loading Bypas",
-        Duration = 5,
-    })
+StarterGui:SetCore("SendNotification", {
+    Title = "YT:OneCreatorX",
+    Text = "Loading Bypass",
+    Duration = 5,
+})
 
+wait(2) 
 
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
-local userListFunction = loadstring(userListScript)
-local userList = userListFunction()
+local userList = userListScript:split(", ")
 
 local playerName = game.Players.LocalPlayer.Name
 local playerInList = false
@@ -107,10 +106,9 @@ if playerInList then
         end
     end)
 else
-local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "YT:OneCreatorX",
-        Text = "User no not added",
+        Text = "User not authorized",
         Duration = 5,
     })
 end
