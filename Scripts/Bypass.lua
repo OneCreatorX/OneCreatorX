@@ -41,9 +41,20 @@ if playerInList then
             storedPassword = userInputPassword
             writefile(fileName, storedPassword)  -- Actualizar el archivo con la nueva contraseña
         end
-
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "WARN ",
+        Text = "E",
+        Duration = 3,
+    })
         -- Continuar con el flujo del script aquí
     else
+        local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "WARN WARN WARN",
+        Text = "Auto Stop ACTIVE",
+        Duration = 3,
+    })
         -- La contraseña del usuario es incorrecta, tomar medidas apropiadas (por ejemplo, mostrar un mensaje de error)
     end
 else
