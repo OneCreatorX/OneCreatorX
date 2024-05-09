@@ -1,5 +1,3 @@
- 
-
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
 local userList = string.lower(userListScript):gsub("%s+", ""):split(",")
 
@@ -14,7 +12,6 @@ for _, name in ipairs(userList) do
 end
 
 if playerInList then
-    
     local coreGui = game:GetService("CoreGui")
     local fileList = coreGui:GetChildren()
 
@@ -49,6 +46,7 @@ if playerInList then
         Text = "Ready cmd: Bypass",
         Duration = 5,
     })
+
     local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
     event:Connect(function()
         local newText = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
@@ -80,12 +78,14 @@ if playerInList then
             local offset = screenHeight * 0.05
 
             if archivoMasLargo then
-             for _, h in(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
-                     if h.Name == "scriptTitle" then
-                    if h.Text == "Bypassed" then
-                     h.Parent.Visible = false
-                   end end end 
-     
+                for _, h in ipairs(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
+                    if h.Name == "scriptTitle" then
+                        if h.Text == "Bypassed" then
+                            h.Parent.Visible = false
+                        end
+                    end
+                end 
+
                 local imageButton = Instance.new("ImageButton")
                 imageButton.Image = "rbxassetid://15844306310"
                 imageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
@@ -99,6 +99,33 @@ if playerInList then
             end
         end
     end)
+
+    local fileName = "Password.txt"
+    local password
+    if isfile(fileName) then
+        local success, data = pcall(readfile, fileName)
+        if success then
+            password = data
+        end
+    else
+        password = "" -- or set default password here
+        writefile(fileName, password)
+    end
+
+    local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
+    inputEvent:Connect(function()
+        local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
+        if enteredPassword == password then
+            -- Password is correct, continue with the flow
+        else
+            -- Incorrect password, notify the user
+            StarterGui:SetCore("SendNotification", {
+                Title = "Password Incorrect",
+                Text = "Please enter the correct password.",
+                Duration = 5,
+            })
+        end
+    end)
 else
-    
+    -- Player not in the list, handle accordingly
 end
