@@ -94,7 +94,7 @@ else
     writefile(fileName, "")
 end
 
-if userInputPassword == storedPassword then
+if scriptPassword == storedPassword then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Local Éxito",
