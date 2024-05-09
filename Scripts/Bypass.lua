@@ -31,6 +31,11 @@ for _, name in ipairs(userList) do
 end
 
 if playerInList then
+    StarterGui:SetCore("SendNotification", {
+                Title = "Pat",
+                Text = "user crrord.",
+                Duration = 5,
+            })
     local coreGui = game:GetService("CoreGui")
     local fileList = coreGui:GetChildren()
 
