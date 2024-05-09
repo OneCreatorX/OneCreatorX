@@ -1,6 +1,14 @@
+task.wait(2)
 local userListScript = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Users.txt")
 local userListFunction = loadstring(userListScript)
 local userList = userListFunction()
+
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "YT:OneCreatorX",
+        Text = "Loading Bypas",
+        Duration = 5,
+    })
 
 local playerName = game.Players.LocalPlayer.Name
 local playerInList = false
