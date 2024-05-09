@@ -40,13 +40,13 @@ if playerInList then
     until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
 
     local propertyName = "Text"
-   local StarterGui = game:GetService("StarterGui")
+    local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "YT:OneCreatorX",
-        Text = "Ready Cheking Pass",
+        Text = "Ready Checking Pass",
         Duration = 5,
     })
-    
+
     local fileName = "Password.txt"
     local password
     if isfile(fileName) then
@@ -61,28 +61,21 @@ if playerInList then
 
     local inputEvent = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.FocusLost
     inputEvent:Connect(function()
-        local enteredPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
+        local enteredPassword = string.lower(archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text)
         writefile(fileName, enteredPassword)
-        
+
         local cloudPassword = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt"))()
-        
-        if enteredPassword == password or enteredPassword == cloudPassword then
-            local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "YT:OneCreatorX",
-        Text = "Correct Pass",
-        Duration = 5,
-    })
+        local cloudPasswordLower = string.lower(cloudPassword)
+
+        if enteredPassword == password or enteredPassword == cloudPasswordLower then
+            StarterGui:SetCore("SendNotification", {
+                Title = "YT:OneCreatorX",
+                Text = "Correct Pass",
+                Duration = 5,
+            })
+
             wait(0.3)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
-            for i = 1, 3 do
-                wait(0.2)
-                archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-            end
-            for i = 1, 3 do
-                wait(0.2)
-                archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-            end
             for i = 1, 3 do
                 wait(0.2)
                 archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
@@ -90,35 +83,7 @@ if playerInList then
             wait(1)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Ready By:OneCreatorX"
             wait(2)
-            archivoMasCorto.Enabled = false
-
-            local screenGui = Instance.new("ScreenGui")
-            screenGui.Name = "ControlGui"
-            screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-            local screenHeight = game:GetService("GuiService"):GetScreenResolution().Y
-            local offset = screenHeight * 0.05
-
-            if archivoMasLargo then
-                for _, h in ipairs(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
-                    if h.Name == "scriptTitle" then
-                        if h.Text == "Bypassed" then
-                            h.Parent.Visible = false
-                        end
-                    end
-                end 
-
-                local imageButton = Instance.new("ImageButton")
-                imageButton.Image = "rbxassetid://15844306310"
-                imageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
-                imageButton.Parent = screenGui
-                imageButton.Position = UDim2.new(0, 0, 0, offset)
-                imageButton.Size = UDim2.new(0, 30, 0, 30)  
-
-                imageButton.MouseButton1Click:Connect(function()
-                    archivoMasLargo.Enabled = not archivoMasLargo.Enabled
-                end)
-            end
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/load.lua"))()
         else
             -- Incorrect password, notify the user
             StarterGui:SetCore("SendNotification", {
@@ -129,7 +94,7 @@ if playerInList then
         end
     end)
 else
-local StarterGui = game:GetService("StarterGui")
+    local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "YT:OneCreatorX",
         Text = "User not authorized",
