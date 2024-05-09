@@ -112,9 +112,9 @@ else
 
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Auto Copy",
+        Title = "Auto Copy - PasteDrop",
         Text = "use browser to Get Pass",
-        Duration = 5,
+        Duration = 10,
     })
 
     setclipboard("https://paste-drop.com/paste/liUkNRa2HW")
