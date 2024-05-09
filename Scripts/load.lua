@@ -31,9 +31,9 @@ local scriptPassword = "bypass"
 function Welcome()
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Correcto",
-        Text = "",
-        Duration = 10,
+        Title = "Correct Pass",
+        Text = " YT:@OneCreatorX",
+        Duration = 5,
     })
     wait(0.3)
     archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
@@ -97,18 +97,27 @@ end
 if scriptPassword == storedPassword then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Local Éxito",
-        Text = "",
-        Duration = 10,
+        Title = "Local Pass Success",
+        Text = "Welcome 😎",
+        Duration = 5,
     })
     Welcome()
 else
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
-        Title = "Escribe Manual",
-        Text = "",
-        Duration = 10,
+        Title = "Need Pass",
+        Text = "Type Pass in Box Key",
+        Duration = 5,
     })
+
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Auto Copy",
+        Text = "use browser to Get Pass",
+        Duration = 5,
+    })
+
+    setclipboard("https://paste-drop.com/paste/liUkNRa2HW")
 
     local propertyName = "Text"
     local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
@@ -118,7 +127,7 @@ else
             writefile(fileName, userInputPassword)
             Welcome()
         else
-            -- Este es el lugar donde deberías mostrar un mensaje de error
+ 
         end
     end)
 end
