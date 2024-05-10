@@ -1,6 +1,6 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local Win = Lib:NewWindow("Netflix NextWorld v0.1")
-local Sec = Win:NewSection("World 1")
+local Sec = Win:NewSection("Opcions")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
