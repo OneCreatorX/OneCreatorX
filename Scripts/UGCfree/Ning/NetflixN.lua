@@ -1,14 +1,19 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Netflix NextWorld v0.3")
+local Win = Lib:NewWindow("Netflix NextWorld v0.4")
 local Sec = Win:NewSection("Opcions")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local a = false
 
+function hhh()
+a = not a
+end
+Sec:CreateToggle("Kill Mobs", hhh)
+
 function Tk()
-    a = not a
-    while a do
+    
+    if a then
         wait(0.1)
         local enemies = workspace:WaitForChild("ScriptableObjects"):WaitForChild("Enemies"):GetDescendants()
         local args = {[2] = 1}
@@ -22,9 +27,21 @@ function Tk()
     end
 end
 
+game:GetService("RunService").RenderStepped:Connect(function()
+    pcall(Tk)
+end)
+
+local a = false
+
+function hhh()
+a = not a
+end
+
+Sec:CreateToggle("Auto Collect ", hhh)
+
 function collect()
-    a = not a
-    while a do
+
+    if a then
         wait(0.5)
         local player = game.Players.LocalPlayer
         local targetPosition = player.Character.HumanoidRootPart.Position
@@ -40,6 +57,10 @@ function collect()
         end
     end
 end
+
+game:GetService("RunService").RenderStepped:Connect(function()
+    pcall(collect)
+end)
 
 local a = false
 
@@ -85,8 +106,7 @@ function copyy()
     copyToClipboard("https://youtube.com/@OneCreatorX")
 end
 
-Sec:CreateToggle("Kill Mobs", Tk)
-Sec:CreateToggle("Auto Collect ", collect)
+
 Sec:CreateToggle("Auto  talk Npcs ", npcs)
 
 Sec2:CreateButton("Copy Link YouTube", copyy)
@@ -96,3 +116,18 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
+
+
+
+local args = {
+    [1] = "Dustin"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("FinishTalking"):FireServer(unpack(args))
+
+
+local args = {
+    [1] = "Quest006"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("AcceptQuest"):FireServer(unpack(args))
