@@ -96,11 +96,23 @@ function copyToClipboard(text)
     end
 end
 
+function page()
+for i = 1, 100 do
+local args = {
+    [1] = "Page",
+    [2] = i
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("PickUpCollectable"):FireServer(unpack(args))
+
+end
+end
+
 
 Sec:CreateToggle("Auto Kill Mobs", hhh)
 Sec:CreateToggle("Auto Collect Items", hh)
 Sec:CreateToggle("Auto Talk to NPCs", npcs)
-
+Sec:CreateButton("Instant Page", page)
 Sec2:CreateButton("Copy YouTube Link", copyy)
 Sec2:CreateButton("Copy Discord Link", copyd)
 
