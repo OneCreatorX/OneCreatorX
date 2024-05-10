@@ -55,10 +55,10 @@ function npcs()
                 local proximityPrompt = npc.PrimaryPart:FindFirstChildOfClass("ProximityPrompt")
                 if proximityPrompt then
                     local distance = (player.Character.HumanoidRootPart.Position - npc.PrimaryPart.Position).magnitude
-                    if distance < 5 and cerca then
+                    if distance < 8 and cerca then
                         fireproximityprompt(proximityPrompt)
                         cerca = false
-                    elseif distance > 5 and distance < 30 and not cerca then
+                    elseif distance > 8 and distance < 50 and not cerca then
                         cerca = true
                     end
                 end
@@ -87,7 +87,7 @@ end
 
 Sec:CreateToggle("Kill Mobs", Tk)
 Sec:CreateToggle("Auto Collect ", collect)
-Sec:CreateToggle("Auto Npcs ", npcs)
+Sec:CreateToggle("Auto  talk Npcs ", npcs)
 
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
