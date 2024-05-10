@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Netflix NextWorld v0.2")
+local Win = Lib:NewWindow("Netflix NextWorld v0.3")
 local Sec = Win:NewSection("Opcions")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
@@ -51,14 +51,17 @@ function npcs()
         local player = game.Players.LocalPlayer
 
         for _, npc in ipairs(workspace.ScriptableObjects.NPCs:GetChildren()) do
-            if npc:IsA("Model") and npc:FindFirstChild("HumanoidRootPart") then
+            if npc:IsA("Model") and npc:FindFirstChild("HumanoidRootPart") or npc:FindFirstChild("RootPart") then
                 local proximityPrompt = npc.PrimaryPart:FindFirstChildOfClass("ProximityPrompt")
                 if proximityPrompt then
                     local distance = (player.Character.HumanoidRootPart.Position - npc.PrimaryPart.Position).magnitude
-                    if distance < 8 and cerca then
+                    if distance < 4 and cerca then
                         fireproximityprompt(proximityPrompt)
                         cerca = false
-                    elseif distance > 8 and distance < 50 and not cerca then
+                    elseif distance > 4 and distance < 5 and not cerca then
+
+
+elseif distance > 8 and distance < 20 and not cerca then
                         cerca = true
                     end
                 end
