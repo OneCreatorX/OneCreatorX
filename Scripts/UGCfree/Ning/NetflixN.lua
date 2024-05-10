@@ -47,7 +47,7 @@ function npcs()
     a = not a
     local cerca = true
     while a do
-        task.wait(0.5)
+        task.wait()
         local player = game.Players.LocalPlayer
 
         for _, npc in ipairs(workspace.ScriptableObjects.NPCs:GetChildren()) do
@@ -59,9 +59,6 @@ function npcs()
                         fireproximityprompt(proximityPrompt)
                         cerca = false
                     elseif distance > 4 and distance < 5 and not cerca then
-
-
-elseif distance > 8 and distance < 20 and not cerca then
                         cerca = true
                     end
                 end
