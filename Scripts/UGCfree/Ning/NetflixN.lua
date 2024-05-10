@@ -15,7 +15,7 @@ end
 
 function Tk()
     if autoKillMobs then
-        wait(0.1)
+        
         local enemies = workspace:WaitForChild("ScriptableObjects"):WaitForChild("Enemies"):GetDescendants()
         
         for _, enemy in ipairs(enemies) do
@@ -32,7 +32,7 @@ end
 
 function collect()
     if autoCollect then
-        wait(0.5)
+        
         local player = game.Players.LocalPlayer
         local targetPosition = player.Character.HumanoidRootPart.Position
 
@@ -125,4 +125,5 @@ game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("
 while true do wait()
 pcall(Tk)
 pcall(collect)
+    task.wait(0.1)
 end
