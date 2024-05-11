@@ -1,6 +1,7 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Netflix NextWorld v1.4")
+local Win = Lib:NewWindow("Netflix NextWorld v1.5")
 local Sec = Win:NewSection("Options")
+local Sec3 = Win:NewSection("UGC-Strangers Thing")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
@@ -163,11 +164,43 @@ function page()
     end
 end
 
+function gametp()
+local args = {
+    [1] = 16037286759
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("RequestTP"):FireServer(unpack(args))
+end
+
+function ins()
+for _, descendant in ipairs(workspace:GetDescendants()) do
+                if descendant:IsA("ProximityPrompt") then
+                    fireproximityprompt(descendant)
+                end
+            end
+wait(2)
+game:GetService("TeleportService"):Teleport(15432848623)
+end
+
+
+function ugc()
+local args = {
+    [1] = "DemogorgonHood"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BuyUGC"):InvokeServer(unpack(args))
+
+end
+
+
 Sec:CreateToggle("Auto Kill Mobs", hhh)
 Sec:CreateToggle("Auto Farm Pos", h)
 Sec:CreateToggle("Auto Collect Items", hh)
 Sec:CreateToggle("Auto Talk to NPCs", npcs)
 Sec:CreateButton("Instant Page", page)
+Sec3:CreateButton("Tp Game Strangers", gametp)
+Sec3:CreateButton("Instant Tasks", ins)
+Sec3:CreateButton("Claim UGC", ugc)
 Sec2:CreateButton("Copy YouTube Link", copyy)
 Sec2:CreateButton("Copy Discord Link", copyd)
 
