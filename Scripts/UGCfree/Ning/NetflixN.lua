@@ -1,5 +1,5 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Netflix NextWorld v0.3")
+local Win = Lib:NewWindow("Netflix NextWorld v1")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
@@ -8,6 +8,41 @@ local Player = Players.LocalPlayer
 local autoKillMobs = false
 local autoCollect = false
 local autoTalkNPCs = false
+local autoFarmPos = false
+
+function po()
+    while autoFarmPos do
+        local Po = workspace:WaitForChild("ScriptableObjects"):WaitForChild("Resources"):GetDescendants()
+        local nearestPo = nil
+        local nearestDistance = math.huge
+
+        for _, po in ipairs(Po) do
+            if po:IsA("Part") then
+                local distance = (Player.Character.HumanoidRootPart.Position - po.Position).magnitude
+                if distance < nearestDistance and autoFarmPos then
+                    nearestPo = po
+                    nearestDistance = distance
+                end
+            end
+        end
+
+        if nearestPo and autoFarmPos then
+            fireproximityprompt(nearestPo.ProximityPrompt)
+            repeat
+                wait(0.1)
+autoFarmPos = false
+            until not nearestPo or not nearestPo:FindFirstChild("ProximityPromt")
+autoFarmPos = true
+        end
+    end
+end
+
+function h()
+    autoFarmPos = not autoFarmPos
+if autoFarmPos then
+po()
+end
+end
 
 function hhh()
     autoKillMobs = not autoKillMobs
@@ -81,35 +116,19 @@ function copyy()
     copyToClipboard("https://youtube.com/@OneCreatorX")
 end
 
-game:GetService("RunService").RenderStepped:Connect(function()
-    pcall(collect)
-end)
+function page()
+    for i = 1, 100 do
+        local args = {
+            [1] = "Page",
+            [2] = i
+        }
 
-
-
-
-function copyToClipboard(text)
-    if syn then
-        syn.write_clipboard(text)
-    else
-        setclipboard(text)
+        game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("PickUpCollectable"):FireServer(unpack(args))
     end
 end
 
-function page()
-for i = 1, 100 do
-local args = {
-    [1] = "Page",
-    [2] = i
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("PickUpCollectable"):FireServer(unpack(args))
-
-end
-end
-
-
 Sec:CreateToggle("Auto Kill Mobs", hhh)
+Sec:CreateToggle("Auto Farm Pos", h)
 Sec:CreateToggle("Auto Collect Items", hh)
 Sec:CreateToggle("Auto Talk to NPCs", npcs)
 Sec:CreateButton("Instant Page", page)
@@ -127,15 +146,14 @@ local args = {
 
 game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("FinishTalking"):FireServer(unpack(args))
 
-local args = {
-    [1] = "Quest006"
+local args = {[1] = "Quest006"
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("AcceptQuest"):FireServer(unpack(args))
 
 
-while true do wait()
-pcall(Tk)
-pcall(collect)
-    task.wait(0.1)
+while true do
+    wait(0.1)
+    pcall(Tk)
+    pcall(collect)
 end
