@@ -8,40 +8,76 @@ local Player = Players.LocalPlayer
 local autoKillMobs = false
 local autoCollect = false
 local autoTalkNPCs = false
+
 local autoFarmPos = false
+local autoFarmPo = false
 
-function po()
-    while autoFarmPos do
-        local Po = workspace:WaitForChild("ScriptableObjects"):WaitForChild("Resources"):GetDescendants()
-        local nearestPo = nil
-        local nearestDistance = math.huge
+function findNearestPopcorn()
+    local nearestPopcorn = nil
+    local nearestDistance = math.huge
 
-        for _, po in ipairs(Po) do
-            if po:IsA("Part") then
-                local distance = (Player.Character.HumanoidRootPart.Position - po.Position).magnitude
-                if distance < nearestDistance and autoFarmPos then
-                    nearestPo = po
-                    nearestDistance = distance
-                end
+    for _, child in ipairs(workspace:GetChildren()) do
+        if child:IsA("Model") and child.Name == "Model" then
+            local distance = (Player.Character.HumanoidRootPart.Position - child.PrimaryPart.Position).magnitude
+
+            if distance < 30 and distance < nearestDistance then
+                nearestPopcorn = child.PrimaryPart
+                nearestDistance = distance
             end
         end
+    end
 
-        if nearestPo and autoFarmPos then
-            fireproximityprompt(nearestPo.ProximityPrompt)
-            repeat
-                wait(0.1)
-autoFarmPos = false
-            until not nearestPo or not nearestPo:FindFirstChild("ProximityPromt")
-autoFarmPos = true
+    return nearestPopcorn
+end
+
+local nearestPo = nil
+
+function po()
+    while autoFarmPos and autoFarmPo do
+        local popcorn = findNearestPopcorn()
+        
+        if popcorn then
+            local Po = workspace:WaitForChild("ScriptableObjects"):WaitForChild("Resources"):GetDescendants()
+            local nearestDistance = math.huge
+
+            for _, po in ipairs(Po) do
+                if po:IsA("Part") then
+                    local distance = (popcorn.Position - po.Position).magnitude
+                    if distance < nearestDistance and autoFarmPos then
+                        nearestPo = po
+                        nearestDistance = distance
+                    end
+                end
+            end
+
+            if nearestPo and autoFarmPos then
+                fireproximityprompt(nearestPo.ProximityPrompt)
+
+                repeat
+                    wait(0.1)
+                    if not autoFarmPo or not popcorn.Parent then
+                        break
+                    end
+
+                    local newDistance = (Player.Character.HumanoidRootPart.Position - popcorn.Position).magnitude
+                    if newDistance > 35 then
+                        nearestPo = nil
+                        break
+                    end
+                until false
+            end
+        else
+            wait(1)
         end
     end
 end
 
 function h()
     autoFarmPos = not autoFarmPos
-if autoFarmPos then
-po()
-end
+    autoFarmPo = not autoFarmPo
+    if autoFarmPos then
+        po()
+    end
 end
 
 function hhh()
@@ -55,7 +91,7 @@ function Tk()
         
         for _, enemy in ipairs(enemies) do
             if enemy:IsA("Model") and enemy.PrimaryPart then
-                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("FireSlingshot"):FireServer(enemy, 1)
+                game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("FireSlingshot"):FireServer(enemy, 50)
             end
         end
     end
