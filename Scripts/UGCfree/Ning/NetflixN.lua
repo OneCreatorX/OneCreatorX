@@ -73,6 +73,7 @@ function collect()
 
         for _, drop in ipairs(workspace._DROPS:GetChildren()) do
             if drop:IsA("Model") and drop.PrimaryPart then
+                drop:SetPrimaryPartCFrame(CFrame.new(targetPosition))
                 local proximityPrompt = drop.PrimaryPart:FindFirstChildOfClass("ProximityPrompt")
                 if proximityPrompt then
                     fireproximityprompt(proximityPrompt)
