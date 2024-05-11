@@ -166,6 +166,17 @@ end
 
 function gametp()
 local args = {
+    [1] = "Dustin"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("FinishTalking"):FireServer(unpack(args))
+
+local args = {[1] = "Quest006"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("AcceptQuest"):FireServer(unpack(args))
+task.wait(2)
+local args = {
     [1] = 16037286759
 }
 
@@ -184,11 +195,6 @@ end
 
 
 function ugc()
-local args = {
-    [1] = "DemogorgonHood"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BuyUGC"):InvokeServer(unpack(args))
 
 end
 
@@ -199,8 +205,7 @@ Sec:CreateToggle("Auto Collect Items", hh)
 Sec:CreateToggle("Auto Talk to NPCs", npcs)
 Sec:CreateButton("Instant Page", page)
 Sec3:CreateButton("Tp Game Strangers", gametp)
-Sec3:CreateButton("Instant Collect n TP", ins)
-Sec3:CreateButton("Claim UGC", ugc)
+Sec3:CreateButton("Instant Tasks", ins)
 Sec2:CreateButton("Copy YouTube Link", copyy)
 Sec2:CreateButton("Copy Discord Link", copyd)
 
@@ -209,16 +214,12 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 
+
 local args = {
-    [1] = "Dustin"
+    [1] = "DemogorgonHood"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("FinishTalking"):FireServer(unpack(args))
-
-local args = {[1] = "Quest006"
-}
-
-game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("AcceptQuest"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("RemoteFunctions"):WaitForChild("BuyUGC"):InvokeServer(unpack(args))
 
 
 while true do
