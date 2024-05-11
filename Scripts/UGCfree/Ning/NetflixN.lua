@@ -178,7 +178,7 @@ for _, descendant in ipairs(workspace:GetDescendants()) do
                     fireproximityprompt(descendant)
                 end
             end
-wait(2)
+wait(1)
 game:GetService("TeleportService"):Teleport(15432848623)
 end
 
@@ -199,7 +199,7 @@ Sec:CreateToggle("Auto Collect Items", hh)
 Sec:CreateToggle("Auto Talk to NPCs", npcs)
 Sec:CreateButton("Instant Page", page)
 Sec3:CreateButton("Tp Game Strangers", gametp)
-Sec3:CreateButton("Instant Tasks", ins)
+Sec3:CreateButton("Instant Collect n TP", ins)
 Sec3:CreateButton("Claim UGC", ugc)
 Sec2:CreateButton("Copy YouTube Link", copyy)
 Sec2:CreateButton("Copy Discord Link", copyd)
