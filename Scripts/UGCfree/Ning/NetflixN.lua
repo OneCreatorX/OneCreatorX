@@ -6,6 +6,14 @@ local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
+end
+
 local autoKillMobs = false
 local autoCollect = false
 local autoTalkNPCs = false
