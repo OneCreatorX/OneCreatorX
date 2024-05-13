@@ -34,7 +34,7 @@ local function moveHearts()
         local function collectHeart(heartPart)
             local HPos = Vector3.new(heartPart.Position.X, PPos.Y, heartPart.Position.Z)
             local dist = (HPos - PPos).magnitude
-            if dist < 5 then
+            if dist < 3 then
                 heartPart.Transparency = 1
                 heartPart.Position = PPos
             end
@@ -47,7 +47,7 @@ local function moveHearts()
             if H:IsA("MeshPart") and H.Transparency ~= 1 then
                 local HPos = Vector3.new(H.Position.X, PPos.Y, H.Position.Z)
                 local dist = (HPos - PPos).magnitude
-                if dist < 5 then
+                if dist < 3 then
                     collectHeart(H)
                 elseif dist < minDist then
                     minDist = dist
@@ -65,7 +65,7 @@ local function moveHearts()
             repeat
                 wait()
                 collectHeart(heartPart)
-            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 5
+            until not closestHeart.Parent or player:DistanceFromCharacter(targetPosition) < 1
             
             if not closestHeart.Parent then
             end
