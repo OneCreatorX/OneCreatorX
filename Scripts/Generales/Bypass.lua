@@ -1,65 +1,124 @@
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-local sg = Instance.new("ScreenGui")
-sg.ResetOnSpawn = false
-sg.Enabled = true
-sg.Parent = playerGui
+local coreGui = game:GetService("CoreGui")
+local fileList = coreGui:GetChildren()
 
-local frame = Instance.new("Frame")
-frame.Name = "ControlFrame"
-frame.Size = UDim2.new(0, 200, 0, 60)
-frame.Position = UDim2.new(0.4, -100, 0.1, -50)
-frame.BackgroundColor3 = Color3.fromRGB(40, 20, 10)
-frame.BorderSizePixel = 1
-frame.Style = Enum.FrameStyle.DropShadow
-frame.Parent = sg
-frame.Active = true
-frame.Draggable = true
+table.sort(fileList, function(a, b)
+    return a:GetDebugId() > b:GetDebugId()
+end)
 
-local title = Instance.new("TextLabel")
-title.Name = "Title"
-title.Text = "YT@OneCreatorX"
-title.Size = UDim2.new(1, 0, 0, 30)
-title.Position = UDim2.new(0, 0, 0, 0)
-title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.GothamBold
-title.TextSize = 20
-title.Parent = frame
+local archivoMasLargo
+local archivoMasCorto
 
-local textbox = Instance.new("TextBox")
-textbox.Name = "ScriptTextBox"
-textbox.Size = UDim2.new(1, 0, 0.6, 0)
-textbox.Position = UDim2.new(0.28, 0, 0.7, 0) 
-textbox.BackgroundTransparency = 1 
-textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
-textbox.Font = Enum.Font.SourceSans
-textbox.TextSize = 14
-textbox.TextWrapped = true 
-textbox.TextXAlignment = Enum.TextXAlignment.Left  
-textbox.TextYAlignment = Enum.TextYAlignment.Top 
-textbox.Text = "Script Here Execute"
-textbox.Parent = frame
+repeat
+    if #fileList >= 2 then
+        if #fileList[#fileList].Name > #fileList[#fileList - 1].Name then
+            archivoMasLargo = fileList[#fileList]
+            archivoMasCorto = fileList[#fileList - 1]
+        else
+            archivoMasLargo = fileList[#fileList - 1]
+            archivoMasCorto = fileList[#fileList]
+        end
+    end
 
-local function executeScript()
-    local success, errorMessage = pcall(loadstring(textbox.Text))
-    textbox.Text = "Ready Execute"
+    if not (archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")) then
+        task.wait(1)
+        fileList = coreGui:GetChildren()
+    end
+until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
+
+local fileName = "LocalPassword.txt"
+local scriptPassword = "bypass"
+
+function Welcome()
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Correcto",
+        Text = "",
+        Duration = 10,
+    })
+    wait(0.3)
+    archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
+    for i = 1, 3 do
+        wait(0.2)
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
+    end
+    for i = 1, 3 do
+        wait(0.2)
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
+    end
+    for i = 1, 3 do
+        wait(0.2)
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
+    end
     wait(1)
-      textbox.Text = "Script Here Execute"
-    if not success then
-        
+    archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Ready By:OneCreatorX"
+    wait(2)
+    archivoMasCorto.Enabled = false
+
+    local screenGui = Instance.new("ScreenGui")
+    screenGui.Name = "ControlGui"
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+    local screenHeight = game:GetService("GuiService"):GetScreenResolution().Y
+    local offset = screenHeight * 0.05
+
+    if archivoMasLargo then
+        for _, h in pairs(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
+            if h.Name == "scriptTitle" then
+                if h.Text == "Bypassed" then
+                    h.Parent.Visible = false
+                end
+            end
+        end
+
+        local imageButton = Instance.new("ImageButton")
+        imageButton.Image = "rbxassetid://15844306310"
+        imageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        imageButton.Parent = screenGui
+        imageButton.Position = UDim2.new(0, 0, 0, offset)
+        imageButton.Size = UDim2.new(0, 30, 0, 30)
+
+        imageButton.MouseButton1Click:Connect(function()
+            archivoMasLargo.Enabled = not archivoMasLargo.Enabled
+        end)
     end
 end
 
-textbox.FocusLost:Connect(function(enterPressed)
-    if enterPressed then
-        executeScript()
-    end
-end)
+local storedPassword = ""
 
-textbox:GetPropertyChangedSignal("Text"):Connect(function()
-    if textbox:IsFocused() and textbox.Text:find("\n") then
-        executeScript()
+if isfile(fileName) then
+    local success, data = pcall(readfile, fileName)
+    if success then
+        storedPassword = data
     end
-end)
+else
+    writefile(fileName, "")
+end
+
+if storedPassword == storedPassword then
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Local Éxito",
+        Text = "",
+        Duration = 10,
+    })
+    Welcome()
+else
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Escribe Manual",
+        Text = "",
+        Duration = 10,
+    })
+
+    local propertyName = "Text"
+    local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
+    event:Connect(function()
+        local userInputPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
+        if userInputPassword == scriptPassword then
+            writefile(fileName, userInputPassword)
+            Welcome()
+        else
+            -- Este es el lugar donde deberías mostrar un mensaje de error
+        end
+    end)
+end
