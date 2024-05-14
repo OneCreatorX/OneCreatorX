@@ -5111,6 +5111,7 @@ task.spawn(function()
 				end
 			end
 			if not scriptsMerged then
+				print("No Scripts Game")
 				-- no matching placeIds
 			end
 		end
