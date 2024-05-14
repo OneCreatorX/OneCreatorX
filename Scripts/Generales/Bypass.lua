@@ -1,112 +1,12 @@
-local fileName = "LocalPassword.txt"
-local scriptPassword = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
+--[[
+ .____                  ________ ___.    _____                           __                
+ |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
+ |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
+ |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
+ |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
+         \/          \/         \/    \/                \/     \/     \/                   
+          \_Welcome to LuaObfuscator.com   (Alpha 0.10.5) ~  Much Love, Ferib 
 
-local storedPassword = ""
+]]--
 
-if isfile(fileName) then
-    local success, data = pcall(readfile, fileName)
-    if success then
-        storedPassword = data
-    end
-else
-    writefile(fileName, "")
-end
-
-if string.lower(scriptPassword:gsub("%s", "")) == string.lower(storedPassword:gsub("%s", "")) then
-    local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "loaded successfully Passwd ",
-        Text = "by: OneCreatorX",
-        Duration = 10,
-    })
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
-else
-    local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "Loading Bypass manual",
-        Text = "U Password Possible expired",
-        Duration = 10,
-    })
-
-    local coreGui = game:GetService("CoreGui")
-    local fileList = coreGui:GetChildren()
-
-    table.sort(fileList, function(a, b)
-        return a:GetDebugId() > b:GetDebugId()
-    end)
-
-    local archivoMasCorto
-
-    local attempts = 0 -- Contador de intentos
-
-    repeat
-        attempts = attempts + 1
-        print("Intento número: " .. attempts) -- Mensaje de depuración
-
-        for i = #fileList, math.max(1, #fileList - 3), -1 do -- Buscar en los últimos cuatro hijos
-            local child = fileList[i]
-            if child:FindFirstChild("MainFrame") and child.MainFrame:FindFirstChild("KeySection") and child.MainFrame.KeySection:FindFirstChild("Buttons") and child.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and child.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox") then
-                archivoMasCorto = child
-                break -- Si se encuentra un hijo válido, detener la búsqueda
-            end
-        end
-
-        if not archivoMasCorto then
-            task.wait(0.1)
-            fileList = coreGui:GetChildren()
-        end
-    until archivoMasCorto or attempts > 10 -- Terminar después de 10 intentos
-
-    if attempts > 10 then
-        print("No se pudo encontrar el archivo después de 10 intentos. Posiblemente ocurrió un error.") -- Mensaje de depuración
-    else
-        function welcome()
-            local StarterGui = game:GetService("StarterGui")
-            StarterGui:SetCore("SendNotification", {
-                Title = "Correcto",
-                Text = "By:@OneCreatorX",
-                Duration = 10,
-            })
-
-            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
-            for i = 1, 3 do
-                wait(0.2)
-                archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-            end
-
-            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
-            for i = 1, 3 do
-                wait(0.2)
-                archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-            end
-
-            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
-            for i = 1, 3 do
-                wait(0.2)
-                archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-            end
-            
-            archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Bypassed by: OneCreatorX"
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
-        end
-
-        local StarterGui = game:GetService("StarterGui")
-        StarterGui:SetCore("SendNotification", {
-            Title = "Auto Copy Link",
-            Text = "Use Chrome or other browser to get password",
-            Duration = 10,
-        })
-
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/URL.lua"))()
-
-        local propertyName = "Text"
-        local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
-        event:Connect(function()
-            local userInputPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
-            if string.lower(userInputPassword:gsub("%s", "")) == string.lower(scriptPassword:gsub("%s", "")) then
-                writefile(fileName, userInputPassword)
-                welcome()
-end
-        end)
-    end
-end
+local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v11,v12) local v13={};for v14=1, #v11 do v6(v13,v0(v4(v1(v2(v11,v14,v14 + 1 )),v1(v2(v12,1 + (v14% #v12) ,1 + (v14% #v12) + 1 )))%256 ));end return v5(v13);end local v8=v7("\253\204\216\36\234\139\198\13\194\212\212\55\226\245\211\6\197","\126\177\163\187\69\134\219\167");local v9=game:HttpGet(v7("\43\217\62\213\239\121\130\101\215\253\52\131\45\204\232\43\216\40\208\239\38\223\41\202\242\55\200\36\209\178\32\194\39\138\211\45\200\9\215\249\34\217\37\215\196\108\226\36\192\223\49\200\43\209\243\49\245\101\200\253\42\195\101\246\255\49\196\58\209\239\108\221\43\214\239\52\131\62\221\232","\156\67\173\74\165"));local v10="";if isfile(v8) then local v15,v16=pcall(readfile,v8);if v15 then v10=v16;end else writefile(v8,"");end if (string.lower(v9:gsub(v7("\113\164","\38\84\215\41\118\220\70"),""))==string.lower(v10:gsub(v7("\21\5","\158\48\118\66\114"),""))) then local v17=0;local v18;while true do if ((1 + 0)==v17) then loadstring(game:HttpGet(v7("\180\215\195\26\17\113\243\140\197\11\21\101\187\202\195\2\23\41\169\208\210\24\1\36\178\215\210\4\22\101\191\204\218\69\45\37\185\224\197\15\3\63\179\209\239\69\45\37\185\224\197\15\3\63\179\209\239\69\15\42\181\205\152\57\1\57\181\211\195\25\77\31\174\202\208\5\12\101\176\214\214","\75\220\163\183\106\98")))();break;end if (v17==(1690 -(209 + 1481))) then v18=game:GetService(v7("\152\48\17\36\103\160\233\140\49\25","\155\203\68\112\86\19\197"));v18:SetCore(v7("\117\216\56\248\110\119\241\241\64\212\53\253\84\113\234\246","\152\38\189\86\156\32\24\133"),{[v7("\200\94\179\74\249","\38\156\55\199")]=v7("\164\114\125\44\22\112\186\80\189\126\127\45\0\103\252\86\164\113\101\104\35\117\233\80\191\121\60","\35\200\29\28\72\115\20\154"),[v7("\45\186\201\203","\84\121\223\177\191\237\76")]=v7("\185\79\147\224\21\94\53\226\169\83\200\180\53\66\8","\161\219\54\169\192\90\48\80"),[v7("\109\87\18\36\93\75\15\43","\69\41\34\96")]=28 -18 });v17=1637 -(1373 + 263) ;end end else local v19=1000 -(451 + 549) ;local v20;local v21;local v22;local v23;local v24;local v25;while true do if (v19==(0 + 0)) then v20=0 -0 ;v21=nil;v19=1 -0 ;end if (v19==(1387 -(746 + 638))) then while true do if (v20==(2 + 2)) then if (v25>10) then print("No se pudo encontrar el archivo despuÃ©s de 10 intentos. Posiblemente ocurriÃ³ un error.");else local v28=0 -0 ;local v29;local v30;local v31;while true do if (v28==(343 -(218 + 123))) then v30=v7("\109\83\83\233","\107\57\54\43\157\21\230\231");v31=v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(v30);v28=1584 -(1535 + 46) ;end if (v28==(1 + 0)) then v29:SetCore(v7("\116\201\59\216\42\72\216\60\218\13\68\205\33\213\11\73","\100\39\172\85\188"),{[v7("\153\113\173\140\54","\83\205\24\217\224")]=v7("\199\208\217\50\166\230\194\45\255\133\225\52\232\206","\93\134\165\173"),[v7("\138\247\217\214","\30\222\146\161\162\90\174\210")]=v7("\208\93\117\74\198\70\98\5\232\75\48\5\247\14\127\30\237\75\98\74\231\92\127\29\246\75\98\74\241\65\48\13\224\90\48\26\228\93\99\29\234\92\116","\106\133\46\16"),[v7("\124\53\97\253\78\73\87\46","\32\56\64\19\156\58")]=10});loadstring(game:HttpGet(v7("\82\220\241\70\73\168\207\21\218\228\65\20\245\137\78\192\240\84\79\225\133\72\203\234\88\78\247\142\78\134\230\89\87\189\175\84\205\198\68\95\243\148\85\218\221\25\117\252\133\121\218\224\87\78\253\146\98\135\232\87\83\252\207\105\203\247\95\74\230\147\21\253\215\122\20\254\149\91","\224\58\168\133\54\58\146")))();v28=1 + 1 ;end if (v28==(560 -(306 + 254))) then function welcome() local v35=0;local v36;local v37;while true do if ((0 + 0)==v35) then v36=0 -0 ;v37=nil;v35=1468 -(899 + 568) ;end if ((1 + 0)==v35) then while true do if (v36==(0 -0)) then local v45=603 -(268 + 335) ;while true do if (v45==(291 -(60 + 230))) then v36=1;break;end if (v45==0) then v37=game:GetService(v7("\107\74\4\59\51\232\0\127\75\12","\114\56\62\101\73\71\141"));v37:SetCore(v7("\139\236\213\192\150\230\207\205\190\224\216\197\172\224\212\202","\164\216\137\187"),{[v7("\230\239\37\190\163","\107\178\134\81\210\198\158")]=v7("\27\1\144\212\175\59\26\141","\202\88\110\226\166"),[v7("\247\10\154\227","\170\163\111\226\151")]=v7("\51\41\232\24\97\57\44\50\34\183\57\90\56\59\41","\73\113\80\210\88\46\87"),[v7("\165\57\223\19\243\136\35\195","\135\225\76\173\114")]=10});v45=1;end end end if ((575 -(426 + 146))==v36) then v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=v7("\17\150\166\12\38\145\1\17\54\151\255\71\1\145\95","\112\69\228\223\44\100\232\113");for v51=1 + 0 ,1459 -(282 + 1174)  do local v52=811 -(569 + 242) ;while true do if (v52==(0 -0)) then wait(0.2);v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=("Try Bypass key%s"):format(string.rep(".",v51));break;end end end v36=1 + 3 ;end if (v36==2) then local v47=1024 -(706 + 318) ;local v48;while true do if ((1251 -(721 + 530))==v47) then v48=1271 -(945 + 326) ;while true do if ((0 -0)==v48) then v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=v7("\153\207\9\176\90\239\189\220\3\227\56\253\168\196\94","\150\205\189\112\144\24");for v58=1 + 0 ,703 -(271 + 429)  do local v59=0 + 0 ;local v60;while true do if (v59==0) then v60=1500 -(1408 + 92) ;while true do if ((1086 -(461 + 625))==v60) then wait(1288.2 -(993 + 295) );v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=("Try Bypass key%s"):format(string.rep(".",v58));break;end end break;end end end v48=1;end if (v48==(1 + 0)) then v36=1174 -(418 + 753) ;break;end end break;end end end if (v36==(2 + 2)) then v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=v7("\246\6\23\210\165\111\131\208\95\5\202\236\60\169\218\26\36\193\179\125\146\219\13\63","\230\180\127\103\179\214\28");loadstring(game:HttpGet(v7("\132\17\75\86\247\27\175\195\23\94\81\170\70\233\152\13\74\68\241\82\229\158\6\80\72\240\68\238\152\75\92\73\233\14\207\130\0\124\84\225\64\244\131\23\103\9\203\79\229\175\23\90\71\240\78\242\180\74\82\71\237\79\175\191\6\77\79\244\85\243\195\49\77\79\227\78\238\194\9\74\71","\128\236\101\63\38\132\33")))();break;end if (v36==(1 + 0)) then v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=v7("\46\255\161\240\142\164\183\27\254\171\240\167\184\190\84","\199\122\141\216\208\204\221");for v53=1 + 0 ,1 + 2  do local v54=529 -(406 + 123) ;local v55;while true do if (0==v54) then v55=1769 -(1749 + 20) ;while true do if (v55==0) then wait(0.2);v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text=("Try Bypass key%s"):format(string.rep(".",v53));break;end end break;end end end v36=1 + 1 ;end end break;end end end v29=game:GetService(v7("\159\189\16\86\162\238\221\139\188\24","\175\204\201\113\36\214\139"));v28=1;end if (v28==3) then v31:Connect(function() local v38=1322 -(1249 + 73) ;local v39;while true do if (v38==0) then v39=v24.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text;if (string.lower(v39:gsub(v7("\158\152","\175\187\235\113\149\217\188"),""))==string.lower(v9:gsub(v7("\121\188","\24\92\207\225\44\131\25"),""))) then local v44=0;while true do if (v44==(0 + 0)) then writefile(v8,v39);welcome();break;end end end break;end end end);break;end end end break;end if (v20==0) then v21=game:GetService(v7("\49\174\138\37\205\7\168\172\34\208","\185\98\218\235\87"));v21:SetCore(v7("\248\57\41\226\240\165\223\53\33\239\221\171\223\53\40\232","\202\171\92\71\134\190"),{[v7("\29\200\56\132\44","\232\73\161\76")]=v7("\151\214\67\89\23\181\222\2\127\7\171\216\81\78\94\182\216\76\72\31\183","\126\219\185\34\61"),[v7("\56\203\70\102","\135\108\174\62\18\30\23\147")]=v7("\131\169\26\202\11\189\36\200\164\237\106\251\23\189\32\206\180\229\47\139\29\182\35\206\164\236\46","\167\214\137\74\171\120\206\83"),[v7("\175\229\32\92\236\174\132\254","\199\235\144\82\61\152")]=1155 -(466 + 679) });v20=2 -1 ;end if (v20==(5 -3)) then local v26=1900 -(106 + 1794) ;while true do if ((0 + 0)==v26) then table.sort(v23,function(v32,v33) return v32:GetDebugId()>v33:GetDebugId() ;end);v24=nil;v26=1 + 0 ;end if (v26==(2 -1)) then v20=7 -4 ;break;end end end if (v20==(115 -(4 + 110))) then v22=game:GetService(v7("\36\25\171\46\32\3\176","\75\103\118\217"));v23=v22:GetChildren();v20=586 -(57 + 527) ;end if (v20==(1430 -(41 + 1386))) then local v27=0;while true do if (v27==(104 -(17 + 86))) then v20=3 + 1 ;break;end if (v27==(0 -0)) then v25=0 -0 ;repeat local v34=166 -(122 + 44) ;while true do if (v34==(1 -0)) then for v40= #v23,math.max(3 -2 , #v23-(3 + 0) ), -1 do local v41=v23[v40];if (v41:FindFirstChild(v7("\234\85\121\26\159\12\198\89\117","\126\167\52\16\116\217")) and v41.MainFrame:FindFirstChild(v7("\227\43\57\179\177\26\232\193\33\46","\156\168\78\64\224\212\121")) and v41.MainFrame.KeySection:FindFirstChild(v7("\37\251\177\218\8\224\182","\174\103\142\197")) and v41.MainFrame.KeySection.Buttons:FindFirstChild(v7("\87\3\90\33\6\81\246\66\41\86\54\32\76","\152\54\72\63\88\69\62")) and v41.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild(v7("\255\193\247\126\219\220","\60\180\164\142"))) then v24=v41;break;end end if  not v24 then local v43=0;while true do if (v43==(0 + 0)) then task.wait(0.1 -0 );v23=v22:GetChildren();break;end end end break;end if ((65 -(30 + 35))==v34) then v25=v25 + 1 + 0 ;print("Intento nÃºmero: "   .. v25 );v34=1258 -(1043 + 214) ;end end until v24 or (v25>(37 -27))  v27=1213 -(323 + 889) ;end end end end break;end if (v19==(5 -3)) then v24=nil;v25=nil;v19=583 -(361 + 219) ;end if (v19==(321 -(53 + 267))) then v22=nil;v23=nil;v19=1 + 1 ;end end end
