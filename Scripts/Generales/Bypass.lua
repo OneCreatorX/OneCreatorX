@@ -41,46 +41,9 @@ function Welcome()
         wait(0.2)
         archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
     end
-    for i = 1, 3 do
-        wait(0.2)
-        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-    end
-    for i = 1, 3 do
-        wait(0.2)
-        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
-    end
-    wait(1)
-    archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Ready By:OneCreatorX"
-    wait(2)
-    archivoMasCorto.Enabled = false
+    
 
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = "ControlGui"
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
-    local screenHeight = game:GetService("GuiService"):GetScreenResolution().Y
-    local offset = screenHeight * 0.05
-
-    if archivoMasLargo then
-        for _, h in pairs(archivoMasLargo.MainFrame.homeFrame.localscriptsFrame:GetDescendants()) do
-            if h.Name == "scriptTitle" then
-                if h.Text == "Bypassed" then
-                    h.Parent.Visible = false
-                end
-            end
-        end
-
-        local imageButton = Instance.new("ImageButton")
-        imageButton.Image = "rbxassetid://15844306310"
-        imageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-        imageButton.Parent = screenGui
-        imageButton.Position = UDim2.new(0, 0, 0, offset)
-        imageButton.Size = UDim2.new(0, 30, 0, 30)
-
-        imageButton.MouseButton1Click:Connect(function()
-            archivoMasLargo.Enabled = not archivoMasLargo.Enabled
-        end)
-    end
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 end
 
 local storedPassword = ""
