@@ -1,12 +1,88 @@
-local v0=string.char;local v1=string.byte;local v2=string.sub;local v3=bit32 or bit ;local v4=v3.bxor;local v5=table.concat;local v6=table.insert;local function v7(v24,v25) local v26={};for v41=1, #v24 do v6(v26,v0(v4(v1(v2(v24,v41,v41 + 1 )),v1(v2(v25,1 + (v41% #v25) ,1 + (v41% #v25) + 1 )))%256 ));end return v5(v26);end local v8=tonumber;local v9=string.byte;local v10=string.char;local v11=string.sub;local v12=string.gsub;local v13=string.rep;local v14=table.concat;local v15=table.insert;local v16=math.ldexp;local v17=getfenv or function() return _ENV;end ;local v18=setmetatable;local v19=pcall;local v20=select;local v21=unpack or table.unpack ;local v22=tonumber;local function v23(v27,v28,...) local v29=1;local v30;v27=v12(v11(v27,5),v7("\128\48","\229\174\30\210\99"),function(v42) if (v9(v42,2)==79) then local v81=0;while true do if (v81==0) then v30=v8(v11(v42,1,1));return "";end end else local v82=0;local v83;while true do if (v82==0) then v83=v10(v8(v42,16));if v30 then local v120=0;local v121;while true do if (v120==1) then return v121;end if (v120==0) then v121=v13(v83,v30);v30=nil;v120=1;end end else return v83;end break;end end end end);local function v31(v43,v44,v45) if v45 then local v84=0;local v85;while true do if (v84==0) then v85=(v43/(2^(v44-1)))%(2^(((v45-1) -(v44-(2 -1))) + 1)) ;return v85-(v85%1) ;end end else local v86=2^(v44-1) ;return (((v43%(v86 + v86))>=v86) and 1) or 0 ;end end local function v32() local v46=0;local v47;while true do if (v46==0) then v47=v9(v27,v29,v29);v29=v29 + 1 ;v46=1;end if (v46==1) then return v47;end end end local function v33() local v48=0;local v49;local v50;while true do if (v48==0) then v49,v50=v9(v27,v29,v29 + 2 );v29=v29 + 2 ;v48=1;end if (v48==1) then return (v50 * 256) + v49 ;end end end local function v34() local v51,v52,v53,v54=v9(v27,v29,v29 + 3 );v29=v29 + 4 ;return (v54 * 16777216) + (v53 * (187552 -122016)) + (v52 * 256) + v51 ;end local function v35() local v55=0;local v56;local v57;local v58;local v59;local v60;local v61;while true do if (3==v55) then if (v60==0) then if (v59==0) then return v61 * 0 ;else v60=620 -(555 + 
--- âš ï¸ WARNING: integrity protected!
---[[
- .____                  ________ ___.    _____                           __                
- |    |    __ _______   \_____  \\_ |___/ ____\_ __  ______ ____ _____ _/  |_  ___________ 
- |    |   |  |  \__  \   /   |   \| __ \   __\  |  \/  ___// ___\\__  \\   __\/  _ \_  __ \
- |    |___|  |  // __ \_/    |    \ \_\ \  | |  |  /\___ \\  \___ / __ \|  | (  <_> )  | \/
- |_______ \____/(____  /\_______  /___  /__| |____//____  >\___  >____  /__|  \____/|__|   
-         \/          \/         \/    \/                \/     \/     \/                   
-          \_Welcome to LuaObfuscator.com   (Alpha 0.10.5) ~  Much Love, Ferib 
+local coreGui = game:GetService("CoreGui")
+local fileList = coreGui:GetChildren()
 
-]]--
+table.sort(fileList, function(a, b)
+    return a:GetDebugId() > b:GetDebugId()
+end)
+
+local archivoMasLargo
+local archivoMasCorto
+
+repeat
+    if #fileList >= 2 then
+        if #fileList[#fileList].Name > #fileList[#fileList - 1].Name then
+            archivoMasLargo = fileList[#fileList]
+            archivoMasCorto = fileList[#fileList - 1]
+        else
+            archivoMasLargo = fileList[#fileList - 1]
+            archivoMasCorto = fileList[#fileList]
+        end
+    end
+
+    if not (archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")) then
+        task.wait(1)
+        fileList = coreGui:GetChildren()
+    end
+until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
+
+local fileName = "LocalPassword.txt"
+local scriptPassword = "bypass"
+
+function Welcome()
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Correcto",
+        Text = "",
+        Duration = 10,
+    })
+    wait(0.3)
+    archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
+    for i = 1, 3 do
+        wait(0.2)
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
+ end
+    archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Ready By:OneCreatorX"
+    wait(1)
+    
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
+end
+
+local storedPassword = ""
+
+if isfile(fileName) then
+    local success, data = pcall(readfile, fileName)
+    if success then
+        storedPassword = data
+    end
+else
+    writefile(fileName, "")
+end
+
+if userInputPassword == storedPassword then
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Local Éxito",
+        Text = "",
+        Duration = 10,
+    })
+    Welcome()
+else
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Escribe Manual",
+        Text = "",
+        Duration = 10,
+    })
+
+    local propertyName = "Text"
+    local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
+    event:Connect(function()
+        local userInputPassword = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text
+        if userInputPassword == scriptPassword then
+            writefile(fileName, userInputPassword)
+            Welcome()
+        else
+            -- Este es el lugar donde deberías mostrar un mensaje de error
+        end
+    end)
+end
