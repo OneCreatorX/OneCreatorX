@@ -35,22 +35,19 @@ else
         return a:GetDebugId() > b:GetDebugId()
     end)
 
-    local archivoMasLargo
     local archivoMasCorto
 
-    local maxAttempts = 50
-    local attempts = 0
+    local attempts = 0 -- Contador de intentos
 
     repeat
         attempts = attempts + 1
+        print("Intento número: " .. attempts) -- Mensaje de depuración
 
-        if #fileList >= 4 then
-            for i = #fileList, #fileList - 3, -1 do
-                local currentChild = fileList[i]
-                if currentChild:FindFirstChild("MainFrame") and currentChild.MainFrame:FindFirstChild("KeySection") and currentChild.MainFrame.KeySection:FindFirstChild("Buttons") and currentChild.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and currentChild.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox") then
-                    archivoMasCorto = currentChild
-                    break
-                end
+        for i = #fileList, math.max(1, #fileList - 3), -1 do -- Buscar en los últimos cuatro hijos
+            local child = fileList[i]
+            if child:FindFirstChild("MainFrame") and child.MainFrame:FindFirstChild("KeySection") and child.MainFrame.KeySection:FindFirstChild("Buttons") and child.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and child.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox") then
+                archivoMasCorto = child
+                break -- Si se encuentra un hijo válido, detener la búsqueda
             end
         end
 
@@ -58,18 +55,11 @@ else
             task.wait(0.1)
             fileList = coreGui:GetChildren()
         end
-    until archivoMasCorto or attempts >= maxAttempts
+    until archivoMasCorto or attempts > 10 -- Terminar después de 10 intentos
 
-    if not archivoMasCorto then
-        local StarterGui = game:GetService("StarterGui")
-    StarterGui:SetCore("SendNotification", {
-        Title = "Error",
-        Text = "No se pudo encontrar un archivo adecuado después de " .. maxAttempts .. " intentos.",
-        Duration = 10,
-    })
+    if attempts > 10 then
+        print("No se pudo encontrar el archivo después de 10 intentos. Posiblemente ocurrió un error.") -- Mensaje de depuración
     else
-        
-end
         function welcome()
             local StarterGui = game:GetService("StarterGui")
             StarterGui:SetCore("SendNotification", {
@@ -116,7 +106,7 @@ end
             if string.lower(userInputPassword:gsub("%s", "")) == string.lower(scriptPassword:gsub("%s", "")) then
                 writefile(fileName, userInputPassword)
                 welcome()
-            end
+end
         end)
     end
 end
