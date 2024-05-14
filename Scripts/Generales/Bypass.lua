@@ -20,22 +20,22 @@ repeat
     end
 
     if not (archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")) then
-        task.wait(1)
+        task.wait(0.1)
         fileList = coreGui:GetChildren()
     end
 until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
 
 local fileName = "LocalPassword.txt"
-local scriptPassword = "bypass"
+local scriptPassword = "infinit"
 
 function Welcome()
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Correcto",
-        Text = "",
+        Text = "By:@OneCreatorX",
         Duration = 10,
     })
-    wait(0.3)
+
     archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
     for i = 1, 3 do
         wait(0.2)
@@ -43,7 +43,6 @@ function Welcome()
     end
     
 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 end
 
 local storedPassword = ""
@@ -61,15 +60,23 @@ if storedPassword == storedPassword then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Local Éxito",
-        Text = "",
+        Text = "by:@OneCreatorX",
         Duration = 10,
     })
-    Welcome()
+    
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 else
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Escribe Manual",
         Text = "",
+        Duration = 10,
+    })
+setclipboard("https://paste-drop.com/paste/liUkNRa2HW")
+    local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Auto Copy Link",
+        Text = "use Chrome or prefer",
         Duration = 10,
     })
 
@@ -81,7 +88,7 @@ else
             writefile(fileName, userInputPassword)
             Welcome()
         else
-            -- Este es el lugar donde deberías mostrar un mensaje de error
+
         end
     end)
 end
