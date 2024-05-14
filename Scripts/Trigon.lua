@@ -5049,9 +5049,9 @@ task.spawn(function()
 					"text": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\",true))()"
 				},
 				{
-					"scriptName": "Tools OneCreatorX",
-						"text": "loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua"))()"
-				},
+	"scriptName": "Tools OneCreatorX",
+	"text": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua\"))()"
+},
 				{
 					"scriptName": "Bypassed Dark Dex v3",
 					"text": "loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua', true))()"
@@ -5296,8 +5296,7 @@ task.spawn(function()
 
 	HttpService = game:GetService("HttpService")
 	folderName = 'Local_Scripts'
-	
-  fileName = 'list2.json'
+        fileName = 'list2.json'
 	filePath = folderName .. '/' .. fileName
 	
 	lsf = gethui()[_G.TrigonMain].MainFrame.homeFrame.localscriptsFrame
