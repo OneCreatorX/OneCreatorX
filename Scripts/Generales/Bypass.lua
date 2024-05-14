@@ -56,28 +56,30 @@ else
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
         end
 
-archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
         for i = 1, 3 do
             wait(0.2)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
         end
 
-archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Try Bypass key."
         for i = 1, 3 do
             wait(0.2)
             archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
         end
-        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = Bypassed by: OneCreatorX
+        
+        archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = "Bypassed by: OneCreatorX"
         loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
     end
 
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
         Title = "Auto Copy Link",
-        Text = Use Chrome other Get passwd,
+        Text = "Use Chrome or other browser to get password",
         Duration = 10,
     })
-loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/URL.lua"))()
+
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/URL.lua"))()
 
     local propertyName = "Text"
     local event = archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox:GetPropertyChangedSignal(propertyName)
