@@ -5061,7 +5061,9 @@ task.spawn(function()
 		}
 		]]
 	
-	
+
+				
+				
 	local reaperscripts =  fetchString("https://pastebin.com/raw/5UdaH5Kf")
 	
 	jsonScriptData = HttpService:JSONDecode(jsonString)
@@ -5121,6 +5123,61 @@ task.spawn(function()
 	
 	updatedJsonString = HttpService:JSONEncode(jsonScriptData)
 	NewjsonScriptData = HttpService:JSONDecode(updatedJsonString)
+-- Obtener y decodificar el archivo JSON
+local function fetchJsonFromUrl(url)
+    local success, response = pcall(function()
+        return HttpService:GetAsync(url)
+    end)
+    
+    if success then
+        return HttpService:JSONDecode(response)
+    else
+        warn("Error fetching JSON:", response)
+        return nil
+    end
+end
+
+-- URL del archivo JSON en la nube
+local JSON_URL = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BaseJason.lua"
+
+-- Obtener los datos del JSON desde la URL
+local jsonScriptData = fetchJsonFromUrl(JSON_URL)
+
+-- Verificar si se obtuvieron los datos del JSON correctamente
+if jsonScriptData then
+    -- Obtener el nombre del juego actual
+    local currentGameName = game:GetName() -- Asumiendo que esta función existe
+    
+    -- Verificar si existen datos para el juego actual en el JSON
+    if jsonScriptData.games[currentGameName] then
+        -- Obtener la lista de scripts para el juego actual
+        local currentGameScripts = jsonScriptData.games[currentGameName]._scripts
+        
+        -- Iterar sobre los scripts del juego actual
+        for _, script in ipairs(currentGameScripts) do
+            -- Agregar el script al arreglo de scripts globales
+            table.insert(jsonScriptData.global._scripts, script)
+        end
+        
+        -- Convertir los cambios de nuevo a JSON
+        local updatedJsonString = HttpService:JSONEncode(jsonScriptData)
+        
+        -- Guardar los cambios en tu URL (si es posible)
+        local success, errorMsg = pcall(function()
+            HttpService:PostAsync(JSON_URL, updatedJsonString, Enum.HttpContentType.ApplicationJson)
+        end)
+        
+        if success then
+            print("¡Scripts del juego actual agregados exitosamente!")
+        else
+            warn("Error al guardar los cambios:", errorMsg)
+        end
+    else
+        warn("No se encontraron datos para el juego actual en el JSON.")
+    end
+else
+    warn("No se pudo obtener el JSON desde la URL proporcionada.")
+end
 
 	
 	local scriptList = NewjsonScriptData
