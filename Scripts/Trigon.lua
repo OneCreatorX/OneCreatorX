@@ -5010,161 +5010,140 @@ task.spawn(function()
 	----//////////////////----
 	----/// Default Page
 	----//////////////////----
-	local HttpService = game:GetService("HttpService")
+	
+local data = {
+    games = {
+        ["Blox Fruits"] = {
+            placeIds = {"4483381587", "2753915549", "4442272183"},
+            _scripts = {
+                {
+                    scriptName = "BloxFFFFF",
+                    text = "print'script'"
+                }
+            }
+        }
+    },
+    global = {
+        _scripts = {
+            {
+                scriptName = "Infinite Yield",
+                text = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\",true))()"
+            },
+            {
+                scriptName = "Tools OneCreatorX",
+                text = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua\"))()"
+            },
+            {
+                scriptName = "Bypassed Dark Dex v3",
+                text = "loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua', true))()"
+            }
+        }
+    }
+}
 
-	local function fetchString(link)
-		local success, response = pcall(function()
-			return request({
-				Url = link,
-				Method = "GET"
-			})
-		end)
-	
-		if success then
-			return response.Body
-		else
-			warn("Error fetching string:", response)
-			return nil
-		end
-	end
+local extraData = {
+    games = {
+        ["17229"] = {
+            placeIds = {"15229"},
+            _scripts = {
+                {
+                    scriptName = "Better Script this Game",
+                    text = "loadstring(game:HttpGet('https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/CollectForUGC.lua'))()"
+                }
+            }
+        }
+    }
+}
 
+local function merge(data, extra)
+    for game, info in pairs(extra.games) do
+        if not data.games[game] then
+            data.games[game] = {placeIds = {}, _scripts = {}}
+        end
+        for _, script in ipairs(info._scripts) do
+            table.insert(data.games[game]._scripts, script)
+        end
+    end
+end
 
-	local jsonString = [[
-		{
-		  "games": {
-			"Blox Fruits": {
-			  "placeIds": ["4483381587", "2753915549", "4442272183"],
-			  "_scripts": [
-				{
-				  "scriptName": "BloxFFFFF",
-				  "text": "print'script'"
-				}
-			  ]
-			}
-		  },
-		  "global": {
-			"_scripts": [
-				{
-					"scriptName": "Infinite Yield",
-					"text": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\",true))()"
-				},
-				{
-	"scriptName": "Tools OneCreatorX",
-	"text": "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/UIGenerales/GeneralesUI.lua\"))()"
-},
-				{
-					"scriptName": "Bypassed Dark Dex v3",
-					"text": "loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua', true))()"
-				}
-			]
-		  }
-		}
-		]]
-	
-	
-	local reaperscripts =  fetchString("https://pastebin.com/raw/5UdaH5Kf")
-	
-	jsonScriptData = HttpService:JSONDecode(jsonString)
-	reaperscriptsData = HttpService:JSONDecode(reaperscripts)
-	
-	function mergeScripts(targetData, scriptsData)
-		function checkPlaceId(placeId, targetData)
-			for _, gameInfo in pairs(targetData["games"]) do
-				for _, pid in ipairs(gameInfo["placeIds"]) do
-					if pid == placeId then
-						return true
-					end
-				end
-			end
-			return false
-		end
-	
-		function Add_Merge(placeId, scripts, targetData)
-			for gameName, gameInfo in pairs(targetData["games"]) do
-				if table.find(gameInfo["placeIds"], placeId) then
-					for _, newScript in ipairs(scripts) do
-						local scriptExists = false
-						for _, existingScript in ipairs(gameInfo["_scripts"]) do
-							if existingScript.scriptName == newScript.scriptName and existingScript.text == newScript.text then
-								scriptExists = true
-								break
-							end
-						end
-						if not scriptExists then
-							table.insert(gameInfo["_scripts"], newScript)
-						end
-					end
-					return 
-				end
-			end
-			--placeId doesnt exist in any game
-			--placeholder for adding unmatched scripts for games
-		end
-	
-		for _, sourceGameInfo in pairs(scriptsData["games"]) do
-			local scriptsMerged = false
-			for _, sourcePlaceId in ipairs(sourceGameInfo["placeIds"]) do
-				if checkPlaceId(sourcePlaceId, targetData) then
-					Add_Merge(sourcePlaceId, sourceGameInfo["_scripts"], targetData)
-					scriptsMerged = true
-					break 
-				end
-			end
-			if not scriptsMerged then
-				-- no matching placeIds
-			end
-		end
-	end
-	
-	
-	mergeScripts(jsonScriptData, reaperscriptsData)
-	
-	updatedJsonString = HttpService:JSONEncode(jsonScriptData)
-	NewjsonScriptData = HttpService:JSONDecode(updatedJsonString)
+merge(data, extraData)
 
-	
-	local scriptList = NewjsonScriptData
-	local scriptsFrame = MainFrame.homeFrame.scriptsFrame
-	local scriptButton = scriptsFrame.TextButton
-	local currentPlaceId = tostring(game.PlaceId)
-	
-	scriptsFrame["#GameHeader"].Title.Text = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-	
-	local function createscriptButtons(_scripts)
-		local yPos = 0
-		for i, scriptData in ipairs(_scripts) do
-			local newButton = scriptButton:Clone()
-			newButton.Parent = scriptsFrame
-			newButton.Text = scriptData.scriptName
-			newButton.Position = UDim2.new(newButton.Position.X.Scale, newButton.Position.X.Offset, newButton.Position.Y.Scale, yPos)
-			yPos = yPos + newButton.Size.Y.Offset + 5
-			newButton.Visible = true
-	
-			newButton.MouseButton1Click:Connect(function()
-				executecode(scriptData.text)
-			end)
-		end
-	end
-	
-	local function findScriptsForCurrentPlace()
-		for _, gameData in pairs(scriptList.games) do
-			if table.find(gameData.placeIds, currentPlaceId) then
-				return gameData._scripts
-			end
-		end
-		return nil 
-	end
-	
-	local scriptToUse = findScriptsForCurrentPlace() or scriptList.global._scripts
-	
-	if scriptToUse then
-		createscriptButtons(scriptToUse)
-	else
-		print("No _scripts available.")
-	end
-	
-	scriptButton.Visible = false
-	
+local list = data
+local frame = MainFrame.homeFrame.scriptsFrame
+local btn = frame.TextButton
+local placeId = tostring(game.PlaceId)
+
+frame["#GameHeader"].Title.Text = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+
+local function createButtons(scripts)
+    local yPos = 0
+    for _, script in ipairs(scripts) do
+        local newBtn = btn:Clone()
+        newBtn.Parent = frame
+        newBtn.Text = script.scriptName
+        newBtn.Position = UDim2.new(newBtn.Position.X.Scale, newBtn.Position.X.Offset, newBtn.Position.Y.Scale, yPos)
+        yPos = yPos + newBtn.Size.Y.Offset + 5
+        newBtn.Visible = true
+
+        newBtn.MouseButton1Click:Connect(function()
+            executecode(script.text)
+        end)
+    end
+end
+
+local function findScripts()
+    for _, game in pairs(list.games) do
+        if table.find(game.placeIds, placeId) then
+            return game._scripts
+        end
+    end
+    return nil 
+end
+
+local scripts = findScripts() or list.global._scripts
+
+if scripts then
+    createButtons(scripts)
+else
+    print("No _scripts available.")
+end
+
+btn.Visible = false
+
+-- Agregar botón desde URL si los IDs coinciden
+local url = "https://pastebin.com/raw/5F3GMUNX"
+local response = game:HttpGet(url)
+local urlData = game:GetService("HttpService"):JSONDecode(response)
+
+if urlData and urlData.games then
+    for gameId, gameInfo in pairs(urlData.games) do
+        if tostring(gameId) == placeId then
+            local scriptExists = false
+            for _, existingScript in ipairs(list.global._scripts) do
+                if existingScript.scriptName == gameInfo.scriptName and existingScript.text == gameInfo.text then
+                    scriptExists = true
+                    break
+                end
+            end
+            if not scriptExists then
+                table.insert(list.global._scripts, {
+                    scriptName = gameInfo.scriptName,
+                    text = gameInfo.text
+                })
+            end
+        end
+    end
+end
+
+-- Limpiar botones existentes antes de crear nuevos
+for _, child in ipairs(frame:GetChildren()) do
+    if child:IsA("TextButton") and child ~= btn then
+        child:Destroy()
+    end
+end
+
+-- Crear botones con el nuevo script global
+createButtons(list.global._scripts)
 
 	----//////////////////----
 	----/// Console Log Page
