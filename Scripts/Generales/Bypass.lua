@@ -26,7 +26,10 @@ repeat
 until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:FindFirstChild("KeySection") and archivoMasCorto.MainFrame.KeySection:FindFirstChild("Buttons") and archivoMasCorto.MainFrame.KeySection.Buttons:FindFirstChild("aKeyContainer") and archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer:FindFirstChild("KeyBox")
 
 local fileName = "LocalPassword.txt"
-local scriptPassword = "infinit"
+local a = "infinit"
+local scriptPassword = game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt")
+
+print(scriptPassword)
 
 
 function Welcome()
@@ -57,7 +60,10 @@ else
     writefile(fileName, "")
 end
 
-local passw = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt"))
+
+print(storedPassword)
+    print(scriptPassword)
+    print(passw)
 if storedPassword == storedPassword then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
@@ -65,9 +71,7 @@ if storedPassword == storedPassword then
         Text = "by:@OneCreatorX",
         Duration = 10,
     })
-    print(storedPassword)
-    print(scriptPassword)
-    print(passw)
+    
     loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 else
     local StarterGui = game:GetService("StarterGui")
