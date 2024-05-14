@@ -5062,7 +5062,7 @@ task.spawn(function()
 		]]
 	
 	
-	local reaperscripts =  fetchString("https://pastebin.com/raw/5F3GMUNX")
+	local reaperscripts =  fetchString("https://pastebin.com/raw/5UdaH5Kf")
 	
 	jsonScriptData = HttpService:JSONDecode(jsonString)
 	reaperscriptsData = HttpService:JSONDecode(reaperscripts)
@@ -5111,9 +5111,6 @@ task.spawn(function()
 				end
 			end
 			if not scriptsMerged then
-				print("No Scripts Game")
-						print(scriptsMerged)
-							print(game.PlaceId)
 				-- no matching placeIds
 			end
 		end
