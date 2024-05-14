@@ -28,6 +28,7 @@ until archivoMasCorto:FindFirstChild("MainFrame") and archivoMasCorto.MainFrame:
 local fileName = "LocalPassword.txt"
 local scriptPassword = "infinit"
 
+
 function Welcome()
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
@@ -42,7 +43,7 @@ function Welcome()
         archivoMasCorto.MainFrame.KeySection.Buttons.aKeyContainer.KeyBox.Text = ("Try Bypass key%s"):format(string.rep(".", i))
     end
     
-
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 end
 
 local storedPassword = ""
@@ -56,6 +57,7 @@ else
     writefile(fileName, "")
 end
 
+local passw = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/passw.txt"))
 if storedPassword == storedPassword then
     local StarterGui = game:GetService("StarterGui")
     StarterGui:SetCore("SendNotification", {
@@ -63,7 +65,9 @@ if storedPassword == storedPassword then
         Text = "by:@OneCreatorX",
         Duration = 10,
     })
-    
+    print(storedPassword)
+    print(scriptPassword)
+    print(passw)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 else
     local StarterGui = game:GetService("StarterGui")
