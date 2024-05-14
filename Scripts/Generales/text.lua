@@ -24,11 +24,7 @@
             {
                 "scriptName": "Bypassed Dark Dex v3",
                 "text": "loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua', true))()"
-            },
-            {
-                "scriptName": a,
-                "text": b
-            }
+}
         ]
       }
     }
