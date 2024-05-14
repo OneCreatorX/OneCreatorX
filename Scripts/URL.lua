@@ -1,1 +1,1 @@
-local url = "https://paste-drop.com/paste/liUkNRa2HW" setclipboard(url)
+local url = "https://paste-drop.com/paste/6ppjc0TWz0" setclipboard(url)
