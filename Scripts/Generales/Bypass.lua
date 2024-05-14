@@ -61,7 +61,12 @@ else
     until archivoMasCorto or attempts >= maxAttempts
 
     if not archivoMasCorto then
-        
+        local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Error",
+        Text = "No se pudo encontrar un archivo adecuado después de " .. maxAttempts .. " intentos.",
+        Duration = 10,
+    })
     else
         
 end
