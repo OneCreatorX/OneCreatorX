@@ -13,8 +13,23 @@ else
 end
 
 if string.lower(scriptPassword:gsub("%s", "")) == string.lower(storedPassword:gsub("%s", "")) then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
+   
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "loaded successfully Passwd ",
+        Text = "by: OneCreatorX",
+        Duration = 10,
+    })
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Trigon.lua"))()
 else
+local StarterGui = game:GetService("StarterGui")
+    StarterGui:SetCore("SendNotification", {
+        Title = "Loading Bypass manual",
+        Text = "U Password Possible expired",
+        Duration = 10,
+    })
+
+wait(2)
     local coreGui = game:GetService("CoreGui")
     local fileList = coreGui:GetChildren()
 
