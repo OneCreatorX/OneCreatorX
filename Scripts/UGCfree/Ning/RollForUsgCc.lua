@@ -22,17 +22,16 @@ function auto()
 end
 
 local ba = false
+
 function keys()
-ba = not ba
+    ba = not ba
     while ba do
-wait()
-        if Player.leaderstats.Keys.Value < 100 and ba then 
+        wait()
+        if Player.leaderstats.Keys.Value < 100 then
             Player.leaderstats.Keys.Value = 100
-        else
-wait()
-            Player.leaderstats.Keys.Value = 30
         end
     end
+    Player.leaderstats.Keys.Value = 30
 end
 
 function fast()
