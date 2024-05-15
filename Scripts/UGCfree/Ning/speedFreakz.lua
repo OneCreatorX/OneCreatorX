@@ -19,14 +19,14 @@ local ba = false
 function keys()
     ba = not ba
     while ba do
-        wait(0.5)
+        wait()
 local args = {
     [1] = "rev up",
     [2] = 100000000000000000000000000000000000000000000000
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Core"):WaitForChild("RemoteEvents"):WaitForChild("TrackEvent"):FireServer(unpack(args))
-wait()
+wait(0.5)
 end
 end
 
