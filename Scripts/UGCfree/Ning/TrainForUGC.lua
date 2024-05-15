@@ -78,7 +78,7 @@ end
 
 Sec:CreateToggle("No Reset Time", keys)
 Sec:CreateToggle("Auto Bubble", click)
-Sec:CreateToggle("Auto Bubble", spin)
+Sec:CreateToggle("Auto Spin", spin)
 
 Sec2:CreateButton("Copy Link YouTube", function() copyToClipboard("Link YouTube") end)
 Sec2:CreateButton("Copy Link Discord", function() copyToClipboard("Link Discord") end)
