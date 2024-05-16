@@ -34,7 +34,7 @@ function a()
     while true do
         pcall(function()
             if dance then
-                if Player.PlayerGui.MainUI.DanceFrame.DanceCountDown.DanceCountDown.Text == "-0s" or Player.PlayerGui.MainUI.DanceFrame.DanceCountDown.DanceCountDown.Text == "15s" then
+                if dance then
                     firetouchinterest(Player.Character.HumanoidRootPart, st, 0)
                     local id = math.random(2, 20) 
                     Player.Character.DanceId.Value = id
@@ -43,7 +43,9 @@ function a()
                         [1] = id - 1
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("DanceEvent"):FireServer(unpack(args))
-                    wait(3)
+                    dance = false
+                        wait(17)
+                         dance = true
                 else
                     wait(0.5)
                 end
