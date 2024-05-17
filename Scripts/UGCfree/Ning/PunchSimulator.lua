@@ -25,10 +25,8 @@ local originalFireServer = AutoFight.FireServer
 
 local function newFireServer(self, ...)
     local args = {...}
-    for i = 2, 3 do
-         arg2 = args[2]
-        args[3] = arg3
-    end
+    arg2 = args[2] -- Guardar el valor del argumento 2 en la variable arg2
+    args[3] = arg3 -- Reemplazar el valor del argumento 3 con el valor de la variable arg3
     spawn(ah)
     return originalFireServer(self, unpack(args))
 end
