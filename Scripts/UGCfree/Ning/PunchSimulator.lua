@@ -7,8 +7,12 @@ local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local arg2, arg3 = 1, 1
 
-Sec:CreateTextbox("Choose Boss (1-4)", function(value)
-    arg3 = tonumber(value) or arg3
+Sec:CreateButton("Fast Boos Farm", function()
+    StarterGui:SetCore("SendNotification", {
+    Title = "Initially Always On",
+    Text = "Inicialmente Siempre Activado",
+    Duration = 5,
+})
 end)
 
 local function ah()
@@ -25,8 +29,8 @@ local originalFireServer = AutoFight.FireServer
 
 local function newFireServer(self, ...)
     local args = {...}
-    arg2 = args[2] -- Guardar el valor del argumento 2 en la variable arg2
-    args[3] = arg3 -- Reemplazar el valor del argumento 3 con el valor de la variable arg3
+    arg2 = args[2]
+    arg3 = args[3]
     spawn(ah)
     return originalFireServer(self, unpack(args))
 end
