@@ -6,6 +6,7 @@ local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local arg2, arg3 = 1, 1
+local StarterGui = game:GetService("StarterGui")
 
 Sec:CreateButton("Fast Boos Farm", function()
     StarterGui:SetCore("SendNotification", {
