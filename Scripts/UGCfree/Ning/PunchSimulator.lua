@@ -26,6 +26,7 @@ local originalFireServer = AutoFight.FireServer
 local function newFireServer(self, ...)
     local args = {...}
     for i = 2, 3 do
+         arg2 = args[2]
         args[3] = arg3
     end
     spawn(ah)
