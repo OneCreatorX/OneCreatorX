@@ -1,4 +1,4 @@
-
+local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
     Title = "Initializing Trigon",
     Text = "Wait moment",
@@ -5016,7 +5016,7 @@ task.spawn(function()
 	----/// Default Page
 	----//////////////////----
 
-				StarterGui:SetCore("SendNotification", {
+ StarterGui:SetCore("SendNotification", {
     Title = "Loading Script Globals",
     Text = "Wait Moment 0-5m",
     Duration = 5,
