@@ -16,6 +16,25 @@ Sec:CreateButton("Fast Boos Farm", function()
 })
 end)
 
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
+end
+
+function copyd()
+    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
+end
+
+function copyy()
+    copyToClipboard("https://youtube.com/@OneCreatorX")
+end
+
+Sec2:CreateButton("Copy Link YouTube", copyy)
+Sec2:CreateButton("Copy Link Discord", copyd)
+
 local function ah()
     local args = {[1] = true}
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
