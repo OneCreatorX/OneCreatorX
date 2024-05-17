@@ -1,4 +1,9 @@
-print("]------- Initializing Trigon v0.04q -------[")
+
+StarterGui:SetCore("SendNotification", {
+    Title = "Initializing Trigon",
+    Text = "Wait moment",
+    Duration = 5,
+})
 
 function genStr(minL, maxL)
 	local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -5010,7 +5015,13 @@ task.spawn(function()
 	----//////////////////----
 	----/// Default Page
 	----//////////////////----
-	
+
+				StarterGui:SetCore("SendNotification", {
+    Title = "Loading Script Globals",
+    Text = "Wait Moment 0-5m",
+    Duration = 5,
+})
+				
 local data = {
     games = {
         ["Blox Fruits"] = {
