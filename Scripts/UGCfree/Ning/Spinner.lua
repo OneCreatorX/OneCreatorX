@@ -40,7 +40,7 @@ end
 
 
 function spin()
-game.Players.LocalPlayer.UserData.OwnsAutoSpin = not game.Players.LocalPlayer.UserData.OwnsAutoSpin
+game.Players.LocalPlayer.UserData.OwnsAutoSpin.Value = not game.Players.LocalPlayer.UserData.OwnsAutoSpin.Value
 end
 
 Sec:CreateToggle("Auto Bubble", click)
