@@ -18,13 +18,17 @@ local PlaceId = game.PlaceId
 local JobId = game.JobId
 local TeleportService = game:GetService("TeleportService")
 
+while true do
 if #game.Players:GetPlayers() <= 1 then
+            
         game.Players.LocalPlayer:Kick("\nRejoining...")
         wait()
         TeleportService:Teleport(PlaceId, game.Players.LocalPlayer)
     else
         TeleportService:TeleportToPlaceInstance(PlaceId, JobId, game.Players.LocalPlayer)
     end
+            wait(3)
+        end
 
 end)
 
