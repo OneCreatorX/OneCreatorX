@@ -66,10 +66,7 @@ local function sendNotification(title, text, duration)
 end
 
 sendNotification("YT:@OneCreatorX", "-> Auto Claim FREE UGC <- -> Auto Cancel No Free <-", 30)
-sendNotification("Server Discord", "Automatic link Copy Clipboard", 10)
 
-local link = "https://discord.com/invite/QAXHt7UwcH"
-setclipboard(link)
 
 local function clickCancelButton(purchasePrompt)
     local cancelButtonText = nil
