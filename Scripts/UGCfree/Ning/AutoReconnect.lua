@@ -27,7 +27,7 @@ if #game.Players:GetPlayers() <= 1 then
     else
         TeleportService:TeleportToPlaceInstance(PlaceId, JobId, game.Players.LocalPlayer)
     end
-            wait(3)
+            wait(10)
         end
 
 end)
