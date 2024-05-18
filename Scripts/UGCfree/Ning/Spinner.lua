@@ -30,8 +30,9 @@ for _, obj in ipairs(workspace:GetChildren()) do
 
 local plr = game.Players.LocalPlayer
 firetouchinterest(plr.Character.HumanoidRootPart, obj, 0)
-        wait()
+        wait(1)
         firetouchinterest(plr.Character.HumanoidRootPart, obj, 1)
+                wait(5)
 end end
 wait()
 end
