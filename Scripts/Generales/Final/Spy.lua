@@ -217,9 +217,37 @@ end
 
 local Highlight = (isfile and loadfile and isfile("Highlight.lua") and loadfile("Highlight.lua")()) or loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/Highlight.lua"))()
 
+	
 local SimpleSpy3 = Create("ScreenGui",{ResetOnSpawn = false})
 local Storage = Create("Folder",{})
-local Background = Create("Frame",{Parent = SimpleSpy3,BackgroundColor3 = Color3.new(1, 1, 1),BackgroundTransparency = 1,Position = UDim2.new(0, 500, 0, 200),Size = UDim2.new(0, 450, 0, 268), Active = true, Draggable = true})
+	local Background = Create("Frame", {
+    Parent = SimpleSpy3,
+    BackgroundColor3 = Color3.new(1, 1, 1),
+    BackgroundTransparency = 1,
+    Position = UDim2.new(0, 500, 0, 200),
+    Size = UDim2.new(0, 450, 0, 268),
+    Active = true,
+    Draggable = true
+})
+
+local moveButton = Create("TextButton", {
+    Parent = TopBar,
+    BackgroundColor3 = Color3.new(0.145098, 0.141176, 0.14902),
+    BorderSizePixel = 0,
+    Position = UDim2.new(1, -47, 0, 0),
+    Size = UDim2.new(0, 19, 0, 19),
+    Font = Enum.Font.SourceSans,
+    Text = "Move",
+    TextColor3 = Color3.new(1, 1, 1),
+    TextSize = 14
+})
+
+local draggable = true
+
+moveButton.MouseButton1Click:Connect(function()
+    draggable = not draggable
+    Background.Draggable = draggable
+end)
 local LeftPanel = Create("Frame",{Parent = Background,BackgroundColor3 = Color3.fromRGB(53, 52, 55),BorderSizePixel = 0,Position = UDim2.new(0, 0, 0, 19),Size = UDim2.new(0, 131, 0, 249)})
 local LogList = Create("ScrollingFrame",{Parent = LeftPanel,Active = true,BackgroundColor3 = Color3.new(1, 1, 1),BackgroundTransparency = 1,BorderSizePixel = 0,Position = UDim2.new(0, 0, 0, 9),Size = UDim2.new(0, 131, 0, 232),CanvasSize = UDim2.new(0, 0, 0, 0),ScrollBarThickness = 4})
 local UIListLayout = Create("UIListLayout",{Parent = LogList,HorizontalAlignment = Enum.HorizontalAlignment.Center,SortOrder = Enum.SortOrder.LayoutOrder})
