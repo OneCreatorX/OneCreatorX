@@ -3,117 +3,77 @@ local Win = Lib:NewWindow("Collect Stars For UGC")
 local Sec = Win:NewSection("Options")
 local Sec3 = Win:NewSection("Info Script")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
+local Plrs = game:GetService("Players")
+local Plr = Plrs.LocalPlayer
 
-
-local sc = 0
-
-for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
-    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-        sc = sc + 1
+local function cntStars()
+    local sc = 0
+    for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
+        if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
+            sc = sc + 1
+        end
     end
+    return sc
 end
 
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Estrellas Disponibles",
-    Text = "Cantidad : " .. sc,
-    Duration = 10
-})
-
-local sc = 0
-
-for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
-    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-        sc = sc + 1
-    end
+local function notifyStars(mult)
+    local sc = cntStars() * (mult or 1)
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = mult and "Estrellas Disponibles" or "Estrellas Disponibles",
+        Text = mult and "Cantidad (x4): " .. sc or "Cantidad: " .. sc,
+        Duration = 10
+    })
 end
 
-sc = sc * 4
-
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Estrellas Contadas",
-    Text = "Cantidad de estrellas (x4): " .. sc,
-    Duration = 5
-})
+notifyStars()
+notifyStars(4)
 
 local lagg = false
-
-function lag()
+local function lag()
     lagg = not lagg
     while lagg do
-     wait(0.3)   
-for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
-    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-
-local plr = game.Players.LocalPlayer
-firetouchinterest(plr.Character.HumanoidRootPart, obj, 0)
-        wait()
-        firetouchinterest(plr.Character.HumanoidRootPart, obj, 1)
-end end
-wait(0.5)
+        wait(0.3)
+        for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
+            if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
+                local plr = Plrs.LocalPlayer
+                firetouchinterest(plr.Character.HumanoidRootPart, obj, 0)
+                wait()
+                firetouchinterest(plr.Character.HumanoidRootPart, obj, 1)
+            end
+        end
+        wait(0.5)
     end
 end
 
-
-local function copyToClipboard(text)
+local function copyToClipboard(txt)
     if syn then
-        syn.write_clipboard(text)
+        syn.write_clipboard(txt)
     else
-        setclipboard(text)
+        setclipboard(txt)
     end
 end
 
-function copyd()
+local function copyd()
     copyToClipboard("https://discord.com/invite/23kFrRBSfD")
 end
 
-function copyy()
+local function copyy()
     copyToClipboard("https://youtube.com/@OneCreatorX")
 end
 
-
-function ss()
-end
+local function ss() end
 
 Sec:CreateToggle("Auto Stars", lag)
-Sec:CreateButton("Info Stars", funtion()
-    local sc = 0
-
-for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
-    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-        sc = sc + 1
-    end
-end
-
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Estrellas Disponibles",
-    Text = "Cantidad : " .. sc,
-    Duration = 10
-})
-
-local sc = 0
-
-for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
-    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-        sc = sc + 1
-    end
-end
-
-sc = sc * 4
-
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "Estrellas Contadas",
-    Text = "Cantidad de estrellas (x4): " .. sc,
-    Duration = 5
-})
+Sec:CreateButton("Info Stars", function()
+    notifyStars()
+    notifyStars(4)
 end)
-
-
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 Sec3:CreateButton("Update: 24-05-24", ss)
 Sec3:CreateButton("Version 3", ss)
-game:GetService('Players').LocalPlayer.Idled:Connect(function()
-game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+
+Plr.Idled:Connect(function()
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
