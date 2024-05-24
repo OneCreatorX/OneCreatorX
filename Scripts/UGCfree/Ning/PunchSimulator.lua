@@ -24,6 +24,90 @@ local function copyToClipboard(text)
     end
 end
 
+local function sendNotification(title, text, duration)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = title,
+        Text = text,
+        Duration = duration
+    })
+end
+
+local running = false
+local world = ""
+
+local function startOpeningEggs(world)
+    running = true
+    
+    while running do
+        local args = {
+            [1] = tostring(world)
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PlayerPressedKeyOnEgg"):FireServer(unpack(args))
+
+        wait(0.5)
+    end
+end
+
+Sec:CreateTextbox("Enter world number or 'stop'", function(value)
+    if value == "" or value:lower() == "stop" then
+        running = false
+        sendNotification("Stop Open Egg", "Egg opening stopped", 5)
+        return
+    end
+
+    local newWorld = tonumber(value)
+    if newWorld then
+        world = newWorld
+        running = false
+        sendNotification("Open Egg", "Starting to open eggs in world: " .. world, 5)
+        wait(0.1)
+        startOpeningEggs(world)
+    else
+
+    end
+end)
+
+Sec:CreateButton("Disabled/Enabled Animation", function()
+    local handler = game.Players.LocalPlayer.PlayerScripts:FindFirstChild("PlayerPetHandler")
+    if handler then
+        handler.Disabled = not handler.Disabled
+        
+        local status = handler.Disabled and "Disabled" or "Enabled"
+        sendNotification("Animation Egg", "State changed to: " .. status, 5)
+    end
+end)
+
+local ah = false
+Sec:CreateToggle("Auto Fast Train", function()
+    
+       ah = not ah
+  while ah do
+wait()
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DamageIncreaseOnClickEvent"):FireServer()
+end
+end)
+
+
+Sec:CreateButton("Starter Dungeon", function()
+    local args = {
+    [1] = "StartDungeon"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+
+end)
+
+
+
+local function copyToClipboard(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
+    end
+end
+
 function copyd()
     copyToClipboard("https://discord.com/invite/23kFrRBSfD")
 end
