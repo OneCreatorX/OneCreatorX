@@ -77,6 +77,38 @@ function ss()
 end
 
 Sec:CreateToggle("Auto Stars", lag)
+Sec:CreateButton("Info Stars", funtion()
+    local sc = 0
+
+for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
+    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
+        sc = sc + 1
+    end
+end
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Estrellas Disponibles",
+    Text = "Cantidad : " .. sc,
+    Duration = 10
+})
+
+local sc = 0
+
+for _, obj in ipairs(workspace.ClaimableStars:GetDescendants()) do
+    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
+        sc = sc + 1
+    end
+end
+
+sc = sc * 4
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Estrellas Contadas",
+    Text = "Cantidad de estrellas (x4): " .. sc,
+    Duration = 5
+})
+end)
+
 
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
