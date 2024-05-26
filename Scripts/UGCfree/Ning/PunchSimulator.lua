@@ -272,7 +272,7 @@ end)
 
 setreadonly(mt, true)
 
-while true do
+while true and not limite == nil do
     local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
     
     local max = tonumber(maxText:match("%d+"))
