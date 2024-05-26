@@ -41,7 +41,7 @@ local function startOpeningEggs(world)
     end
 end
 
-Sec:CreateTextbox("Open egg-number world or 'stop'", function(value)
+Sec:CreateTextbox("Egg-number world or 'stop'", function(value)
     if value == "" or value:lower() == "stop" then
         running = false
         sendNotification("Stop Open Egg", "Egg opening stopped", 5)
@@ -106,7 +106,7 @@ if ja then
 end
 end
 
-Sec:CreateToggle("Fast Boos Farm", function()
+Sec:CreateToggle("Fast Auto Fight", function()
     ja = not ja
 if not ja then
 local args = {
@@ -114,6 +114,8 @@ local args = {
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("AutoFight"):FireServer(unpack(args))
+else
+sendNotification("Use Auto Fight", "Button Game for farm", 5)
 end
 end)
 
@@ -203,38 +205,19 @@ local a = false
 
 local limite = 1000
 
-local function onHeartbeat()
-    local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
-    
-    local max = tonumber(maxText:match("%d+"))
-    if a then
-        if max and max < limite then
-            attackAndMove()
-        else
-            local args = {
-                [1] = "Exit"
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
-        end
-    else
-        -- nada
-    end
-end
 
-Sec:CreateTextbox("Number Limit Dungeon", function(userInput)
+Sec:CreateTextbox("Number Limite Wave", function(userInput)
     limite = tonumber(userInput)
     if limite then
-        sendNotification("Stage limit appl", "Max limit waves: " .. limite, 5)
+        sendNotification("Wave limit appl", "Max limit waves: " .. limite, 5)
     else
         sendNotification("Error", "Invalid input for wave limit", 5)
     end
 end)
 
-RunService.Heartbeat:Connect(onHeartbeat)
-
 local function startNewDungeon()
     if a then
-        wait(1.5)
+        wait(2)
         local args = {
             [1] = "StartDungeon"
         }
@@ -258,6 +241,8 @@ function Start()
         }
 
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+wait(1)
+Player.PlayerGui.DungeonFinishUI.Enabled = true
     end
 end
 
@@ -282,3 +267,34 @@ mt.__namecall = newcclosure(function(self, ...)
 end)
 
 setreadonly(mt, true)
+
+while true do
+    local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
+    
+    local max = tonumber(maxText:match("%d+"))
+    if a then
+        if a and max and max <= limite then
+            attackAndMove()
+       wait()
+        elseif a and max and max >= limite and workspace:FindFirstChild("Dungeon") then
+            local args = {
+                [1] = "Exit"
+            }
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+wait(2)
+        elseif a and not workspace:FindFirstChild("Dungeon") then
+wait(0.8)
+            local args = {
+    [1] = "LeaveParty"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
+Player.PlayerGui.DungeonFinishUI.Enabled = false
+wait(1)
+        else
+        end
+    else
+wait(0.1)
+        -- nada
+    end
+end
