@@ -205,15 +205,17 @@ local a = false
 
 local limite = 1000
 
-
 Sec:CreateTextbox("Number Limite Wave", function(userInput)
-    limite = tonumber(userInput)
-    if limite then
+    if userInput == "" then
+        limite = 1000
         sendNotification("Wave limit appl", "Max limit waves: " .. limite, 5)
-        elseif limite == "" then
-            limite = 1000
+    else
+        limite = tonumber(userInput)
+        if limite then
+            sendNotification("Wave limit appl", "Max limit waves: " .. limite, 5)
         else
-        sendNotification("Error", "Invalid input for wave limit", 5)
+            sendNotification("Error", "Invalid input for wave limit", 5)
+        end
     end
 end)
 
