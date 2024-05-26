@@ -1,6 +1,6 @@
 local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local Win = Lib:NewWindow(gameName)
+local Win = Lib:NewWindow("Punch Simulator")
 local Sec = Win:NewSection("Options")
 local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
