@@ -37,7 +37,7 @@ local function startOpeningEggs(world)
 
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PlayerPressedKeyOnEgg"):FireServer(unpack(args))
 
-        wait(0.5)
+        wait(0.3)
     end
 end
 
@@ -66,7 +66,7 @@ Sec:CreateButton("Disabled/Enabled Animation", function()
         handler.Disabled = not handler.Disabled
         
         local status = handler.Disabled and "Disabled" or "Enabled"
-        sendNotification("Animation Egg", "State changed to: " .. status, 5)
+        sendNotification("Animation Egg", "to: " .. status, 5)
     end
 end)
 
@@ -210,7 +210,9 @@ Sec:CreateTextbox("Number Limite Wave", function(userInput)
     limite = tonumber(userInput)
     if limite then
         sendNotification("Wave limit appl", "Max limit waves: " .. limite, 5)
-    else
+        elseif limite == "" then
+            limite = 1000
+        else
         sendNotification("Error", "Invalid input for wave limit", 5)
     end
 end)
