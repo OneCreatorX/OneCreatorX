@@ -272,33 +272,30 @@ end)
 
 setreadonly(mt, true)
 
-while true and not limite == nil do
-    local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
-    
-    local max = tonumber(maxText:match("%d+"))
-    if a then
-        if a and max and max <= limite then
-            attackAndMove()
-       wait()
-        elseif a and max and max >= limite and workspace:FindFirstChild("Dungeon") then
-            local args = {
-                [1] = "Exit"
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
-wait(2)
-        elseif a and not workspace:FindFirstChild("Dungeon") then
-wait(0.8)
-            local args = {
-    [1] = "LeaveParty"
-}
 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
-Player.PlayerGui.DungeonFinishUI.Enabled = false
-wait(1)
+while true do
+    local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
+    local max = tonumber(maxText:match("%d+"))
+    
+    if a then
+        if limite ~= nil and max and max <= limite then
+            attackAndMove()
+            wait()
+        elseif limite ~= nil and max and max >= limite and workspace:FindFirstChild("Dungeon") then
+            local args = { [1] = "Exit" }
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+            wait(2)
+        elseif limite ~= nil and not workspace:FindFirstChild("Dungeon") then
+            wait(0.8)
+            local args = { [1] = "LeaveParty" }
+            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
+            Player.PlayerGui.DungeonFinishUI.Enabled = false
+            wait(1)
         else
+            -- no hacer nada
         end
     else
-wait(0.1)
-        -- nada
+        wait(0.1)
+        -- no hacer nada
     end
 end
