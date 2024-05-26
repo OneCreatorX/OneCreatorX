@@ -41,6 +41,9 @@ local function startOpeningEggs(world)
     end
 end
 
+game.Players.LocalPlayer.PlayerScripts:FindFirstChild("PlayerPetHandler").Enabled = false
+sendNotification("Animation Egg Oppen", "Desabled Default", 5)
+
 Sec:CreateTextbox("Egg-number world or 'stop'", function(value)
     if value == "" or value:lower() == "stop" then
         running = false
@@ -57,16 +60,6 @@ Sec:CreateTextbox("Egg-number world or 'stop'", function(value)
         startOpeningEggs(world)
     else
         -- handle invalid input
-    end
-end)
-
-Sec:CreateButton("Disabled/Enabled Animation", function()
-    local handler = game.Players.LocalPlayer.PlayerScripts:FindFirstChild("PlayerPetHandler")
-    if handler then
-        handler.Disabled = not handler.Disabled
-        
-        local status = handler.Disabled and "Disabled" or "Enabled"
-        sendNotification("Animation Egg", "to: " .. status, 5)
     end
 end)
 
