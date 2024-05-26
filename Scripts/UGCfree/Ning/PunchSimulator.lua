@@ -87,6 +87,9 @@ local function copyy()
     copyToClipboard("https://youtube.com/@OneCreatorX")
 end
 
+game.Players.LocalPlayer.PlayerScripts.DeathEffectsHandler.Disabled = true
+         game.Players.LocalPlayer.PlayerScripts.CameraHandler.Disabled = true
+
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
@@ -95,6 +98,7 @@ local ja = false
 local function ah()
     wait(0.1)
 if ja then
+       
     local args = {[1] = true}
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
     wait(0.8)
@@ -230,6 +234,7 @@ RunService.Heartbeat:Connect(onHeartbeat)
 
 local function startNewDungeon()
     if a then
+        wait(1.5)
         local args = {
             [1] = "StartDungeon"
         }
@@ -241,7 +246,12 @@ end
 function Start()
     a = not a
     if a then
-        startNewDungeon()
+        local args = {
+            [1] = "StartDungeon"
+        }
+
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+    
     else
         local args = {
             [1] = "Exit"
