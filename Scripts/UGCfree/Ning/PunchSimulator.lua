@@ -285,6 +285,7 @@ while true do
             Player.PlayerGui.DungeonFinishUI.Enabled = false
             wait(1)
         else
+            wait(0.1)
             -- no hacer nada
         end
     else
