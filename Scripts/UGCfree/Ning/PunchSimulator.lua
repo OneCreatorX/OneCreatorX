@@ -8,14 +8,6 @@ local Player = Players.LocalPlayer
 local StarterGui = game:GetService("StarterGui")
 local RunService = game:GetService("RunService")
 
-Sec:CreateButton("Fast Boos Farm", function()
-    StarterGui:SetCore("SendNotification", {
-        Title = "Initially Always On",
-        Text = "Inicialmente Siempre Activado",
-        Duration = 5,
-    })
-end)
-
 local function copyToClipboard(text)
     if syn then
         syn.write_clipboard(text)
@@ -98,6 +90,30 @@ end
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
 
+local arg2, arg3 = 1, 1
+local ja = false
+local function ah()
+    wait(0.1)
+if ja then
+    local args = {[1] = true}
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+    wait(0.8)
+   Player.Character.HumanoidRootPart.CFrame = workspace.BreakableParts["Stage" .. arg2][arg3].PrimaryPart.CFrame
+end
+end
+
+Sec:CreateToggle("Fast Boos Farm", function()
+    ja = not ja
+if not ja then
+local args = {
+    [1] = "StopFight"
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("AutoFight"):FireServer(unpack(args))
+end
+end)
+
+
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Events = ReplicatedStorage:WaitForChild("Events")
 local AutoFight = Events:WaitForChild("AutoFight")
@@ -105,14 +121,15 @@ local originalFireServer = AutoFight.FireServer
 
 local function newFireServer(self, ...)
     local args = {...}
-    spawn(function()
-        local target = args[1]
-        local level = args[2]
-        local sublevel = args[3]
-        local targetPosition = workspace.BreakableParts["Stage" .. level][sublevel].PrimaryPart.Position
-        Player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
-    end)
-    return originalFireServer(self, unpack(args))
+    arg2 = args[2]
+    arg3 = args[3]
+    
+    if args[1] == "StopFight" then
+        return originalFireServer(self, unpack(args))
+    else
+        spawn(ah)
+        return originalFireServer(self, unpack(args))
+    end
 end
 
 local mt = getrawmetatable(game)
@@ -128,6 +145,9 @@ mt.__namecall = newcclosure(function(self, ...)
 end)
 
 setreadonly(mt, true)
+
+
+
 
 local walkSpeed = 40
 local safeDistance = 9
