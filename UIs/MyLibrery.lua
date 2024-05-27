@@ -19,11 +19,11 @@ UILibrary.Fonts = {
 }
 
 UILibrary.Sizes = {
-    WindowWidth = UDim2.new(0.15, 0),
-    Button = UDim2.new(0.8, 0, 0, 30),
-    Label = UDim2.new(0.8, 0, 0, 30),
-    TextBox = UDim2.new(0.8, 0, 0, 30),
-    Section = UDim2.new(0.8, 0, 0, 60)
+    WindowWidth = UDim2.new(0, 200, 0, 60),
+    Button = UDim2.new(0, 160, 0, 30),
+    Label = UDim2.new(0, 160, 0, 30),
+    TextBox = UDim2.new(0, 160, 0, 30),
+    Section = UDim2.new(0, 160, 0, 60)
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -44,7 +44,7 @@ function UILibrary:CreateWindow(parent, title)
     frame.Parent = parent
     frame.Active = true
     frame.Draggable = true
-    frame.Size = UDim2.new(UILibrary.Sizes.WindowWidth.Scale, UILibrary.Sizes.WindowWidth.Offset, 0, 60)
+    frame.Size = UILibrary.Sizes.WindowWidth
     frame.Position = UDim2.new(0.3, 0, 0.3, 0)
     frame.BackgroundColor3 = UILibrary.Colors.Background
     frame.BackgroundTransparency = 0.3
@@ -76,7 +76,7 @@ function UILibrary:CreateWindow(parent, title)
                 child.Visible = not child.Visible
             end
         end
-        frame.Size = frame.Size == UDim2.new(UILibrary.Sizes.WindowWidth.Scale, UILibrary.Sizes.WindowWidth.Offset, 0, 60) and UDim2.new(UILibrary.Sizes.WindowWidth.Scale, UILibrary.Sizes.WindowWidth.Offset, 0, 30) or UDim2.new(UILibrary.Sizes.WindowWidth.Scale, UILibrary.Sizes.WindowWidth.Offset, 0, 60)
+        frame.Size = frame.Size == UDim2.new(0, 200, 0, 60) and UDim2.new(0, 200, 0, 30) or UDim2.new(0, 200, 0, 60)
     end)
 
     return frame
@@ -87,7 +87,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
-    button.Position = UDim2.new(0.1, 0, 0, parent:GetChildrenCount() * 40 + 30)
+    button.Position = UDim2.new(0.1, 0, 0, #parent:GetChildren() * 40 + 30)
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
@@ -112,7 +112,7 @@ function UILibrary:CreateLabel(parent, text)
     label.Parent = parent
     label.Text = text
     label.Size = UILibrary.Sizes.Label
-    label.Position = UDim2.new(0.1, 0, 0, parent:GetChildrenCount() * 40 + 30)
+    label.Position = UDim2.new(0.1, 0, 0, #parent:GetChildren() * 40 + 30)
     label.BackgroundColor3 = UILibrary.Colors.Section
     label.BackgroundTransparency = 0.5
     label.TextColor3 = UILibrary.Colors.Text
@@ -126,7 +126,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onSubmit)
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
-    textBox.Position = UDim2.new(0.1, 0, 0, parent:GetChildrenCount() * 40 + 30)
+    textBox.Position = UDim2.new(0.1, 0, 0, #parent:GetChildren() * 40 + 30)
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.BackgroundTransparency = 0.5
     textBox.TextColor3 = UILibrary.Colors.Text
@@ -147,7 +147,7 @@ function UILibrary:CreateSection(parent, name)
     sectionButton.Parent = parent
     sectionButton.Text = name
     sectionButton.Size = UILibrary.Sizes.Button
-    sectionButton.Position = UDim2.new(0.1, 0, 0, parent:GetChildrenCount() * 40 + 30)
+    sectionButton.Position = UDim2.new(0.1, 0, 0, #parent:GetChildren() * 40 + 30)
     sectionButton.BackgroundColor3 = UILibrary.Colors.Section
     sectionButton.BackgroundTransparency = 0.5
     sectionButton.TextColor3 = UILibrary.Colors.Text
@@ -159,7 +159,7 @@ function UILibrary:CreateSection(parent, name)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
     sectionFrame.Size = UILibrary.Sizes.Section
-    sectionFrame.Position = UDim2.new(0.1, 0, 0, parent:GetChildrenCount() * 40 + 30 + sectionButton.Size.Y.Offset)
+    sectionFrame.Position = UDim2.new(0.1, 0, 0, #parent:GetChildren() * 40 + 30 + sectionButton.Size.Y.Offset)
     sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
     sectionFrame.BackgroundTransparency = 0.5
     sectionFrame.Visible = false
