@@ -74,7 +74,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
-    button.Position = UDim2.new(0.1, 0, 0.1, 0)
+    button.Position = UDim2.new(0.1, 0, 0.2, 0)
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
@@ -110,7 +110,7 @@ function UILibrary:CreateLabel(parent, text)
     label.Parent = parent
     label.Text = text
     label.Size = UILibrary.Sizes.Label
-    label.Position = UDim2.new(0.1, 0, 0.2, 0)
+    label.Position = UDim2.new(0.1, 0, 0.3, 0)
     label.BackgroundColor3 = UILibrary.Colors.Section
     label.TextColor3 = UILibrary.Colors.Text
     label.Font = UILibrary.Fonts.Main
@@ -124,7 +124,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
-    textBox.Position = UDim2.new(0.1, 0, 0.3, 0)
+    textBox.Position = UDim2.new(0.1, 0, 0.4, 0)
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
     textBox.Font = UILibrary.Fonts.Main
@@ -145,7 +145,7 @@ function UILibrary:CreateSection(parent, name)
     sectionButton.Parent = parent
     sectionButton.Text = name
     sectionButton.Size = UILibrary.Sizes.Button
-    sectionButton.Position = UDim2.new(0.1, 0, 0.4, 0)
+    sectionButton.Position = UDim2.new(0.1, 0, 0.5, 0)
     sectionButton.BackgroundColor3 = UILibrary.Colors.Section
     sectionButton.TextColor3 = UILibrary.Colors.Text
     sectionButton.Font = UILibrary.Fonts.Button
