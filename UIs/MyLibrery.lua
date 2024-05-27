@@ -68,13 +68,16 @@ function UILibrary:CreateWindow(parent, title)
     hideButton.Font = UILibrary.Fonts.Button
     hideButton.TextScaled = true
 
+    local hidden = false
+
     hideButton.MouseButton1Click:Connect(function()
+        hidden = not hidden
         for _, child in pairs(frame:GetChildren()) do
             if child ~= titleLabel and child ~= hideButton then
-                child.Visible = not child.Visible
+                child.Visible = not hidden
             end
         end
-        frame.Size = frame.Size == UILibrary.Sizes.Window and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
+        frame.Size = hidden and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
     end)
 
     return frame
