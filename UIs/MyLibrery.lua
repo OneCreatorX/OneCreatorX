@@ -1,15 +1,15 @@
 local UILibrary = {}
 
 UILibrary.Colors = {
-    Background = Color3.new(0.2, 0.2, 0.2),
-    Text = Color3.new(1, 1, 1),
-    Button = Color3.new(0.3, 0.3, 0.3),
-    Section = Color3.new(0.1, 0.1, 0.1),
-    Title = Color3.new(0.4, 0.4, 0.4),
-    Input = Color3.new(0.25, 0.25, 0.25),
-    Hover = Color3.new(0.35, 0.35, 0.35),
-    Border = Color3.new(0.7, 0.7, 0.7),
-    Transparent = Color3.new(0, 0, 0, 0.5)
+    Background = Color3.fromRGB(25, 25, 25),
+    Text = Color3.fromRGB(255, 255, 255),
+    Button = Color3.fromRGB(50, 50, 50),
+    ButtonHover = Color3.fromRGB(75, 75, 75),
+    Section = Color3.fromRGB(15, 15, 15),
+    Title = Color3.fromRGB(100, 100, 100),
+    Input = Color3.fromRGB(35, 35, 35),
+    Border = Color3.fromRGB(150, 150, 150),
+    Button3D = Color3.fromRGB(55, 55, 55)
 }
 
 UILibrary.Fonts = {
@@ -19,13 +19,19 @@ UILibrary.Fonts = {
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.3, 0, 0.4, 0),
+    Window = UDim2.new(0.4, 0, 0.4, 0),
     Button = UDim2.new(0.8, 0, 0.1, 0),
     Label = UDim2.new(0.8, 0, 0.1, 0),
     TextBox = UDim2.new(0.8, 0, 0.1, 0),
-    Section = UDim2.new(0.8, 0, 0.2, 0)
+    Section = UDim2.new(0.8, 0, 0.4, 0)
 }
 
+UILibrary.Transparency = {
+    Background = 0.9,
+    Button = 0.8,
+    Section = 0.85,
+    Title = 0.75
+}
 
 function UILibrary:CreateScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
@@ -48,35 +54,17 @@ function UILibrary:CreateWindow(parent, title)
     frame.Size = UILibrary.Sizes.Window
     frame.Position = UDim2.new(0.3, 0, 0.3, 0)
     frame.BackgroundColor3 = UILibrary.Colors.Background
-    frame.BackgroundTransparency = 0.3
+    frame.BackgroundTransparency = UILibrary.Transparency.Background
 
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = frame
     titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, -30, 0, 30)
+    titleLabel.Size = UDim2.new(1, 0, 0, 30)
     titleLabel.BackgroundColor3 = UILibrary.Colors.Title
     titleLabel.TextColor3 = UILibrary.Colors.Text
     titleLabel.Font = UILibrary.Fonts.Title
     titleLabel.TextScaled = true
-
-    local hideButton = Instance.new("TextButton")
-    hideButton.Parent = frame
-    hideButton.Text = "_"
-    hideButton.Size = UDim2.new(0, 30, 0, 30)
-    hideButton.Position = UDim2.new(1, -30, 0, 0)
-    hideButton.BackgroundColor3 = UILibrary.Colors.Title
-    hideButton.TextColor3 = UILibrary.Colors.Text
-    hideButton.Font = UILibrary.Fonts.Button
-    hideButton.TextScaled = true
-
-    hideButton.MouseButton1Click:Connect(function()
-        for _, child in pairs(frame:GetChildren()) do
-            if child ~= titleLabel and child ~= hideButton then
-                child.Visible = not child.Visible
-            end
-        end
-        frame.Size = frame.Size == UILibrary.Sizes.Window and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
-    end)
+    titleLabel.BackgroundTransparency = UILibrary.Transparency.Title
 
     return frame
 end
@@ -86,21 +74,32 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
-    button.Position = UDim2.new(0.1, 0, parent:GetChildren()[#parent:GetChildren()].Position.Y.Scale + 0.1, 0) -- Se ajusta dinámicamente según la posición del último botón
+    button.Position = UDim2.new(0.1, 0, 0.1, 0)
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
     button.TextScaled = true
+    button.AutoButtonColor = false
+
     button.BorderSizePixel = 2
     button.BorderColor3 = UILibrary.Colors.Border
+
     button.MouseButton1Click:Connect(onClick)
 
     button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = UILibrary.Colors.Hover
+        button.BackgroundColor3 = UILibrary.Colors.ButtonHover
     end)
 
     button.MouseLeave:Connect(function()
         button.BackgroundColor3 = UILibrary.Colors.Button
+    end)
+
+    button.MouseButton1Down:Connect(function()
+        button.BorderColor3 = UILibrary.Colors.Button3D
+    end)
+
+    button.MouseButton1Up:Connect(function()
+        button.BorderColor3 = UILibrary.Colors.Border
     end)
 
     return button
@@ -111,30 +110,30 @@ function UILibrary:CreateLabel(parent, text)
     label.Parent = parent
     label.Text = text
     label.Size = UILibrary.Sizes.Label
-    label.Position = UDim2.new(0.1, 0, parent:GetChildren()[#parent:GetChildren()].Position.Y.Scale + 0.1, 0) -- Se ajusta dinámicamente según la posición del último botón
+    label.Position = UDim2.new(0.1, 0, 0.2, 0)
     label.BackgroundColor3 = UILibrary.Colors.Section
-    label.BackgroundTransparency = 0.5
     label.TextColor3 = UILibrary.Colors.Text
     label.Font = UILibrary.Fonts.Main
     label.TextScaled = true
+    label.BackgroundTransparency = UILibrary.Transparency.Section
     return label
 end
 
-function UILibrary:CreateTextBox(parent, placeholderText, onSubmit)
+function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
-    textBox.Position = UDim2.new(0.1, 0, parent:GetChildren()[#parent:GetChildren()].Position.Y.Scale + 0.1, 0) -- Se ajusta dinámicamente según la posición del último botón
+    textBox.Position = UDim2.new(0.1, 0, 0.3, 0)
     textBox.BackgroundColor3 = UILibrary.Colors.Input
-    textBox.BackgroundTransparency = 0.5
     textBox.TextColor3 = UILibrary.Colors.Text
     textBox.Font = UILibrary.Fonts.Main
     textBox.TextScaled = true
+    textBox.BackgroundTransparency = UILibrary.Transparency.Section
 
     textBox.FocusLost:Connect(function(enterPressed)
         if enterPressed then
-            onSubmit(textBox.Text)
+            onEnter(textBox.Text)
         end
     end)
 
@@ -146,46 +145,34 @@ function UILibrary:CreateSection(parent, name)
     sectionButton.Parent = parent
     sectionButton.Text = name
     sectionButton.Size = UILibrary.Sizes.Button
-    sectionButton.Position = UDim2.new(0.1, 0, parent:GetChildren()[#parent:GetChildren()].Position.Y.Scale + 0.1, 0) -- Se ajusta dinámicamente según la posición del último botón
+    sectionButton.Position = UDim2.new(0.1, 0, 0.4, 0)
     sectionButton.BackgroundColor3 = UILibrary.Colors.Section
-    sectionButton.BackgroundTransparency = 0.5
     sectionButton.TextColor3 = UILibrary.Colors.Text
     sectionButton.Font = UILibrary.Fonts.Button
     sectionButton.TextScaled = true
-    sectionButton.BorderSizePixel = 2
-    sectionButton.BorderColor3 = UILibrary.Colors.Border
+    sectionButton.AutoButtonColor = false
+
+    sectionButton.MouseEnter:Connect(function()
+        sectionButton.BackgroundColor3 = UILibrary.Colors.ButtonHover
+    end)
+
+    sectionButton.MouseLeave:Connect(function()
+        sectionButton.BackgroundColor3 = UILibrary.Colors.Section
+    end)
 
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
-    sectionFrame.Size = UDim2.new(UILibrary.Sizes.Section.X.Scale, UILibrary.Sizes.Section.X.Offset, 0, 0)
-    sectionFrame.Position = UDim2.new(0, 0, sectionButton.Position.Y.Scale + 0.1, 0) -- Se ajusta dinámicamente según la posición del botón de la sección
-    sectionFrame.BackgroundTransparency = 1 -- Hacemos que el fondo sea transparente
+    sectionFrame.Size = UILibrary.Sizes.Section
+    sectionFrame.Position = UDim2.new(1, 10, 0, 0)
+    sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
+    sectionFrame.BackgroundTransparency = UILibrary.Transparency.Section
     sectionFrame.Visible = false
-
-    local buttonPositionY = 0.05 -- Posición inicial en Y para el primer botón
-    local buttonSpacingY = 0.1 -- Espaciado entre botones en Y
-
-    local function adjustSectionSize()
-        sectionFrame.Size = UDim2.new(UILibrary.Sizes.Section.X.Scale, UILibrary.Sizes.Section.X.Offset, 0, sectionFrameSizeY)
-    end
 
     sectionButton.MouseButton1Click:Connect(function()
         sectionFrame.Visible = not sectionFrame.Visible
-        if sectionFrame.Visible then
-            adjustSectionSize()
-        end
     end)
 
-    local function addButton(text, onClick)
-        local newButton = UILibrary:CreateButton(sectionFrame, text, onClick)
-        newButton.Position = UDim2.new(0.1, 0, buttonPositionY, 0)
-        buttonPositionY = buttonPositionY + buttonSpacingY
-        sectionFrameSizeY = sectionFrameSizeY + UILibrary.Sizes.Button.Y.Offset + buttonSpacingY
-        adjustSectionSize()
-    end
-
-    return addButton
+    return sectionFrame
 end
 
 return UILibrary
-            
