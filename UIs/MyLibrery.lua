@@ -113,7 +113,7 @@ function UILibrary:CreateLabel(parent, text)
     label.Position = UDim2.new(0.1, 0, 0.6, 0)
     label.BackgroundColor3 = UILibrary.Colors.Section
     label.BackgroundTransparency = 0.5
-    label.TextColor3= UILibrary.Colors.Text
+    label.TextColor3 = UILibrary.Colors.Text
     label.Font = UILibrary.Fonts.Main
     label.TextScaled = true
     return label
@@ -155,18 +155,33 @@ function UILibrary:CreateSection(parent, name)
     sectionButton.BorderColor3 = UILibrary.Colors.Border
 
     local sectionFrame = Instance.new("Frame")
-    sectionFrame.Parent = parent
-    sectionFrame.Size = UILibrary.Sizes.Section
-    sectionFrame.Position = UDim2.new(1.1, 0, 0, 0)
-    sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
-    sectionFrame.BackgroundTransparency = 0.5
-    sectionFrame.Visible = false
+    sectionlocal buttonPositionY = 0.05 -- Posición inicial en Y para el primer botón
+    local buttonSpacingY = 0.1 -- Espaciado entre botones en Y
+
+    local sectionFrameSizeY = 0 -- Tamaño en Y del frame de la sección
+
+    local function adjustSectionSize()
+        sectionFrame.Size = UDim2.new(UILibrary.Sizes.Section.X.Scale, UILibrary.Sizes.Section.X.Offset, 0, sectionFrameSizeY)
+    end
 
     sectionButton.MouseButton1Click:Connect(function()
-        sectionFrame.Visible = not sectionFrame.Visible
+        if sectionFrame.Visible then
+            sectionFrame.Visible = false
+        else
+            sectionFrame.Visible = true
+            adjustSectionSize()
+        end
     end)
 
-    return sectionFrame
+    local function addButton(text, onClick)
+        local newButton = UILibrary:CreateButton(sectionFrame, text, onClick)
+        newButton.Position = UDim2.new(0.1, 0, buttonPositionY, 0)
+        buttonPositionY = buttonPositionY + buttonSpacingY
+        sectionFrameSizeY = sectionFrameSizeY + UILibrary.Sizes.Button.Y.Offset + buttonSpacingY
+        adjustSectionSize()
+    end
+
+    return addButton
 end
 
 return UILibrary
