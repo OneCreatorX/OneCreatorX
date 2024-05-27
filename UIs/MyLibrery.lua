@@ -68,16 +68,13 @@ function UILibrary:CreateWindow(parent, title)
     hideButton.Font = UILibrary.Fonts.Button
     hideButton.TextScaled = true
 
-    local hidden = false
-
     hideButton.MouseButton1Click:Connect(function()
-        hidden = not hidden
         for _, child in pairs(frame:GetChildren()) do
             if child ~= titleLabel and child ~= hideButton then
-                child.Visible = not hidden
+                child.Visible = not child.Visible
             end
         end
-        frame.Size = hidden and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
+        frame.Size = frame.Size == UILibrary.Sizes.Window and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
     end)
 
     return frame
@@ -116,7 +113,7 @@ function UILibrary:CreateLabel(parent, text)
     label.Position = UDim2.new(0.1, 0, 0.6, 0)
     label.BackgroundColor3 = UILibrary.Colors.Section
     label.BackgroundTransparency = 0.5
-    label.TextColor3 = UILibrary.Colors.Text
+    label.TextColor3= UILibrary.Colors.Text
     label.Font = UILibrary.Fonts.Main
     label.TextScaled = true
     return label
@@ -160,7 +157,7 @@ function UILibrary:CreateSection(parent, name)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
     sectionFrame.Size = UILibrary.Sizes.Section
-    sectionFrame.Position = UDim2.new(0.1, 0, 0.9, 0)
+    sectionFrame.Position = UDim2.new(1.1, 0, 0, 0)
     sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
     sectionFrame.BackgroundTransparency = 0.5
     sectionFrame.Visible = false
