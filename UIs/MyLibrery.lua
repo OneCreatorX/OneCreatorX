@@ -52,7 +52,6 @@ function UILibrary:CreateWindow(parent, title)
     frame.Active = true
     frame.Draggable = true
     frame.Size = UILibrary.Sizes.Window
-    frame.Position = UDim2.new(0.3, 0, 0.3, 0)
     frame.BackgroundColor3 = UILibrary.Colors.Background
     frame.BackgroundTransparency = UILibrary.Transparency.Background
 
@@ -74,7 +73,6 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
-    button.Position = UDim2.new(0.1, 0, 0.2, 0)
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
@@ -102,6 +100,11 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
+    -- Calcular la posición dinámicamente
+    local buttonCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2
+    button.Position = UDim2.new(0.1, 0, yPos, 0)
+
     return button
 end
 
@@ -110,12 +113,17 @@ function UILibrary:CreateLabel(parent, text)
     label.Parent = parent
     label.Text = text
     label.Size = UILibrary.Sizes.Label
-    label.Position = UDim2.new(0.1, 0, 0.3, 0)
     label.BackgroundColor3 = UILibrary.Colors.Section
     label.TextColor3 = UILibrary.Colors.Text
     label.Font = UILibrary.Fonts.Main
     label.TextScaled = true
     label.BackgroundTransparency = UILibrary.Transparency.Section
+
+    -- Calcular la posición dinámicamente
+    local labelCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.3
+    label.Position = UDim2.new(0.1, 0, yPos, 0)
+
     return label
 end
 
@@ -124,7 +132,6 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
-    textBox.Position = UDim2.new(0.1, 0, 0.4, 0)
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
     textBox.Font = UILibrary.Fonts.Main
@@ -137,6 +144,11 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
+    -- Calcular la posición dinámicamente
+    local textBoxCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.4
+    textBox.Position = UDim2.new(0.1, 0, yPos, 0)
+
     return textBox
 end
 
@@ -145,7 +157,6 @@ function UILibrary:CreateSection(parent, name)
     sectionButton.Parent = parent
     sectionButton.Text = name
     sectionButton.Size = UILibrary.Sizes.Button
-    sectionButton.Position = UDim2.new(0.1, 0, 0.5, 0)
     sectionButton.BackgroundColor3 = UILibrary.Colors.Section
     sectionButton.TextColor3 = UILibrary.Colors.Text
     sectionButton.Font = UILibrary.Fonts.Button
@@ -172,6 +183,11 @@ function UILibrary:CreateSection(parent, name)
         sectionFrame.Visible = not sectionFrame.Visible
     end)
 
+    -- Calcular la posición dinámicamente
+    local sectionCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local yPos = (sectionCount * UILibrary.Sizes.Section.Y.Scale) + 0.5
+    sectionButton.Position = UDim2.new(0.1, 0, yPos, 0)
+    
     return sectionFrame
 end
 
