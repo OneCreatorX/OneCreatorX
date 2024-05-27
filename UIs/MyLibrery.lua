@@ -100,11 +100,10 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    -- Calcular la posición dinámica
     local buttonCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextButton") and child ~= parent then
-            buttonCount = buttonCount + 1
+            buttonCount = buttonCount + 2
         end
     end
     local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
@@ -124,11 +123,10 @@ function UILibrary:CreateLabel(parent, text)
     label.TextScaled = true
     label.BackgroundTransparency = UILibrary.Transparency.Section
 
-    -- Calcular la posición dinámica
     local labelCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextLabel") and child ~= parent then
-            labelCount = labelCount + 1
+            labelCount = labelCount + 2
         end
     end
     local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.1
@@ -154,11 +152,10 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
-    -- Calcular la posición dinámica
     local textBoxCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextBox") and child ~= parent then
-            textBoxCount = textBoxCount + 1
+            textBoxCount = textBoxCount + 2
         end
     end
     local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.1
@@ -198,11 +195,10 @@ function UILibrary:CreateSection(parent, name)
         sectionFrame.Visible = not sectionFrame.Visible
     end)
 
-    -- Ajustar la posición del botón de sección
     local sectionCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextButton") and child ~= sectionButton then
-            sectionCount = sectionCount + 1
+            sectionCount = sectionCount + 2
         end
     end
     local yPos = (sectionCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
