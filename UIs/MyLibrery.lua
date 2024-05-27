@@ -71,6 +71,19 @@ local function adjustFrameSize(frame)
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
+
+local function positionElement(parent, element)
+    local elementCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("GuiObject") and child ~= parent then
+            elementCount = elementCount + 1
+        end
+    end
+    local yPos = (elementCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
+    element.Position = UDim2.new(0.1, 0, yPos, 0)
+    adjustFrameSize(parent)
+end
+
 function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
@@ -103,16 +116,7 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    local buttonCount = 0
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("TextButton") and child ~= parent then
-            buttonCount = buttonCount + 1
-        end
-    end
-    local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
-    button.Position = UDim2.new(0.1, 0, yPos, 0)
-
-    adjustFrameSize(parent)
+    positionElement(parent, button)
 
     return button
 end
@@ -134,16 +138,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
-    local textBoxCount = 0
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("TextBox") and child ~= parent then
-            textBoxCount = textBoxCount + 1
-        end
-    end
-    local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.1
-    textBox.Position = UDim2.new(0.1, 0, yPos, 0)
-
-    adjustFrameSize(parent)
+    positionElement(parent, textBox)
 
     return textBox
 end
@@ -174,16 +169,7 @@ function UILibrary:CreateButtonToggle(parent, text, onToggle)
         onToggle(toggled)
     end)
 
-    local buttonToggleCount = 0
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("TextButton") and child ~= parent then
-            buttonToggleCount = buttonToggleCount + 1
-        end
-    end
-    local yPos = (buttonToggleCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
-    buttonToggle.Position = UDim2.new(0.1, 0, yPos, 0)
-
-    adjustFrameSize(parent)
+    positionElement(parent, buttonToggle)
 
     return buttonToggle
 end
