@@ -100,11 +100,16 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    -- Calcular la posición dinámicamente
-    local buttonCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
-    local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2
-    button.Position = UDim2.new(0.1, 0, yPos, 0)
-
+   -- Calcular la posición dinámicamente
+local sectionCount = 0
+for _, child in ipairs(parent:GetChildren()) do
+    if child:IsA("TextButton") then
+        sectionCount = sectionCount + 1
+    end
+end
+local yPos = (sectionCount * UILibrary.Sizes.Section.Y.Scale) + 0.5
+sectionButton.Position = UDim2.new(0.1, 0, yPos, 0)
+    
     return button
 end
 
