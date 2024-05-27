@@ -33,7 +33,7 @@ local lagg = false
 local function lag()
     lagg = not lagg
     while lagg do
-        wait(0.3)
+        wait()
         local stars = {}
         for _, obj in ipairs(workspace.Stars:GetChildren()) do
             if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
@@ -48,7 +48,6 @@ local function lag()
             firetouchinterest(plr.Character.HumanoidRootPart, star, 0)
             wait()
             firetouchinterest(plr.Character.HumanoidRootPart, star, 1)
-            wait(0.5)
         end
     end
 end
