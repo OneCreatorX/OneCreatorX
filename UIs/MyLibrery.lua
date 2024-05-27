@@ -4,7 +4,7 @@ UILibrary.Colors = {
     Background = Color3.fromRGB(25, 25, 25),
     Text = Color3.fromRGB(255, 255, 255),
     Button = Color3.fromRGB(50, 50, 50),
-    ButtonHover = Color3.fromRGB(125, 25, 125),
+    ButtonHover = Color3.fromRGB(105, 25, 155),
     Input = Color3.fromRGB(35, 35, 35),
     Border = Color3.fromRGB(150, 150, 150),
     Button3D = Color3.fromRGB(55, 55, 55)
@@ -16,7 +16,7 @@ UILibrary.Fonts = {
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.4, 0, 0.2, 0),
+    Window = UDim2.new(0.2, 0, 0.3, 0),
     Button = UDim2.new(0.9, 0, 0.1, 0),
     TextBox = UDim2.new(0.9, 0, 0.1, 0)
 }
