@@ -35,7 +35,7 @@ UILibrary.Transparency = {
 
 function UILibrary:CreateScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
-    if existingGui then
+    if (existingGui) then
         existingGui:Destroy()
     end
 
@@ -100,7 +100,7 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    -- Calcular la posición dinámica para evitar superposiciones
+    -- Calcular la posición dinámica
     local buttonCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextButton") and child ~= parent then
@@ -124,13 +124,14 @@ function UILibrary:CreateLabel(parent, text)
     label.TextScaled = true
     label.BackgroundTransparency = UILibrary.Transparency.Section
 
+    -- Calcular la posición dinámica
     local labelCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextLabel") and child ~= parent then
             labelCount = labelCount + 1
         end
     end
-    local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.2
+    local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.1
     label.Position = UDim2.new(0.1, 0, yPos, 0)
 
     return label
@@ -153,13 +154,14 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
+    -- Calcular la posición dinámica
     local textBoxCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextBox") and child ~= parent then
             textBoxCount = textBoxCount + 1
         end
     end
-    local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.3
+    local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.1
     textBox.Position = UDim2.new(0.1, 0, yPos, 0)
 
     return textBox
@@ -186,24 +188,24 @@ function UILibrary:CreateSection(parent, name)
 
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
-    sectionFrame.Size = UDim2.new(0, parent.Size.X.Offset, 0, 0)
-    sectionFrame.Position = UDim2.new(0, 0, 1, 0)
+    sectionFrame.Size = UILibrary.Sizes.Section
+    sectionFrame.Position = UDim2.new(1, 10, 0, 0)
     sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
     sectionFrame.BackgroundTransparency = UILibrary.Transparency.Section
     sectionFrame.Visible = false
-    sectionFrame.ClipsDescendants = true
 
     sectionButton.MouseButton1Click:Connect(function()
         sectionFrame.Visible = not sectionFrame.Visible
     end)
 
+    -- Ajustar la posición del botón de sección
     local sectionCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextButton") and child ~= sectionButton then
             sectionCount = sectionCount + 1
         end
     end
-    local yPos = (sectionCount * UILibrary.Sizes.Button.Y.Scale) + 0.2
+    local yPos = (sectionCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
     sectionButton.Position = UDim2.new(0.1, 0, yPos, 0)
 
     return sectionFrame
