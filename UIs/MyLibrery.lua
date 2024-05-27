@@ -13,11 +13,11 @@ UILibrary.Colors = {
 UILibrary.Fonts = {
     Main = Enum.Font.SourceSans,
     Title = Enum.Font.SourceSansBold,
-    Button = Enum.ButtonStyle.RobloxButtonDefault
+    Button = Enum.Font.SourceSansBold
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.2, 0),
+    Window = UDim2.new(0.4, 0, 0.4, 0),
     Button = UDim2.new(0.8, 0, 0.1, 0),
     Label = UDim2.new(0.8, 0, 0.1, 0),
     TextBox = UDim2.new(0.8, 0, 0.1, 0),
@@ -33,7 +33,7 @@ function UILibrary:CreateScreenGui(name)
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = name
     screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-     screenGui.ResetOnSpawn = false
+    screenGui.ResetOnSpawn = false
     return screenGui
 end
 
@@ -121,7 +121,7 @@ function UILibrary:CreateSection(parent, name)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
     sectionFrame.Size = UILibrary.Sizes.Section
-    sectionFrame.Position = UDim2.new(0.9, 0, 0, 0)
+    sectionFrame.Position = UDim2.new(1, 10, 0, 0)
     sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
     sectionFrame.Visible = false
 
