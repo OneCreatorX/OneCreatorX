@@ -100,16 +100,16 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-   -- Calcular la posición dinámicamente
-local sectionCount = 0
-for _, child in ipairs(parent:GetChildren()) do
-    if child:IsA("TextButton") then
-        sectionCount = sectionCount + 1
+    -- Calcular la posición dinámicamente
+    local buttonCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("TextButton") and child ~= parent then
+            buttonCount = buttonCount + 1
+        end
     end
-end
-local yPos = (sectionCount * UILibrary.Sizes.Section.Y.Scale) + 0.5
-sectionButton.Position = UDim2.new(0.1, 0, yPos, 0)
-    
+    local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2
+    button.Position = UDim2.new(0.1, 0, yPos, 0)
+
     return button
 end
 
@@ -125,7 +125,12 @@ function UILibrary:CreateLabel(parent, text)
     label.BackgroundTransparency = UILibrary.Transparency.Section
 
     -- Calcular la posición dinámicamente
-    local labelCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local labelCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("TextLabel") and child ~= parent then
+            labelCount = labelCount + 1
+        end
+    end
     local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.3
     label.Position = UDim2.new(0.1, 0, yPos, 0)
 
@@ -150,7 +155,12 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     end)
 
     -- Calcular la posición dinámicamente
-    local textBoxCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local textBoxCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("TextBox") and child ~= parent then
+            textBoxCount = textBoxCount + 1
+        end
+    end
     local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.4
     textBox.Position = UDim2.new(0.1, 0, yPos, 0)
 
@@ -189,10 +199,15 @@ function UILibrary:CreateSection(parent, name)
     end)
 
     -- Calcular la posición dinámicamente
-    local sectionCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
+    local sectionCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("TextButton") and child ~= sectionButton then
+            sectionCount = sectionCount + 1
+        end
+    end
     local yPos = (sectionCount * UILibrary.Sizes.Section.Y.Scale) + 0.5
     sectionButton.Position = UDim2.new(0.1, 0, yPos, 0)
-    
+
     return sectionFrame
 end
 
