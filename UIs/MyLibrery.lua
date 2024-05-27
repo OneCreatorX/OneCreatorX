@@ -5,8 +5,6 @@ UILibrary.Colors = {
     Text = Color3.fromRGB(255, 255, 255),
     Button = Color3.fromRGB(50, 50, 50),
     ButtonHover = Color3.fromRGB(75, 75, 75),
-    Section = Color3.fromRGB(15, 15, 15),
-    Title = Color3.fromRGB(100, 100, 100),
     Input = Color3.fromRGB(35, 35, 35),
     Border = Color3.fromRGB(150, 150, 150),
     Button3D = Color3.fromRGB(55, 55, 55)
@@ -14,23 +12,18 @@ UILibrary.Colors = {
 
 UILibrary.Fonts = {
     Main = Enum.Font.SourceSans,
-    Title = Enum.Font.SourceSansBold,
     Button = Enum.Font.SourceSansBold
 }
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.4, 0, 0.4, 0),
     Button = UDim2.new(0.8, 0, 0.1, 0),
-    Label = UDim2.new(0.8, 0, 0.1, 0),
-    TextBox = UDim2.new(0.8, 0, 0.1, 0),
-    Section = UDim2.new(0.8, 0, 0.4, 0)
+    TextBox = UDim2.new(0.8, 0, 0.1, 0)
 }
 
 UILibrary.Transparency = {
     Background = 0.9,
-    Button = 0.8,
-    Section = 0.85,
-    Title = 0.75
+    Button = 0.8
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -59,13 +52,23 @@ function UILibrary:CreateWindow(parent, title)
     titleLabel.Parent = frame
     titleLabel.Text = title
     titleLabel.Size = UDim2.new(1, 0, 0, 30)
-    titleLabel.BackgroundColor3 = UILibrary.Colors.Title
+    titleLabel.BackgroundColor3 = UILibrary.Colors.Background
     titleLabel.TextColor3 = UILibrary.Colors.Text
-    titleLabel.Font = UILibrary.Fonts.Title
+    titleLabel.Font = UILibrary.Fonts.Main
     titleLabel.TextScaled = true
-    titleLabel.BackgroundTransparency = UILibrary.Transparency.Title
+    titleLabel.BackgroundTransparency = UILibrary.Transparency.Background
 
     return frame
+end
+
+local function adjustFrameSize(frame)
+    local totalHeight = 30 -- Initial height for the title
+    for _, child in ipairs(frame:GetChildren()) do
+        if child:IsA("GuiObject") and child ~= frame then
+            totalHeight = totalHeight + child.Size.Y.Offset + 10 -- Adding some padding
+        end
+    end
+    frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
 function UILibrary:CreateButton(parent, text, onClick)
@@ -109,30 +112,9 @@ function UILibrary:CreateButton(parent, text, onClick)
     local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
     button.Position = UDim2.new(0.1, 0, yPos, 0)
 
+    adjustFrameSize(parent)
+
     return button
-end
-
-function UILibrary:CreateLabel(parent, text)
-    local label = Instance.new("TextLabel")
-    label.Parent = parent
-    label.Text = text
-    label.Size = UILibrary.Sizes.Label
-    label.BackgroundColor3 = UILibrary.Colors.Section
-    label.TextColor3 = UILibrary.Colors.Text
-    label.Font = UILibrary.Fonts.Main
-    label.TextScaled = true
-    label.BackgroundTransparency = UILibrary.Transparency.Section
-
-    local labelCount = 0
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("TextLabel") and child ~= parent then
-            labelCount = labelCount + 1
-        end
-    end
-    local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.2
-    label.Position = UDim2.new(0.1, 0, yPos, 0)
-
-    return label
 end
 
 function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
@@ -144,7 +126,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     textBox.TextColor3 = UILibrary.Colors.Text
     textBox.Font = UILibrary.Fonts.Main
     textBox.TextScaled = true
-    textBox.BackgroundTransparency = UILibrary.Transparency.Section
+    textBox.BackgroundTransparency = UILibrary.Transparency.Button
 
     textBox.FocusLost:Connect(function(enterPressed)
         if enterPressed then
@@ -161,50 +143,49 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.1
     textBox.Position = UDim2.new(0.1, 0, yPos, 0)
 
+    adjustFrameSize(parent)
+
     return textBox
 end
 
-function UILibrary:CreateSection(parent, name)
-    local sectionButton = Instance.new("TextButton")
-    sectionButton.Parent = parent
-    sectionButton.Text = name
-    sectionButton.Size = UILibrary.Sizes.Button
-    sectionButton.BackgroundColor3 = UILibrary.Colors.Section
-    sectionButton.TextColor3 = UILibrary.Colors.Text
-    sectionButton.Font = UILibrary.Fonts.Button
-    sectionButton.TextScaled = true
-    sectionButton.AutoButtonColor = false
+function UILibrary:CreateButtonToggle(parent, text, onToggle)
+    local buttonToggle = Instance.new("TextButton")
+    buttonToggle.Parent = parent
+    buttonToggle.Text = text
+    buttonToggle.Size = UILibrary.Sizes.Button
+    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+    buttonToggle.TextColor3 = UILibrary.Colors.Text
+    buttonToggle.Font = UILibrary.Fonts.Button
+    buttonToggle.TextScaled = true
+    buttonToggle.AutoButtonColor = false
 
-    sectionButton.MouseEnter:Connect(function()
-        sectionButton.BackgroundColor3 = UILibrary.Colors.ButtonHover
+    buttonToggle.BorderSizePixel = 1
+    buttonToggle.BorderColor3 = UILibrary.Colors.Border
+
+    local toggled = false
+
+    buttonToggle.MouseButton1Click:Connect(function()
+        toggled = not toggled
+        if toggled then
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
+        else
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+        end
+        onToggle(toggled)
     end)
 
-    sectionButton.MouseLeave:Connect(function()
-        sectionButton.BackgroundColor3 = UILibrary.Colors.Section
-    end)
-
-    local sectionFrame = Instance.new("Frame")
-    sectionFrame.Parent = parent
-    sectionFrame.Size = UILibrary.Sizes.Section
-    sectionFrame.Position = UDim2.new(1, 10, 0, 0)
-    sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
-    sectionFrame.BackgroundTransparency = UILibrary.Transparency.Section
-    sectionFrame.Visible = false
-
-    sectionButton.MouseButton1Click:Connect(function()
-        sectionFrame.Visible = not sectionFrame.Visible
-    end)
-
-    local sectionCount = 0
+    local buttonToggleCount = 0
     for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("TextButton") and child ~= sectionButton then
-            sectionCount = sectionCount + 1
+        if child:IsA("TextButton") and child ~= parent then
+            buttonToggleCount = buttonToggleCount + 1
         end
     end
-    local yPos = (sectionCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
-    sectionButton.Position = UDim2.new(0.1, 0, yPos, 0)
+    local yPos = (buttonToggleCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
+    buttonToggle.Position = UDim2.new(0.1, 0, yPos, 0)
 
-    return sectionFrame
+    adjustFrameSize(parent)
+
+    return buttonToggle
 end
 
 return UILibrary
