@@ -80,12 +80,12 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
+
 function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
-    button.Position = UDim2.new(0.1, 0, 0.1, 0)
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
@@ -110,7 +110,6 @@ function UILibrary:CreateLabel(parent, text)
     label.Parent = parent
     label.Text = text
     label.Size = UILibrary.Sizes.Label
-    label.Position = UDim2.new(0.1, 0, 0.2, 0)
     label.BackgroundColor3 = UILibrary.Colors.Section
     label.BackgroundTransparency = 0.5
     label.TextColor3 = UILibrary.Colors.Text
@@ -124,7 +123,6 @@ function UILibrary:CreateTextBox(parent, placeholderText, onSubmit)
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
-    textBox.Position = UDim2.new(0.1, 0, 0.3, 0)
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.BackgroundTransparency = 0.5
     textBox.TextColor3 = UILibrary.Colors.Text
@@ -145,7 +143,6 @@ function UILibrary:CreateSection(parent, name)
     sectionButton.Parent = parent
     sectionButton.Text = name
     sectionButton.Size = UILibrary.Sizes.Button
-    sectionButton.Position = UDim2.new(0.1, 0, 0.4, 0)
     sectionButton.BackgroundColor3 = UILibrary.Colors.Section
     sectionButton.BackgroundTransparency = 0.5
     sectionButton.TextColor3 = UILibrary.Colors.Text
@@ -160,7 +157,8 @@ function UILibrary:CreateSection(parent, name)
     sectionFrame.Position = UDim2.new(1, 10, 0, 0)
     sectionFrame.BackgroundColor3 = UILibrary.Colors.Background
     sectionFrame.Visible = false
-    
+
+
 local buttonPositionY = 0.05 -- Posición inicial en Y para el primer botón
     local buttonSpacingY = 0.1 -- Espaciado entre botones en Y
 
@@ -178,7 +176,7 @@ local buttonPositionY = 0.05 -- Posición inicial en Y para el primer botón
     local function addButton(text, onClick)
         local newButton = UILibrary:CreateButton(sectionFrame, text, onClick)
         newButton.Position = UDim2.new(0.1, 0, buttonPositionY, 0)
-        buttonPositionY = buttonPositionY + buttonSpacingY
+        buttonPositionY = buttonPositionY + UILibrary.Sizes.Button.Y.Scale + buttonSpacingY
         sectionFrameSizeY = sectionFrameSizeY + UILibrary.Sizes.Button.Y.Offset + buttonSpacingY
         adjustSectionSize()
     end
