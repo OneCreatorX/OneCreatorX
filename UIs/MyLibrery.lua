@@ -79,7 +79,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.TextScaled = true
     button.AutoButtonColor = false
 
-    button.BorderSizePixel = 2
+    button.BorderSizePixel = 1
     button.BorderColor3 = UILibrary.Colors.Border
 
     button.MouseButton1Click:Connect(onClick)
@@ -103,7 +103,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     local buttonCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextButton") and child ~= parent then
-            buttonCount = buttonCount + 2
+            buttonCount = buttonCount + 1
         end
     end
     local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
@@ -126,10 +126,10 @@ function UILibrary:CreateLabel(parent, text)
     local labelCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextLabel") and child ~= parent then
-            labelCount = labelCount + 2
+            labelCount = labelCount + 1
         end
     end
-    local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.1
+    local yPos = (labelCount * UILibrary.Sizes.Label.Y.Scale) + 0.2
     label.Position = UDim2.new(0.1, 0, yPos, 0)
 
     return label
@@ -155,7 +155,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBoxCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextBox") and child ~= parent then
-            textBoxCount = textBoxCount + 2
+            textBoxCount = textBoxCount + 1
         end
     end
     local yPos = (textBoxCount * UILibrary.Sizes.TextBox.Y.Scale) + 0.1
@@ -198,7 +198,7 @@ function UILibrary:CreateSection(parent, name)
     local sectionCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("TextButton") and child ~= sectionButton then
-            sectionCount = sectionCount + 2
+            sectionCount = sectionCount + 1
         end
     end
     local yPos = (sectionCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
