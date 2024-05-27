@@ -19,7 +19,7 @@ UILibrary.Fonts = {
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.15, 0, 0.3, 0),
+    Window = UDim2.new(0.15, 0, 0.2, 0),
     Button = UDim2.new(0.8, 0, 0.1, 0),
     Label = UDim2.new(0.8, 0, 0.1, 0),
     TextBox = UDim2.new(0.8, 0, 0.1, 0),
@@ -52,7 +52,7 @@ function UILibrary:CreateWindow(parent, title)
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = frame
     titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, 0, 0, 30)
+    titleLabel.Size = UDim2.new(1, -30, 0, 30)
     titleLabel.BackgroundColor3 = UILibrary.Colors.Title
     titleLabel.TextColor3 = UILibrary.Colors.Text
     titleLabel.Font = UILibrary.Fonts.Title
@@ -69,14 +69,12 @@ function UILibrary:CreateWindow(parent, title)
     hideButton.TextScaled = true
 
     hideButton.MouseButton1Click:Connect(function()
-        local isVisible = false
         for _, child in pairs(frame:GetChildren()) do
             if child ~= titleLabel and child ~= hideButton then
                 child.Visible = not child.Visible
-                isVisible = child.Visible
             end
         end
-        frame.Size = isVisible and UILibrary.Sizes.Window or UDim2.new(0.15, 0, 0, 30)
+        frame.Size = frame.Size == UILibrary.Sizes.Window and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
     end)
 
     return frame
