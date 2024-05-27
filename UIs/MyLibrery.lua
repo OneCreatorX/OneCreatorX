@@ -4,7 +4,7 @@ UILibrary.Colors = {
     Background = Color3.fromRGB(25, 25, 25),
     Text = Color3.fromRGB(255, 255, 255),
     Button = Color3.fromRGB(50, 50, 50),
-    ButtonHover = Color3.fromRGB(75, 75, 75),
+    ButtonHover = Color3.fromRGB(125, 25, 125),
     Input = Color3.fromRGB(35, 35, 35),
     Border = Color3.fromRGB(150, 150, 150),
     Button3D = Color3.fromRGB(55, 55, 55)
@@ -16,9 +16,9 @@ UILibrary.Fonts = {
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.4, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.1, 0),
-    TextBox = UDim2.new(0.8, 0, 0.1, 0)
+    Window = UDim2.new(0.4, 0, 0.2, 0),
+    Button = UDim2.new(0.9, 0, 0.1, 0),
+    TextBox = UDim2.new(0.9, 0, 0.1, 0)
 }
 
 UILibrary.Transparency = {
@@ -62,10 +62,10 @@ function UILibrary:CreateWindow(parent, title)
 end
 
 local function adjustFrameSize(frame)
-    local totalHeight = 30 -- Initial height for the title
+    local totalHeight = 20
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + 10 -- Adding some padding
+            totalHeight = totalHeight + child.Size.Y.Offset + 10
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
@@ -157,16 +157,16 @@ function UILibrary:CreateButtonToggle(parent, text, onToggle)
     buttonToggle.BorderSizePixel = 1
     buttonToggle.BorderColor3 = UILibrary.Colors.Border
 
-    local toggled = false
+    local a = false
 
     buttonToggle.MouseButton1Click:Connect(function()
-        toggled = not toggled
-        if toggled then
+        a = not a
+        if a then
             buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
         else
             buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
         end
-        onToggle(toggled)
+        onToggle(a)
     end)
 
     positionElement(parent, buttonToggle)
