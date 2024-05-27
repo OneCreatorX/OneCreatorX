@@ -72,12 +72,25 @@ function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
     button.Text = text
-    button.Size = UILibrary.Sizes.Button
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
     button.TextScaled = true
     button.AutoButtonColor = false
+
+    -- Calcular el tamaño dinámicamente para adaptarse al texto
+    local textSize = game:GetService("TextService"):GetTextSize(text, button.TextSize, button.Font, Vector2.new(math.huge, math.huge))
+    button.Size = UDim2.new(0, textSize.X + 20, 0, textSize.Y + 10)
+
+    -- Limitar el espacio hacia abajo a tres posiciones como máximo
+    local buttonCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("TextButton") then
+            buttonCount = buttonCount + 1
+        end
+    end
+    local yPos = math.min((buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2, 0.7)
+    button.Position = UDim2.new(0.1, 0, yPos, 0)
 
     button.BorderSizePixel = 2
     button.BorderColor3 = UILibrary.Colors.Border
@@ -100,10 +113,14 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    -- Calcular la posición dinámicamente
-    local buttonCount = #parent:GetChildren() - 1 -- Excluye el botón de la sección
-    local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2
-    button.Position = UDim2.new(0.1, 0, yPos, 0)
+    return button
+end
+
+function UILibrary:CreateOptionsButton(parent, text, onClick)
+    local button = UILibrary:CreateButton(parent, text, onClick)
+
+    -- Ajustar la posición para los botones de opciones
+    button.Position = UDim2.new(0.1, 0, 0, 0) -- Colocar en la parte superior
 
     return button
 end
