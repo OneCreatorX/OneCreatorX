@@ -19,7 +19,7 @@ UILibrary.Fonts = {
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.3, 0),
+    Window = UDim2.new(0.15, 0, 0.3, 0),
     Button = UDim2.new(0.8, 0, 0.1, 0),
     Label = UDim2.new(0.8, 0, 0.1, 0),
     TextBox = UDim2.new(0.8, 0, 0.1, 0),
@@ -69,11 +69,14 @@ function UILibrary:CreateWindow(parent, title)
     hideButton.TextScaled = true
 
     hideButton.MouseButton1Click:Connect(function()
+        local isVisible = false
         for _, child in pairs(frame:GetChildren()) do
             if child ~= titleLabel and child ~= hideButton then
                 child.Visible = not child.Visible
+                isVisible = child.Visible
             end
         end
+        frame.Size = isVisible and UILibrary.Sizes.Window or UDim2.new(0.15, 0, 0, 30)
     end)
 
     return frame
