@@ -74,15 +74,7 @@ function UILibrary:CreateWindow(parent, title)
                 child.Visible = not child.Visible
             end
         end
-        -- Ajustar tamaño del marco según cantidad de botones y títulos
-        local totalVisibleChildren = 0
-        for _, child in pairs(frame:GetChildren()) do
-            if child.Visible then
-                totalVisibleChildren = totalVisibleChildren + 1
-            end
-        end
-        local newHeight = totalVisibleChildren * (UILibrary.Sizes.Button.Y.Offset + 5) + 30 -- Añadir 5 píxeles de espacio entre elementos
-        frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, newHeight)
+        frame.Size = frame.Size == UILibrary.Sizes.Window and UDim2.new(0.15, 0, 0.1, 0) or UILibrary.Sizes.Window
     end)
 
     return frame
@@ -109,16 +101,6 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.MouseLeave:Connect(function()
         button.BackgroundColor3 = UILibrary.Colors.Button
     end)
-
-    -- Ajustar posición y tamaño del botón en función del número de botones visibles
-    local totalVisibleButtons = 0
-    for _, child in pairs(parent:GetChildren()) do
-        if child:IsA("TextButton") and child.Visible then
-            totalVisibleButtons = totalVisibleButtons + 1
-        end
-    end
-    local newButtonPosition = UDim2.new(0.1, 0, (totalVisibleButtons - 1) * (UILibrary.Sizes.Button.Y.Offset + 5) + 0.1, 0)
-    button.Position = newButtonPosition
 
     return button
 end
