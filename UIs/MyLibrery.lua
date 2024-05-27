@@ -43,6 +43,51 @@ function UILibrary:CreateScreenGui(name)
     screenGui.Name = name
     screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     screenGui.ResetOnSpawn = false
+function UILibrary:CreateButton(parent, text, onClick)
+    local button = Instance.new("TextButton")
+    button.Parent = parent
+    button.Text = text
+    button.Size = UILibrary.Sizes.Button
+    button.BackgroundColor3 = UILibrary.Colors.Button
+    button.TextColor3 = UILibrary.Colors.Text
+    button.Font = UILibrary.Fonts.Button
+    button.TextScaled = true
+    button.AutoButtonColor = false
+
+    button.BorderSizePixel = 2
+    button.BorderColor3 = UILibrary.Colors.Border
+
+    button.MouseButton1Click:Connect(onClick)
+
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = UILibrary.Colors.ButtonHover
+    end)
+
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = UILibrary.Colors.Button
+    end)
+
+    button.MouseButton1Down:Connect(function()
+        button.BorderColor3 = UILibrary.Colors.Button3D
+    end)
+
+    button.MouseButton1Up:Connect(function()
+        button.BorderColor3 = UILibrary.Colors.Border
+    end)
+
+    -- Calcular la posición dinámicamente considerando solo los botones principales
+    local buttonCount = 0
+    for _, child in ipairs(parent:GetChildren()) do
+        if child:IsA("TextButton") and not child:IsDescendantOf(parent.SectionFrame) then
+            buttonCount = buttonCount + 1
+        end
+    end
+    local yPos = (buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2
+    button.Position = UDim2.new(0.1, 0, yPos, 0)
+
+    return button
+    end
+    
     return screenGui
 end
 
@@ -68,62 +113,6 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
-function UILibrary:CreateButton(parent, text, onClick)
-    local button = Instance.new("TextButton")
-    button.Parent = parent
-    button.Text = text
-    button.BackgroundColor3 = UILibrary.Colors.Button
-    button.TextColor3 = UILibrary.Colors.Text
-    button.Font = UILibrary.Fonts.Button
-    button.TextScaled = true
-    button.AutoButtonColor = false
-
-    -- Calcular el tamaño dinámicamente para adaptarse al texto
-    local textSize = game:GetService("TextService"):GetTextSize(text, button.TextSize, button.Font, Vector2.new(math.huge, math.huge))
-    button.Size = UDim2.new(0, textSize.X + 20, 0, textSize.Y + 10)
-
-    -- Limitar el espacio hacia abajo a tres posiciones como máximo
-    local buttonCount = 0
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("TextButton") then
-            buttonCount = buttonCount + 1
-        end
-    end
-    local yPos = math.min((buttonCount * UILibrary.Sizes.Button.Y.Scale) + 0.2, 0.7)
-    button.Position = UDim2.new(0.1, 0, yPos, 0)
-
-    button.BorderSizePixel = 2
-    button.BorderColor3 = UILibrary.Colors.Border
-
-    button.MouseButton1Click:Connect(onClick)
-
-    button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = UILibrary.Colors.ButtonHover
-    end)
-
-    button.MouseLeave:Connect(function()
-        button.BackgroundColor3 = UILibrary.Colors.Button
-    end)
-
-    button.MouseButton1Down:Connect(function()
-        button.BorderColor3 = UILibrary.Colors.Button3D
-    end)
-
-    button.MouseButton1Up:Connect(function()
-        button.BorderColor3 = UILibrary.Colors.Border
-    end)
-
-    return button
-end
-
-function UILibrary:CreateOptionsButton(parent, text, onClick)
-    local button = UILibrary:CreateButton(parent, text, onClick)
-
-    -- Ajustar la posición para los botones de opciones
-    button.Position = UDim2.new(0.1, 0, 0, 0) -- Colocar en la parte superior
-
-    return button
-end
 
 function UILibrary:CreateLabel(parent, text)
     local label = Instance.new("TextLabel")
