@@ -74,18 +74,7 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.BackgroundTransparency = 0.2
     creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsButton.Font = Enum.Font.SourceSans
-    creditsButton.TextSize = 18
 
-    local creditsFrame = Instance.new("Frame")
-    creditsFrame.Parent = parent
-    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
-    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
-    creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    creditsFrame.BackgroundTransparency = 0.1
-    creditsFrame.BorderSizePixel = 0
-    creditsFrame.Visible = false  -- Inicialmente oculto
-
-    -- Funcionalidad de minimizar/maximizar
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
@@ -104,6 +93,14 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.MouseButton1Click:Connect(function()
         creditsFrame.Visible = not creditsFrame.Visible
     end)
+
+    -- Hacer que los frames se muevan juntos
+    local function syncFrames()
+        creditsFrame.Position = UDim2.new(frame.Position.X.Scale + frame.Size.X.Scale, frame.Position.X.Offset, frame.Position.Y.Scale, frame.Position.Y.Offset)
+    end
+
+    frame:GetPropertyChangedSignal("Position"):Connect(syncFrames)
+    frame:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
     return frame
 end
