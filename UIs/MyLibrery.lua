@@ -71,6 +71,9 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
+
+
+
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
@@ -136,7 +139,6 @@ function Window:Button(text, onClick)
     return self
 end
 
-
 function Window:TextBox(placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = self.frame
@@ -155,7 +157,7 @@ function Window:TextBox(placeholderText, onEnter)
         end
     end)
 
-    positionElement(self.frame, textBox)
+positionElement(self.frame, textBox)
 
     return self
 end
@@ -207,3 +209,4 @@ function UILibrary:ScreenGui(name)
 end
 
 return UILibrary
+    
