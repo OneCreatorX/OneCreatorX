@@ -4,7 +4,7 @@ UILibrary.Colors = {
     Background = Color3.fromRGB(25, 25, 25),  -- Color de fondo del frame principal
     Text = Color3.fromRGB(255, 255, 255),     -- Color del texto
     Button = Color3.fromRGB(50, 50, 50),      -- Color de fondo del botón
-    ButtonHover = Color3.fromRGB(155, 35, 215), -- Color del botón al pasar el mouse
+    ButtonHover = Color3.fromRGB(75, 75, 75), -- Color del botón al pasar el mouse
     Input = Color3.fromRGB(35, 35, 35),       -- Color de fondo del TextBox
     Border = Color3.fromRGB(150, 150, 150),   -- Color del borde de los elementos
     Button3D = Color3.fromRGB(55, 55, 55)     -- Color del borde del botón al hacer clic
@@ -27,13 +27,13 @@ UILibrary.Transparency = {
 }
 
 UILibrary.TextSizes = {
-    Button = 11,                              -- Tamaño del texto de los botones
-    TextBox = 11                            -- Tamaño del texto del TextBox
+    Button = 14,                              -- Tamaño del texto de los botones
+    TextBox = 14                              -- Tamaño del texto del TextBox
 }
 
 UILibrary.Padding = {
-    Element = 5,                             -- Espacio entre elementos
-    Frame = 50                               -- Espacio inicial para el título del frame
+    Element = 10,                             -- Espacio entre elementos
+    Frame = 30                                -- Espacio inicial para el título del frame
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -70,6 +70,7 @@ function UILibrary:CreateWindow(parent, title)
 
     return frame
 end
+
 
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
@@ -134,7 +135,6 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
-    textBox.Text = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
