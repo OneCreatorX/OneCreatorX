@@ -28,15 +28,19 @@ function UILibrary:CreateFrame(parent, title)
     frame.Parent = parent
     frame.Size = UDim2.new(0.27, 0, 0.4, 0)  -- Tamaño del frame reducido en un 10%
     frame.Position = UDim2.new(0.365, 0, 0.3, 0)  -- Posición centrada
-    frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)  -- Color de fondo básico
+    frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)  -- Color de fondo más claro
+    frame.BackgroundTransparency = 0.1  -- Un poco de transparencia
     frame.BorderSizePixel = 0  -- Sin borde
+    frame.Active = true
+    frame.Draggable = true
 
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = frame
     titleLabel.Text = title
     titleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
     titleLabel.Position = UDim2.new(0, 0, 0, 0)  -- Posición del título
-    titleLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)  -- Color de fondo del título
+    titleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)  -- Color de fondo del título
+    titleLabel.BackgroundTransparency = 0.2  -- Un poco de transparencia
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
     titleLabel.Font = Enum.Font.SourceSans
     titleLabel.TextSize = 18
@@ -47,7 +51,8 @@ function UILibrary:CreateFrame(parent, title)
     toggleButton.Text = "-"
     toggleButton.Size = UDim2.new(0, 30, 0, 30)
     toggleButton.Position = UDim2.new(1, -30, 0, 0)
-    toggleButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    toggleButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    toggleButton.BackgroundTransparency = 0.2
     toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     toggleButton.Font = Enum.Font.SourceSans
     toggleButton.TextSize = 18
@@ -65,7 +70,8 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.Text = "Créditos"
     creditsButton.Size = UDim2.new(1, 0, 0, 30)
     creditsButton.Position = UDim2.new(0, 0, 1, -30)
-    creditsButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    creditsButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    creditsButton.BackgroundTransparency = 0.2
     creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
