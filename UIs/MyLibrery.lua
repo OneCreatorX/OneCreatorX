@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0, 40),
-    TextBox = UDim2.new(0.8, 0, 0, 40)
+    Button = UDim2.new(0.8, 0, 0.05, 0),  -- Tamaño fijo del botón
+    TextBox = UDim2.new(0.8, 0, 0.05, 0)  -- Tamaño fijo del TextBox
 }
 
 UILibrary.Transparency = {
@@ -68,6 +68,10 @@ function UILibrary:Window(parent, title)
     titleLabel.TextScaled = true
     titleLabel.BackgroundTransparency = UILibrary.Transparency.Background
 
+    frame.ChildAdded:Connect(function()
+        adjustFrameSize(frame)
+    end)
+
     return frame
 end
 
@@ -82,13 +86,12 @@ local function adjustFrameSize(frame)
 end
 
 local function positionElement(parent, element)
-    local elementCount = 0
+    local yPos = UILibrary.Padding.Frame
     for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
+        if child:IsA("GuiObject") and child ~= element then
+            yPos = yPos + child.Size.Y.Offset + UILibrary.Padding.Element
         end
     end
-    local yPos = UILibrary.Padding.Frame + (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element))
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
