@@ -182,7 +182,6 @@ function UILibrary:AddOptionsButton(parent, buttonText)
     local optionsFrame = Instance.new("Frame")
     optionsFrame.Parent = parent.Parent
     optionsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)
-    optionsFrame.Position = UDim2.new(0.635, 0,
     optionsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
 optionsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 optionsFrame.BackgroundTransparency = 0.1
@@ -227,4 +226,3 @@ return optionsButton, optionsFrame
 end
 
 return UILibrary
-        
