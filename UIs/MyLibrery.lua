@@ -76,7 +76,6 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
 
-
     local creditsFrame = Instance.new("Frame")
     creditsFrame.Parent = parent
     creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
@@ -142,7 +141,7 @@ function UILibrary:AddToggleButton(parent, toggleName)
     toggleButton.Font = Enum.Font.SourceSans
     toggleButton.TextSize = 18
 
-local toggleFrame = Instance.new("Frame")
+    local toggleFrame = Instance.new("Frame")
     toggleFrame.Parent = parent.Parent  -- Asegurarse de que el frame se agregue al mismo nivel que el frame principal
     toggleFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
     toggleFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
@@ -180,4 +179,3 @@ local toggleFrame = Instance.new("Frame")
 end
 
 return UILibrary
-    
