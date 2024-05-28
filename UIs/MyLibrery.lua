@@ -33,7 +33,7 @@ UILibrary.TextSizes = {
 
 UILibrary.Padding = {
     Element = 10,             
-    Frame = 35                      
+    Frame = 10            
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -73,7 +73,7 @@ end
 
 
 local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
+    local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
             totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
