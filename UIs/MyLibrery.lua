@@ -23,8 +23,8 @@ end
 function UILibrary:CreateSection(parent, title)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
-    sectionFrame.Size = UDim2.new(0.6, 0, 0.4, 0)
-    sectionFrame.Position = UDim2.new(1, 0, 0.3, 0)
+    sectionFrame.Size = UDim2.new(2, 0, 0.4, 0)
+    sectionFrame.Position = UDim2.new(2, 0, 0.3, 0)
     sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     sectionFrame.BackgroundTransparency = 0.1
     sectionFrame.BorderSizePixel = 1
@@ -47,7 +47,7 @@ end
 function UILibrary:CreateFrame(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
-    frame.Size = UDim2.new(0.27, 0, 0, 60)  -- Inicialmente vacío, el tamaño se ajustará dinámicamente
+    frame.Size = UDim2.new(0.27, 0, 0, 60 + #contentFrame:GetChildren() * 30)
     frame.Position = UDim2.new(0.365, 0, 0.3, 0)
     frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frame.BackgroundTransparency = 0.1
@@ -120,7 +120,7 @@ function UILibrary:CreateFrame(parent, title)
         if isMinimized then
             contentFrame.Visible = false
             toggleButton.Text = "+"
-            frame.Size = UDim2.new(0.27, 0, 0, 60 + #contentFrame:GetChildren() * 30)
+            frame.Size = UDim2.new(0.27, 0, 0, 60)
         else
             contentFrame.Visible = true
             toggleButton.Text = "-"
