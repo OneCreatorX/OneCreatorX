@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.05, 0),  -- Tamaño fijo del botón
-    TextBox = UDim2.new(0.8, 0, 0.05, 0)  -- Tamaño fijo del TextBox
+    Button = UDim2.new(0.8, 0, 0.12, 0),
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)
 }
 
 UILibrary.Transparency = {
@@ -36,7 +36,7 @@ UILibrary.Padding = {
     Frame = 30
 }
 
-function UILibrary:ScreenGui(name)
+function UILibrary:CreateScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
     if existingGui then
         existingGui:Destroy()
@@ -49,7 +49,7 @@ function UILibrary:ScreenGui(name)
     return screenGui
 end
 
-function UILibrary:Window(parent, title)
+function UILibrary:CreateWindow(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
     frame.Active = true
@@ -68,10 +68,6 @@ function UILibrary:Window(parent, title)
     titleLabel.TextScaled = true
     titleLabel.BackgroundTransparency = UILibrary.Transparency.Background
 
-    frame.ChildAdded:Connect(function()
-        adjustFrameSize(frame)
-    end)
-
     return frame
 end
 
@@ -86,17 +82,18 @@ local function adjustFrameSize(frame)
 end
 
 local function positionElement(parent, element)
-    local yPos = UILibrary.Padding.Frame
+    local elementCount = 0
     for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= element then
-            yPos = yPos + child.Size.Y.Offset + UILibrary.Padding.Element
+        if child:IsA("GuiObject") and child ~= parent then
+            elementCount = elementCount + 1
         end
     end
+    local yPos = UILibrary.Padding.Frame + (elementCount - 1) * (UILibrary.Sizes.Button.Y.Offset + UILibrary.Padding.Element)
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
 
-function UILibrary:Button(parent, text, onClick)
+function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
     button.Text = text
@@ -133,7 +130,7 @@ function UILibrary:Button(parent, text, onClick)
     return button
 end
 
-function UILibrary:TextBox(parent, placeholderText, onEnter)
+function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
@@ -155,7 +152,7 @@ function UILibrary:TextBox(parent, placeholderText, onEnter)
     return textBox
 end
 
-function UILibrary:Toggle(parent, text, onToggle)
+function UILibrary:CreateButtonToggle(parent, text, onToggle)
     local buttonToggle = Instance.new("TextButton")
     buttonToggle.Parent = parent
     buttonToggle.Text = text
