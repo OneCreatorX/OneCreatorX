@@ -71,10 +71,6 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
-
-
-
-
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
@@ -86,14 +82,17 @@ local function adjustFrameSize(frame)
 end
 
 local function positionElement(parent, element)
-    local elementCount = 0
+    local lastElement = nil
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
+            lastElement = child
         end
     end
-    local yPos = (elementCount * (UILibrary.Sizes.Button.Y.Scale + 0.02)) + 0.1 -- Adjusted to add more space per element
-    element.Position = UDim2.new(0.1, 0, yPos, 0)
+    if lastElement then
+        element.Position = UDim2.new(0.1, 0, 0, lastElement.Position.Y.Offset + lastElement.Size.Y.Offset + UILibrary.Padding.Element)
+    else
+        element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
+    end
     adjustFrameSize(parent)
 end
 
