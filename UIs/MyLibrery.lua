@@ -76,7 +76,6 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
 
-
     local creditsFrame = Instance.new("Frame")
     creditsFrame.Parent = parent
     creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
@@ -128,7 +127,56 @@ function UILibrary:CreateFrame(parent, title)
     frame:GetPropertyChangedSignal("Position"):Connect(syncFrames)
     frame:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
-    return frame
+    return frame, contentFrame
+end
+
+function UILibrary:AddSectionButton(parent, sectionName)
+    local sectionButton = Instance.new("TextButton")
+    sectionButton.Parent = parent
+    sectionButton.Text = sectionName
+    sectionButton.Size = UDim2.new(1, 0, 0, 30)
+    sectionButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    sectionButton.BackgroundTransparency = 0.2
+    sectionButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    sectionButton.Font = Enum.Font.SourceSans
+    sectionButton.TextSize = 18
+
+    -- Frame adicional para la nueva sección
+    local sectionFrame = Instance.new("Frame")
+    sectionFrame.Parent = parent.Parent
+    sectionFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
+    sectionFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
+    sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    sectionFrame.BackgroundTransparency = 0.1
+    sectionFrame.BorderSizePixel = 0
+    sectionFrame.Visible = false  -- Inicialmente oculto
+
+local sectionTitleLabel = Instance.new("TextLabel")
+    sectionTitleLabel.Parent = sectionFrame
+    sectionTitleLabel.Text = sectionName
+    sectionTitleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
+    sectionTitleLabel.Position = UDim2.new(0, 0, 0, 0)  -- Posición del título
+    sectionTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)  -- Color de fondo del título
+    sectionTitleLabel.BackgroundTransparency = 0.2  -- Un poco de transparencia
+    sectionTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
+    sectionTitleLabel.Font = Enum.Font.SourceSans
+    sectionTitleLabel.TextSize = 18
+
+    -- Funcionalidad del botón de sección
+    sectionButton.MouseButton1Click:Connect(function()
+        sectionFrame.Visible = not sectionFrame.Visible
+    end)
+
+    -- Hacer que los frames se muevan juntos
+    local function syncFrames()
+        sectionFrame.Position = UDim2.new(parent.Parent.Position.X.Scale + parent.Parent.Size.X.Scale, parent.Parent.Position.X.Offset, parent.Parent.Position.Y.Scale, parent.Parent.Position.Y.Offset)
+    end
+
+    parent.Parent:GetPropertyChangedSignal("Position"):Connect(syncFrames)
+    parent.Parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
+
+    return sectionButton, sectionFrame
 end
 
 return UILibrary
+    
