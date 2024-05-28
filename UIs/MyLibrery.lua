@@ -1,3 +1,4 @@
+
 local UILibrary = {}
 
 UILibrary.Colors = { 
@@ -81,7 +82,6 @@ local function adjustFrameSize(frame)
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
-
 local function positionElement(parent, element)
     local lastElement = nil
     for _, child in ipairs(parent:GetChildren()) do
@@ -138,7 +138,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
-    textBox.Text = ""
+    textBox.Text = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
@@ -155,37 +155,6 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     positionElement(parent, textBox)
 
     return textBox
-end
-
-function UILibrary:CreateToggle(parent, text, onToggle)
-    local toggle = Instance.new("TextButton")
-    toggle.Parent = parent
-    toggle.Text = text
-    toggle.Size = UILibrary.Sizes.Button
-    toggle.BackgroundColor3 = UILibrary.Colors.Button
-    toggle.TextColor3 = UILibrary.Colors.Text
-    toggle.Font = UILibrary.Fonts.Button
-    toggle.TextSize = UILibrary.TextSizes.Button
-    toggle.AutoButtonColor = false
-
-    toggle.BorderSizePixel = 1
-    toggle.BorderColor3 = UILibrary.Colors.Border
-
-    local toggled = false
-
-    toggle.MouseButton1Click:Connect(function()
-        toggled = not toggled
-        onToggle(toggled)
-        if toggled then
-            toggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
-        else
-            toggle.BackgroundColor3 = UILibrary.Colors.Button
-        end
-    end)
-
-    positionElement(parent, toggle)
-
-    return toggle
 end
 
 return UILibrary
