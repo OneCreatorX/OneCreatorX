@@ -74,7 +74,31 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.BackgroundTransparency = 0.2
     creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsButton.Font = Enum.Font.SourceSans
+    creditsButton.TextSize = 18
 
+
+    local creditsFrame = Instance.new("Frame")
+    creditsFrame.Parent = parent
+    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
+    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
+    creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    creditsFrame.BackgroundTransparency = 0.1
+    creditsFrame.BorderSizePixel = 0
+    creditsFrame.Visible = false  -- Inicialmente oculto
+
+    -- Título del frame de créditos
+    local creditsTitleLabel = Instance.new("TextLabel")
+    creditsTitleLabel.Parent = creditsFrame
+    creditsTitleLabel.Text = "Créditos"
+    creditsTitleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
+    creditsTitleLabel.Position = UDim2.new(0, 0, 0, 0)  -- Posición del título
+    creditsTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)  -- Color de fondo del título
+    creditsTitleLabel.BackgroundTransparency = 0.2  -- Un poco de transparencia
+    creditsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
+    creditsTitleLabel.Font = Enum.Font.SourceSans
+    creditsTitleLabel.TextSize = 18
+
+    -- Funcionalidad de minimizar/maximizar
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
@@ -91,7 +115,9 @@ function UILibrary:CreateFrame(parent, title)
 
     -- Funcionalidad del botón de créditos
     creditsButton.MouseButton1Click:Connect(function()
-        creditsFrame.Visible = not creditsFrame.Visible
+        if creditsFrame then
+            creditsFrame.Visible = not creditsFrame.Visible
+        end
     end)
 
     -- Hacer que los frames se muevan juntos
