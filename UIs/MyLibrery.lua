@@ -1,6 +1,7 @@
-local UILibrary = {}
+local MyLibrary = {}
 
-UILibrary.Colors = {
+-- Colores predefinidos
+MyLibrary.Colors = {
     Background = Color3.fromRGB(25, 25, 25),
     Text = Color3.fromRGB(255, 255, 255),
     Button = Color3.fromRGB(50, 50, 50),
@@ -10,33 +11,20 @@ UILibrary.Colors = {
     Button3D = Color3.fromRGB(55, 55, 55)
 }
 
-UILibrary.Fonts = {
+-- Tipos de fuente predefinidos
+MyLibrary.Fonts = {
     Main = Enum.Font.SourceSans,
     Button = Enum.Font.SourceSansBold
 }
 
-UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.4, 0),
+-- Tamaños predefinidos
+MyLibrary.Sizes = {
     Button = UDim2.new(0.8, 0, 0.1, 0),
     TextBox = UDim2.new(0.8, 0, 0.1, 0)
 }
 
-UILibrary.Transparency = {
-    Background = 0.9,
-    Button = 0.8
-}
-
-UILibrary.TextSizes = {
-    Button = 14,
-    TextBox = 14
-}
-
-UILibrary.Padding = {
-    Element = 10,
-    Frame = 5
-}
-
-function UILibrary:CreateScreenGui(name)
+-- Crear una nueva pantalla GUI
+function MyLibrary:CreateScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
     if existingGui then
         existingGui:Destroy()
@@ -49,148 +37,90 @@ function UILibrary:CreateScreenGui(name)
     return screenGui
 end
 
-function UILibrary:CreateWindow(parent, title)
+-- Crear un marco con título
+function MyLibrary:CreateWindow(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
-    frame.Active = true
-    frame.Draggable = true
-    frame.Size = UILibrary.Sizes.Window
-    frame.BackgroundColor3 = UILibrary.Colors.Background
-    frame.BackgroundTransparency = UILibrary.Transparency.Background
+    frame.Size = UDim2.new(1, 0, 1, 0) -- Ocupa todo el espacio del padre
+    frame.BackgroundColor3 = MyLibrary.Colors.Background
 
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = frame
     titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, 0, 0, UILibrary.Padding.Frame)
-    titleLabel.BackgroundColor3 = UILibrary.Colors.Background
-    titleLabel.TextColor3 = UILibrary.Colors.Text
-    titleLabel.Font = UILibrary.Fonts.Main
-    titleLabel.TextScaled = true
-    titleLabel.BackgroundTransparency = UILibrary.Transparency.Background
+    titleLabel.Size = UDim2.new(1, 0, 0, 30) -- Altura fija para el título
+    titleLabel.BackgroundColor3 = MyLibrary.Colors.Background
+    titleLabel.TextColor3 = MyLibrary.Colors.Text
+    titleLabel.Font = MyLibrary.Fonts.Main
+    titleLabel.TextSize = 18 -- Tamaño de texto arbitrario
+    titleLabel.TextWrapped = true
+    titleLabel.TextXAlignment = Enum.TextXAlignment.Left -- Alineación izquierda
 
     return frame
 end
 
-local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame
-    local elementCount = 0
-    local lastElement = nil
-    for _, child in ipairs(frame:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= frame then
-            elementCount = elementCount + 1
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
-            lastElement = child
-        end
-    end
-    frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
-    if lastElement then
-        frame.Position = UDim2.new(frame.Position.X.Scale, frame.Position.X.Offset, 0, -totalHeight / 2 + lastElement.Position.Y.Offset + lastElement.Size.Y.Offset / 2)
-    else
-        frame.Position = UDim2.new(frame.Position.X.Scale, frame.Position.X.Offset, 0, 0)
-    end
-end
-
-local function positionElement(parent, element)
-    local elementCount = 0
-    local yPos = UILibrary.Padding.Frame
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
-            yPos = yPos + child.Size.Y.Offset + UILibrary.Padding.Element
-        end
-    end
-    element.Position = UDim2.new(0.1, 0, yPos, yPos)
-    adjustFrameSize(parent)
-end
-
-function UILibrary:CreateButton(parent, text, onClick)
+-- Crear un botón normal
+function MyLibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
     button.Text = text
-    button.Size = UILibrary.Sizes.Button
-    button.BackgroundColor3 = UILibrary.Colors.Button
-    button.TextColor3 = UILibrary.Colors.Text
-    button.Font = UILibrary.Fonts.Button
-    button.TextSize = UILibrary.TextSizes.Button
+    button.Size = MyLibrary.Sizes.Button
+    button.BackgroundColor3 = MyLibrary.Colors.Button
+    button.TextColor3 = MyLibrary.Colors.Text
+    button.Font = MyLibrary.Fonts.Button
+    button.TextSize = 14 -- Tamaño de texto arbitrario
     button.AutoButtonColor = false
 
-    button.BorderSizePixel = 1
-    button.BorderColor3 = UILibrary.Colors.Border
-
     button.MouseButton1Click:Connect(onClick)
-
-    button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = UILibrary.Colors.ButtonHover
-    end)
-
-    button.MouseLeave:Connect(function()
-        button.BackgroundColor3 = UILibrary.Colors.Button
-    end)
-
-    button.MouseButton1Down:Connect(function()
-        button.BorderColor3 = UILibrary.Colors.Button3D
-    end)
-
-    button.MouseButton1Up:Connect(function()
-        button.BorderColor3 = UILibrary.Colors.Border
-    end)
-
-    positionElement(parent, button)
 
     return button
 end
 
-function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
-    local textBox = Instance.new("TextBox")
-    textBox.Parent = parent
-    textBox.PlaceholderText = placeholderText
-    textBox.Size = UILibrary.Sizes.TextBox
-    textBox.BackgroundColor3 = UILibrary.Colors.Input
-    textBox.TextColor3 = UILibrary.Colors.Text
-    textBox.Font = UILibrary.Fonts.Main
-    textBox.TextSize = UILibrary.TextSizes.TextBox
-    textBox.BackgroundTransparency = UILibrary.Transparency.Button
-
-    textBox.FocusLost:Connect(function(enterPressed)
-        if enterPressed then
-            onEnter(textBox.Text)
-        end
-    end)
-
-    positionElement(parent, textBox)
-
-    return textBox
-end
-
-function UILibrary:CreateButtonToggle(parent, text, onToggle)
-    local buttonToggle = Instance.new("TextButton")
-    buttonToggle.Parent = parent
-    buttonToggle.Text = text
-    buttonToggle.Size = UILibrary.Sizes.Button
-    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-    buttonToggle.TextColor3 = UILibrary.Colors.Text
-    buttonToggle.Font = UILibrary.Fonts.Button
-    buttonToggle.TextSize = UILibrary.TextSizes.Button
-    buttonToggle.AutoButtonColor = false
-
-    buttonToggle.BorderSizePixel = 1
-    buttonToggle.BorderColor3 = UILibrary.Colors.Border
+-- Crear un botón toggle
+function MyLibrary:CreateToggleButton(parent, text, onToggle)
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.Parent = parent
+    toggleButton.Text = text
+    toggleButton.Size = MyLibrary.Sizes.Button
+    toggleButton.BackgroundColor3 = MyLibrary.Colors.Button
+    toggleButton.TextColor3 = MyLibrary.Colors.Text
+    toggleButton.Font = MyLibrary.Fonts.Button
+    toggleButton.TextSize = 14
+    toggleButton.AutoButtonColor = false
 
     local toggled = false
 
-    buttonToggle.MouseButton1Click:Connect(function()
+    toggleButton.MouseButton1Click:Connect(function()
         toggled = not toggled
         if toggled then
-            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
+            toggleButton.BackgroundColor3 = MyLibrary.Colors.ButtonHover
         else
-            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+            toggleButton.BackgroundColor3 = MyLibrary.Colors.Button
         end
         onToggle(toggled)
     end)
 
-    positionElement(parent, buttonToggle)
-
-    return buttonToggle
+    return toggleButton
 end
 
-return UILibrary
+-- Crear un cuadro de texto
+function MyLibrary:CreateTextBox(parent, placeholderText, onSubmit)
+    local textBox = Instance.new("TextBox")
+    textBox.Parent = parent
+    textBox.PlaceholderText = placeholderText
+    textBox.Size = MyLibrary.Sizes.TextBox
+    textBox.BackgroundColor3 = MyLibrary.Colors.Input
+    textBox.TextColor3 = MyLibrary.Colors.Text
+    textBox.Font = MyLibrary.Fonts.Main
+    textBox.TextSize = 14
+    textBox.ClearTextOnFocus = false
+
+    textBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            onSubmit(textBox.Text)
+        end
+    end)
+
+    return textBox
+end
+
+return MyLibrary
