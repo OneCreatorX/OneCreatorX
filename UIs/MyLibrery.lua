@@ -27,13 +27,13 @@ UILibrary.Transparency = {
 }
 
 UILibrary.TextSizes = {
-    Button = 14,
-    TextBox = 14
+    Button = 12,
+    TextBox = 12
 }
 
 UILibrary.Padding = {
-    Element = 5,
-    Frame = 10
+    Element = 15,
+    Frame = 20
 }
 
 function UILibrary:CreateScreenGui(name)
