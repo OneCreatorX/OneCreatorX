@@ -68,100 +68,7 @@ function UILibrary:CreateWindow(parent, title)
     titleLabel.TextScaled = true
     titleLabel.BackgroundTransparency = UILibrary.Transparency.Background
 
-    local window = {}
-    window.frame = frame
-
-    function window:Button(text, onClick)
-        local button = Instance.new("TextButton")
-        button.Parent = frame
-        button.Text = text
-        button.Size = UILibrary.Sizes.Button
-        button.BackgroundColor3 = UILibrary.Colors.Button
-        button.TextColor3 = UILibrary.Colors.Text
-        button.Font = UILibrary.Fonts.Button
-        button.TextSize = UILibrary.TextSizes.Button
-        button.AutoButtonColor = false
-
-        button.BorderSizePixel = 1
-        button.BorderColor3 = UILibrary.Colors.Border
-
-        button.MouseButton1Click:Connect(onClick)
-
-        button.MouseEnter:Connect(function()
-            button.BackgroundColor3 = UILibrary.Colors.ButtonHover
-        end)
-
-        button.MouseLeave:Connect(function()
-            button.BackgroundColor3 = UILibrary.Colors.Button
-        end)
-
-        button.MouseButton1Down:Connect(function()
-            button.BorderColor3 = UILibrary.Colors.Button3D
-        end)
-
-        button.MouseButton1Up:Connect(function()
-            button.BorderColor3 = UILibrary.Colors.Border
-        end)
-
-        positionElement(frame, button)
-
-        return button
-    end
-
-    function window:Toggle(text, onToggle)
-        local buttonToggle = Instance.new("TextButton")
-        buttonToggle.Parent = frame
-        buttonToggle.Text = text
-        buttonToggle.Size = UILibrary.Sizes.Button
-        buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-        buttonToggle.TextColor3 = UILibrary.Colors.Text
-        buttonToggle.Font = UILibrary.Fonts.Button
-        buttonToggle.TextSize = UILibrary.TextSizes.Button
-        buttonToggle.AutoButtonColor = false
-
-        buttonToggle.BorderSizePixel = 1
-        buttonToggle.BorderColor3 = UILibrary.Colors.Border
-
-        local toggled = false
-
-        buttonToggle.MouseButton1Click:Connect(function()
-            toggled = not toggled
-            if toggled then
-                buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
-            else
-                buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-            end
-            onToggle(toggled)
-        end)
-
-        positionElement(frame, buttonToggle)
-
-        return buttonToggle
-    end
-
-    function window:TextBox(placeholderText, onEnter)
-        local textBox = Instance.new("TextBox")
-        textBox.Parent = frame
-        textBox.PlaceholderText = placeholderText
-        textBox.Size = UILibrary.Sizes.TextBox
-        textBox.BackgroundColor3 = UILibrary.Colors.Input
-        textBox.TextColor3 = UILibrary.Colors.Text
-        textBox.Font = UILibrary.Fonts.Main
-        textBox.TextSize = UILibrary.TextSizes.TextBox
-        textBox.BackgroundTransparency = UILibrary.Transparency.Button
-
-        textBox.FocusLost:Connect(function(enterPressed)
-            if enterPressed then
-                onEnter(textBox.Text)
-            end
-        end)
-
-        positionElement(frame, textBox)
-
-        return textBox
-    end
-
-    return window
+    return frame
 end
 
 local function adjustFrameSize(frame)
@@ -181,9 +88,99 @@ local function positionElement(parent, element)
             elementCount = elementCount + 1
         end
     end
-    local yPos = UILibrary.Padding.Frame + (elementCount - 1) * (UILibrary.Sizes.Button.Y.Offset + UILibrary.Padding.Element)
+    local yPos = (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
+end
+
+function UILibrary:CreateButton(parent, text, onClick)
+    local button = Instance.new("TextButton")
+    button.Parent = parent
+    button.Text = text
+    button.Size = UILibrary.Sizes.Button
+    button.BackgroundColor3 = UILibrary.Colors.Button
+    button.TextColor3 = UILibrary.Colors.Text
+    button.Font = UILibrary.Fonts.Button
+    button.TextSize = UILibrary.TextSizes.Button
+    button.AutoButtonColor = false
+
+    button.BorderSizePixel = 1
+    button.BorderColor3 = UILibrary.Colors.Border
+
+    button.MouseButton1Click:Connect(onClick)
+
+    button.MouseEnter:Connect(function()
+        button.BackgroundColor3 = UILibrary.Colors.ButtonHover
+    end)
+
+    button.MouseLeave:Connect(function()
+        button.BackgroundColor3 = UILibrary.Colors.Button
+    end)
+
+    button.MouseButton1Down:Connect(function()
+        button.BorderColor3 = UILibrary.Colors.Button3D
+    end)
+
+    button.MouseButton1Up:Connect(function()
+        button.BorderColor3 = UILibrary.Colors.Border
+    end)
+
+    positionElement(parent, button)
+
+    return button
+end
+
+function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
+    local textBox = Instance.new("TextBox")
+    textBox.Parent = parent
+    textBox.PlaceholderText = placeholderText
+    textBox.Size = UILibrary.Sizes.TextBox
+    textBox.BackgroundColor3 = UILibrary.Colors.Input
+    textBox.TextColor3 = UILibrary.Colors.Text
+    textBox.Font = UILibrary.Fonts.Main
+    textBox.TextSize = UILibrary.TextSizes.TextBox
+    textBox.BackgroundTransparency = UILibrary.Transparency.Button
+
+    textBox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            onEnter(textBox.Text)
+        end
+    end)
+
+    positionElement(parent, textBox)
+
+    return textBox
+end
+
+function UILibrary:CreateButtonToggle(parent, text, onToggle)
+    local buttonToggle = Instance.new("TextButton")
+    buttonToggle.Parent = parent
+    buttonToggle.Text = text
+    buttonToggle.Size = UILibrary.Sizes.Button
+    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+    buttonToggle.TextColor3 = UILibrary.Colors.Text
+    buttonToggle.Font = UILibrary.Fonts.Button
+    buttonToggle.TextSize = UILibrary.TextSizes.Button
+    buttonToggle.AutoButtonColor = false
+
+    buttonToggle.BorderSizePixel = 1
+    buttonToggle.BorderColor3 = UILibrary.Colors.Border
+
+    local toggled = false
+
+    buttonToggle.MouseButton1Click:Connect(function()
+        toggled = not toggled
+        if toggled then
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
+        else
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+        end
+        onToggle(toggled)
+    end)
+
+    positionElement(parent, buttonToggle)
+
+    return buttonToggle
 end
 
 return UILibrary
