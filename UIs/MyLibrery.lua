@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.05, 0),
-    TextBox = UDim2.new(0.8, 0, 0.05, 0)
+    Button = UDim2.new(0.8, 0, 0, 40),
+    TextBox = UDim2.new(0.8, 0, 0, 40)
 }
 
 UILibrary.Transparency = {
@@ -36,7 +36,7 @@ UILibrary.Padding = {
     Frame = 30
 }
 
-function UILibrary:CreateScreenGui(name)
+function UILibrary:ScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
     if existingGui then
         existingGui:Destroy()
@@ -49,7 +49,7 @@ function UILibrary:CreateScreenGui(name)
     return screenGui
 end
 
-function UILibrary:CreateWindow(parent, title)
+function UILibrary:Window(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
     frame.Active = true
@@ -72,29 +72,28 @@ function UILibrary:CreateWindow(parent, title)
 end
 
 local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
+    local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
 local function positionElement(parent, element)
-    local yPos = UILibrary.Padding.Frame -- Starting position after the title
+    local elementCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("GuiObject") and child ~= parent then
-            if child.Position.Y.Offset > yPos then
-                yPos = child.Position.Y.Offset + child.Size.Y.Offset + UILibrary.Padding.Element
-            end
+            elementCount = elementCount + 1
         end
     end
+    local yPos = UILibrary.Padding.Frame + (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element))
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
 
-function UILibrary:CreateButton(parent, text, onClick)
+function UILibrary:Button(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
     button.Text = text
@@ -131,7 +130,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     return button
 end
 
-function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
+function UILibrary:TextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
@@ -153,7 +152,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     return textBox
 end
 
-function UILibrary:CreateButtonToggle(parent, text, onToggle)
+function UILibrary:Toggle(parent, text, onToggle)
     local buttonToggle = Instance.new("TextButton")
     buttonToggle.Parent = parent
     buttonToggle.Text = text
