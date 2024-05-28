@@ -1,124 +1,116 @@
-local UILibrary = {}
+local UILib = {}
 
--- Crear el ScreenGui
-function UILibrary:CreateScreenGui(name)
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = name
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    return screenGui
+function UILib:CreateSG(name)
+    local sg = Instance.new("ScreenGui")
+    sg.Name = name
+    sg.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+    return sg
 end
 
--- Crear el Frame principal y sus subframes
-function UILibrary:CreateFrame(screenGui, title)
-    local mainFrame = Instance.new("Frame")
-    mainFrame.Size = UDim2.new(0, 200, 0, 300)
-    mainFrame.Position = UDim2.new(0.5, -100, 0.5, -150)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    mainFrame.Parent = screenGui
+function UILib:CreateFrm(sg, title)
+    local mf = Instance.new("Frame")
+    mf.Size = UDim2.new(0, 250, 0, 400)
+    mf.Position = UDim2.new(0.5, -125, 0.5, -200)
+    mf.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    mf.Parent = sg
 
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Size = UDim2.new(1, 0, 0, 30)
-    titleLabel.Text = title
-    titleLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    titleLabel.Parent = mainFrame
+    local tl = Instance.new("TextLabel")
+    tl.Size = UDim2.new(1, 0, 0, 30)
+    tl.Text = title
+    tl.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    tl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tl.Parent = mf
 
-    local mainContentFrame = Instance.new("Frame")
-    mainContentFrame.Size = UDim2.new(1, 0, 1, -30)
-    mainContentFrame.Position = UDim2.new(0, 0, 0, 30)
-    mainContentFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-    mainContentFrame.Parent = mainFrame
+    local mcf = Instance.new("Frame")
+    mcf.Size = UDim2.new(1, 0, 1, -60)
+    mcf.Position = UDim2.new(0, 0, 0, 30)
+    mcf.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    mcf.Parent = mf
 
-    local creditsFrame = Instance.new("Frame")
-    creditsFrame.Size = UDim2.new(1, 0, 0, 30)
-    creditsFrame.Position = UDim2.new(0, 0, 1, -30)
-    creditsFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    creditsFrame.Parent = mainFrame
+    local cf = Instance.new("Frame")
+    cf.Size = UDim2.new(1, 0, 0, 30)
+    cf.Position = UDim2.new(0, 0, 1, -30)
+    cf.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    cf.Parent = mf
 
-    local creditsLabel = Instance.new("TextLabel")
-    creditsLabel.Size = UDim2.new(1, 0, 1, 0)
-    creditsLabel.Text = "Credits: OneCreatorX"
-    creditsLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    creditsLabel.Parent = creditsFrame
+    local cl = Instance.new("TextLabel")
+    cl.Size = UDim2.new(1, 0, 1, 0)
+    cl.Text = "Credits: OneCreatorX"
+    cl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    cl.Parent = cf
 
-    return mainFrame, mainContentFrame, creditsFrame
+    return mf, mcf, cf
 end
 
--- Función base para agregar elementos a un frame
-function UILibrary:AddElement(parent, elementType, text, callback, additionalProperties)
-    local element = Instance.new(elementType)
-    element.Size = UDim2.new(1, -10, 0, 30)
-    element.Position = UDim2.new(0, 5, 0, (#parent:GetChildren() - 1) * 35 + 5)
-    element.Text = text
-    element.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    element.TextColor3 = Color3.fromRGB(255, 255, 255)
-    element.Parent = parent
+function UILib:AddElem(p, type, text, cb, props)
+    local e = Instance.new(type)
+    e.Size = UDim2.new(1, -10, 0, 30)
+    e.Position = UDim2.new(0, 5, 0, (#p:GetChildren() - 1) * 35 + 5)
+    e.Text = text
+    e.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    e.TextColor3 = Color3.fromRGB(255, 255, 255)
+    e.Parent = p
 
-    if additionalProperties then
-        for property, value in pairs(additionalProperties) do
-            element[property] = value
+    if props then
+        for k, v in pairs(props) do
+            e[k] = v
         end
     end
 
-    if callback then
-        if elementType == "TextButton" then
-            element.MouseButton1Click:Connect(callback)
-        elseif elementType == "TextBox" then
-            element.FocusLost:Connect(function(enterPressed)
-                if enterPressed then
-                    callback(element.Text)
+    if cb then
+        if type == "TextButton" then
+            e.MouseButton1Click:Connect(cb)
+        elseif type == "TextBox" then
+            e.FocusLost:Connect(function(ep)
+                if ep then
+                    cb(e.Text)
                 end
             end)
         end
     end
 
-    return element
+    return e
 end
 
--- Agregar un botón normal
-function UILibrary:AddButton(parent, text, callback)
-    self:AddElement(parent, "TextButton", text, callback)
+function UILib:AddBtn(p, text, cb)
+    self:AddElem(p, "TextButton", text, cb)
 end
 
--- Agregar un botón de opciones
-function UILibrary:AddOptionsButton(parent, text)
-    local button = self:AddElement(parent, "TextButton", text)
-    local optionsFrame = Instance.new("Frame")
-    optionsFrame.Size = UDim2.new(1, -10, 0, 0)
-    optionsFrame.Position = UDim2.new(0, 5, 0, (#parent:GetChildren()) * 35 + 5)
-    optionsFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-    optionsFrame.ClipsDescendants = true
-    optionsFrame.Parent = parent
+function UILib:AddOptsBtn(p, text)
+    local btn = self:AddElem(p, "TextButton", text)
+    local of = Instance.new("Frame")
+    of.Size = UDim2.new(1, -10, 0, 0)
+    of.Position = UDim2.new(0, 5, 0, (#p:GetChildren()) * 35 + 5)
+    of.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    of.ClipsDescendants = true
+    of.Parent = p
 
-    button.MouseButton1Click:Connect(function()
-        optionsFrame.Size = optionsFrame.Size == UDim2.new(1, -10, 0, 0) and UDim2.new(1, -10, 0, (#optionsFrame:GetChildren() * 35)) or UDim2.new(1, -10, 0, 0)
+    btn.MouseButton1Click:Connect(function()
+        of.Size = of.Size == UDim2.new(1, -10, 0, 0) and UDim2.new(1, -10, 0, (#of:GetChildren() * 35)) or UDim2.new(1, -10, 0, 0)
     end)
 
-    return button, optionsFrame
+    return btn, of
 end
 
--- Agregar un botón toggle
-function UILibrary:AddToggleButton(parent, text, defaultState, callback)
-    local state = defaultState
-    local button = self:AddElement(parent, "TextButton", text .. " (" .. (state and "On" or "Off") .. ")")
-    button.MouseButton1Click:Connect(function()
+function UILib:AddTglBtn(p, text, defState, cb)
+    local state = defState
+    local btn = self:AddElem(p, "TextButton", text .. " (" .. (state and "On" or "Off") .. ")")
+    btn.MouseButton1Click:Connect(function()
         state = not state
-        button.Text = text .. " (" .. (state and "On" or "Off") .. ")"
-        callback(state)
+        btn.Text = text .. " (" .. (state and "On" or "Off") .. ")"
+        cb(state)
     end)
 end
 
--- Agregar un Textbox
-function UILibrary:AddTextbox(parent, text, placeholder, callback)
-    local frame = Instance.new("Frame")
-    frame.Size = UDim2.new(1, -10, 0, 30)
-    frame.Position = UDim2.new(0, 5, 0, (#parent:GetChildren() - 1) * 35 + 5)
-    frame.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-    frame.Parent = parent
+function UILib:AddTB(p, text, ph, cb)
+    local frm = Instance.new("Frame")
+    frm.Size = UDim2.new(1, -10, 0, 30)
+    frm.Position = UDim2.new(0, 5, 0, (#p:GetChildren() - 1) * 35 + 5)
+    frm.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    frm.Parent = p
 
-    local label = self:AddElement(frame, "TextLabel", text, nil, {Size = UDim2.new(0.4, 0, 1, 0), Position = UDim2.new(0, 0, 0, 0)})
-
-    local textbox = self:AddElement(frame, "TextBox", "", callback, {Size = UDim2.new(0.6, 0, 1, 0), Position = UDim2.new(0.4, 0, 0, 0), PlaceholderText = placeholder})
+    local lbl = self:AddElem(frm, "TextLabel", text, nil, {Size = UDim2.new(0.4, 0, 1, 0), Position = UDim2.new(0, 0, 0, 0)})
+    local tb = self:AddElem(frm, "TextBox", "", cb, {Size = UDim2.new(0.6, 0, 1, 0), Position = UDim2.new(0.4, 0, 0, 0), PlaceholderText = ph})
 end
 
-return UILibrary
+return UILib
