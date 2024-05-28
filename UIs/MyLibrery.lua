@@ -54,7 +54,7 @@ function UILibrary:CreateWindow(parent, title)
     frame.Parent = parent
     frame.Active = true
     frame.Draggable = true
-    frame.Size = UILibrary.Sizes.Window
+    frame.Size = UDim2.new(0.2, 0, 0.3 + (7 * 0.1) + (7 * UILibrary.Padding.Element / 1000), 0)  -- Tamaño fijo basado en el número máximo de botones
     frame.BackgroundColor3 = UILibrary.Colors.Background
     frame.BackgroundTransparency = UILibrary.Transparency.Background
 
@@ -71,30 +71,11 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
-local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame
-    local elementCount = 0
-    for _, child in ipairs(frame:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= frame then
-            elementCount = elementCount + 1
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
-        end
-    end
-    frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
-end
-
-
-local function positionElement(parent, element)
-    local elementCount = 0
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
-        end
-    end
-    local yPos = (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
+local function positionElement(parent, element, index)
+    local yPos = UILibrary.Padding.Frame + (index - 1) * (element.Size.Y.Offset + UILibrary.Padding.Element)
     element.Position = UDim2.new(0.1, 0, 0, yPos)
-    adjustFrameSize(parent)
 end
+
 
 function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
@@ -128,7 +109,8 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    positionElement(parent, button)
+    local elementCount = #parent:GetChildren() - 1  -- Excluye el frame mismo
+    positionElement(parent, button, elementCount)
 
     return button
 end
@@ -150,7 +132,8 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
-    positionElement(parent, textBox)
+    local elementCount = #parent:GetChildren() - 1  -- Excluye el frame mismo
+    positionElement(parent, textBox, elementCount)
 
     return textBox
 end
@@ -181,7 +164,8 @@ function UILibrary:CreateButtonToggle(parent, text, onToggle)
         onToggle(toggled)
     end)
 
-    positionElement(parent, buttonToggle)
+    local elementCount = #parent:GetChildren() - 1  -- Excluye el frame mismo
+    positionElement(parent, buttonToggle, elementCount)
 
     return buttonToggle
 end
