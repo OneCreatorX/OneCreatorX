@@ -20,11 +20,11 @@ function UILibrary:CreateScreenGui(name)
     return screenGui
 end
 
-function UILibrary:CreateSection(parent, title)
+function UILibrary:CreateSection(parent, title, size, position)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
-    sectionFrame.Size = UDim2.new(1, 0, 1, -60)
-    sectionFrame.Position = UDim2.new(0, 0, 0, 30)
+    sectionFrame.Size = size or UDim2.new(1, 0, 1, -60)
+    sectionFrame.Position = position or UDim2.new(0, 0, 0, 30)
     sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     sectionFrame.BackgroundTransparency = 0.1
     sectionFrame.BorderSizePixel = 1
@@ -113,7 +113,7 @@ function UILibrary:CreateFrame(parent, title)
     creditsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsTitleLabel.Font = Enum.Font.SourceSans
     creditsTitleLabel.TextSize = 18
-    
+
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
@@ -139,7 +139,7 @@ function UILibrary:CreateFrame(parent, title)
     frame:GetPropertyChangedSignal("Position"):Connect(syncFrames)
     frame:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
-    return frame, contentFrame
+    return frame, contentFrame, creditsFrame
 end
 
 function UILibrary:AddButton(parent, buttonText, callback)
@@ -182,7 +182,7 @@ function UILibrary:AddOptionsButton(parent, optionsName)
     optionsFrame.BorderSizePixel = 0
     optionsFrame.Visible = false
 
-local optionsTitleLabel = Instance.new("TextLabel")
+    local optionsTitleLabel = Instance.new("TextLabel")
     optionsTitleLabel.Parent = optionsFrame
     optionsTitleLabel.Text = optionsName
     optionsTitleLabel.Size = UDim2.new(1, 0, 0, 30)
@@ -207,10 +207,10 @@ local optionsTitleLabel = Instance.new("TextLabel")
     return button, optionsFrame
 end
 
-function UILibrary:AddToggleButton(parent, buttonText, callbackOn, callbackOff)
+function UILibrary:AddToggleButton(parent, buttonText, callback)
     local button = Instance.new("TextButton")
     button.Parent = parent
-    button.Text = buttonText .. " (X)"
+    button.Text = buttonText .. " (Off)"
     button.Size = UDim2.new(1, 0, 0, 30)
     button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -219,20 +219,32 @@ function UILibrary:AddToggleButton(parent, buttonText, callbackOn, callbackOff)
     button.Font = Enum.Font.SourceSans
     button.TextSize = 18
 
-    local toggled = false
+    local isActive = false
 
     button.MouseButton1Click:Connect(function()
-        toggled = not toggled
-        if toggled then
-            button.Text = buttonText .. " (✓)"
-            callbackOn()
-        else
-            button.Text = buttonText .. " (X)"
-            callbackOff()
-        end
+        isActive = not isActive
+        button.Text = buttonText .. (isActive and " (On)" or " (Off)")
+        callback(isActive)
     end)
 
     parent.Parent.Size = UDim2.new(0.27, 0, 0, 60 + #parent:GetChildren() * 30)
+
+    return button
+end
+
+function UILibrary:AddButtonToCreditsFrame(creditsFrame, buttonText, callback)
+    local button = Instance.new("TextButton")
+    button.Parent = creditsFrame
+    button.Text = buttonText
+    button.Size = UDim2.new(1, 0, 0, 30)
+    button.Position = UDim2.new(0, 0, 0, #creditsFrame:GetChildren() * 30 - 30)
+    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    button.BackgroundTransparency = 0.2
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 18
+
+    button.MouseButton1Click:Connect(callback)
 
     return button
 end
