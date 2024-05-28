@@ -76,6 +76,16 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
 
+    local creditsFrame = Instance.new("Frame")
+    creditsFrame.Parent = parent
+    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
+    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
+    creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    creditsFrame.BackgroundTransparency = 0.1
+    creditsFrame.BorderSizePixel = 0
+    creditsFrame.Visible = false  -- Inicialmente oculto
+
+    -- Funcionalidad de minimizar/maximizar
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
@@ -88,6 +98,11 @@ function UILibrary:CreateFrame(parent, title)
             toggleButton.Text = "-"
             frame.Size = UDim2.new(0.27, 0, 0.4, 0)  -- Restaurar el tamaño original del frame
         end
+    end)
+
+    -- Funcionalidad del botón de créditos
+    creditsButton.MouseButton1Click:Connect(function()
+        creditsFrame.Visible = not creditsFrame.Visible
     end)
 
     return frame
