@@ -75,7 +75,8 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
-  local creditsFrame = Instance.new("Frame")
+
+    local creditsFrame = Instance.new("Frame")
     creditsFrame.Parent = parent
     creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
     creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
@@ -145,6 +146,7 @@ function UILibrary:AddSectionButton(parent, sectionName)
     sectionButton.Font = Enum.Font.SourceSans
     sectionButton.TextSize = 18
 
+
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent.Parent.Parent  -- Asegurarse de que el frame se agregue al ScreenGui
     sectionFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
@@ -183,4 +185,3 @@ function UILibrary:AddSectionButton(parent, sectionName)
 end
 
 return UILibrary
-    
