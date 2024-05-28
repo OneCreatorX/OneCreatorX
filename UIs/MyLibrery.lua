@@ -37,14 +37,14 @@ UILibrary.Padding = {
 }
 
 function UILibrary:CreateScreenGui(name)
-    local existingGui = game.Players.LocalPlayer.PlayerGui:FindFirstChild(name)
-    if existingGui then
+    local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
+    if (existingGui) then
         existingGui:Destroy()
     end
 
     local screenGui = Instance.new("ScreenGui")
     screenGui.Name = name
-    screenGui.Parent = game.Players.LocalPlayer.PlayerGui
+    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
     screenGui.ResetOnSpawn = false
     return screenGui
 end
@@ -88,7 +88,7 @@ local function positionElement(parent, element)
             elementCount = elementCount + 1
         end
     end
-    local yPos = (elementCount * (UILibrary.Sizes.Button.Y.Scale + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
+    local yPos = (elementCount * (UILibrary.Sizes.Button.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame -- Adjusted to add more space per element
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
