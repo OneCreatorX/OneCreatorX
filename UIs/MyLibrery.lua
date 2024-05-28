@@ -4,10 +4,10 @@ UILibrary.Colors = {
     Background = Color3.fromRGB(25, 25, 25),  -- Color de fondo del frame principal
     Text = Color3.fromRGB(255, 255, 255),     -- Color del texto
     Button = Color3.fromRGB(50, 50, 50),      -- Color de fondo del botón
-    ButtonHover = Color3.fromRGB(105, 35, 235), -- Color del botón al pasar el mouse
+    ButtonHover = Color3.fromRGB(105, 215, 80), -- Color del botón al pasar el mouse
     Input = Color3.fromRGB(35, 35, 35),       -- Color de fondo del TextBox
     Border = Color3.fromRGB(150, 150, 150),   -- Color del borde de los elementos
-    Button3D = Color3.fromRGB(125, 55, 205)     -- Color del borde del botón al hacer clic
+    Button3D = Color3.fromRGB(90, 105, 210)     -- Color del borde del botón al hacer clic
 }
 
 UILibrary.Fonts = {
@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),       -- Tamaño del frame principal
-    Button = UDim2.new(0.9, 0, 0.12, 0),      -- Tamaño de los botones
-    TextBox = UDim2.new(0.9, 0, 0.12, 0)      -- Tamaño del TextBox
+    Button = UDim2.new(0.8, 0, 0.12, 0),      -- Tamaño de los botones
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)      -- Tamaño del TextBox
 }
 
 UILibrary.Transparency = {
@@ -28,12 +28,12 @@ UILibrary.Transparency = {
 
 UILibrary.TextSizes = {
     Button = 10,                              -- Tamaño del texto de los botones
-    TextBox = 10                             -- Tamaño del texto del TextBox
+    TextBox = 10                              -- Tamaño del texto del TextBox
 }
 
 UILibrary.Padding = {
     Element = 10,                             -- Espacio entre elementos
-    Frame = 30                                -- Espacio inicial para el título del frame
+    Frame = 35                                -- Espacio inicial para el título del frame
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -72,6 +72,9 @@ function UILibrary:CreateWindow(parent, title)
 end
 
 
+
+
+
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
@@ -89,7 +92,7 @@ local function positionElement(parent, element)
             elementCount = elementCount + 1
         end
     end
-    local yPos = (elementCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
+    local yPos = (elementCount * (UILibrary.Sizes.Button.Y.Scale + 0.02)) + 0.1 -- Adjusted to add more space per element
     element.Position = UDim2.new(0.1, 0, yPos, 0)
     adjustFrameSize(parent)
 end
@@ -131,11 +134,11 @@ function UILibrary:CreateButton(parent, text, onClick)
     return button
 end
 
-
 function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
+    textBox.Text = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
