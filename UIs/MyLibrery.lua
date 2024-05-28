@@ -32,8 +32,8 @@ UILibrary.TextSizes = {
 }
 
 UILibrary.Padding = {
-    Element = 15,
-    Frame = 20
+    Element = 20,
+    Frame = 21
 }
 
 function UILibrary:CreateScreenGui(name)
