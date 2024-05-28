@@ -23,13 +23,14 @@ end
 function UILibrary:CreateSection(parent, title)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
-    sectionFrame.Size = UDim2.new(2, 0, 0.4, 0)
-    sectionFrame.Position = UDim2.new(2, 0, 0.3, 0)
+    sectionFrame.Size = UDim2.new(1, 0, 1, -60)
+    sectionFrame.Position = UDim2.new(0, 0, 0, 30)
     sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     sectionFrame.BackgroundTransparency = 0.1
     sectionFrame.BorderSizePixel = 1
     sectionFrame.Visible = false
 
+    
     local sectionTitleLabel = Instance.new("TextLabel")
     sectionTitleLabel.Parent = sectionFrame
     sectionTitleLabel.Text = title
