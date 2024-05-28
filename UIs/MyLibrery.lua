@@ -30,7 +30,6 @@ function UILibrary:CreateSection(parent, title)
     sectionFrame.BorderSizePixel = 1
     sectionFrame.Visible = false
 
-    
     local sectionTitleLabel = Instance.new("TextLabel")
     sectionTitleLabel.Parent = sectionFrame
     sectionTitleLabel.Text = title
@@ -148,7 +147,7 @@ function UILibrary:AddButton(parent, buttonText, callback)
     button.Parent = parent
     button.Text = buttonText
     button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)  -- Genera el botón debajo del anterior
+    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     button.BackgroundTransparency = 0.2
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -157,7 +156,6 @@ function UILibrary:AddButton(parent, buttonText, callback)
 
     button.MouseButton1Click:Connect(callback)
 
-    -- Ajustar el tamaño del frame principal
     parent.Parent.Size = UDim2.new(0.27, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return button
@@ -168,7 +166,7 @@ function UILibrary:AddOptionsButton(parent, optionsName)
     button.Parent = parent
     button.Text = optionsName
     button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)  -- Genera el botón debajo del anterior
+    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     button.BackgroundTransparency = 0.2
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -184,7 +182,7 @@ function UILibrary:AddOptionsButton(parent, optionsName)
     optionsFrame.BorderSizePixel = 0
     optionsFrame.Visible = false
 
-    local optionsTitleLabel = Instance.new("TextLabel")
+local optionsTitleLabel = Instance.new("TextLabel")
     optionsTitleLabel.Parent = optionsFrame
     optionsTitleLabel.Text = optionsName
     optionsTitleLabel.Size = UDim2.new(1, 0, 0, 30)
@@ -207,6 +205,36 @@ function UILibrary:AddOptionsButton(parent, optionsName)
     parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
     return button, optionsFrame
+end
+
+function UILibrary:AddToggleButton(parent, buttonText, callbackOn, callbackOff)
+    local button = Instance.new("TextButton")
+    button.Parent = parent
+    button.Text = buttonText .. " (X)"
+    button.Size = UDim2.new(1, 0, 0, 30)
+    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    button.BackgroundTransparency = 0.2
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 18
+
+    local toggled = false
+
+    button.MouseButton1Click:Connect(function()
+        toggled = not toggled
+        if toggled then
+            button.Text = buttonText .. " (✓)"
+            callbackOn()
+        else
+            button.Text = buttonText .. " (X)"
+            callbackOff()
+        end
+    end)
+
+    parent.Parent.Size = UDim2.new(0.27, 0, 0, 60 + #parent:GetChildren() * 30)
+
+    return button
 end
 
 return UILibrary
