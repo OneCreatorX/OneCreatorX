@@ -1,44 +1,51 @@
 local UILibrary = {}
 
+-- Colores
 UILibrary.Colors = {
-    Background = Color3.fromRGB(25, 25, 25),  -- Color de fondo del frame principal
-    Text = Color3.fromRGB(255, 255, 255),     -- Color del texto
-    Button = Color3.fromRGB(50, 50, 50),      -- Color de fondo del botón
-    ButtonHover = Color3.fromRGB(105, 215, 80), -- Color del botón al pasar el mouse
-    Input = Color3.fromRGB(35, 35, 35),       -- Color de fondo del TextBox
-    Border = Color3.fromRGB(150, 150, 150),   -- Color del borde de los elementos
-    Button3D = Color3.fromRGB(90, 105, 210)   -- Color del borde del botón al hacer clic
+    Background = Color3.fromRGB(25, 25, 25),
+    Text = Color3.fromRGB(255, 255, 255),
+    Button = Color3.fromRGB(50, 50, 50),
+    ButtonHover = Color3.fromRGB(105, 215, 80),
+    Input = Color3.fromRGB(35, 35, 35),
+    Border = Color3.fromRGB(150, 150, 150),
+    Button3D = Color3.fromRGB(90, 105, 210)
 }
 
+-- Fuentes
 UILibrary.Fonts = {
-    Main = Enum.Font.SourceSans,       
-    Button = Enum.Font.SourceSansBold     
+    Main = Enum.Font.SourceSans,
+    Button = Enum.Font.SourceSansBold
 }
 
+-- Tamaños
 UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.4, 0),  
-    Button = UDim2.new(0.8, 0, 0.12, 0),  
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)   
+    Window = UDim2.new(0.2, 0, 0.4, 0),
+    Button = UDim2.new(0.8, 0, 0.12, 0),
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)
 }
 
+-- Transparencias
 UILibrary.Transparency = {
-    Background = 0.9,           
-    Button = 0.8                
+    Background = 0.9,
+    Button = 0.8
 }
 
+-- Tamaños de texto
 UILibrary.TextSizes = {
-    Button = 10,            
-    TextBox = 10                
+    Button = 10,
+    TextBox = 10
 }
 
+-- Padding
 UILibrary.Padding = {
-    Element = 10,             
-    Frame = 10            
+    Element = 10,
+    Frame = 10
 }
 
+-- Función para crear ScreenGui
 function UILibrary:CreateScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
-    if (existingGui) then
+    if existingGui then
         existingGui:Destroy()
     end
 
@@ -49,6 +56,7 @@ function UILibrary:CreateScreenGui(name)
     return screenGui
 end
 
+-- Función para crear Ventana
 function UILibrary:CreateWindow(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
@@ -71,16 +79,18 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
+-- Función para ajustar el tamaño del frame
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
+-- Función para posicionar un elemento
 local function positionElement(parent, element)
     local lastElement = nil
     for _, child in ipairs(parent:GetChildren()) do
@@ -96,9 +106,11 @@ local function positionElement(parent, element)
     adjustFrameSize(parent)
 end
 
+-- Metatable para la ventana
 local Window = {}
 Window.__index = Window
 
+-- Función para crear un botón en la ventana
 function Window:Button(text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = self.frame
@@ -136,6 +148,7 @@ function Window:Button(text, onClick)
     return self
 end
 
+-- Función para crear un cuadro de texto en la ventana
 function Window:TextBox(placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = self.frame
@@ -159,15 +172,50 @@ function Window:TextBox(placeholderText, onEnter)
     return self
 end
 
+-- Función para crear un toggle en la ventana
+function Window:Toggle(text, onToggle)
+    local buttonToggle = Instance.new("TextButton")
+    buttonToggle.Parent = self.frame
+    buttonToggle.Text = text
+    buttonToggle.Size = UILibrary.Sizes.Button
+    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+    buttonToggle.TextColor3 = UILibrary.Colors.Text
+    buttonToggle.Font = UILibrary.Fonts.Button
+    buttonToggle.TextSize = UILibrary.TextSizes.Button
+    buttonToggle.AutoButtonColor = false
+
+    buttonToggle.BorderSizePixel = 1
+    buttonToggle.BorderColor3 = UILibrary.Colors.Border
+
+    local toggled = false
+
+    buttonToggle.MouseButton1Click:Connect(function()
+        toggled = not toggled
+        if toggled then
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
+        else
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+        end
+        onToggle(toggled)
+    end)
+
+    positionElement(self.frame, buttonToggle)
+
+    return self
+end
+
+-- Metatabla para la GUI de pantalla
 local ScreenGui = {}
 ScreenGui.__index = ScreenGui
 
+-- Función para crear una ventana en la GUI de pantalla
 function ScreenGui:Window(title)
     local frame = UILibrary:CreateWindow(self.gui, title)
     local window = setmetatable({ frame = frame }, Window)
     return window
 end
 
+-- Función para crear una GUI de pantalla
 function UILibrary:ScreenGui(name)
     local gui = UILibrary:CreateScreenGui(name)
     local screenGui = setmetatable({ gui = gui }, ScreenGui)
