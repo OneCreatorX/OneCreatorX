@@ -32,7 +32,7 @@ UILibrary.TextSizes = {
 }
 
 UILibrary.Padding = {
-    Element = 20,
+    Element = 10,
     Frame = 5
 }
 
