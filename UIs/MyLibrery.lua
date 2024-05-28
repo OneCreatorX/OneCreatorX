@@ -159,7 +159,7 @@ function Window:TextBox(placeholderText, onEnter)
     return self
 end
 
-function ScreenGui:Toggle(text, onToggle)
+function Window:Toggle(text, onToggle)
     local buttonToggle = Instance.new("TextButton")
     buttonToggle.Parent = self.frame
     buttonToggle.Text = text
