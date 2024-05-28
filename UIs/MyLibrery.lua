@@ -201,4 +201,45 @@ function UILibrary:AddToggleButton(parent, toggleText, defaultState, callback)
     return button
 end
 
+function UILibrary:AddTextbox(parent, textboxText, defaultText, callback)
+    local frame = Instance.new("Frame")
+    frame.Parent = parent
+    frame.Size = UDim2.new(1, 0, 0, 30)
+    frame.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    frame.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    frame.BackgroundTransparency = 0.2
+
+    local label = Instance.new("TextLabel")
+    label.Parent = frame
+    label.Text = textboxText
+    label.Size = UDim2.new(0.4, 0, 1, 0)
+    label.Position = UDim2.new(0, 0, 0, 0)
+    label.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    label.BackgroundTransparency = 0.2
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.Font = Enum.Font.SourceSans
+    label.TextSize = 18
+
+    local textbox = Instance.new("TextBox")
+    textbox.Parent = frame
+    textbox.Text = defaultText or ""
+    textbox.Size = UDim2.new(0.6, 0, 1, 0)
+    textbox.Position = UDim2.new(0.4, 0, 0, 0)
+    textbox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    textbox.BackgroundTransparency = 0.2
+    textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textbox.Font = Enum.Font.SourceSans
+    textbox.TextSize = 18
+
+    textbox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then
+            callback(textbox.Text)
+        end
+    end)
+
+    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
+
+    return frame, textbox
+end
+
 return UILibrary
