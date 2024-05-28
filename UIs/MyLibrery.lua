@@ -71,7 +71,6 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
-
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
@@ -160,41 +159,10 @@ function Window:TextBox(placeholderText, onEnter)
     return self
 end
 
-function Window:Toggle(text, onToggle)
-    local buttonToggle = Instance.new("TextButton")
-    buttonToggle.Parent = self.frame
-    buttonToggle.Text = text
-    buttonToggle.Size = UILibrary.Sizes.Button
-    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-    buttonToggle.TextColor3 = UILibrary.Colors.Text
-    buttonToggle.Font = UILibrary.Fonts.Button
-    buttonToggle.TextSize = UILibrary.TextSizes.Button
-    buttonToggle.AutoButtonColor = false
-
-    buttonToggle.BorderSizePixel = 1
-    buttonToggle.BorderColor3 = UILibrary.Colors.Border
-
-    local toggled = false
-
-    buttonToggle.MouseButton1Click:Connect(function()
-        toggled = not toggled
-        if toggled then
-            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
-        else
-            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-        end
-        onToggle(toggled)
-    end)
-
-    positionElement(self.frame, buttonToggle)
-
-    return self
-end
-
 local ScreenGui = {}
 ScreenGui.__index = ScreenGui
 
-function ScreenGui:Ventana(title)
+function ScreenGui:Window(title)
     local frame = UILibrary:CreateWindow(self.gui, title)
     local window = setmetatable({ frame = frame }, Window)
     return window
