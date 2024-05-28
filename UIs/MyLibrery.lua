@@ -32,7 +32,7 @@ UILibrary.TextSizes = {
 }
 
 UILibrary.Padding = {
-    Element = 10,                             -- Espacio entre elementos
+    Element = 15,                             -- Espacio entre elementos
     Frame = 30                                -- Espacio inicial para el título del frame
 }
 
