@@ -72,8 +72,8 @@ function UILibrary:CreateFrame(parent, title)
 
     local creditsFrame = Instance.new("Frame")
     creditsFrame.Parent = parent
-    creditsFrame.Size = UDim2.new(0.25, 0, 0.4, 0)
-    creditsFrame.Position = UDim2.new(0.325 + frame.Size.X.Scale, 0, 0.3, 0)
+    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)
+    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
     creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     creditsFrame.BackgroundTransparency = 0.1
     creditsFrame.BorderSizePixel = 1
@@ -123,7 +123,7 @@ function UILibrary:AddButton(parent, buttonText, callback)
     button.Parent = parent
     button.Text = buttonText
     button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)  -- Genera el botón debajo del anterior
+    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     button.BackgroundTransparency = 0.2
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -132,7 +132,6 @@ function UILibrary:AddButton(parent, buttonText, callback)
 
     button.MouseButton1Click:Connect(callback)
 
-    -- Ajustar el tamaño del frame principal
     parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return button
@@ -143,7 +142,7 @@ function UILibrary:AddOptionsButton(parent, optionsName)
     button.Parent = parent
     button.Text = optionsName
     button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)  -- Genera el botón debajo del anterior
+    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     button.BackgroundTransparency = 0.2
     button.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -153,7 +152,7 @@ function UILibrary:AddOptionsButton(parent, optionsName)
     local optionsFrame = Instance.new("Frame")
     optionsFrame.Parent = parent.Parent
     optionsFrame.Size = UDim2.new(0.25, 0, 0.4, 0)
-    optionsFrame.Position = UDim2.new(parent.Parent.Position.X.Scale + parent.Parent.Size.X.Scale, 0, parent.Position.Y.Scale, 0)
+    optionsFrame.Position = UDim2.new(1.02, 0, 0, 0)  -- Ajusta la posición para que esté a la derecha del frame principal
     optionsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     optionsFrame.BackgroundTransparency = 0.1
     optionsFrame.BorderSizePixel = 0
@@ -174,39 +173,32 @@ function UILibrary:AddOptionsButton(parent, optionsName)
         optionsFrame.Visible = not optionsFrame.Visible
     end)
 
-    local function syncFrames()
-        optionsFrame.Position = UDim2.new(parent.Parent.Position.X.Scale + parent.Parent.Size.X.Scale, parent.Parent.Position.X.Offset, parent.Parent.Position.Y.Scale, parent.Parent.Position.Y.Offset)
-    end
-
-    parent.Parent:GetPropertyChangedSignal("Position"):Connect(syncFrames)
-    parent.Parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
-
-    return optionsFrame
+    return button, optionsFrame
 end
 
-function UILibrary:AddToggleButton(parent, buttonText, callback)
-    local toggleButton = Instance.new("TextButton")
-    toggleButton.Parent = parent
-    toggleButton.Text = buttonText .. " (Off)"
-    toggleButton.Size = UDim2.new(1, 0, 0, 30)
-    toggleButton.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)  -- Genera el botón debajo del anterior
-    toggleButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    toggleButton.BackgroundTransparency = 0.2
-    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    toggleButton.Font = Enum.Font.SourceSans
-    toggleButton.TextSize = 18
+function UILibrary:AddToggleButton(parent, toggleText, defaultState, callback)
+    local button = Instance.new("TextButton")
+    button.Parent = parent
+    button.Text = toggleText .. " (" .. (defaultState and "On" or "Off") .. ")"
+    button.Size = UDim2.new(1, 0, 0, 30)
+    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    button.BackgroundTransparency = 0.2
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 18
 
-    local isOn = false
-    toggleButton.MouseButton1Click:Connect(function()
-        isOn = not isOn
-        toggleButton.Text = buttonText .. (isOn and " (On)" or " (Off)")
-        callback(isOn)
+    local state = defaultState
+
+    button.MouseButton1Click:Connect(function()
+        state = not state
+        button.Text = toggleText .. " (" .. (state and "On" or "Off") .. ")"
+        callback(state)
     end)
 
-    -- Ajustar el tamaño del frame principal
     parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
 
-    return toggleButton
+    return button
 end
 
 return UILibrary
