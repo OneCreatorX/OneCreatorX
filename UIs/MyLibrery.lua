@@ -72,28 +72,49 @@ function UILibrary:CreateWindow(parent, title)
 end
 
 local function adjustFrameSize(frame)
+    -- Inicializamos el alto total con el valor de padding del frame
     local totalHeight = UILibrary.Padding.Frame
+    -- Contador para llevar la cuenta de los elementos
     local elementCount = 0
+    -- Referencia al último elemento agregado
+    local lastElement = nil
+    -- Iteramos sobre los hijos del frame
     for _, child in ipairs(frame:GetChildren()) do
+        -- Verificamos si el hijo es un objeto gráfico y no es el frame mismo
         if child:IsA("GuiObject") and child ~= frame then
+            -- Incrementamos el contador de elementos
             elementCount = elementCount + 1
+            -- Sumamos el alto del elemento y el padding al alto total
             totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
+            -- Actualizamos la referencia al último elemento
+            lastElement = child
         end
     end
+    -- Ajustamos el tamaño del frame con el nuevo alto total
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
+    -- Si hay un último elemento
+    if lastElement then
+        -- Ajustamos la posición del frame para centrarlo verticalmente con respecto al último elemento
+        frame.Position = UDim2.new(frame.Position.X.Scale, frame.Position.X.Offset, 0, -totalHeight / 2 + lastElement.Position.Y.Offset + lastElement.Size.Y.Offset / 2)
+    else
+        -- Si no hay elementos, el frame se posiciona desde arriba
+        frame.Position = UDim2.new(frame.Position.X.Scale, frame.Position.X.Offset, 0, 0)
+    end
 end
 
 local function positionElement(parent, element)
     local elementCount = 0
+    local yPos = UILibrary.Padding.Frame -- Establecer yPos en el padding inicial
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("GuiObject") and child ~= parent then
             elementCount = elementCount + 1
+            yPos = yPos + child.Size.Y.Offset + UILibrary.Padding.Element -- Ajustar yPos para el siguiente elemento
         end
     end
-    local yPos = (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
     element.Position = UDim2.new(0.1, 0, yPos, yPos)
     adjustFrameSize(parent)
 end
+
 
 function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
