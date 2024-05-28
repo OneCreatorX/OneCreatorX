@@ -91,7 +91,7 @@ local function positionElement(parent, element)
         end
     end
     local yPos = (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
-    element.Position = UDim2.new(0.1, 0, 0, yPos)
+    element.Position = UDim2.new(0.1, 0, yPos, yPos)
     adjustFrameSize(parent)
 end
 
