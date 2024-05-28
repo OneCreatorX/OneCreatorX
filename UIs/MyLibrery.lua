@@ -143,7 +143,7 @@ function UILibrary:AddSectionButton(parent, sectionName)
 
     -- Frame adicional para la nueva sección
     local sectionFrame = Instance.new("Frame")
-    sectionFrame.Parent = parent.Parent
+    sectionFrame.Parent = parent.Parent.Parent  -- Asegurarse de que el frame se agregue al ScreenGui
     sectionFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
     sectionFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
     sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
@@ -151,7 +151,7 @@ function UILibrary:AddSectionButton(parent, sectionName)
     sectionFrame.BorderSizePixel = 0
     sectionFrame.Visible = false  -- Inicialmente oculto
 
-local sectionTitleLabel = Instance.new("TextLabel")
+    local sectionTitleLabel = Instance.new("TextLabel")
     sectionTitleLabel.Parent = sectionFrame
     sectionTitleLabel.Text = sectionName
     sectionTitleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
