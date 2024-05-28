@@ -75,8 +75,7 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
-
-    local creditsFrame = Instance.new("Frame")
+  local creditsFrame = Instance.new("Frame")
     creditsFrame.Parent = parent
     creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
     creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
@@ -131,6 +130,11 @@ function UILibrary:CreateFrame(parent, title)
 end
 
 function UILibrary:AddSectionButton(parent, sectionName)
+    if not parent or not parent.Parent or not parent.Parent.Parent then
+        warn("Parent or its ancestors are nil")
+        return
+    end
+
     local sectionButton = Instance.new("TextButton")
     sectionButton.Parent = parent
     sectionButton.Text = sectionName
@@ -141,7 +145,6 @@ function UILibrary:AddSectionButton(parent, sectionName)
     sectionButton.Font = Enum.Font.SourceSans
     sectionButton.TextSize = 18
 
-    -- Frame adicional para la nueva sección
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent.Parent.Parent  -- Asegurarse de que el frame se agregue al ScreenGui
     sectionFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
@@ -151,6 +154,7 @@ function UILibrary:AddSectionButton(parent, sectionName)
     sectionFrame.BorderSizePixel = 0
     sectionFrame.Visible = false  -- Inicialmente oculto
 
+    -- Título del frame de la nueva sección
     local sectionTitleLabel = Instance.new("TextLabel")
     sectionTitleLabel.Parent = sectionFrame
     sectionTitleLabel.Text = sectionName
