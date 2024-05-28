@@ -72,8 +72,6 @@ function UILibrary:CreateWindow(parent, title)
 end
 
 
-
-
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
@@ -96,7 +94,6 @@ local function positionElement(parent, element)
     else
         element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
     end
-    adjustFrameSize(parent)
 end
 
 local Window = {}
@@ -135,6 +132,7 @@ function Window:Button(text, onClick)
     end)
 
     positionElement(self.frame, button)
+    adjustFrameSize(self.frame)
 
     return self
 end
@@ -156,8 +154,8 @@ function Window:TextBox(placeholderText, onEnter)
             onEnter(textBox.Text)
         end
     end)
-
 positionElement(self.frame, textBox)
+    adjustFrameSize(self.frame)
 
     return self
 end
@@ -189,6 +187,7 @@ function Window:Toggle(text, onToggle)
     end)
 
     positionElement(self.frame, buttonToggle)
+    adjustFrameSize(self.frame)
 
     return self
 end
