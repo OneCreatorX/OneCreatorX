@@ -36,7 +36,6 @@ UILibrary.Padding = {
     Frame = 30                                -- Espacio inicial para el título del frame
 }
 
--- Función para crear ScreenGui
 function UILibrary:ScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
     if existingGui then
@@ -50,7 +49,6 @@ function UILibrary:ScreenGui(name)
     return screenGui
 end
 
--- Función para crear Window
 function UILibrary:Window(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
@@ -73,18 +71,16 @@ function UILibrary:Window(parent, title)
     return frame
 end
 
--- Función para ajustar el tamaño del frame
 local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame
+    local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
--- Función para posicionar elementos
 local function positionElement(parent, element)
     local elementCount = 0
     for _, child in ipairs(parent:GetChildren()) do
@@ -92,12 +88,11 @@ local function positionElement(parent, element)
             elementCount = elementCount + 1
         end
     end
-    local yPos = (elementCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
+    local yPos = (elementCount * (element.Size.Y.Scale + UILibrary.Padding.Element))
     element.Position = UDim2.new(0.1, 0, yPos, 0)
     adjustFrameSize(parent)
 end
 
--- Función para crear Button
 function UILibrary:Button(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
@@ -135,7 +130,6 @@ function UILibrary:Button(parent, text, onClick)
     return button
 end
 
--- Función para crear TextBox
 function UILibrary:TextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
@@ -158,7 +152,6 @@ function UILibrary:TextBox(parent, placeholderText, onEnter)
     return textBox
 end
 
--- Función para crear Toggle
 function UILibrary:Toggle(parent, text, onToggle)
     local toggleButton = Instance.new("TextButton")
     toggleButton.Parent = parent
