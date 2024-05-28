@@ -47,7 +47,7 @@ end
 function UILibrary:CreateFrame(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
-    frame.Size = UDim2.new(0.27, 0, 0, 60 + #contentFrame:GetChildren() * 30)
+    frame.Size = UDim2.new(0.27, 0, 0, 60)
     frame.Position = UDim2.new(0.365, 0, 0.3, 0)
     frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frame.BackgroundTransparency = 0.1
