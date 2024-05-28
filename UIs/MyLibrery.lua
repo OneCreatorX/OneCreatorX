@@ -1,29 +1,39 @@
 local UILibrary = {}
 
 UILibrary.Colors = {
-    Background = Color3.fromRGB(25, 25, 25),
-    Text = Color3.fromRGB(255, 255, 255),
-    Button = Color3.fromRGB(50, 50, 50),
-    ButtonHover = Color3.fromRGB(105, 25, 155),
-    Input = Color3.fromRGB(35, 35, 35),
-    Border = Color3.fromRGB(150, 150, 150),
-    Button3D = Color3.fromRGB(55, 55, 55)
+    Background = Color3.fromRGB(25, 25, 25),  -- Color de fondo del frame principal
+    Text = Color3.fromRGB(255, 255, 255),     -- Color del texto
+    Button = Color3.fromRGB(50, 50, 50),      -- Color de fondo del botón
+    ButtonHover = Color3.fromRGB(75, 75, 75), -- Color del botón al pasar el mouse
+    Input = Color3.fromRGB(35, 35, 35),       -- Color de fondo del TextBox
+    Border = Color3.fromRGB(150, 150, 150),   -- Color del borde de los elementos
+    Button3D = Color3.fromRGB(55, 55, 55)     -- Color del borde del botón al hacer clic
 }
 
 UILibrary.Fonts = {
-    Main = Enum.Font.SourceSans,
-    Button = Enum.Font.SourceSansBold
+    Main = Enum.Font.SourceSans,              -- Fuente principal
+    Button = Enum.Font.Ubuntu         -- Fuente de los botones
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.3, 0),
-    Button = UDim2.new(0.9, 0, 0.1, 0),
-    TextBox = UDim2.new(0.9, 0, 0.1, 0)
+    Window = UDim2.new(0.2, 0, 0.4, 0),       -- Tamaño del frame principal
+    Button = UDim2.new(0.8, 0, 0.12, 0),      -- Tamaño de los botones
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)      -- Tamaño del TextBox
 }
 
 UILibrary.Transparency = {
-    Background = 0.9,
-    Button = 0.8
+    Background = 0.9,                         -- Transparencia del fondo del frame principal
+    Button = 0.8                              -- Transparencia del fondo de los botones
+}
+
+UILibrary.TextSizes = {
+    Button = 14,                              -- Tamaño del texto de los botones
+    TextBox = 14                              -- Tamaño del texto del TextBox
+}
+
+UILibrary.Padding = {
+    Element = 10,                             -- Espacio entre elementos
+    Frame = 30                                -- Espacio inicial para el título del frame
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -51,7 +61,7 @@ function UILibrary:CreateWindow(parent, title)
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = frame
     titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, 0, 0, 30)
+    titleLabel.Size = UDim2.new(1, 0, 0, UILibrary.Padding.Frame)
     titleLabel.BackgroundColor3 = UILibrary.Colors.Background
     titleLabel.TextColor3 = UILibrary.Colors.Text
     titleLabel.Font = UILibrary.Fonts.Main
@@ -61,16 +71,16 @@ function UILibrary:CreateWindow(parent, title)
     return frame
 end
 
+
 local function adjustFrameSize(frame)
-    local totalHeight = 20
+    local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + 10
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
-
 
 local function positionElement(parent, element)
     local elementCount = 0
@@ -92,7 +102,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     button.BackgroundColor3 = UILibrary.Colors.Button
     button.TextColor3 = UILibrary.Colors.Text
     button.Font = UILibrary.Fonts.Button
-    button.TextScaled = true
+    button.TextSize = UILibrary.TextSizes.Button
     button.AutoButtonColor = false
 
     button.BorderSizePixel = 1
@@ -129,7 +139,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
     textBox.Font = UILibrary.Fonts.Main
-    textBox.TextScaled = true
+    textBox.TextSize = UILibrary.TextSizes.TextBox
     textBox.BackgroundTransparency = UILibrary.Transparency.Button
 
     textBox.FocusLost:Connect(function(enterPressed)
@@ -143,6 +153,8 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     return textBox
 end
 
+
+
 function UILibrary:CreateButtonToggle(parent, text, onToggle)
     local buttonToggle = Instance.new("TextButton")
     buttonToggle.Parent = parent
@@ -151,22 +163,22 @@ function UILibrary:CreateButtonToggle(parent, text, onToggle)
     buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
     buttonToggle.TextColor3 = UILibrary.Colors.Text
     buttonToggle.Font = UILibrary.Fonts.Button
-    buttonToggle.TextScaled = true
+    buttonToggle.TextSize = UILibrary.TextSizes.Button
     buttonToggle.AutoButtonColor = false
 
     buttonToggle.BorderSizePixel = 1
     buttonToggle.BorderColor3 = UILibrary.Colors.Border
 
-    local a = false
+    local toggled = false
 
     buttonToggle.MouseButton1Click:Connect(function()
-        a = not a
-        if a then
+        toggled = not toggled
+        if toggled then
             buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
         else
             buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
         end
-        onToggle(a)
+        onToggle(toggled)
     end)
 
     positionElement(parent, buttonToggle)
