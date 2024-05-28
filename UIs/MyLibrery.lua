@@ -1,44 +1,44 @@
 local UILibrary = {}
 
-UILibrary.Colors = {
-    Background = Color3.fromRGB(25, 25, 25),
-    Text = Color3.fromRGB(255, 255, 255),
-    Button = Color3.fromRGB(50, 50, 50),
-    ButtonHover = Color3.fromRGB(105, 215, 80),
-    Input = Color3.fromRGB(35, 35, 35),
-    Border = Color3.fromRGB(150, 150, 150),
-    Button3D = Color3.fromRGB(90, 105, 210)
+UILibrary.Colors = { 
+    Background = Color3.fromRGB(25, 25, 25), 
+    Text = Color3.fromRGB(255, 255, 255), 
+    Button = Color3.fromRGB(50, 50, 50), 
+    ButtonHover = Color3.fromRGB(105, 215, 80), 
+    Input = Color3.fromRGB(35, 35, 35), 
+    Border = Color3.fromRGB(150, 150, 150), 
+    Button3D = Color3.fromRGB(90, 105, 210) 
 }
 
-UILibrary.Fonts = {
-    Main = Enum.Font.SourceSans,
-    Button = Enum.Font.SourceSansBold
+UILibrary.Fonts = { 
+    Main = Enum.Font.SourceSans, 
+    Button = Enum.Font.SourceSansBold 
 }
 
-UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.12, 0),
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)
+UILibrary.Sizes = { 
+    Window = UDim2.new(0.2, 0, 0.4, 0), 
+    Button = UDim2.new(0.8, 0, 0.12, 0), 
+    TextBox = UDim2.new(0.8, 0, 0.12, 0) 
 }
 
-UILibrary.Transparency = {
-    Background = 0.9,
-    Button = 0.8
+UILibrary.Transparency = { 
+    Background = 0.9, 
+    Button = 0.8 
 }
 
-UILibrary.TextSizes = {
-    Button = 10,
-    TextBox = 10
+UILibrary.TextSizes = { 
+    Button = 10, 
+    TextBox = 10 
 }
 
-UILibrary.Padding = {
-    Element = 10,
-    Frame = 35
+UILibrary.Padding = { 
+    Element = 10, 
+    Frame = 35 
 }
 
 function UILibrary:CreateScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
-    if (existingGui) then
+    if existingGui then
         existingGui:Destroy()
     end
 
@@ -75,7 +75,7 @@ local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element 
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
