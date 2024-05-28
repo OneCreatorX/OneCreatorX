@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.05, 0),
-    TextBox = UDim2.new(0.8, 0, 0.05, 0)
+    Button = UDim2.new(0.8, 0, 0.1, 0),  -- Ajuste del tamaño del botón para mantenerlo constante
+    TextBox = UDim2.new(0.8, 0, 0.1, 0)  -- Ajuste del tamaño del TextBox para mantenerlo constante
 }
 
 UILibrary.Transparency = {
@@ -36,7 +36,7 @@ UILibrary.Padding = {
     Frame = 30
 }
 
-function UILibrary:CreateScreenGui(name)
+function UILibrary:ScreenGui(name)
     local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
     if existingGui then
         existingGui:Destroy()
@@ -49,7 +49,7 @@ function UILibrary:CreateScreenGui(name)
     return screenGui
 end
 
-function UILibrary:CreateWindow(parent, title)
+function UILibrary:Window(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
     frame.Active = true
@@ -88,12 +88,12 @@ local function positionElement(parent, element)
             elementCount = elementCount + 1
         end
     end
-    local yPos = (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
+    local yPos = UILibrary.Padding.Frame + (elementCount - 1) * (element.Size.Y.Offset + UILibrary.Padding.Element)
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
 
-function UILibrary:CreateButton(parent, text, onClick)
+function UILibrary:Button(parent, text, onClick)
     local button = Instance.new("TextButton")
     button.Parent = parent
     button.Text = text
@@ -130,7 +130,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     return button
 end
 
-function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
+function UILibrary:TextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
@@ -152,7 +152,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     return textBox
 end
 
-function UILibrary:CreateButtonToggle(parent, text, onToggle)
+function UILibrary:Toggle(parent, text, onToggle)
     local buttonToggle = Instance.new("TextButton")
     buttonToggle.Parent = parent
     buttonToggle.Text = text
