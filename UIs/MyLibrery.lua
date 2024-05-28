@@ -68,11 +68,15 @@ function UILibrary:CreateWindow(parent, title)
     titleLabel.TextScaled = true
     titleLabel.BackgroundTransparency = UILibrary.Transparency.Background
 
+    frame.ChildAdded:Connect(function()
+        adjustFrameSize(frame)
+    end)
+
     return frame
 end
 
 local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame
+    local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
             totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
@@ -82,14 +86,13 @@ local function adjustFrameSize(frame)
 end
 
 local function positionElement(parent, element)
-    local elementCount = 0
+    local yPos = UILibrary.Padding.Frame
     for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
+        if child:IsA("GuiObject") and child ~= parent and child ~= element then
+            yPos = yPos + child.Size.Y.Offset + UILibrary.Padding.Element
         end
     end
-    local yPos = (elementCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
-    element.Position = UDim2.new(0.1, 0, yPos, 0)
+    element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
 
