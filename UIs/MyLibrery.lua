@@ -1,39 +1,39 @@
 local UILibrary = {}
 
 UILibrary.Colors = {
-    Background = Color3.fromRGB(25, 25, 25),  
-    Text = Color3.fromRGB(255, 255, 255),     
-    Button = Color3.fromRGB(50, 50, 50),      
+    Background = Color3.fromRGB(25, 25, 25),
+    Text = Color3.fromRGB(255, 255, 255),
+    Button = Color3.fromRGB(50, 50, 50),
     ButtonHover = Color3.fromRGB(105, 215, 80),
-    Input = Color3.fromRGB(35, 35, 35),       
-    Border = Color3.fromRGB(150, 150, 150),   
-    Button3D = Color3.fromRGB(90, 105, 210)   
+    Input = Color3.fromRGB(35, 35, 35),
+    Border = Color3.fromRGB(150, 150, 150),
+    Button3D = Color3.fromRGB(90, 105, 210)
 }
 
 UILibrary.Fonts = {
-    Main = Enum.Font.SourceSans,       
-    Button = Enum.Font.SourceSansBold     
+    Main = Enum.Font.SourceSans,
+    Button = Enum.Font.SourceSansBold
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.4, 0),  
-    Button = UDim2.new(0.8, 0, 0.12, 0),  
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)   
+    Window = UDim2.new(0.2, 0, 0.4, 0),
+    Button = UDim2.new(0.8, 0, 0.12, 0),
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)
 }
 
 UILibrary.Transparency = {
-    Background = 0.9,           
-    Button = 0.8                
+    Background = 0.9,
+    Button = 0.8
 }
 
 UILibrary.TextSizes = {
-    Button = 10,            
-    TextBox = 10                
+    Button = 10,
+    TextBox = 10
 }
 
 UILibrary.Padding = {
-    Element = 10,             
-    Frame = 10            
+    Element = 10,
+    Frame = 35
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -75,7 +75,7 @@ local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element 
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
@@ -96,12 +96,9 @@ local function positionElement(parent, element)
     adjustFrameSize(parent)
 end
 
-local Window = {}
-Window.__index = Window
-
-function Window:Button(text, onClick)
+function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
-    button.Parent = self.frame
+    button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
     button.BackgroundColor3 = UILibrary.Colors.Button
@@ -131,14 +128,14 @@ function Window:Button(text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    positionElement(self.frame, button)
+    positionElement(parent, button)
 
-    return self
+    return button
 end
 
-function Window:TextBox(placeholderText, onEnter)
+function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
-    textBox.Parent = self.frame
+    textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
     textBox.Text = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
@@ -154,14 +151,14 @@ function Window:TextBox(placeholderText, onEnter)
         end
     end)
 
-    positionElement(self.frame, textBox)
+    positionElement(parent, textBox)
 
-    return self
+    return textBox
 end
 
-function Window:Toggle(text, onToggle)
+function UILibrary:CreateButtonToggle(parent, text, onToggle)
     local buttonToggle = Instance.new("TextButton")
-    buttonToggle.Parent = self.frame
+    buttonToggle.Parent = parent
     buttonToggle.Text = text
     buttonToggle.Size = UILibrary.Sizes.Button
     buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
@@ -185,24 +182,9 @@ function Window:Toggle(text, onToggle)
         onToggle(toggled)
     end)
 
-    positionElement(self.frame, buttonToggle)
+    positionElement(parent, buttonToggle)
 
-    return self
-end
-
-local ScreenGui = {}
-ScreenGui.__index = ScreenGui
-
-function ScreenGui:Window(title)
-    local frame = UILibrary:CreateWindow(self.gui, title)
-    local window = setmetatable({ frame = frame }, Window)
-    return window
-end
-
-function UILibrary:ScreenGui(name)
-    local gui = UILibrary:CreateScreenGui(name)
-    local screenGui = setmetatable({ gui = gui }, ScreenGui)
-    return screenGui
+    return buttonToggle
 end
 
 return UILibrary
