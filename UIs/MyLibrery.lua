@@ -132,11 +132,6 @@ function UILibrary:CreateFrame(parent, title)
 end
 
 function UILibrary:AddToggleButton(parent, toggleName)
-    if not parent or not parent.Parent or not parent.Parent.Parent then
-        warn("Parent or its ancestors are nil")
-        return
-    end
-
     local toggleButton = Instance.new("TextButton")
     toggleButton.Parent = parent
     toggleButton.Text = toggleName
@@ -148,7 +143,7 @@ function UILibrary:AddToggleButton(parent, toggleName)
     toggleButton.TextSize = 18
 
 local toggleFrame = Instance.new("Frame")
-    toggleFrame.Parent = parent.Parent.Parent  -- Asegurarse de que el frame se agregue al ScreenGui
+    toggleFrame.Parent = parent.Parent  -- Asegurarse de que el frame se agregue al mismo nivel que el frame principal
     toggleFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
     toggleFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
     toggleFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
@@ -175,15 +170,14 @@ local toggleFrame = Instance.new("Frame")
 
     -- Hacer que los frames se muevan juntos
     local function syncFrames()
-        toggleFrame.Position = UDim2.new(parent.Parent.Position.X.Scale + parent.Parent.Size.X.Scale, parent.Parent.Position.X.Offset, parent.Parent.Position.Y.Scale, parent.Parent.Position.Y.Offset)
+        toggleFrame.Position = UDim2.new(parent.Position.X.Scale + parent.Size.X.Scale, parent.Position.X.Offset, parent.Position.Y.Scale, parent.Position.Y.Offset)
     end
 
-    parent.Parent:GetPropertyChangedSignal("Position"):Connect(syncFrames)
-    parent.Parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
+    parent:GetPropertyChangedSignal("Position"):Connect(syncFrames)
+    parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
     return toggleButton, toggleFrame
 end
 
 return UILibrary
-
     
