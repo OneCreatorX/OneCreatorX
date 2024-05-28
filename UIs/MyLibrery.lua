@@ -1,197 +1,100 @@
-local MyLibrary = {}
+local Lib = {}
 
-MyLibrary.Colors = {
-    Background = Color3.fromRGB(25, 25, 25),
-    Text = Color3.fromRGB(255, 255, 255),
-    Button = Color3.fromRGB(50, 50, 50),
-    ButtonHover = Color3.fromRGB(75, 75, 75),
-    Input = Color3.fromRGB(35, 35, 35),
-    Border = Color3.fromRGB(150, 150, 150),
-    Button3D = Color3.fromRGB(55, 55, 55)
+-- Colores
+Lib.C = {
+    BG = Color3.fromRGB(30, 30, 30),
+    Txt = Color3.fromRGB(255, 255, 255),
+    Btn = Color3.fromRGB(50, 150, 255),
+    TglBtn = Color3.fromRGB(255, 100, 100),
 }
 
-MyLibrary.Fonts = {
+-- Fuentes
+Lib.F = {
     Main = Enum.Font.SourceSans,
-    Button = Enum.Font.SourceSansBold
 }
 
-MyLibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.3, 0),  -- Reducir el tamaño de la ventana
-    Button = UDim2.new(0.8, 0, 0, 30),  -- Reducir la altura de los botones
-    TextBox = UDim2.new(0.8, 0, 0, 30)  -- Reducir la altura de los cuadros de texto
+-- Tamaños predefinidos
+Lib.S = {
+    Wnd = UDim2.new(0.4, 0, 0.5, 0),
+    Btn = UDim2.new(0.8, 0, 0.1, 0),
+    TglBtn = UDim2.new(0.8, 0, 0.1, 0),
+    TxtBox = UDim2.new(0.8, 0, 0.1, 0),
 }
 
-MyLibrary.Transparency = {
-    Background = 0.9,
-    Button = 0.8
+-- Transparencias
+Lib.T = {
+    BG = 0.9,
+    Btn = 0.8,
+    TglBtn = 0.8,
 }
 
-MyLibrary.TextSizes = {
-    Button = 14,
-    TextBox = 14
+-- Espaciado
+Lib.P = {
+    Elem = 5,
+    Fr = 10,
 }
 
-MyLibrary.Padding = {
-    Element = 10,
-    Frame = 5
-}
-
-function MyLibrary:CreateScreenGui(name)
-    local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
-    if existingGui then
-        existingGui:Destroy()
-    end
-
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = name
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    screenGui.ResetOnSpawn = false
-    return screenGui
+function Lib:S(parent, txt, cb)
+    local b = self:_CBtn(parent, txt, cb, self.S.Btn, self.T.Btn)
+    self:_P(parent, b)
+    return b
 end
 
-function MyLibrary:CreateWindow(parent, title)
-    local frame = Instance.new("Frame")
-    frame.Parent = parent
-    frame.Active = true
-    frame.Draggable = true
-    frame.Size = MyLibrary.Sizes.Window
-    frame.BackgroundColor3 = MyLibrary.Colors.Background
-    frame.BackgroundTransparency = MyLibrary.Transparency.Background
-
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Parent = frame
-    titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, 0, 0, MyLibrary.Padding.Frame)
-    titleLabel.BackgroundColor3 = MyLibrary.Colors.Background
-    titleLabel.TextColor3 = MyLibrary.Colors.Text
-    titleLabel.Font = MyLibrary.Fonts.Main
-    titleLabel.TextScaled = true
-    titleLabel.BackgroundTransparency = MyLibrary.Transparency.Background
-
-    return frame
+function Lib:T(parent, txt, cb)
+    local b = self:_CBtn(parent, txt, cb, self.S.TglBtn, self.T.TglBtn)
+    self:_P(parent, b)
+    return b
 end
 
-local function adjustFrameSize(frame)
-    local totalHeight = MyLibrary.Padding.Frame
-    local elementCount = 0
-    local lastElement = nil
-    for _, child in ipairs(frame:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= frame then
-            elementCount = elementCount + 1
-            totalHeight = totalHeight + child.Size.Y.Offset + MyLibrary.Padding.Element
-            lastElement = child
-        end
-    end
-    frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
-    if lastElement then
-        frame.Position = UDim2.new(frame.Position.X.Scale, frame.Position.X.Offset, 0, -totalHeight / 2 + lastElement.Position.Y.Offset + lastElement.Size.Y.Offset / 2)
-    else
-        frame.Position = UDim2.new(frame.Position.X.Scale, frame.Position.X.Offset, 0, 0)
-    end
-end
+function Lib:_CBtn(parent, txt, cb, bg, hover)
+    local b = Instance.new("TextButton")
+    b.Parent = parent
+    b.Text = txt
+    b.Size = self.S.Btn
+    b.BackgroundColor3 = bg
+    b.TextColor3 = self.C.Txt
+    b.Font = self.F.Main
+    b.TextScaled = true
+    b.BackgroundTransparency = self.T.Btn
 
-local function positionElement(parent, element)
-    local elementCount = 0
-    local yPos = MyLibrary.Padding.Frame
-    for _, child in ipairs(parent:GetChildren()) do
-        if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
-            yPos = yPos + child.Size.Y.Offset + MyLibrary.Padding.Element
-        end
-    end
-    element.Position = UDim2.new(0.1, 0, yPos, yPos)
-    adjustFrameSize(parent)
-end
+    b.MouseButton1Click:Connect(cb)
 
-function MyLibrary:CreateButton(parent, text, onClick)
-    local button = Instance.new("TextButton")
-    button.Parent = parent
-    button.Text = text
-    button.Size = MyLibrary.Sizes.Button
-    button.BackgroundColor3 = MyLibrary.Colors.Button
-    button.TextColor3 = MyLibrary.Colors.Text
-    button.Font = MyLibrary.Fonts.Button
-    button.TextSize = MyLibrary.TextSizes.Button
-    button.AutoButtonColor = false
-
-    button.BorderSizePixel = 1
-    button.BorderColor3 = MyLibrary.Colors.Border
-
-    button.MouseButton1Click:Connect(onClick)
-
-    button.MouseEnter:Connect(function()
-        button.BackgroundColor3 = MyLibrary.Colors.ButtonHover
+    b.MouseEnter:Connect(function()
+        b.BackgroundColor3 = hover
     end)
 
-    button.MouseLeave:Connect(function()
-        button.BackgroundColor3 = MyLibrary.Colors.Button
+    b.MouseLeave:Connect(function()
+        b.BackgroundColor3 = bg
     end)
 
-    button.MouseButton1Down:Connect(function()
-        button.BorderColor3 = MyLibrary.Colors.Button3D
-    end)
-
-    button.MouseButton1Up:Connect(function()
-        button.BorderColor3 = MyLibrary.Colors.Border
-    end)
-
-    positionElement(parent, button)
-
-    return button
+    return b
 end
 
-function MyLibrary:CreateTextBox(parent, placeholderText, onEnter)
-    local textBox = Instance.new("TextBox")
-    textBox.Parent = parent
-    textBox.PlaceholderText = placeholderText
-    textBox.Size = MyLibrary.Sizes.TextBox
-    textBox.BackgroundColor3 = MyLibrary.Colors.Input
-    textBox.TextColor3 = MyLibrary.Colors.Text
-    textBox.Font = MyLibrary.Fonts.Main
-    textBox.TextSize = MyLibrary.TextSizes.TextBox
-    textBox.BackgroundTransparency = MyLibrary.Transparency.Button
+function Lib:_P(parent, elem)
+    local yPos = parent.AbsoluteSize.Y + self.P.Fr
+    elem.Position = UDim2.new(0.5, 0, 0, yPos)
+end
 
-    textBox.FocusLost:Connect(function(enterPressed)
-        if enterPressed then
-            onEnter(textBox.Text)
+function Lib:CreateTextBox(parent, placeholder, cb)
+    local tb = Instance.new("TextBox")
+    tb.Parent = parent
+    tb.PlaceholderText = placeholder
+    tb.Size = self.S.TxtBox
+    tb.BackgroundColor3 = self.C.Btn
+    tb.TextColor3 = self.C.Txt
+    tb.Font = self.F.Main
+    tb.TextScaled = true
+    tb.BackgroundTransparency = self.T.Btn
+
+    tb.FocusLost:Connect(function(enter)
+        if enter then
+            cb(tb.Text)
         end
     end)
 
-    positionElement(parent, textBox)
+    self:_P(parent, tb)
 
-    return textBox
+    return tb
 end
 
-function MyLibrary:CreateToggleButton(parent, text, onToggle)
-    local buttonToggle = Instance.new("TextButton")
-    buttonToggle.Parent = parent
-    buttonToggle.Text = text
-    buttonToggle.Size = MyLibrary.Sizes.Button
-    buttonToggle.BackgroundColor3 = MyLibrary.Colors.Button
-    buttonToggle.TextColor3 = MyLibrary.Colors.Text
-    buttonToggle.Font = MyLibrary.Fonts.Button
-    buttonToggle.TextSize = MyLibrary.TextSizes.Button
-    buttonToggle.AutoButtonColor = false
-
-    buttonToggle.BorderSizePixel = 1
-    buttonToggle.BorderColor3 = MyLibrary.Colors.Border
-
-    local toggled = false
-
-    buttonToggle.MouseButton1Click:Connect(function()
-        toggled = not toggled
-        if toggled then
-            button
-                 buttonToggle.BackgroundColor3 = MyLibrary.Colors.ButtonHover
-        else
-            buttonToggle.BackgroundColor3 = MyLibrary.Colors.Button
-        end
-        onToggle(toggled)
-    end)
-
-    positionElement(parent, buttonToggle)
-
-    return buttonToggle
-end
-
-return MyLibrary
+return Lib
