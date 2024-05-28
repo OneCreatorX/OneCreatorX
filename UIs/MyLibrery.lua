@@ -1,6 +1,6 @@
 local UILibrary = {}
 
-UILibrary.Colors = {
+UILibrary.Colors = { 
     Background = Color3.fromRGB(25, 25, 25), 
     Text = Color3.fromRGB(255, 255, 255), 
     Button = Color3.fromRGB(50, 50, 50), 
@@ -10,36 +10,36 @@ UILibrary.Colors = {
     Button3D = Color3.fromRGB(90, 105, 210) 
 }
 
-UILibrary.Fonts = {
-    Main = Enum.Font.SourceSans, 
-    Button = Enum.Font.SourceSansBold 
+UILibrary.Fonts = { 
+    Main = Enum.Font.SourceSans,       
+    Button = Enum.Font.SourceSansBold     
 }
 
-UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.4, 0), 
-    Button = UDim2.new(0.8, 0, 0.12, 0), 
-    TextBox = UDim2.new(0.8, 0, 0.12, 0) 
+UILibrary.Sizes = { 
+    Window = UDim2.new(0.2, 0, 0.4, 0),  
+    Button = UDim2.new(0.8, 0, 0.12, 0),  
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)   
 }
 
-UILibrary.Transparency = {
-    Background = 0.9, 
-    Button = 0.8 
+UILibrary.Transparency = { 
+    Background = 0.9,           
+    Button = 0.8                
 }
 
-UILibrary.TextSizes = {
-    Button = 10, 
-    TextBox = 10 
+UILibrary.TextSizes = { 
+    Button = 10,            
+    TextBox = 10                
 }
 
-UILibrary.Padding = {
-    Element = 10, 
-    Frame = 35 
+UILibrary.Padding = { 
+    Element = 10,             
+    Frame = 35            
 }
 
 function UILibrary:CreateScreenGui(name)
-    local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name) 
-    if (existingGui) then 
-        existingGui:Destroy() 
+    local existingGui = game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild(name)
+    if (existingGui) then
+        existingGui:Destroy()
     end
 
     local screenGui = Instance.new("ScreenGui")
@@ -72,24 +72,27 @@ function UILibrary:CreateWindow(parent, title)
 end
 
 local function adjustFrameSize(frame)
-    local totalHeight = UILibrary.Padding.Frame 
+    local totalHeight = UILibrary.Padding.Frame
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element 
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
         end
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
 local function positionElement(parent, element)
-    local elementCount = 0
+    local lastElement = nil
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
+            lastElement = child
         end
     end
-    local yPos = (elementCount * UILibrary.Sizes.Button.Y.Offset) + UILibrary.Padding.Frame + (elementCount * UILibrary.Padding.Element)
-    element.Position = UDim2.new(0.1, 0, 0, yPos)
+    if lastElement then
+        element.Position = UDim2.new(0.1, 0, 0, lastElement.Position.Y.Offset + lastElement.Size.Y.Offset + UILibrary.Padding.Element)
+    else
+        element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
+    end
     adjustFrameSize(parent)
 end
 
