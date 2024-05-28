@@ -4,10 +4,10 @@ UILibrary.Colors = {
     Background = Color3.fromRGB(25, 25, 25),  -- Color de fondo del frame principal
     Text = Color3.fromRGB(255, 255, 255),     -- Color del texto
     Button = Color3.fromRGB(50, 50, 50),      -- Color de fondo del botón
-    ButtonHover = Color3.fromRGB(75, 75, 75), -- Color del botón al pasar el mouse
+    ButtonHover = Color3.fromRGB(105, 35, 235), -- Color del botón al pasar el mouse
     Input = Color3.fromRGB(35, 35, 35),       -- Color de fondo del TextBox
     Border = Color3.fromRGB(150, 150, 150),   -- Color del borde de los elementos
-    Button3D = Color3.fromRGB(55, 55, 55)     -- Color del borde del botón al hacer clic
+    Button3D = Color3.fromRGB(125, 55, 205)     -- Color del borde del botón al hacer clic
 }
 
 UILibrary.Fonts = {
@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),       -- Tamaño del frame principal
-    Button = UDim2.new(0.8, 0, 0.12, 0),      -- Tamaño de los botones
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)      -- Tamaño del TextBox
+    Button = UDim2.new(0.9, 0, 0.12, 0),      -- Tamaño de los botones
+    TextBox = UDim2.new(0.9, 0, 0.12, 0)      -- Tamaño del TextBox
 }
 
 UILibrary.Transparency = {
@@ -27,8 +27,8 @@ UILibrary.Transparency = {
 }
 
 UILibrary.TextSizes = {
-    Button = 14,                              -- Tamaño del texto de los botones
-    TextBox = 14                              -- Tamaño del texto del TextBox
+    Button = 10,                              -- Tamaño del texto de los botones
+    TextBox = 10                             -- Tamaño del texto del TextBox
 }
 
 UILibrary.Padding = {
@@ -73,29 +73,24 @@ end
 
 
 local function adjustFrameSize(frame)
-    local lastElement = nil
+    local totalHeight = UILibrary.Padding.Frame -- Initial height for the title
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
-            lastElement = child
+            totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element -- Adding some padding
         end
     end
-    if lastElement then
-        frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, lastElement.Position.Y.Offset + lastElement.Size.Y.Offset + UILibrary.Padding.Element)
-    end
+    frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
 local function positionElement(parent, element)
-    local lastElement = nil
+    local elementCount = 0
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("GuiObject") and child ~= parent then
-            lastElement = child
+            elementCount = elementCount + 1
         end
     end
-    if lastElement then
-        element.Position = UDim2.new(0.1, 0, 0, lastElement.Position.Y.Offset + lastElement.Size.Y.Offset + UILibrary.Padding.Element)
-    else
-        element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
-    end
+    local yPos = (elementCount * UILibrary.Sizes.Button.Y.Scale) + 0.1
+    element.Position = UDim2.new(0.1, 0, yPos, 0)
     adjustFrameSize(parent)
 end
 
@@ -136,6 +131,7 @@ function UILibrary:CreateButton(parent, text, onClick)
     return button
 end
 
+
 function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
     textBox.Parent = parent
@@ -153,7 +149,7 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
-positionElement(parent, textBox)
+    positionElement(parent, textBox)
 
     return textBox
 end
