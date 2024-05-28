@@ -26,26 +26,25 @@ end
 function UILibrary:CreateFrame(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
-    frame.Size = UDim2.new(0.27, 0, 0.4, 0)  -- Tamaño del frame reducido en un 10%
-    frame.Position = UDim2.new(0.365, 0, 0.3, 0)  -- Posición centrada
-    frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)  -- Color de fondo más claro
-    frame.BackgroundTransparency = 0.1  -- Un poco de transparencia
-    frame.BorderSizePixel = 0  -- Sin borde
+    frame.Size = UDim2.new(0.27, 0, 0.4, 0)
+    frame.Position = UDim2.new(0.365, 0, 0.3, 0)
+    frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    frame.BackgroundTransparency = 0.1
+    frame.BorderSizePixel = 0
     frame.Active = true
     frame.Draggable = true
 
     local titleLabel = Instance.new("TextLabel")
     titleLabel.Parent = frame
     titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
-    titleLabel.Position = UDim2.new(0, 0, 0, 0)  -- Posición del título
-    titleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)  -- Color de fondo del título
-    titleLabel.BackgroundTransparency = 0.2  -- Un poco de transparencia
-    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
+    titleLabel.Size = UDim2.new(1, 0, 0, 30)
+    titleLabel.Position = UDim2.new(0, 0, 0, 0)
+    titleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    titleLabel.BackgroundTransparency = 0.2
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     titleLabel.Font = Enum.Font.SourceSans
     titleLabel.TextSize = 18
 
-    -- Botón de minimizar/maximizar
     local toggleButton = Instance.new("TextButton")
     toggleButton.Parent = frame
     toggleButton.Text = "-"
@@ -57,14 +56,12 @@ function UILibrary:CreateFrame(parent, title)
     toggleButton.Font = Enum.Font.SourceSans
     toggleButton.TextSize = 18
 
-    -- Contenedor para el contenido del frame
     local contentFrame = Instance.new("Frame")
     contentFrame.Parent = frame
-    contentFrame.Size = UDim2.new(1, 0, 1, -60)  -- Ajustar para dejar espacio para el título y el botón de créditos
+    contentFrame.Size = UDim2.new(1, 0, 1, -60)
     contentFrame.Position = UDim2.new(0, 0, 0, 30)
     contentFrame.BackgroundTransparency = 1
 
-    -- Sección de créditos
     local creditsButton = Instance.new("TextButton")
     creditsButton.Parent = frame
     creditsButton.Text = "Créditos"
@@ -78,48 +75,44 @@ function UILibrary:CreateFrame(parent, title)
 
     local creditsFrame = Instance.new("Frame")
     creditsFrame.Parent = parent
-    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
-    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
+    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)
+    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
     creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     creditsFrame.BackgroundTransparency = 0.1
     creditsFrame.BorderSizePixel = 0
-    creditsFrame.Visible = false  -- Inicialmente oculto
+    creditsFrame.Visible = false
 
-    -- Título del frame de créditos
     local creditsTitleLabel = Instance.new("TextLabel")
     creditsTitleLabel.Parent = creditsFrame
     creditsTitleLabel.Text = "Créditos"
-    creditsTitleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
-    creditsTitleLabel.Position = UDim2.new(0, 0, 0, 0)  -- Posición del título
-    creditsTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)  -- Color de fondo del título
-    creditsTitleLabel.BackgroundTransparency = 0.2  -- Un poco de transparencia
-    creditsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
+    creditsTitleLabel.Size = UDim2.new(1, 0, 0, 30)
+    creditsTitleLabel.Position = UDim2.new(0, 0, 0, 0)
+    creditsTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    creditsTitleLabel.BackgroundTransparency = 0.2
+    creditsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsTitleLabel.Font = Enum.Font.SourceSans
     creditsTitleLabel.TextSize = 18
 
-    -- Funcionalidad de minimizar/maximizar
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
-        if isMinimized then
+        if (isMinimized) then
             contentFrame.Visible = false
             toggleButton.Text = "+"
-            frame.Size = UDim2.new(0.27, 0, 0, 60)  -- Ajustar el tamaño del frame para mostrar solo el título y el botón de créditos
+            frame.Size = UDim2.new(0.27, 0, 0, 60)
         else
             contentFrame.Visible = true
             toggleButton.Text = "-"
-            frame.Size = UDim2.new(0.27, 0, 0.4, 0)  -- Restaurar el tamaño original del frame
+            frame.Size = UDim2.new(0.27, 0, 0.4, 0)
         end
     end)
 
-    -- Funcionalidad del botón de créditos
     creditsButton.MouseButton1Click:Connect(function()
         if creditsFrame then
             creditsFrame.Visible = not creditsFrame.Visible
         end
     end)
 
-    -- Hacer que los frames se muevan juntos
     local function syncFrames()
         creditsFrame.Position = UDim2.new(frame.Position.X.Scale + frame.Size.X.Scale, frame.Position.X.Offset, frame.Position.Y.Scale, frame.Position.Y.Offset)
     end
@@ -142,32 +135,29 @@ function UILibrary:AddToggleButton(parent, toggleName)
     toggleButton.TextSize = 18
 
     local toggleFrame = Instance.new("Frame")
-    toggleFrame.Parent = parent.Parent  -- Asegurarse de que el frame se agregue al mismo nivel que el frame principal
-    toggleFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Un poco más delgado que el frame principal
-    toggleFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Posición al lado del frame principal
+    toggleFrame.Parent = parent.Parent
+    toggleFrame.Size = UDim2.new(0.2, 0, 0.4, 0)
+    toggleFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
     toggleFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     toggleFrame.BackgroundTransparency = 0.1
     toggleFrame.BorderSizePixel = 0
-    toggleFrame.Visible = false  -- Inicialmente oculto
+    toggleFrame.Visible = false
 
-    -- Título del frame del toggle
     local toggleTitleLabel = Instance.new("TextLabel")
     toggleTitleLabel.Parent = toggleFrame
     toggleTitleLabel.Text = toggleName
-    toggleTitleLabel.Size = UDim2.new(1, 0, 0, 30)  -- Tamaño del título
-    toggleTitleLabel.Position = UDim2.new(0, 0, 0, 0)  -- Posición del título
-    toggleTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)  -- Color de fondo del título
-    toggleTitleLabel.BackgroundTransparency = 0.2  -- Un poco de transparencia
-    toggleTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
+    toggleTitleLabel.Size = UDim2.new(1, 0, 0, 30)
+    toggleTitleLabel.Position = UDim2.new(0, 0, 0, 0)
+    toggleTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    toggleTitleLabel.BackgroundTransparency = 0.2
+    toggleTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     toggleTitleLabel.Font = Enum.Font.SourceSans
     toggleTitleLabel.TextSize = 18
 
-    -- Funcionalidad del botón de toggle
     toggleButton.MouseButton1Click:Connect(function()
         toggleFrame.Visible = not toggleFrame.Visible
     end)
 
-    -- Hacer que los frames se muevan juntos
     local function syncFrames()
         toggleFrame.Position = UDim2.new(parent.Position.X.Scale + parent.Size.X.Scale, parent.Position.X.Offset, parent.Position.Y.Scale, parent.Position.Y.Offset)
     end
@@ -178,4 +168,63 @@ function UILibrary:AddToggleButton(parent, toggleName)
     return toggleButton, toggleFrame
 end
 
+function UILibrary:AddOptionsButton(parent, buttonText)
+    local optionsButton = Instance.new("TextButton")
+    optionsButton.Parent = parent
+    optionsButton.Text = buttonText
+    optionsButton.Size = UDim2.new(1, 0, 0, 30)
+    optionsButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    optionsButton.BackgroundTransparency = 0.2
+    optionsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    optionsButton.Font = Enum.Font.SourceSans
+    optionsButton.TextSize = 18
+
+    local optionsFrame = Instance.new("Frame")
+    optionsFrame.Parent = parent.Parent
+    optionsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)
+    optionsFrame.Position = UDim2.new(0.635, 0,
+    optionsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
+optionsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+optionsFrame.BackgroundTransparency = 0.1
+optionsFrame.BorderSizePixel = 0
+optionsFrame.Visible = false
+
+local optionsTitleLabel = Instance.new("TextLabel")
+optionsTitleLabel.Parent = optionsFrame
+optionsTitleLabel.Text = buttonText
+optionsTitleLabel.Size = UDim2.new(1, 0, 0, 30)
+optionsTitleLabel.Position = UDim2.new(0, 0, 0, 0)
+optionsTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+optionsTitleLabel.BackgroundTransparency = 0.2
+optionsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+optionsTitleLabel.Font = Enum.Font.SourceSans
+optionsTitleLabel.TextSize = 18
+
+-- Aquí puedes agregar más elementos al frame de opciones, como otros botones
+local newButton = Instance.new("TextButton")
+newButton.Parent = optionsFrame
+newButton.Text = "New Option"
+newButton.Size = UDim2.new(1, 0, 0, 30)
+newButton.Position = UDim2.new(0, 0, 0, 30)
+newButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+newButton.BackgroundTransparency = 0.2
+newButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+newButton.Font = Enum.Font.SourceSans
+newButton.TextSize = 18
+
+optionsButton.MouseButton1Click:Connect(function()
+    optionsFrame.Visible = not optionsFrame.Visible
+end)
+
+local function syncFrames()
+    optionsFrame.Position = UDim2.new(parent.Position.X.Scale + parent.Size.X.Scale, parent.Position.X.Offset, parent.Position.Y.Scale, parent.Position.Y.Offset)
+end
+
+parent:GetPropertyChangedSignal("Position"):Connect(syncFrames)
+parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
+
+return optionsButton, optionsFrame
+end
+
 return UILibrary
+        
