@@ -73,8 +73,10 @@ end
 
 local function adjustFrameSize(frame)
     local totalHeight = UILibrary.Padding.Frame
+    local elementCount = 0
     for _, child in ipairs(frame:GetChildren()) do
         if child:IsA("GuiObject") and child ~= frame then
+            elementCount = elementCount + 1
             totalHeight = totalHeight + child.Size.Y.Offset + UILibrary.Padding.Element
         end
     end
