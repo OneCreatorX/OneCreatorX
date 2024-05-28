@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.12, 0),
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)
+    Button = UDim2.new(0.8, 0, 0.05, 0),
+    TextBox = UDim2.new(0.8, 0, 0.05, 0)
 }
 
 UILibrary.Transparency = {
@@ -27,13 +27,13 @@ UILibrary.Transparency = {
 }
 
 UILibrary.TextSizes = {
-    Button = 12,
-    TextBox = 12
+    Button = 14,
+    TextBox = 14
 }
 
 UILibrary.Padding = {
-    Element = 20,
-    Frame = 21
+    Element = 10,
+    Frame = 30
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -88,7 +88,7 @@ local function positionElement(parent, element)
             elementCount = elementCount + 1
         end
     end
-    local yPos = (elementCount * UILibrary.Padding.Element) + UILibrary.Padding.Frame
+    local yPos = (elementCount * (element.Size.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame
     element.Position = UDim2.new(0.1, 0, 0, yPos)
     adjustFrameSize(parent)
 end
