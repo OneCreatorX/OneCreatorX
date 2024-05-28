@@ -26,8 +26,8 @@ end
 function UILibrary:CreateFrame(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
-    frame.Size = UDim2.new(0.3, 0, 0.4, 0)  -- Tamaño básico del frame
-    frame.Position = UDim2.new(0.35, 0, 0.3, 0)  -- Posición centrada
+    frame.Size = UDim2.new(0.27, 0, 0.4, 0)  -- Tamaño del frame reducido en un 10%
+    frame.Position = UDim2.new(0.365, 0, 0.3, 0)  -- Posición centrada
     frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)  -- Color de fondo básico
     frame.BorderSizePixel = 0  -- Sin borde
 
@@ -40,6 +40,48 @@ function UILibrary:CreateFrame(parent, title)
     titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Color del texto del título
     titleLabel.Font = Enum.Font.SourceSans
     titleLabel.TextSize = 18
+
+    -- Botón de minimizar/maximizar
+    local toggleButton = Instance.new("TextButton")
+    toggleButton.Parent = frame
+    toggleButton.Text = "-"
+    toggleButton.Size = UDim2.new(0, 30, 0, 30)
+    toggleButton.Position = UDim2.new(1, -30, 0, 0)
+    toggleButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    toggleButton.Font = Enum.Font.SourceSans
+    toggleButton.TextSize = 18
+
+    -- Contenedor para el contenido del frame
+    local contentFrame = Instance.new("Frame")
+    contentFrame.Parent = frame
+    contentFrame.Size = UDim2.new(1, 0, 1, -60)  -- Ajustar para dejar espacio para el título y el botón de créditos
+    contentFrame.Position = UDim2.new(0, 0, 0, 30)
+    contentFrame.BackgroundTransparency = 1
+
+    -- Sección de créditos
+    local creditsButton = Instance.new("TextButton")
+    creditsButton.Parent = frame
+    creditsButton.Text = "Créditos"
+    creditsButton.Size = UDim2.new(1, 0, 0, 30)
+    creditsButton.Position = UDim2.new(0, 0, 1, -30)
+    creditsButton.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    creditsButton.Font = Enum.Font.SourceSans
+    creditsButton.TextSize = 18
+
+    -- Funcionalidad de minimizar/maximizar
+    local isMinimized = false
+    toggleButton.MouseButton1Click:Connect(function()
+        isMinimized = not isMinimized
+        if isMinimized then
+            contentFrame.Visible = false
+            toggleButton.Text = "+"
+        else
+            contentFrame.Visible = true
+            toggleButton.Text = "-"
+        end
+    end)
 
     return frame
 end
