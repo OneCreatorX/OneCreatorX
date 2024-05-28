@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.05, 0),  -- Tamaño fijo para los botones
-    TextBox = UDim2.new(0.8, 0, 0.05, 0)  -- Tamaño fijo para el TextBox
+    Button = UDim2.new(0.8, 0, 0.05, 0),
+    TextBox = UDim2.new(0.8, 0, 0.05, 0)
 }
 
 UILibrary.Transparency = {
