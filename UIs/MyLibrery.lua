@@ -70,16 +70,17 @@ function UILibrary:CreateFrame(parent, title)
     creditsButton.Font = Enum.Font.SourceSans
     creditsButton.TextSize = 18
 
-    -- Funcionalidad de minimizar/maximizar
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
         if isMinimized then
             contentFrame.Visible = false
             toggleButton.Text = "+"
+            frame.Size = UDim2.new(0.27, 0, 0, 60)  -- Ajustar el tamaño del frame para mostrar solo el título y el botón de créditos
         else
             contentFrame.Visible = true
             toggleButton.Text = "-"
+            frame.Size = UDim2.new(0.27, 0, 0.4, 0)  -- Restaurar el tamaño original del frame
         end
     end)
 
