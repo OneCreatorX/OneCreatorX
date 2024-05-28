@@ -11,29 +11,29 @@ UILibrary.Colors = {
 }
 
 UILibrary.Fonts = {
-    Main = Enum.Font.SourceSans,              -- Fuente principal
-    Button = Enum.Font.SourceSansBold         -- Fuente de los botones
+    Main = Enum.Font.SourceSans,       
+    Button = Enum.Font.SourceSansBold     
 }
 
 UILibrary.Sizes = {
-    Window = UDim2.new(0.2, 0, 0.4, 0),       -- Tamaño del frame principal
-    Button = UDim2.new(0.8, 0, 0.12, 0),      -- Tamaño de los botones
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)      -- Tamaño del TextBox
+    Window = UDim2.new(0.2, 0, 0.4, 0),  
+    Button = UDim2.new(0.8, 0, 0.12, 0),  
+    TextBox = UDim2.new(0.8, 0, 0.12, 0)   
 }
 
 UILibrary.Transparency = {
-    Background = 0.9,                         -- Transparencia del fondo del frame principal
-    Button = 0.8                              -- Transparencia del fondo de los botones
+    Background = 0.9,           
+    Button = 0.8                
 }
 
 UILibrary.TextSizes = {
-    Button = 10,                              -- Tamaño del texto de los botones
-    TextBox = 10                              -- Tamaño del texto del TextBox
+    Button = 10,            
+    TextBox = 10                
 }
 
 UILibrary.Padding = {
-    Element = 10,                             -- Espacio entre elementos
-    Frame = 35                                -- Espacio inicial para el título del frame
+    Element = 10,             
+    Frame = 35                      
 }
 
 function UILibrary:CreateScreenGui(name)
@@ -94,6 +94,7 @@ local function positionElement(parent, element)
     else
         element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
     end
+    adjustFrameSize(parent)
 end
 
 local Window = {}
@@ -132,7 +133,6 @@ function Window:Button(text, onClick)
     end)
 
     positionElement(self.frame, button)
-    adjustFrameSize(self.frame)
 
     return self
 end
@@ -154,8 +154,8 @@ function Window:TextBox(placeholderText, onEnter)
             onEnter(textBox.Text)
         end
     end)
-positionElement(self.frame, textBox)
-    adjustFrameSize(self.frame)
+
+    positionElement(self.frame, textBox)
 
     return self
 end
@@ -187,7 +187,6 @@ function Window:Toggle(text, onToggle)
     end)
 
     positionElement(self.frame, buttonToggle)
-    adjustFrameSize(self.frame)
 
     return self
 end
@@ -208,4 +207,3 @@ function UILibrary:ScreenGui(name)
 end
 
 return UILibrary
-    
