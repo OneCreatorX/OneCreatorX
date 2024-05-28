@@ -23,12 +23,12 @@ end
 function UILibrary:CreateSection(parent, title)
     local sectionFrame = Instance.new("Frame")
     sectionFrame.Parent = parent
-    sectionFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Misma medida que el frame de créditos
-    sectionFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Misma posición que el frame de créditos
+    sectionFrame.Size = UDim2.new(0.6, 0, 0.4, 0)
+    sectionFrame.Position = UDim2.new(1, 0, 0.3, 0)
     sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     sectionFrame.BackgroundTransparency = 0.1
-    sectionFrame.BorderSizePixel = 0
-    sectionFrame.Visible = false  -- Inicialmente oculto
+    sectionFrame.BorderSizePixel = 1
+    sectionFrame.Visible = false
 
     local sectionTitleLabel = Instance.new("TextLabel")
     sectionTitleLabel.Parent = sectionFrame
@@ -100,7 +100,7 @@ function UILibrary:CreateFrame(parent, title)
     creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
     creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     creditsFrame.BackgroundTransparency = 0.1
-    creditsFrame.BorderSizePixel = 0
+    creditsFrame.BorderSizePixel = 2
     creditsFrame.Visible = false
 
     local creditsTitleLabel = Instance.new("TextLabel")
