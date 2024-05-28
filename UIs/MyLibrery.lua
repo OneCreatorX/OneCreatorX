@@ -85,7 +85,7 @@ function UILibrary:CreateFrame(parent, title)
 
     local creditsButton = Instance.new("TextButton")
     creditsButton.Parent = frame
-    creditsButton.Text = "Créditos"
+    creditsButton.Text = "Crédits: By OneCreatorX"
     creditsButton.Size = UDim2.new(1, 0, 0, 30)
     creditsButton.Position = UDim2.new(0, 0, 1, -30)
     creditsButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -100,7 +100,7 @@ function UILibrary:CreateFrame(parent, title)
     creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
     creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     creditsFrame.BackgroundTransparency = 0.1
-    creditsFrame.BorderSizePixel = 2
+    creditsFrame.BorderSizePixel = 1
     creditsFrame.Visible = false
 
     local creditsTitleLabel = Instance.new("TextLabel")
@@ -113,14 +113,14 @@ function UILibrary:CreateFrame(parent, title)
     creditsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
     creditsTitleLabel.Font = Enum.Font.SourceSans
     creditsTitleLabel.TextSize = 18
-
+    
     local isMinimized = false
     toggleButton.MouseButton1Click:Connect(function()
         isMinimized = not isMinimized
         if isMinimized then
             contentFrame.Visible = false
             toggleButton.Text = "+"
-            frame.Size = UDim2.new(0.27, 0, 0, 60)
+            frame.Size = UDim2.new(0.27, 0, 0, 60 + #contentFrame:GetChildren() * 30)
         else
             contentFrame.Visible = true
             toggleButton.Text = "-"
