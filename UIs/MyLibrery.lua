@@ -17,8 +17,8 @@ UILibrary.Fonts = {
 
 UILibrary.Sizes = {
     Window = UDim2.new(0.2, 0, 0.4, 0),
-    Button = UDim2.new(0.8, 0, 0.12, 0),
-    TextBox = UDim2.new(0.8, 0, 0.12, 0)
+    Button = UDim2.new(0.8, 0, 0.1, 0),  -- Tamaño fijo para los botones
+    TextBox = UDim2.new(0.8, 0, 0.1, 0)  -- Tamaño fijo para los TextBox
 }
 
 UILibrary.Transparency = {
@@ -32,7 +32,7 @@ UILibrary.TextSizes = {
 }
 
 UILibrary.Padding = {
-    Element = 15,
+    Element = 10,
     Frame = 30
 }
 
@@ -80,6 +80,7 @@ local function adjustFrameSize(frame)
     end
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
+
 
 local function positionElement(parent, element)
     local elementCount = 0
