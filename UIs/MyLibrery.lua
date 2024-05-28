@@ -20,6 +20,30 @@ function UILibrary:CreateScreenGui(name)
     return screenGui
 end
 
+function UILibrary:CreateSection(parent, title)
+    local sectionFrame = Instance.new("Frame")
+    sectionFrame.Parent = parent
+    sectionFrame.Size = UDim2.new(0.2, 0, 0.4, 0)  -- Misma medida que el frame de créditos
+    sectionFrame.Position = UDim2.new(0.635, 0, 0.3, 0)  -- Misma posición que el frame de créditos
+    sectionFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    sectionFrame.BackgroundTransparency = 0.1
+    sectionFrame.BorderSizePixel = 0
+    sectionFrame.Visible = false  -- Inicialmente oculto
+
+    local sectionTitleLabel = Instance.new("TextLabel")
+    sectionTitleLabel.Parent = sectionFrame
+    sectionTitleLabel.Text = title
+    sectionTitleLabel.Size = UDim2.new(1, 0, 0, 30)
+    sectionTitleLabel.Position = UDim2.new(0, 0, 0, 0)
+    sectionTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    sectionTitleLabel.BackgroundTransparency = 0.2
+    sectionTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    sectionTitleLabel.Font = Enum.Font.SourceSans
+    sectionTitleLabel.TextSize = 18
+
+    return sectionFrame
+end
+
 function UILibrary:CreateFrame(parent, title)
     local frame = Instance.new("Frame")
     frame.Parent = parent
@@ -178,11 +202,10 @@ function UILibrary:AddOptionsButton(parent, optionsName)
         optionsFrame.Position = UDim2.new(parent.Position.X.Scale + parent.Size.X.Scale, parent.Position.X.Offset, parent.Position.Y.Scale, parent.Position.Y.Offset)
     end
 
-    
     parent:GetPropertyChangedSignal("Position"):Connect(syncFrames)
     parent:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
-    return optionsButton, optionsFrame
+    return button, optionsFrame
 end
 
 return UILibrary
