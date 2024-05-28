@@ -85,7 +85,7 @@ function UILibrary:CreateFrame(parent, title)
 
     local creditsButton = Instance.new("TextButton")
     creditsButton.Parent = frame
-    creditsButton.Text = "Crédits: By OneCreatorX"
+    creditsButton.Text = "Crédits: OneCreatorX"
     creditsButton.Size = UDim2.new(1, 0, 0, 30)
     creditsButton.Position = UDim2.new(0, 0, 1, -30)
     creditsButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
