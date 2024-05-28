@@ -81,6 +81,7 @@ local function adjustFrameSize(frame)
     frame.Size = UDim2.new(frame.Size.X.Scale, frame.Size.X.Offset, 0, totalHeight)
 end
 
+
 local function positionElement(parent, element)
     local lastElement = nil
     for _, child in ipairs(parent:GetChildren()) do
@@ -93,14 +94,12 @@ local function positionElement(parent, element)
     else
         element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
     end
+    adjustFrameSize(parent)
 end
 
-local Window = {}
-Window.__index = Window
-
-function Window:Button(text, onClick)
+function UILibrary:CreateButton(parent, text, onClick)
     local button = Instance.new("TextButton")
-    button.Parent = self.frame
+    button.Parent = parent
     button.Text = text
     button.Size = UILibrary.Sizes.Button
     button.BackgroundColor3 = UILibrary.Colors.Button
@@ -130,17 +129,16 @@ function Window:Button(text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    positionElement(self.frame, button)
-    adjustFrameSize(self.frame)
+    positionElement(parent, button)
 
-    return self
+    return button
 end
 
-function Window:TextBox(placeholderText, onEnter)
+function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
-    textBox.Parent = self.frame
+    textBox.Parent = parent
     textBox.PlaceholderText = placeholderText
-    textBox.Text = placeholderText
+    textBox.Text = ""
     textBox.Size = UILibrary.Sizes.TextBox
     textBox.BackgroundColor3 = UILibrary.Colors.Input
     textBox.TextColor3 = UILibrary.Colors.Text
@@ -154,59 +152,40 @@ function Window:TextBox(placeholderText, onEnter)
         end
     end)
 
-    positionElement(self.frame, textBox)
-    adjustFrameSize(self.frame)
+    positionElement(parent, textBox)
 
-    return self
+    return textBox
 end
 
+function UILibrary:CreateToggle(parent, text, onToggle)
+    local toggle = Instance.new("TextButton")
+    toggle.Parent = parent
+    toggle.Text = text
+    toggle.Size = UILibrary.Sizes.Button
+    toggle.BackgroundColor3 = UILibrary.Colors.Button
+    toggle.TextColor3 = UILibrary.Colors.Text
+    toggle.Font = UILibrary.Fonts.Button
+    toggle.TextSize = UILibrary.TextSizes.Button
+    toggle.AutoButtonColor = false
 
-
-function Window:Toggle(text, onToggle)
-    local buttonToggle = Instance.new("TextButton")
-    buttonToggle.Parent = self.frame
-    buttonToggle.Text = text
-    buttonToggle.Size = UILibrary.Sizes.Button
-    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-    buttonToggle.TextColor3 = UILibrary.Colors.Text
-    buttonToggle.Font = UILibrary.Fonts.Button
-    buttonToggle.TextSize = UILibrary.TextSizes.Button
-    buttonToggle.AutoButtonColor = false
-
-    buttonToggle.BorderSizePixel = 1
-    buttonToggle.BorderColor3 = UILibrary.Colors.Border
+    toggle.BorderSizePixel = 1
+    toggle.BorderColor3 = UILibrary.Colors.Border
 
     local toggled = false
 
-    buttonToggle.MouseButton1Click:Connect(function()
+    toggle.MouseButton1Click:Connect(function()
         toggled = not toggled
-        if toggled then
-            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
-        else
-            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
-        end
         onToggle(toggled)
+        if toggled then
+            toggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
+        else
+            toggle.BackgroundColor3 = UILibrary.Colors.Button
+        end
     end)
 
-    positionElement(self.frame, buttonToggle)
-    adjustFrameSize(self.frame)
+    positionElement(parent, toggle)
 
-    return self
-end
-
-local ScreenGui = {}
-ScreenGui.__index = ScreenGui
-
-function ScreenGui:Window(title)
-    local frame = UILibrary:CreateWindow(self.gui, title)
-    local window = setmetatable({ frame = frame }, Window)
-    return window
-end
-
-function UILibrary:ScreenGui(name)
-    local gui = UILibrary:CreateScreenGui(name)
-    local screenGui = setmetatable({ gui = gui }, ScreenGui)
-    return screenGui
+    return toggle
 end
 
 return UILibrary
