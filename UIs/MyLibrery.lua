@@ -7,7 +7,7 @@ UILibrary.Colors = {
     ButtonHover = Color3.fromRGB(105, 215, 80), -- Color del botón al pasar el mouse
     Input = Color3.fromRGB(35, 35, 35),       -- Color de fondo del TextBox
     Border = Color3.fromRGB(150, 150, 150),   -- Color del borde de los elementos
-    Button3D = Color3.fromRGB(90, 105, 210)     -- Color del borde del botón al hacer clic
+    Button3D = Color3.fromRGB(90, 105, 210)   -- Color del borde del botón al hacer clic
 }
 
 UILibrary.Fonts = {
@@ -96,9 +96,12 @@ local function positionElement(parent, element)
     adjustFrameSize(parent)
 end
 
-function UILibrary:CreateButton(parent, text, onClick)
+local Window = {}
+Window.__index = Window
+
+function Window:Button(text, onClick)
     local button = Instance.new("TextButton")
-    button.Parent = parent
+    button.Parent = self.frame
     button.Text = text
     button.Size = UILibrary.Sizes.Button
     button.BackgroundColor3 = UILibrary.Colors.Button
@@ -128,14 +131,15 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    positionElement(parent, button)
+    positionElement(self.frame, button)
 
-    return button
+    return self
 end
 
-function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
+
+function Window:TextBox(placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
-    textBox.Parent = parent
+    textBox.Parent = self.frame
     textBox.PlaceholderText = placeholderText
     textBox.Text = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
@@ -151,14 +155,14 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
-    positionElement(parent, textBox)
+    positionElement(self.frame, textBox)
 
-    return textBox
+    return self
 end
 
-function UILibrary:CreateButtonToggle(parent, text, onToggle)
+function Window:Toggle(text, onToggle)
     local buttonToggle = Instance.new("TextButton")
-    buttonToggle.Parent = parent
+    buttonToggle.Parent = self.frame
     buttonToggle.Text = text
     buttonToggle.Size = UILibrary.Sizes.Button
     buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
@@ -182,9 +186,24 @@ function UILibrary:CreateButtonToggle(parent, text, onToggle)
         onToggle(toggled)
     end)
 
-    positionElement(parent, buttonToggle)
+    positionElement(self.frame, buttonToggle)
 
-    return buttonToggle
+    return self
+end
+
+local ScreenGui = {}
+ScreenGui.__index = ScreenGui
+
+function ScreenGui:Ventana(title)
+    local frame = UILibrary:CreateWindow(self.gui, title)
+    local window = setmetatable({ frame = frame }, Window)
+    return window
+end
+
+function UILibrary:ScreenGui(name)
+    local gui = UILibrary:CreateScreenGui(name)
+    local screenGui = setmetatable({ gui = gui }, ScreenGui)
+    return screenGui
 end
 
 return UILibrary
