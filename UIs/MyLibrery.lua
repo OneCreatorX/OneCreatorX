@@ -82,20 +82,25 @@ local function adjustFrameSize(frame)
 end
 
 local function positionElement(parent, element)
-    local elementCount = 0
+    local lastElement = nil
     for _, child in ipairs(parent:GetChildren()) do
         if child:IsA("GuiObject") and child ~= parent then
-            elementCount = elementCount + 1
+            lastElement = child
         end
     end
-    local yPos = (elementCount * (UILibrary.Sizes.Button.Y.Offset + UILibrary.Padding.Element)) + UILibrary.Padding.Frame -- Adjusted to add more space per element
-    element.Position = UDim2.new(0.1, 0, 0, yPos)
-    adjustFrameSize(parent)
+    if lastElement then
+        element.Position = UDim2.new(0.1, 0, 0, lastElement.Position.Y.Offset + lastElement.Size.Y.Offset + UILibrary.Padding.Element)
+    else
+        element.Position = UDim2.new(0.1, 0, 0, UILibrary.Padding.Frame + UILibrary.Padding.Element)
+    end
 end
 
-function UILibrary:CreateButton(parent, text, onClick)
+local Window = {}
+Window.__index = Window
+
+function Window:Button(text, onClick)
     local button = Instance.new("TextButton")
-    button.Parent = parent
+    button.Parent = self.frame
     button.Text = text
     button.Size = UILibrary.Sizes.Button
     button.BackgroundColor3 = UILibrary.Colors.Button
@@ -125,14 +130,15 @@ function UILibrary:CreateButton(parent, text, onClick)
         button.BorderColor3 = UILibrary.Colors.Border
     end)
 
-    positionElement(parent, button)
+    positionElement(self.frame, button)
+    adjustFrameSize(self.frame)
 
-    return button
+    return self
 end
 
-function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
+function Window:TextBox(placeholderText, onEnter)
     local textBox = Instance.new("TextBox")
-    textBox.Parent = parent
+    textBox.Parent = self.frame
     textBox.PlaceholderText = placeholderText
     textBox.Text = placeholderText
     textBox.Size = UILibrary.Sizes.TextBox
@@ -148,9 +154,59 @@ function UILibrary:CreateTextBox(parent, placeholderText, onEnter)
         end
     end)
 
-    positionElement(parent, textBox)
+    positionElement(self.frame, textBox)
+    adjustFrameSize(self.frame)
 
-    return textBox
+    return self
+end
+
+
+
+function Window:Toggle(text, onToggle)
+    local buttonToggle = Instance.new("TextButton")
+    buttonToggle.Parent = self.frame
+    buttonToggle.Text = text
+    buttonToggle.Size = UILibrary.Sizes.Button
+    buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+    buttonToggle.TextColor3 = UILibrary.Colors.Text
+    buttonToggle.Font = UILibrary.Fonts.Button
+    buttonToggle.TextSize = UILibrary.TextSizes.Button
+    buttonToggle.AutoButtonColor = false
+
+    buttonToggle.BorderSizePixel = 1
+    buttonToggle.BorderColor3 = UILibrary.Colors.Border
+
+    local toggled = false
+
+    buttonToggle.MouseButton1Click:Connect(function()
+        toggled = not toggled
+        if toggled then
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.ButtonHover
+        else
+            buttonToggle.BackgroundColor3 = UILibrary.Colors.Button
+        end
+        onToggle(toggled)
+    end)
+
+    positionElement(self.frame, buttonToggle)
+    adjustFrameSize(self.frame)
+
+    return self
+end
+
+local ScreenGui = {}
+ScreenGui.__index = ScreenGui
+
+function ScreenGui:Window(title)
+    local frame = UILibrary:CreateWindow(self.gui, title)
+    local window = setmetatable({ frame = frame }, Window)
+    return window
+end
+
+function UILibrary:ScreenGui(name)
+    local gui = UILibrary:CreateScreenGui(name)
+    local screenGui = setmetatable({ gui = gui }, ScreenGui)
+    return screenGui
 end
 
 return UILibrary
