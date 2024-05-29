@@ -1,5 +1,5 @@
 local UL = {}
-print("Version UI 0.7")
+print("Version UI 0.1")
 local p = game.Players.LocalPlayer
 
 -- Propiedades comunes para los elementos de la interfaz
@@ -123,6 +123,12 @@ function UL:CrFrm(parent, title)
     frm:GetPropertyChangedSignal("Position"):Connect(syncFrames)
     frm:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
+    -- Actualiza el tamaño del frame principal
+    frm.Size = UDim2.new(0.25, 0, 0, 60 + #cfrm:GetChildren() * 30)
+
+    -- Actualiza el tamaño del frame de información
+    crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
+
     return frm, cfrm, crFrm
 end
 
@@ -138,8 +144,6 @@ function UL:AddBtn(parent, text, callback)
     end
 
     btn.MouseButton1Click:Connect(callback)
-    
-    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
     
     return btn
 end
@@ -162,8 +166,6 @@ function UL:AddTBtn(parent, text, state, callback)
         callback(state)
     end)
 
-    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
-
     return btn
 end
 
@@ -184,8 +186,6 @@ function UL:AddTBox(parent, placeholder, callback)
             callback(box.Text)
         end
     end)
-
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return box
 end
@@ -223,8 +223,6 @@ function UL:AddOBtn(parent, name)
         oFrm.Visible = not oFrm.Visible
     end)
 
-    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
-
     return btn, oFrm
 end
 
@@ -241,9 +239,6 @@ function UL:AddText(parent, text, color)
     label.Font = Enum.Font.SourceSans
     label.TextSize = 18
     label.TextWrapped = true -- Habilita el ajuste de texto
-
-    -- Actualiza el tamaño del frame de información
-    parent.Size = UDim2.new(0.25, 0, 0, 30 + #parent:GetChildren() * 30)
 
     return label
 end
