@@ -1,245 +1,180 @@
-local UILibrary = {}
+local UI = {}
 
-function UILibrary:CreateScreenGui(name)
+-- Función base MEGA compacta para botones (¡Cuidado, puede ser difícil de leer!)
+local function b(p, t, f)
+    local btn = Instance.new("TextButton", p)
+    btn.Text = t
+    btn.Size = UDim2.new(1, 0, 0, 30)
+    btn.Position = UDim2.new(0, 0, 0, #p:GetChildren() * 30 - 30)
+    btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    btn.BackgroundTransparency = 0.2
+    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    btn.Font = Enum.Font.SourceSans
+    btn.TextSize = 18
+    btn.MouseButton1Click:Connect(f)
+    return btn
+end
+
+function UI:CreateScr(n)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
-        if gui:IsA("ScreenGui") and gui:FindFirstChild("UILibraryIdentifier") then
+        if gui:IsA("ScreenGui") and gui:FindFirstChild("UIid") then 
             gui:Destroy()
         end
     end
 
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Name = name
-    screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-    screenGui.ResetOnSpawn = false
-
-    local identifier = Instance.new("BoolValue")
-    identifier.Name = "UILibraryIdentifier"
-    identifier.Value = true
-    identifier.Parent = screenGui
-
-    return screenGui
+    local scr = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
+    scr.Name = n
+    scr.ResetOnSpawn = false
+    Instance.new("BoolValue", scr).Name = "UIid"
+    return scr
 end
 
-function UILibrary:CreateFrame(parent, title)
-    local frame = Instance.new("Frame")
-    frame.Parent = parent
-    frame.Size = UDim2.new(0.35, 0, 0, 60)
-    frame.Position = UDim2.new(0.325, 0, 0.3, 0)
-    frame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    frame.BackgroundTransparency = 0.1
-    frame.BorderSizePixel = 0
-    frame.Active = true
-    frame.Draggable = true
+function UI:CreateFrm(p, tit)
+    local frm = Instance.new("Frame", p)
+    frm.Size = UDim2.new(0.35, 0, 0, 60)
+    frm.Position = UDim2.new(0.325, 0, 0.3, 0)
+    frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    frm.BackgroundTransparency = 0.1
+    frm.BorderSizePixel = 0
+    frm.Active = true
+    frm.Draggable = true
 
-    local titleLabel = Instance.new("TextLabel")
-    titleLabel.Parent = frame
-    titleLabel.Text = title
-    titleLabel.Size = UDim2.new(1, 0, 0, 30)
-    titleLabel.Position = UDim2.new(0, 0, 0, 0)
-    titleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    titleLabel.BackgroundTransparency = 0.2
-    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    titleLabel.Font = Enum.Font.SourceSans
-    titleLabel.TextSize = 18
+    local titLbl = Instance.new("TextLabel", frm)
+    titLbl.Text = tit
+    titLbl.Size = UDim2.new(1, 0, 0, 30)
+    titLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    titLbl.BackgroundTransparency = 0.2
+    titLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titLbl.Font = Enum.Font.SourceSans
+    titLbl.TextSize = 18
 
-    local toggleButton = Instance.new("TextButton")
-    toggleButton.Parent = frame
-    toggleButton.Text = "-"
-    toggleButton.Size = UDim2.new(0, 30, 0, 30)
-    toggleButton.Position = UDim2.new(1, -30, 0, 0)
-    toggleButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    toggleButton.BackgroundTransparency = 0.2
-    toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    toggleButton.Font = Enum.Font.SourceSans
-    toggleButton.TextSize = 18
-
-    local contentFrame = Instance.new("Frame")
-    contentFrame.Parent = frame
-    contentFrame.Size = UDim2.new(1, 0, 1, -60)
-    contentFrame.Position = UDim2.new(0, 0, 0, 30)
-    contentFrame.BackgroundTransparency = 1
-
-    local creditsButton = Instance.new("TextButton")
-    creditsButton.Parent = frame
-    creditsButton.Text = "Crédits: OneCreatorX"
-    creditsButton.Size = UDim2.new(1, 0, 0, 30)
-    creditsButton.Position = UDim2.new(0, 0, 1, -30)
-    creditsButton.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    creditsButton.BackgroundTransparency = 0.2
-    creditsButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-    creditsButton.Font = Enum.Font.SourceSans
-    creditsButton.TextSize = 18
-
-    local creditsFrame = Instance.new("Frame")
-    creditsFrame.Parent = parent
-    creditsFrame.Size = UDim2.new(0.2, 0, 0.4, 0)
-    creditsFrame.Position = UDim2.new(0.635, 0, 0.3, 0)
-    creditsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    creditsFrame.BackgroundTransparency = 0.1
-    creditsFrame.BorderSizePixel = 1
-    creditsFrame.Visible = false
-
-    local creditsTitleLabel = Instance.new("TextLabel")
-    creditsTitleLabel.Parent = creditsFrame
-    creditsTitleLabel.Text = "Créditos"
-    creditsTitleLabel.Size = UDim2.new(1, 0, 0, 30)
-    creditsTitleLabel.Position = UDim2.new(0, 0, 0, 0)
-    creditsTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    creditsTitleLabel.BackgroundTransparency = 0.2
-    creditsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    creditsTitleLabel.Font = Enum.Font.SourceSans
-    creditsTitleLabel.TextSize = 18
-    
-    local isMinimized = false
-    toggleButton.MouseButton1Click:Connect(function()
+    local tBtn = b(frm, "-", function()
         isMinimized = not isMinimized
         if isMinimized then
-            contentFrame.Visible = false
-            toggleButton.Text = "+"
-            frame.Size = UDim2.new(0.35, 0, 0, 60)
+            cntFrm.Visible = false
+            tBtn.Text = "+"
+            frm.Size = UDim2.new(0.35, 0, 0, 60)
         else
-            contentFrame.Visible = true
-            toggleButton.Text = "-"
-            frame.Size = UDim2.new(0.35, 0, 0, 60 + #contentFrame:GetChildren() * 30)
+            cntFrm.Visible = true
+            tBtn.Text = "-"
+            frm.Size = UDim2.new(0.35, 0, 0, 60 + cntFrm.AbsoluteContentSize.Y)
         end
     end)
+    tBtn.Size = UDim2.new(0, 30, 0, 30)
+    tBtn.Position = UDim2.new(1, -30, 0, 0)
 
-    creditsButton.MouseButton1Click:Connect(function()
-        creditsFrame.Visible = not creditsFrame.Visible
+    local cntFrm = Instance.new("Frame", frm)
+    cntFrm.Size = UDim2.new(1, 0, 1, -60)
+    cntFrm.Position = UDim2.new(0, 0, 0, 30)
+    cntFrm.BackgroundTransparency = 1
+
+    local cBtn = b(frm, "Créditos: OneCreatorX", function()
+        cFrm.Visible = not cFrm.Visible
     end)
+    cBtn.Size = UDim2.new(1, 0, 0, 30)
+    cBtn.Position = UDim2.new(0, 0, 1, -30)
 
-    local function syncFrames()
-        creditsFrame.Position = UDim2.new(frame.Position.X.Scale + frame.Size.X.Scale, frame.Position.X.Offset, frame.Position.Y.Scale, frame.Position.Y.Offset)
+    local cFrm = Instance.new("Frame", p)
+    cFrm.Size = UDim2.new(0.2, 0, 0.4, 0)
+    cFrm.Position = UDim2.new(0.635, 0, 0.3, 0)
+    cFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    cFrm.BackgroundTransparency = 0.1
+    cFrm.BorderSizePixel = 1
+    cFrm.Visible = false
+
+    local cTitLbl = Instance.new("TextLabel", cFrm)
+    cTitLbl.Text = "Créditos"
+    cTitLbl.Size = UDim2.new(1, 0, 0, 30)
+    cTitLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    cTitLbl.BackgroundTransparency = 0.2
+    cTitLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    cTitLbl.Font = Enum.Font.SourceSans
+    cTitLbl.TextSize = 18
+
+    local isMinimized = false
+
+    local function syncFrm()
+        cFrm.Position = UDim2.new(frm.Position.X.Scale + frm.Size.X.Scale, frm.Position.X.Offset, frm.Position.Y.Scale, frm.Position.Y.Offset)
     end
+    frm:GetPropertyChangedSignal("Position"):Connect(syncFrm)
 
-    frame:GetPropertyChangedSignal("Position"):Connect(syncFrames)
-    frame:GetPropertyChangedSignal("Size"):Connect(syncFrames)
-
-    return frame, contentFrame, creditsFrame
+    return frm, cntFrm, cFrm
 end
 
-function UILibrary:AddButton(parent, buttonText, callback)
-    local button = Instance.new("TextButton")
-    button.Parent = parent
-    button.Text = buttonText
-    button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    button.BackgroundTransparency = 0.2
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Font = Enum.Font.SourceSans
-    button.TextSize = 18
-
-    button.MouseButton1Click:Connect(callback)
-
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
-
-    return button
+function UI:AddBtn(p, txt, f)
+    local btn = b(p, txt, f)
+    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y)
+    return btn
 end
 
-function UILibrary:AddOptionsButton(parent, optionsName)
-    local button = Instance.new("TextButton")
-    button.Parent = parent
-    button.Text = optionsName
-    button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    button.BackgroundTransparency = 0.2
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Font = Enum.Font.SourceSans
-    button.TextSize = 18
+function UI:AddOptBtn(p, optName)
+    local optFrm = Instance.new("Frame", p.Parent)
+    optFrm.Size = UDim2.new(0.25, 0, 0.4, 0)
+    optFrm.Position = UDim2.new(1.02, 0, 0, 0)
+    optFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    optFrm.BackgroundTransparency = 0.1
+    optFrm.BorderSizePixel = 0
+    optFrm.Visible = false
 
-    local optionsFrame = Instance.new("Frame")
-    optionsFrame.Parent = parent.Parent
-    optionsFrame.Size = UDim2.new(0.25, 0, 0.4, 0)
-    optionsFrame.Position = UDim2.new(1.02, 0, 0, 0)  -- Ajusta la posición para que esté a la derecha del frame principal
-    optionsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    optionsFrame.BackgroundTransparency = 0.1
-    optionsFrame.BorderSizePixel = 0
-    optionsFrame.Visible = false
+    local optTitLbl = Instance.new("TextLabel", optFrm)
+    optTitLbl.Text = optName
+    optTitLbl.Size = UDim2.new(1, 0, 0, 30)
+    optTitLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    optTitLbl.BackgroundTransparency = 0.2
+    optTitLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    optTitLbl.Font = Enum.Font.SourceSans
+    optTitLbl.TextSize = 18
 
-    local optionsTitleLabel = Instance.new("TextLabel")
-    optionsTitleLabel.Parent = optionsFrame
-    optionsTitleLabel.Text = optionsName
-    optionsTitleLabel.Size = UDim2.new(1, 0, 0, 30)
-    optionsTitleLabel.Position = UDim2.new(0, 0, 0, 0)
-    optionsTitleLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    optionsTitleLabel.BackgroundTransparency = 0.2
-    optionsTitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    optionsTitleLabel.Font = Enum.Font.SourceSans
-    optionsTitleLabel.TextSize = 18
-
-    button.MouseButton1Click:Connect(function()
-        optionsFrame.Visible = not optionsFrame.Visible
+    local btn = b(p, optName, function()
+        optFrm.Visible = not optFrm.Visible
     end)
 
-    return button, optionsFrame
+    return btn, optFrm
 end
 
-function UILibrary:AddToggleButton(parent, toggleText, defaultState, callback)
-    local button = Instance.new("TextButton")
-    button.Parent = parent
-    button.Text = toggleText .. " (" .. (defaultState and "On" or "Off") .. ")"
-    button.Size = UDim2.new(1, 0, 0, 30)
-    button.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    button.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    button.BackgroundTransparency = 0.2
-    button.TextColor3 = Color3.fromRGB(255, 255, 255)
-    button.Font = Enum.Font.SourceSans
-    button.TextSize = 18
-
-    local state = defaultState
-
-    button.MouseButton1Click:Connect(function()
+function UI:AddTBtn(p, tTxt, dState, f)
+    local state = dState
+    local btn = b(p, tTxt .. " (" .. (state and "On" or "Off") .. ")", function()
         state = not state
-        button.Text = toggleText .. " (" .. (state and "On" or "Off") .. ")"
-        callback(state)
+        btn.Text = tTxt .. " (" .. (state and "On" or "Off") .. ")"
+        f(state)
     end)
-
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
-
-    return button
+    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y)
+    return btn
 end
 
-function UILibrary:AddTextbox(parent, textboxText, defaultText, callback)
-    local frame = Instance.new("Frame")
-    frame.Parent = parent
-    frame.Size = UDim2.new(1, 0, 0, 30)
-    frame.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    frame.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    frame.BackgroundTransparency = 0.2
+function UI:AddTxtbox(p, txt, dTxt, f)
+    local frm = Instance.new("Frame", p)
+    frm.Size = UDim2.new(1, 0, 0, 30)
+    frm.Position = UDim2.new(0, 0, 0, #p:GetChildren() * 30 - 30)
+    frm.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    frm.BackgroundTransparency = 0.2
 
-    local label = Instance.new("TextLabel")
-    label.Parent = frame
-    label.Text = textboxText
-    label.Size = UDim2.new(0.4, 0, 1, 0)
-    label.Position = UDim2.new(0, 0, 0, 0)
-    label.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    label.BackgroundTransparency = 0.2
-    label.TextColor3 = Color3.fromRGB(255, 255, 255)
-    label.Font = Enum.Font.SourceSans
-    label.TextSize = 18
+    local lbl = Instance.new("TextLabel", frm)
+    lbl.Text = txt
+    lbl.Size = UDim2.new(0.4, 0, 1, 0)
+    lbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    lbl.BackgroundTransparency = 0.2
+    lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    lbl.Font = Enum.Font.SourceSans
+    lbl.TextSize = 18
 
-    local textbox = Instance.new("TextBox")
-    textbox.Parent = frame
-    textbox.Text = defaultText or ""
-    textbox.Size = UDim2.new(0.6, 0, 1, 0)
-    textbox.Position = UDim2.new(0.4, 0, 0, 0)
-    textbox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    textbox.BackgroundTransparency = 0.2
-    textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textbox.Font = Enum.Font.SourceSans
-    textbox.TextSize = 18
-
-    textbox.FocusLost:Connect(function(enterPressed)
-        if enterPressed then
-            callback(textbox.Text)
-        end
+    local txtbox = Instance.new("TextBox", frm)
+    txtbox.Text = dTxt or ""
+    txtbox.Size = UDim2.new(0.6, 0, 1, 0)
+    txtbox.Position = UDim2.new(0.4, 0, 0, 0)
+    txtbox.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    txtbox.BackgroundTransparency = 0.2
+    txtbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    txtbox.Font = Enum.Font.SourceSans
+    txtbox.TextSize = 18
+    txtbox.FocusLost:Connect(function(enterPressed)
+        if enterPressed then f(txtbox.Text) end
     end)
 
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
+    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y)
 
-    return frame, textbox
+    return frm, txtbox
 end
 
-return UILibrary
+return UI
