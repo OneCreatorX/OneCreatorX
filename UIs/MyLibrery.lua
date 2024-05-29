@@ -98,7 +98,7 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
         crLbl[prop] = value
     end
 
-    crFrm.Size = UDim2.new(0.25, 0, 0, 90 + #crFrm:GetChildren() * 30) 
+    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 60) 
 
     local minimized = true
     tbtn.MouseButton1Click:Connect(function()
