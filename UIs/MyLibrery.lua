@@ -23,7 +23,7 @@ end
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.35, 0, 0, 60)
+    frm.Size = UDim2.new(0.30, 0, 0, 30)
     frm.Position = UDim2.new(0.325, 0, 0.3, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.1
@@ -61,7 +61,7 @@ function UL:CrFrm(parent, title)
 
     local crBtn = Instance.new("TextButton")
     crBtn.Parent = frm
-    crBtn.Text = "Crédits: OneCreatorX"
+    crBtn.Text = "Info Script"
     crBtn.Size = UDim2.new(1, 0, 0, 30)
     crBtn.Position = UDim2.new(0, 0, 1, -30)
     crBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -140,7 +140,7 @@ end
 function UL:AddTBtn(parent, text, default, cb)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
-    btn.Text = text .. " (" .. (default and "On" or "Off") .. ")"
+    btn.Text = text .. " (" .. (default and "✓" or "X") .. ")"
     btn.Size = UDim2.new(1, 0, 0, 30)
     btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -153,7 +153,7 @@ function UL:AddTBtn(parent, text, default, cb)
 
     btn.MouseButton1Click:Connect(function()
         state = not state
-        btn.Text = text .. " (" .. (state and "On" or "Off") .. ")"
+        btn.Text = text .. " (" .. (state and "X" or "✓") .. ")"
         cb(state)
     end)
 
