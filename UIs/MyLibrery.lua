@@ -7,7 +7,6 @@ local uiProperties = {
     TextColor3 = Color3.fromRGB(255, 255, 255),
     Font = Enum.Font.SourceSans,
     TextSize = 13
-    r
 }
 
 function UL:CrSG(name)
