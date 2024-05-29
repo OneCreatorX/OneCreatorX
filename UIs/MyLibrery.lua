@@ -38,7 +38,8 @@ loadingTween.Completed:Connect(function()
     wait(2)
     screenGui:Destroy()
    
-
+end)
+wait(1)
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.8,
@@ -329,6 +330,6 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 print("by: OneCreatorX")
-        end)
+        
 
 return UL
