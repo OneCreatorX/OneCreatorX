@@ -2,7 +2,7 @@ local UL = {}
 
 function UL:CrSG(name)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
-        if gui:IsA("ScreenGui") and gui:FindFirstChild("ULIdentifier") then
+        if gui:IsA("ScreenGui") and gui:FindFirstChild("ULId") then
             gui:Destroy()
         end
     end
@@ -13,7 +13,7 @@ function UL:CrSG(name)
     sg.ResetOnSpawn = false
 
     local id = Instance.new("BoolValue")
-    id.Name = "ULIdentifier"
+    id.Name = "ULId"
     id.Value = true
     id.Parent = sg
 
@@ -23,35 +23,35 @@ end
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.20, 0, 0, 30)
-    frm.Position = UDim2.new(0.1, 0, 0.2, 0)
+    frm.Size = UDim2.new(0.35, 0, 0, 60)
+    frm.Position = UDim2.new(0.325, 0, 0.3, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.1
     frm.BorderSizePixel = 0
     frm.Active = true
     frm.Draggable = true
 
-    local tLbl = Instance.new("TextLabel")
-    tLbl.Parent = frm
-    tLbl.Text = title
-    tLbl.Size = UDim2.new(1, 0, 0, 30)
-    tLbl.Position = UDim2.new(0, 0, 0, 0)
-    tLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    tLbl.BackgroundTransparency = 0.2
-    tLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tLbl.Font = Enum.Font.SourceSans
-    tLbl.TextSize = 18
+    local lbl = Instance.new("TextLabel")
+    lbl.Parent = frm
+    lbl.Text = title
+    lbl.Size = UDim2.new(1, 0, 0, 30)
+    lbl.Position = UDim2.new(0, 0, 0, 0)
+    lbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    lbl.BackgroundTransparency = 0.2
+    lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    lbl.Font = Enum.Font.SourceSans
+    lbl.TextSize = 18
 
-    local tBtn = Instance.new("TextButton")
-    tBtn.Parent = frm
-    tBtn.Text = "-"
-    tBtn.Size = UDim2.new(0, 30, 0, 30)
-    tBtn.Position = UDim2.new(1, -30, 0, 0)
-    tBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    tBtn.BackgroundTransparency = 0.2
-    tBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tBtn.Font = Enum.Font.SourceSans
-    tBtn.TextSize = 18
+    local tbtn = Instance.new("TextButton")
+    tbtn.Parent = frm
+    tbtn.Text = "-"
+    tbtn.Size = UDim2.new(0, 30, 0, 30)
+    tbtn.Position = UDim2.new(1, -30, 0, 0)
+    tbtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    tbtn.BackgroundTransparency = 0.2
+    tbtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+    tbtn.Font = Enum.Font.SourceSans
+    tbtn.TextSize = 18
 
     local cfrm = Instance.new("Frame")
     cfrm.Parent = frm
@@ -61,7 +61,7 @@ function UL:CrFrm(parent, title)
 
     local crBtn = Instance.new("TextButton")
     crBtn.Parent = frm
-    crBtn.Text = "Info Script"
+    crBtn.Text = "Créditos: OneCreatorX"
     crBtn.Size = UDim2.new(1, 0, 0, 30)
     crBtn.Position = UDim2.new(0, 0, 1, -30)
     crBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -72,34 +72,34 @@ function UL:CrFrm(parent, title)
 
     local crFrm = Instance.new("Frame")
     crFrm.Parent = parent
-    crFrm.Size = UDim2.new(0.2, 0, 0.4, 0)
-    crFrm.Position = UDim2.new(0.635, 0, 0.3, 0)
+    crFrm.Size = UDim2.new(0.35, 0, 0.4, 0)
+    crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
     crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     crFrm.BackgroundTransparency = 0.1
     crFrm.BorderSizePixel = 1
     crFrm.Visible = false
 
-    local crTLbl = Instance.new("TextLabel")
-    crTLbl.Parent = crFrm
-    crTLbl.Text = "Info/Update/Credit"
-    crTLbl.Size = UDim2.new(1, 0, 0, 30)
-    crTLbl.Position = UDim2.new(0, 0, 0, 0)
-    crTLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    crTLbl.BackgroundTransparency = 0.2
-    crTLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-    crTLbl.Font = Enum.Font.SourceSans
-    crTLbl.TextSize = 18
+    local crLbl = Instance.new("TextLabel")
+    crLbl.Parent = crFrm
+    crLbl.Text = "Créditos"
+    crLbl.Size = UDim2.new(1, 0, 0, 30)
+    crLbl.Position = UDim2.new(0, 0, 0, 0)
+    crLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    crLbl.BackgroundTransparency = 0.2
+    crLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    crLbl.Font = Enum.Font.SourceSans
+    crLbl.TextSize = 18
     
-    local isMin = false
-    tBtn.MouseButton1Click:Connect(function()
-        isMin = not isMin
-        if isMin then
+    local minimized = false
+    tbtn.MouseButton1Click:Connect(function()
+        minimized = not minimized
+        if minimized then
             cfrm.Visible = false
-            tBtn.Text = "+"
+            tbtn.Text = "+"
             frm.Size = UDim2.new(0.35, 0, 0, 60)
         else
             cfrm.Visible = true
-            tBtn.Text = "-"
+            tbtn.Text = "-"
             frm.Size = UDim2.new(0.35, 0, 0, 60 + #cfrm:GetChildren() * 30)
         end
     end)
@@ -118,7 +118,7 @@ function UL:CrFrm(parent, title)
     return frm, cfrm, crFrm
 end
 
-function UL:AddBtn(parent, text, cb)
+function UL:AddBtn(parent, text, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
     btn.Text = text
@@ -130,17 +130,17 @@ function UL:AddBtn(parent, text, cb)
     btn.Font = Enum.Font.SourceSans
     btn.TextSize = 18
 
-    btn.MouseButton1Click:Connect(cb)
+    btn.MouseButton1Click:Connect(callback)
 
     parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return btn
 end
 
-function UL:AddTBtn(parent, text, default, cb)
+function UL:AddTBtn(parent, text, state, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
-    btn.Text = text .. " (" .. (default and "✓" or "X") .. ")"
+    btn.Text = text .. " (" .. (state and "On" or "Off") .. ")"
     btn.Size = UDim2.new(1, 0, 0, 30)
     btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -149,12 +149,10 @@ function UL:AddTBtn(parent, text, default, cb)
     btn.Font = Enum.Font.SourceSans
     btn.TextSize = 18
 
-    local state = default
-
     btn.MouseButton1Click:Connect(function()
         state = not state
-        btn.Text = text .. " (" .. (state and "✓" or "X") .. ")"
-        cb(state)
+        btn.Text = text .. " (" .. (state and "On" or "Off") .. ")"
+        callback(state)
     end)
 
     parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
@@ -162,28 +160,27 @@ function UL:AddTBtn(parent, text, default, cb)
     return btn
 end
 
-function UL:AddTBox(parent, placeholder, cb)
-    local tbox = Instance.new("TextBox")
-    tbox.Parent = parent
-    tbox.PlaceholderText = placeholder
-    tbox.Text = placeholder
-    tbox.Size = UDim2.new(1, 0, 0, 30)
-    tbox.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    tbox.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    tbox.BackgroundTransparency = 0.2
-    tbox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tbox.Font = Enum.Font.SourceSans
-    tbox.TextSize = 18
+function UL:AddTBox(parent, placeholder, callback)
+    local box = Instance.new("TextBox")
+    box.Parent = parent
+    box.PlaceholderText = placeholder
+    box.Size = UDim2.new(1, 0, 0, 30)
+    box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    box.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    box.BackgroundTransparency = 0.2
+    box.TextColor3 = Color3.fromRGB(255, 255, 255)
+    box.Font = Enum.Font.SourceSans
+    box.TextSize = 18
 
-    tbox.FocusLost:Connect(function(enterPressed)
+    box.FocusLost:Connect(function(enterPressed)
         if enterPressed then
-            cb(tbox.Text)
+            callback(box.Text)
         end
     end)
 
     parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
 
-    return tbox
+    return box
 end
 
 function UL:AddOBtn(parent, name)
