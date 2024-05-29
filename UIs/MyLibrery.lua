@@ -241,12 +241,12 @@ function UL:AddText(parent, text, color)
     label.Text = text
     label.Size = UDim2.new(1, 0, 0, 30)
     label.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    label.BackgroundColor3 = Color3.fromRGB(1, 1, 1)
-    label.BackgroundTransparency = 0.7
+    label.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
+    label.BackgroundTransparency = 0.6
     label.TextColor3 = Color3.fromRGB(0, 0, 0)
-    label.Font = Enum.Font.Ubuntu
+    label.Font = Enum.Font.ArimoBold 
     
-    label.TextSize = 13
+    label.TextSize = 15
     label.TextWrapped = true
 
     return label
