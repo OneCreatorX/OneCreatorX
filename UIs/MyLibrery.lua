@@ -32,7 +32,7 @@ end
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.25, 0, 0, 90)
+    frm.Size = UDim2.new(0.25, 0, 0, 60)
     frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.5
@@ -60,7 +60,7 @@ function UL:CrFrm(parent, title)
 
     local cfrm = Instance.new("Frame")
     cfrm.Parent = frm
-    cfrm.Size = UDim2.new(1, 0, 1, -90)
+    cfrm.Size = UDim2.new(1, 0, 1, -30)
     cfrm.Position = UDim2.new(0, 0, 0, 30)
     cfrm.BackgroundTransparency = 1
 
@@ -103,7 +103,7 @@ function UL:CrFrm(parent, title)
         else
             cfrm.Visible = true
             tbtn.Text = "-"
-            frm.Size = UDim2.new(0.25, 0, 0, 90 + #cfrm:GetChildren() * 30)
+            frm.Size = UDim2.new(0.25, 0, 0, 60 + #cfrm:GetChildren() * 30)
         end
     end)
 
