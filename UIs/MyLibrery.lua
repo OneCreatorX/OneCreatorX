@@ -178,6 +178,7 @@ function UL:AddTBox(parent, placeholder, callback)
     box.Parent = parent
     box.PlaceholderText = placeholder
     box.Text = placeholder
+    box.BorderSizePixel = 4
     box.Size = UDim2.new(1, 0, 0, 30)
     box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     for prop, value in pairs(uiProperties) do
