@@ -1,3 +1,6 @@
+local UL = {}
+print("Version UI 0.1")
+
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "LoadingScreen"
@@ -34,9 +37,7 @@ loadingTween.Completed:Connect(function()
     loadingLabel.Text = "OneLib v0.1"
     wait(2)
     screenGui:Destroy()
-    
-local UL = {}
-print("Version UI 0.1")
+   
 
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
