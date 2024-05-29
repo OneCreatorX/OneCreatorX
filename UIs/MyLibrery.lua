@@ -33,7 +33,7 @@ function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
     frm.Size = UDim2.new(0.25, 0, 0, 60)
-    frm.Position = UDim2.new(0.1, 0, 1, 0)
+    frm.Position = UDim2.new(0.2, 0, 2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.4
     frm.BorderSizePixel = 0
