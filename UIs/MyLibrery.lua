@@ -1,5 +1,5 @@
 local UL = {}
-print("Version UI 0.4")
+print("Version UI 0.7")
 local p = game.Players.LocalPlayer
 
 -- Propiedades comunes para los elementos de la interfaz
@@ -242,7 +242,8 @@ function UL:AddText(parent, text, color)
     label.TextSize = 18
     label.TextWrapped = true -- Habilita el ajuste de texto
 
-    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
+    -- Actualiza el tamaño del frame de información
+    parent.Size = UDim2.new(0.25, 0, 0, 30 + #parent:GetChildren() * 30)
 
     return label
 end
