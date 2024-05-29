@@ -178,33 +178,28 @@ function UL:AddTBox(parent, placeholder, callback)
     box.Parent = parent
     box.PlaceholderText = placeholder
     box.Text = ""
-    box.BorderSizePixel = 2
-    box.Size = UDim2.new(1, 0, 0, 28)
+    box.BorderSizePixel = 1
+    box.Size = UDim2.new(1, 0, 0, 30)
     box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
 
-    -- Propiedades visuales para diferenciar el TextBox
-    box.BackgroundColor3 = Color3.fromRGB(245, 245, 245)  -- Fondo gris claro
-    box.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Texto negro
-    box.BorderColor3 = Color3.fromRGB(100, 100, 100)  -- Borde gris oscuro
+    box.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
+    box.TextColor3 = Color3.fromRGB(0, 0, 0)
+    box.BorderColor3 = Color3.fromRGB(0, 0, 0) 
     box.Font = Enum.Font.SourceSans
     box.TextSize = 18
     box.ClearTextOnFocus = false
     box.TextXAlignment = Enum.TextXAlignment.Left
     
-    -- Añadir un padding interior para el texto
     local padding = Instance.new("UIPadding")
     padding.Parent = box
     padding.PaddingLeft = UDim.new(0, 5)
-    
-    -- Añadir un borde redondeado
     local corner = Instance.new("UICorner")
     corner.Parent = box
     corner.CornerRadius = UDim.new(0, 6)
     
-    -- Añadir sombra para darle un efecto elevado
     local shadow = Instance.new("ImageLabel")
     shadow.Parent = box
-    shadow.BackgroundTransparency = 1
+    shadow.BackgroundTransparency = 0.95
     shadow.Image = "rbxassetid://1316045217"
     shadow.Size = UDim2.new(1, 6, 1, 6)
     shadow.Position = UDim2.new(0, -3, 0, -3)
