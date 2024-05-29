@@ -182,8 +182,8 @@ function UL:AddTBox(parent, placeholder, callback)
     box.Size = UDim2.new(1, 0, 0, 30)
     box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
 
-    box.BackgroundColor3 = Color3.fromRGB(245, 245, 245)
-    box.TextColor3 = Color3.fromRGB(0, 0, 0)
+    box.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    box.TextColor3 = Color3.fromRGB(250, 250, 250)
     box.BorderColor3 = Color3.fromRGB(0, 0, 0) 
     box.Font = Enum.Font.SourceSans
     box.TextSize = 18
