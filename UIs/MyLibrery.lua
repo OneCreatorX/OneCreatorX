@@ -95,6 +95,7 @@ function UL:CrFrm(parent, title)
         crLbl[prop] = value
     end
 
+    -- Actualiza el tamaño del frame info al agregar elementos
     crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
 
     local minimized = false
