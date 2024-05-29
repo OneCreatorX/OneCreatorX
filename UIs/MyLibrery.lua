@@ -31,15 +31,15 @@ local function createTween(instance, size, duration)
     return tweenService:Create(instance, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = size})
 end
 
-local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 0.5, 0), 3)
+local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 0.5, 0), 2)
 loadingTween:Play()
 loadingTween.Completed:Connect(function()
     loadingLabel.Text = "OneLib v0.1"
-    wait(2)
+    wait(1)
     screenGui:Destroy()
    
 end)
-wait(1)
+wait(3)
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.8,
