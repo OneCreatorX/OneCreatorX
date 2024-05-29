@@ -1,7 +1,17 @@
 local UL = {}
-print("Version UI 0.6")
+print("Version UI 0.4")
 local p = game.Players.LocalPlayer
 
+-- Propiedades comunes para los elementos de la interfaz
+local uiProperties = {
+    BackgroundColor3 = Color3.fromRGB(65, 65, 65),
+    BackgroundTransparency = 0.2,
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    Font = Enum.Font.SourceSans,
+    TextSize = 18
+}
+
+-- Crea un ScreenGui
 function UL:CrSG(name)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
         if gui:IsA("ScreenGui") and gui:FindFirstChild("ULId") then
@@ -22,6 +32,7 @@ function UL:CrSG(name)
     return sg
 end
 
+-- Crea un Frame con título, botón de minimizar y contenido
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
@@ -38,22 +49,18 @@ function UL:CrFrm(parent, title)
     lbl.Text = title
     lbl.Size = UDim2.new(1, 0, 0, 30)
     lbl.Position = UDim2.new(0, 0, 0, 0)
-    lbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    lbl.BackgroundTransparency = 0.2
-    lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-    lbl.Font = Enum.Font.SourceSans
-    lbl.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        lbl[prop] = value
+    end
 
     local tbtn = Instance.new("TextButton")
     tbtn.Parent = frm
     tbtn.Text = "-"
     tbtn.Size = UDim2.new(0, 30, 0, 30)
     tbtn.Position = UDim2.new(1, -30, 0, 0)
-    tbtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    tbtn.BackgroundTransparency = 0.2
-    tbtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    tbtn.Font = Enum.Font.SourceSans
-    tbtn.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        tbtn[prop] = value
+    end
 
     local cfrm = Instance.new("Frame")
     cfrm.Parent = frm
@@ -66,11 +73,9 @@ function UL:CrFrm(parent, title)
     crBtn.Text = "Info Script"
     crBtn.Size = UDim2.new(1, 0, 0, 30)
     crBtn.Position = UDim2.new(0, 0, 1, -30)
-    crBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    crBtn.BackgroundTransparency = 0.2
-    crBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    crBtn.Font = Enum.Font.SourceSans
-    crBtn.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        crBtn[prop] = value
+    end
 
     local crFrm = Instance.new("Frame")
     crFrm.Parent = parent
@@ -86,13 +91,10 @@ function UL:CrFrm(parent, title)
     crLbl.Text = "Info/Updats/Credits"
     crLbl.Size = UDim2.new(1, 0, 0, 30)
     crLbl.Position = UDim2.new(0, 0, 0, 0)
-    crLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    crLbl.BackgroundTransparency = 0.2
-    crLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-    crLbl.Font = Enum.Font.SourceSans
-    crLbl.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        crLbl[prop] = value
+    end
 
-    -- Actualiza el tamaño del frame info al agregar elementos
     crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
 
     local minimized = false
@@ -123,41 +125,39 @@ function UL:CrFrm(parent, title)
     return frm, cfrm, crFrm
 end
 
+-- Crea un botón normal
 function UL:AddBtn(parent, text, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
     btn.Text = text
     btn.Size = UDim2.new(1, 0, 0, 30)
-    -- Ajusta la posición del botón en función del número de hijos del frame info
-    btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30) 
-    btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    btn.BackgroundTransparency = 0.2
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.SourceSans
-    btn.TextSize = 18
+    btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    for prop, value in pairs(uiProperties) do
+        btn[prop] = value
+    end
 
     btn.MouseButton1Click:Connect(callback)
-
-
+    
+    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
+    
     return btn
 end
 
+-- Crea un botón de Toggle
 function UL:AddTBtn(parent, text, state, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
     btn.Text = text .. " (" .. (state and "✓" or "X") .. ")"
     btn.Size = UDim2.new(1, 0, 0, 30)
     btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    btn.BackgroundTransparency = 0.2
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.SourceSans
-    btn.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        btn[prop] = value
+    end
 
     btn.MouseButton1Click:Connect(function()
         state = not state
         btn.Text = text .. " (" .. (state and "✓" or "X") .. ")"
-            btn.BackgroundColor3 = state and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
+        btn.BackgroundColor3 = state and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
         callback(state)
     end)
 
@@ -166,6 +166,7 @@ function UL:AddTBtn(parent, text, state, callback)
     return btn
 end
 
+-- Crea una caja de texto
 function UL:AddTBox(parent, placeholder, callback)
     local box = Instance.new("TextBox")
     box.Parent = parent
@@ -173,11 +174,9 @@ function UL:AddTBox(parent, placeholder, callback)
     box.Text = placeholder
     box.Size = UDim2.new(1, 0, 0, 30)
     box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    box.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    box.BackgroundTransparency = 0.2
-    box.TextColor3 = Color3.fromRGB(255, 255, 255)
-    box.Font = Enum.Font.SourceSans
-    box.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        box[prop] = value
+    end
 
     box.FocusLost:Connect(function(enterPressed)
         if enterPressed then
@@ -190,6 +189,7 @@ function UL:AddTBox(parent, placeholder, callback)
     return box
 end
 
+-- Crea un botón de opciones
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
@@ -205,22 +205,18 @@ function UL:AddOBtn(parent, name)
     lbl.Text = name
     lbl.Size = UDim2.new(1, 0, 0, 30)
     lbl.Position = UDim2.new(0, 0, 0, 0)
-    lbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    lbl.BackgroundTransparency = 0.2
-    lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-    lbl.Font = Enum.Font.SourceSans
-    lbl.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        lbl[prop] = value
+    end
 
     local btn = Instance.new("TextButton")
     btn.Parent = parent
     btn.Text = name
     btn.Size = UDim2.new(1, 0, 0, 30)
     btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    btn.BackgroundTransparency = 0.2
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.SourceSans
-    btn.TextSize = 18
+    for prop, value in pairs(uiProperties) do
+        btn[prop] = value
+    end
 
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
@@ -231,8 +227,28 @@ function UL:AddOBtn(parent, name)
     return btn, oFrm
 end
 
+-- Crea un cuadro de texto adaptable
+function UL:AddText(parent, text, color)
+    local label = Instance.new("TextLabel")
+    label.Parent = parent
+    label.Text = text
+    label.Size = UDim2.new(1, 0, 0, 30)
+    label.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    label.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    label.BackgroundTransparency = 0.2
+    label.TextColor3 = color or Color3.fromRGB(255, 255, 255)
+    label.Font = Enum.Font.SourceSans
+    label.TextSize = 18
+    label.TextWrapped = true -- Habilita el ajuste de texto
+
+    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
+
+    return label
+end
+
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
-game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 print("Anti AFK including")
 print("by: OneCreatorX")
