@@ -41,14 +41,19 @@ function UL:CrFrm(parent, title)
     frm.Draggable = true
 
     local lbl = Instance.new("TextLabel")
-    lbl.Parent = frm
-    lbl.Text = title
-    lbl.Size = UDim2.new(1, 0, 0, 30)
-    lbl.Position = UDim2.new(0, 0, 0, 0)
-    for prop, value in pairs(uiProperties) do
-        lbl[prop] = value
-    end
-
+lbl.Parent = frm
+lbl.Text = title
+lbl.Size = UDim2.new(1, 0, 0, 35)
+lbl.Position = UDim2.new(0, 0, 0, 0)
+lbl.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+lbl.BackgroundTransparency = 0.5
+lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
+lbl.Font = Enum.Font.GothamSemibold
+lbl.TextSize = 20
+lbl.TextWrapped = true
+lbl.TextXAlignment = Enum.TextXAlignment.Center
+lbl.TextYAlignment = Enum.TextYAlignment.Center
+    
     local tbtn = Instance.new("TextButton")
     tbtn.Parent = frm
     tbtn.Text = "+"
@@ -110,7 +115,8 @@ function UL:CrFrm(parent, title)
 
     crBtn.MouseButton1Click:Connect(function()
         crFrm.Visible = not crFrm.Visible
-             crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
+            crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 100) or Color3.fromRGB(65, 65, 65)
+             crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(150, 0, 150) or Color3.fromRGB(65, 65, 65)
     end)
 
     local function syncFrames()
@@ -211,7 +217,8 @@ function UL:AddOBtn(parent, name)
 
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
-              btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
+              btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(65, 65, 65)
+            oFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
     end)
 
     return btn, oFrm
