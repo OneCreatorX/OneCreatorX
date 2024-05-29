@@ -35,7 +35,7 @@ function UL:CrFrm(parent, title)
     frm.Size = UDim2.new(0.25, 0, 0, 60)
     frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    frm.BackgroundTransparency = 0.5
+    frm.BackgroundTransparency = 0.4
     frm.BorderSizePixel = 2
     frm.Active = true
     frm.Draggable = true
@@ -51,7 +51,7 @@ function UL:CrFrm(parent, title)
 
     local tbtn = Instance.new("TextButton")
     tbtn.Parent = frm
-    tbtn.Text = "-"
+    tbtn.Text = "+"
     tbtn.Size = UDim2.new(0, 30, 0, 30)
     tbtn.Position = UDim2.new(1, -30, 0, 0)
     for prop, value in pairs(uiProperties) do
