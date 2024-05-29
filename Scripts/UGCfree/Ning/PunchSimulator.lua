@@ -1,20 +1,34 @@
-local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-local Win = Lib:NewWindow("Punch Simulator")
-local Sec = Win:NewSection("Options")
-local Sec2 = Win:NewSection("Credits: OneCreatorX")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local StarterGui = game:GetService("StarterGui")
-local RunService = game:GetService("RunService")
+local UL = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/MyLibrery.lua"))()
 
-local function copyToClipboard(text)
+local gameName = ""
+if gameName == "" then
+    gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+end
+
+local function cleanGameName(name)
+    name = name:gsub("%b[]", "")
+    name = name:match("^[^:]*")
+    return name:match("^%s*(.-)%s*$")
+end
+
+gameName = cleanGameName(gameName)
+
+local p = game.Players.LocalPlayer
+local sg = UL:CrSG("Defauld")
+local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
+
+local function copy(text)
     if syn then
         syn.write_clipboard(text)
     else
         setclipboard(text)
     end
 end
+
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+local RunService = game:GetService("RunService")
 
 local function sendNotification(title, text, duration)
     game.StarterGui:SetCore("SendNotification", {
@@ -44,7 +58,7 @@ end
 game.Players.LocalPlayer.PlayerScripts:FindFirstChild("PlayerPetHandler").Enabled = false
 sendNotification("Animation Egg Oppen", "Desabled Default", 5)
 
-Sec:CreateTextbox("Egg-number world or 'stop'", function(value)
+UL:AddTBox(cfrm, "Auto Egg-number world or 'stop", function(value) 
     if value == "" or value:lower() == "stop" then
         running = false
         sendNotification("Stop Open Egg", "Egg opening stopped", 5)
@@ -60,31 +74,30 @@ Sec:CreateTextbox("Egg-number world or 'stop'", function(value)
         startOpeningEggs(world)
     else
         -- handle invalid input
-    end
+        end
 end)
 
 local ah = false
-Sec:CreateToggle("Auto Fast Train", function()
+UL:AddTBtn(cfrm, "Auto Fast Train", false, function(state)
     ah = not ah
     while ah do
         wait()
         game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DamageIncreaseOnClickEvent"):FireServer()
-    end
-end)
+        end
+    end)
 
-local function copyd()
-    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
-end
-
-local function copyy()
-    copyToClipboard("https://youtube.com/@OneCreatorX")
-end
 
 game.Players.LocalPlayer.PlayerScripts.DeathEffectsHandler.Disabled = true
          game.Players.LocalPlayer.PlayerScripts.CameraHandler.Disabled = true
 
-Sec2:CreateButton("Copy Link YouTube", copyy)
-Sec2:CreateButton("Copy Link Discord", copyd)
+UL:AddText(crFrm, "By Script: OneCreatorX ")
+UL:AddText(crFrm, "Create Script: 20/05/24 ")
+UL:AddText(crFrm, "Update Script: 29/05/24")
+UL:AddText(crFrm, "Script Version: 0.1")
+UL:AddBtn(crFrm, "Copy link YouTube", function() copy("https://youtube.com/@onecreatorx") end)
+UL:AddBtn(crFrm, "Copy link Discord", function() copy("https://discord.com/invite/UNJpdJx7c4") end)
+
+
 
 local arg2, arg3 = 1, 1
 local ja = false
@@ -99,8 +112,9 @@ if ja then
 end
 end
 
-Sec:CreateToggle("Fast Auto Fight", function()
-    ja = not ja
+
+UL:AddTBtn(cfrm, "Fast Auto Fight", false, function() 
+ja = not ja
 if not ja then
 local args = {
     [1] = "StopFight"
@@ -110,8 +124,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("AutoFi
 else
 sendNotification("Use Auto Fight", "Button Game for farm", 5)
 end
-end)
-
+end)    
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Events = ReplicatedStorage:WaitForChild("Events")
@@ -198,7 +211,7 @@ local a = false
 
 local limite = 1000
 
-Sec:CreateTextbox("Number Limite Wave", function(userInput)
+UL:AddTBox(cfrm, "Number Limite Wave", function(userInput) 
     if userInput == "" then
         limite = 1000
         sendNotification("Wave limit appl", "Max limit waves: " .. limite, 5)
@@ -209,8 +222,9 @@ Sec:CreateTextbox("Number Limite Wave", function(userInput)
         else
             sendNotification("Error", "Invalid input for wave limit", 5)
         end
-    end
+        end
 end)
+
 
 local function startNewDungeon()
     if a then
@@ -243,9 +257,9 @@ Player.PlayerGui.DungeonFinishUI.Enabled = true
     end
 end
 
-Sec:CreateToggle("Start - Auto: Dungeon", function()
-    Start()
-end)
+UL:AddTBtn(cfrm, "Start - Auto: Dungeon", false, function(state) 
+Start()
+ end)
 
 local targetRemoteEventName = "PartyEvent"
 local PartyEvent = ReplicatedStorage:WaitForChild("Events"):WaitForChild(targetRemoteEventName)
