@@ -3,10 +3,10 @@ print("Version UI 0.1")
 
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
-    BackgroundTransparency = 0.5,
+    BackgroundTransparency = 0.8,
     TextColor3 = Color3.fromRGB(255, 255, 255),
     Font = Enum.Font.SourceSans,
-    TextSize = 15
+    TextSize = 14
 }
 
 function UL:CrSG(name)
@@ -43,13 +43,13 @@ function UL:CrFrm(parent, title)
     local lbl = Instance.new("TextLabel")
 lbl.Parent = frm
 lbl.Text = title
-lbl.Size = UDim2.new(1, 0, 0, 33)
-lbl.Position = UDim2.new(0, 0, 0, 0)
+lbl.Size = UDim2.new(1, 0, 0, 35)
+lbl.Position = UDim2.new(0, 0, 0.03, 0)
 lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
 lbl.BackgroundTransparency = 0.5
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
 lbl.Font = Enum.Font.GothamSemibold
-lbl.TextSize = 19
+lbl.TextSize = 18
 lbl.TextWrapped = true
 lbl.TextXAlignment = Enum.TextXAlignment.Center
 lbl.TextYAlignment = Enum.TextYAlignment.Center
@@ -90,7 +90,7 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
 
     local crLbl = Instance.new("TextLabel")
     crLbl.Parent = crFrm
-    crLbl.Text = "Info/Updats/Credits"
+    crLbl.Text = "Info/Updat/Credit"
     crLbl.Size = UDim2.new(1, 0, 0, 30)
     crLbl.Position = UDim2.new(0, 0, 0, 0)
     for prop, value in pairs(uiProperties) do
