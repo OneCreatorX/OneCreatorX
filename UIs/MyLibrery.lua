@@ -45,14 +45,35 @@ lbl.Parent = frm
 lbl.Text = title
 lbl.Size = UDim2.new(1, 0, 0, 33)
 lbl.Position = UDim2.new(0, 0, -0.02, 0)
-lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
-lbl.BackgroundTransparency = 0.8
-lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
-lbl.Font = Enum.Font.GothamSemibold
-lbl.TextSize = 16
+lbl.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+lbl.BackgroundTransparency = 0.2
+lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+lbl.Font = Enum.Font.GothamBold  -- Texto grueso
+lbl.TextSize = 18
 lbl.TextWrapped = true
 lbl.TextXAlignment = Enum.TextXAlignment.Center
 lbl.TextYAlignment = Enum.TextYAlignment.Center
+
+local corner = Instance.new("UICorner")
+corner.Parent = lbl
+corner.CornerRadius = UDim.new(0, 4)
+
+local shadow = Instance.new("ImageLabel")
+shadow.Parent = lbl
+shadow.BackgroundTransparency = 1
+shadow.Image = "rbxassetid://1316045217"
+shadow.Size = UDim2.new(1, 6, 1, 6)
+shadow.Position = UDim2.new(0, -3, 0, -3)
+shadow.ImageTransparency = 0.5
+shadow.ScaleType = Enum.ScaleType.Slice
+shadow.SliceCenter = Rect.new(10, 10, 118, 118)
+
+local padding = Instance.new("UIPadding")
+padding.Parent = lbl
+padding.PaddingLeft = UDim.new(0, 5)
+padding.PaddingRight = UDim.new(0, 5)
+padding.PaddingTop = UDim.new(0, 5)
+padding.PaddingBottom = UDim.new(0, 5)
     
     local tbtn = Instance.new("TextButton")
     tbtn.Parent = frm
