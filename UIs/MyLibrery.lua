@@ -221,7 +221,7 @@ function UL:AddOBtn(parent, name)
     end
 
     function ff()
-        oFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
+        oFrm.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
     end
     
     btn.MouseButton1Click:Connect(function()
