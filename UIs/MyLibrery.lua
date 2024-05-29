@@ -188,8 +188,8 @@ end
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
-    oFrm.Size = UDim2.new(0.40, 0, 0.4, 0)
-    oFrm.Position = UDim2.new(0.635, 0, 0.3, 0)
+    oFrm.Size = UDim2.new(1, 0, 0.4, 0)
+    oFrm.Position = UDim2.new(1, 0, 0.3, 0)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.1
     oFrm.BorderSizePixel = 1
