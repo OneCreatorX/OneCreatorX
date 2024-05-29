@@ -5,7 +5,7 @@ local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.8,
     TextColor3 = Color3.fromRGB(255, 255, 255),
-    Font = Enum.Font.Ubuntu,
+    Font = Enum.Font.LuckiestGuy,
     TextSize = 13
 }
 
