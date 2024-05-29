@@ -1,87 +1,83 @@
-local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
-local Win = Lib:NewWindow("Collect Stars For UGC")
-local Sec = Win:NewSection("Options")
-local Sec3 = Win:NewSection("Info Script")
-local Sec2 = Win:NewSection("Credits: OneCreatorX")
-local Plrs = game:GetService("Players")
-local Plr = Plrs.LocalPlayer
 
-local function cntStars()
-    local sc = 0
-    for _, obj in ipairs(workspace.Stars:GetChildren()) do
-        if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-            sc = sc + 1
-        end
+
+local UL = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/MyLibrery.lua"))()
+
+local gameName = ""
+if gameName == "" then
+    gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+end
+
+local function cleanGameName(name)
+    name = name:gsub("%b[]", "")
+    name = name:match("^[^:]*")
+    return name:match("^%s*(.-)%s*$")
+end
+
+gameName = cleanGameName(gameName)
+
+local sg = UL:CrSG("Defauld")
+local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
+
+local function copy(text)
+    if syn then
+        syn.write_clipboard(text)
+    else
+        setclipboard(text)
     end
-    return sc
 end
 
-local function notifyStars(mult)
-    local sc = cntStars() * (mult or 1)
-    game:GetService("StarterGui"):SetCore("SendNotification", {
-        Title = "Estrellas Disponibles",
-        Text = mult and "Cantidad (x" .. mult .. "): " .. sc or "Cantidad: " .. sc,
-        Duration = 10
-    })
-end
+local p = game.Players.LocalPlayer
 
-notifyStars()
-notifyStars(3)
-notifyStars(5)
+local collectStars = false
+local tpToStars = false
 
-local lagg = false
-local function lag()
-    lagg = not lagg
-    while lagg do
-        wait()
-        local stars = {}
+local function collectStarsFunc()
+    collectStars = not collectStars
+    while collectStars do
         for _, obj in ipairs(workspace.Stars:GetChildren()) do
-            if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-                table.insert(stars, obj)
+            if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") and obj.Transparency == 0 then
+                local distance = (obj.Position - p.Character.HumanoidRootPart.Position).Magnitude
+                if distance <= 150 then
+                    firetouchinterest(p.Character.HumanoidRootPart, obj, 0)
+                    task.wait(0.5)
+                    firetouchinterest(p.Character.HumanoidRootPart, obj, 1)
+                end
             end
         end
-        while #stars > 0 do
-            local randomIndex = math.random(1, #stars)
-            local star = stars[randomIndex]
-            table.remove(stars, randomIndex)
-            local plr = Plrs.LocalPlayer
-            firetouchinterest(plr.Character.HumanoidRootPart, star, 0)
-            wait()
-            firetouchinterest(plr.Character.HumanoidRootPart, star, 1)
+        task.wait(1)
+    end
+end
+
+local function tpToStarsFunc()
+    tpToStars = not tpToStars
+    while tpToStars do
+        for _, obj in ipairs(workspace.Stars:GetChildren()) do
+            if not tpToStars then break end
+            if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") and obj.Transparency == 0 then
+                p.Character.HumanoidRootPart.CFrame = CFrame.new(obj.Position)
+                task.wait(1)
+            end
         end
+        task.wait(1)
     end
 end
 
-local function copyToClipboard(txt)
-    if syn then
-        syn.write_clipboard(txt)
-    else
-        setclipboard(txt)
-    end
-end
-
-local function copyd()
-    copyToClipboard("https://discord.com/invite/23kFrRBSfD")
-end
-
-local function copyy()
-    copyToClipboard("https://youtube.com/@OneCreatorX")
-end
-
-local function ss() end
-
-Sec:CreateToggle("Auto Stars", lag)
-Sec:CreateButton("Info Stars", function()
-    notifyStars()
-    notifyStars(3)
-    notifyStars(5)
+UL:AddTBtn(cfrm, "Auto Collect Stars", false, function() collectStarsFunc() end)
+UL:AddTBtn(cfrm, "Teleport to Stars", false, function() tpToStarsFunc() end)
+UL:AddTBox(cfrm, "Enter Speed here e.g 30", function(text) 
+    p.Character.Humanoid.WalkSpeed = text
 end)
-Sec2:CreateButton("Copy Link YouTube", copyy)
-Sec2:CreateButton("Copy Link Discord", copyd)
-Sec3:CreateButton("Update: 26-05-24", ss)
-Sec3:CreateButton("Version 1", ss)
 
-Plr.Idled:Connect(function()
+-- UL:AddBtn(cfrm, "Delete Obstacles", function() ggaa() end)
+
+UL:AddText(crFrm, "By Script: OneCreatorX ")
+UL:AddText(crFrm, "Create Script: 05/05/24 ")
+UL:AddText(crFrm, "Update Script: --/--/--")
+UL:AddText(crFrm, "Script Version: 0.1")
+UL:AddBtn(crFrm, "Copy link YouTube", function() copy("https://youtube.com/@onecreatorx") end)
+UL:AddBtn(crFrm, "Copy link Discord", function() copy("https://discord.com/invite/UNJpdJx7c4") end)
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
