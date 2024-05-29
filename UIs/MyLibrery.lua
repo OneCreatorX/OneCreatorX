@@ -68,7 +68,7 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
     cfrm.Size = UDim2.new(1, 0, 1, -30)
     cfrm.Position = UDim2.new(0, 0, 0, 30)
     cfrm.BackgroundTransparency = 0.6
-    cfrm.BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+    cfrm.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     cfrm.Visible = false
 
     local crBtn = Instance.new("TextButton")
