@@ -35,7 +35,7 @@ function UL:CrFrm(parent, title)
     frm.Size = UDim2.new(0.25, 0, 0, 60)
     frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    frm.BackgroundTransparency = 0.4
+    frm.BackgroundTransparency = 0.8
     frm.BorderSizePixel = 1
     frm.Active = true
     frm.Draggable = true
@@ -44,7 +44,7 @@ function UL:CrFrm(parent, title)
 lbl.Parent = frm
 lbl.Text = title
 lbl.Size = UDim2.new(1, 0, 0, 33)
-lbl.Position = UDim2.new(0, 0, -0.13, 0)
+lbl.Position = UDim2.new(0, 0, -0.5, 0)
 lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
 lbl.BackgroundTransparency = 0.8
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
