@@ -82,7 +82,7 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
 
     local crFrm = Instance.new("Frame")
     crFrm.Parent = parent
-    crFrm.Size = UDim2.new(0.25, 0, 0.4, 0)
+    crFrm.Size = UDim2.new(0.25, 0, 0.4, 60)
     crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
     crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     crFrm.BackgroundTransparency = 0.4
@@ -179,7 +179,7 @@ function UL:AddTBox(parent, placeholder, callback)
     box.PlaceholderText = placeholder
     box.Text = placeholder
     box.BorderSizePixel = 4
-    box.Size = UDim2.new(1, 0, 0, 30)
+    box.Size = UDim2.new(0.9, 0, 0, 28)
     box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     for prop, value in pairs(uiProperties) do
         box[prop] = value
