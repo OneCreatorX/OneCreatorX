@@ -63,6 +63,7 @@ function UL:CrFrm(parent, title)
     cfrm.Size = UDim2.new(1, 0, 1, -30)
     cfrm.Position = UDim2.new(0, 0, 0, 30)
     cfrm.BackgroundTransparency = 1
+    cfrm.Visible = false
 
     local crBtn = Instance.new("TextButton")
     crBtn.Parent = frm
@@ -93,7 +94,7 @@ function UL:CrFrm(parent, title)
 
     crFrm.Size = UDim2.new(0.25, 0, 0, 90 + #crFrm:GetChildren() * 30) 
 
-    local minimized = false
+    local minimized = true
     tbtn.MouseButton1Click:Connect(function()
         minimized = not minimized
         if minimized then
