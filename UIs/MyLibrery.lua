@@ -1,17 +1,15 @@
 local UL = {}
-print("Version UI 0.1")
+print("Version UI 0.2")
 local p = game.Players.LocalPlayer
 
--- Propiedades comunes para los elementos de la interfaz
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
-    BackgroundTransparency = 0.2,
+    BackgroundTransparency = 0.5,
     TextColor3 = Color3.fromRGB(255, 255, 255),
     Font = Enum.Font.SourceSans,
     TextSize = 18
 }
 
--- Crea un ScreenGui
 function UL:CrSG(name)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
         if gui:IsA("ScreenGui") and gui:FindFirstChild("ULId") then
@@ -32,12 +30,11 @@ function UL:CrSG(name)
     return sg
 end
 
--- Crea un Frame con título, botón de minimizar y contenido
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.25, 0, 0, 30)
-    frm.Position = UDim2.new(0.325, 0, 0.3, 0)
+    frm.Size = UDim2.new(0.25, 0, 0, 60)
+    frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.1
     frm.BorderSizePixel = 2
@@ -95,8 +92,7 @@ function UL:CrFrm(parent, title)
         crLbl[prop] = value
     end
 
-    -- Actualiza el tamaño del frame info al agregar elementos
-    crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
+    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 30) 
 
     local minimized = false
     tbtn.MouseButton1Click:Connect(function()
@@ -123,16 +119,12 @@ function UL:CrFrm(parent, title)
     frm:GetPropertyChangedSignal("Position"):Connect(syncFrames)
     frm:GetPropertyChangedSignal("Size"):Connect(syncFrames)
 
-    -- Actualiza el tamaño del frame principal
     frm.Size = UDim2.new(0.25, 0, 0, 60 + #cfrm:GetChildren() * 30)
-
-    -- Actualiza el tamaño del frame de información
-    crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
+    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 30) 
 
     return frm, cfrm, crFrm
 end
 
--- Crea un botón normal
 function UL:AddBtn(parent, text, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
@@ -148,7 +140,6 @@ function UL:AddBtn(parent, text, callback)
     return btn
 end
 
--- Crea un botón de Toggle
 function UL:AddTBtn(parent, text, state, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
@@ -169,7 +160,6 @@ function UL:AddTBtn(parent, text, state, callback)
     return btn
 end
 
--- Crea una caja de texto
 function UL:AddTBox(parent, placeholder, callback)
     local box = Instance.new("TextBox")
     box.Parent = parent
@@ -190,11 +180,10 @@ function UL:AddTBox(parent, placeholder, callback)
     return box
 end
 
--- Crea un botón de opciones
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
-    oFrm.Size = UDim2.new(0.7, 0, 0.9, 0) 
+    oFrm.Size = UDim2.new(0.7, 0, 0.7, 0) 
     oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.1
@@ -226,7 +215,6 @@ function UL:AddOBtn(parent, name)
     return btn, oFrm
 end
 
--- Crea un cuadro de texto adaptable
 function UL:AddText(parent, text, color)
     local label = Instance.new("TextLabel")
     label.Parent = parent
@@ -237,8 +225,8 @@ function UL:AddText(parent, text, color)
     label.BackgroundTransparency = 0.2
     label.TextColor3 = color or Color3.fromRGB(255, 255, 255)
     label.Font = Enum.Font.SourceSans
-    label.TextSize = 18
-    label.TextWrapped = true -- Habilita el ajuste de texto
+    label.TextSize = 12
+    label.TextWrapped = true
 
     return label
 end
