@@ -1,5 +1,5 @@
 local UL = {}
-print("Version UI 0.2")
+print("Version UI 0.3")
 local p = game.Players.LocalPlayer
 function UL:CrSG(name)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
@@ -24,11 +24,11 @@ end
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.30, 0, 0, 30)
+    frm.Size = UDim2.new(0.25, 0, 0, 30)
     frm.Position = UDim2.new(0.325, 0, 0.3, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.1
-    frm.BorderSizePixel = 0
+    frm.BorderSizePixel = 2
     frm.Active = true
     frm.Draggable = true
 
@@ -73,7 +73,7 @@ function UL:CrFrm(parent, title)
 
     local crFrm = Instance.new("Frame")
     crFrm.Parent = parent
-    crFrm.Size = UDim2.new(0.30, 0, 0.4, 0)
+    crFrm.Size = UDim2.new(0.25, 0, 0.4, 0)
     crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
     crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     crFrm.BackgroundTransparency = 0.1
@@ -97,11 +97,11 @@ function UL:CrFrm(parent, title)
         if minimized then
             cfrm.Visible = false
             tbtn.Text = "+"
-            frm.Size = UDim2.new(0.35, 0, 0, 60)
+            frm.Size = UDim2.new(0.20, 0, 0, 60)
         else
             cfrm.Visible = true
             tbtn.Text = "-"
-            frm.Size = UDim2.new(0.30, 0, 0, 30 + #cfrm:GetChildren() * 30)
+            frm.Size = UDim2.new(0.20, 0, 0, 60 + #cfrm:GetChildren() * 30)
         end
     end)
 
