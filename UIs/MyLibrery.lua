@@ -1,6 +1,7 @@
 local UL = {}
-print("Version UI 0.3")
+print("Version UI 0.4")
 local p = game.Players.LocalPlayer
+
 function UL:CrSG(name)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
         if gui:IsA("ScreenGui") and gui:FindFirstChild("ULId") then
@@ -97,11 +98,11 @@ function UL:CrFrm(parent, title)
         if minimized then
             cfrm.Visible = false
             tbtn.Text = "+"
-            frm.Size = UDim2.new(0.20, 0, 0, 60)
+            frm.Size = UDim2.new(0.25, 0, 0, 60)
         else
             cfrm.Visible = true
             tbtn.Text = "-"
-            frm.Size = UDim2.new(0.20, 0, 0, 60 + #cfrm:GetChildren() * 30)
+            frm.Size = UDim2.new(0.25, 0, 0, 60 + #cfrm:GetChildren() * 30)
         end
     end)
 
@@ -133,7 +134,7 @@ function UL:AddBtn(parent, text, callback)
 
     btn.MouseButton1Click:Connect(callback)
 
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
+    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return btn
 end
@@ -157,7 +158,7 @@ function UL:AddTBtn(parent, text, state, callback)
         callback(state)
     end)
 
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
+    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return btn
 end
@@ -189,8 +190,8 @@ end
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
-    oFrm.Size = UDim2.new(0.7, 0, 0.8, 0)  -- Ajuste del tamaño
-    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)  -- Ajuste de la posición
+    oFrm.Size = UDim2.new(0.7, 0, 0.9, 0) 
+    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.1
     oFrm.BorderSizePixel = 1
@@ -222,9 +223,14 @@ function UL:AddOBtn(parent, name)
         oFrm.Visible = not oFrm.Visible
     end)
 
-    parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
+    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return btn, oFrm
 end
 
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
+print("Anti AFK including")
+print("by: OneCreatorX")
 return UL
