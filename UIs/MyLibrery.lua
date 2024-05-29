@@ -142,13 +142,30 @@ padding.PaddingBottom = UDim.new(0, 5)
 
     local crLbl = Instance.new("TextLabel")
     crLbl.Parent = crFrm
+    crLbl.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    crLbl.BackgroundTransparency = 0.2
+    crLbl.TextColor3 = Color3.fromRGB(350, 250, 23)
     crLbl.Text = "Info/Updats/Credits"
     crLbl.Size = UDim2.new(1, 0, 0, 30)
     crLbl.Position = UDim2.new(0, 0, 0, 0)
-    for prop, value in pairs(uiProperties) do
-        crLbl[prop] = value
-    end
+    crLbl.Font = Enum.Font.GothamBold 
+    crLbl.TextSize = 18
+    crLbl.TextWrapped = true
+    crLbl.TextXAlignment = Enum.TextXAlignment.Center
+    crLbl.TextYAlignment = Enum.TextYAlignment.Center
 
+    local corner = Instance.new("UICorner")
+corner.Parent = lbl
+corner.CornerRadius = UDim.new(0, 4)
+
+
+local padding = Instance.new("UIPadding")
+padding.Parent = lbl
+padding.PaddingLeft = UDim.new(0, 5)
+padding.PaddingRight = UDim.new(0, 5)
+padding.PaddingTop = UDim.new(0, 5)
+padding.PaddingBottom = UDim.new(0, 5)
+    
     crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 60) 
 
     local minimized = true
@@ -165,7 +182,7 @@ padding.PaddingBottom = UDim.new(0, 5)
         end
     end)
 
-    function gg()
+    function jaaaaa()
         crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(120, 0, 120) or Color3.fromRGB(65, 65, 65)
     end
     
@@ -173,7 +190,7 @@ padding.PaddingBottom = UDim.new(0, 5)
         crFrm.Visible = not crFrm.Visible
             
              crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(150, 0, 150) or Color3.fromRGB(65, 65, 65)
-            gg()
+            jaaaaa()
     end)
 
     local function syncFrames()
@@ -270,8 +287,8 @@ end
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
-    oFrm.Size = UDim2.new(0.7, 0, 0.7, 0) 
-    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
+    oFrm.Size = UDim2.new(0.8, 0, 8, 0) 
+    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 1, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.4
     oFrm.BorderSizePixel = 1
@@ -295,14 +312,14 @@ function UL:AddOBtn(parent, name)
         btn[prop] = value
     end
 
-    function ff()
+    function jaaaa()
         oFrm.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
     end
     
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
               btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
-            ff()
+            jaaaa()
     end)
 
     return btn, oFrm
@@ -319,7 +336,7 @@ function UL:AddText(parent, text, color)
     label.TextColor3 = Color3.fromRGB(0, 0, 0)
     label.Font = Enum.Font.ArimoBold 
     
-    label.TextSize = 15
+    label.TextSize = 13
     label.TextWrapped = true
 
     return label
