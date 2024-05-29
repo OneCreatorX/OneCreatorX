@@ -1,5 +1,5 @@
 local UL = {}
-print("Version UI 0.5")
+print("Version UI 0.6")
 local p = game.Players.LocalPlayer
 
 function UL:CrSG(name)
@@ -91,7 +91,7 @@ function UL:CrFrm(parent, title)
     crLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
     crLbl.Font = Enum.Font.SourceSans
     crLbl.TextSize = 18
-    
+
     -- Actualiza el tamaño del frame info al agregar elementos
     crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
 
@@ -138,12 +138,6 @@ function UL:AddBtn(parent, text, callback)
 
     btn.MouseButton1Click:Connect(callback)
 
-    -- Actualiza el tamaño del frame info solo si se está agregando un botón a crFrm
-    if parent.Parent == crFrm then 
-        parent.Parent.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30)
-    else
-        parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
-    end
 
     return btn
 end
