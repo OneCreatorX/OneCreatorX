@@ -23,7 +23,7 @@ end
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.30, 0, 0, 30)
+    frm.Size = UDim2.new(0.25, 0, 0, 30)
     frm.Position = UDim2.new(0.325, 0, 0.3, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.1
@@ -81,7 +81,7 @@ function UL:CrFrm(parent, title)
 
     local crTLbl = Instance.new("TextLabel")
     crTLbl.Parent = crFrm
-    crTLbl.Text = "Créditos"
+    crTLbl.Text = "Info/Update/Credit"
     crTLbl.Size = UDim2.new(1, 0, 0, 30)
     crTLbl.Position = UDim2.new(0, 0, 0, 0)
     crTLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
@@ -153,7 +153,7 @@ function UL:AddTBtn(parent, text, default, cb)
 
     btn.MouseButton1Click:Connect(function()
         state = not state
-        btn.Text = text .. " (" .. (state and "X" or "✓") .. ")"
+        btn.Text = text .. " (" .. (state and "✓" or "X") .. ")"
         cb(state)
     end)
 
@@ -188,8 +188,8 @@ end
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
-    oFrm.Size = UDim2.new(0.8, 0, 0.8, 0)
-    oFrm.Position = UDim2.new(parent.Position.X.Scale + 0.75, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
+    oFrm.Size = UDim2.new(0.7, 0, 0.8, 0)
+    oFrm.Position = UDim2.new(parent.Position.X.Scale + 0.95, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.1
     oFrm.BorderSizePixel = 1
