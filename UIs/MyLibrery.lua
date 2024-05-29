@@ -92,6 +92,9 @@ function UL:CrFrm(parent, title)
     crLbl.Font = Enum.Font.SourceSans
     crLbl.TextSize = 18
     
+    -- Actualiza el tamaño del frame info al agregar elementos
+    crFrm.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30) 
+
     local minimized = false
     tbtn.MouseButton1Click:Connect(function()
         minimized = not minimized
@@ -125,7 +128,8 @@ function UL:AddBtn(parent, text, callback)
     btn.Parent = parent
     btn.Text = text
     btn.Size = UDim2.new(1, 0, 0, 30)
-    btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    -- Ajusta la posición del botón en función del número de hijos del frame info
+    btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30) 
     btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     btn.BackgroundTransparency = 0.2
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -134,7 +138,12 @@ function UL:AddBtn(parent, text, callback)
 
     btn.MouseButton1Click:Connect(callback)
 
-    parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
+    -- Actualiza el tamaño del frame info solo si se está agregando un botón a crFrm
+    if parent.Parent == crFrm then 
+        parent.Parent.Size = UDim2.new(0.25, 0, 0, 30 + #crFrm:GetChildren() * 30)
+    else
+        parent.Parent.Size = UDim2.new(0.25, 0, 0, 60 + #parent:GetChildren() * 30)
+    end
 
     return btn
 end
