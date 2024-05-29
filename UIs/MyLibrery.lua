@@ -44,7 +44,7 @@ function UL:CrFrm(parent, title)
 lbl.Parent = frm
 lbl.Text = title
 lbl.Size = UDim2.new(1, 0, 0, 33)
-lbl.Position = UDim2.new(0, 0, 0, 0)
+lbl.Position = UDim2.new(0, 0, -0.02, 0)
 lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
 lbl.BackgroundTransparency = 0.8
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
