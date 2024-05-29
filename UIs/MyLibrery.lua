@@ -110,6 +110,7 @@ function UL:CrFrm(parent, title)
 
     crBtn.MouseButton1Click:Connect(function()
         crFrm.Visible = not crFrm.Visible
+             crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
     end)
 
     local function syncFrames()
@@ -210,6 +211,7 @@ function UL:AddOBtn(parent, name)
 
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
+              oFrm.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
     end)
 
     return btn, oFrm
