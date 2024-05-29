@@ -1,6 +1,6 @@
 local UI = {}
 
--- Función base MEGA compacta para botones (¡Cuidado, puede ser difícil de leer!)
+-- Función base para botones (mantenemos esta versión por ahora)
 local function b(p, t, f)
     local btn = Instance.new("TextButton", p)
     btn.Text = t
@@ -17,11 +17,10 @@ end
 
 function UI:CreateScr(n)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
-        if gui:IsA("ScreenGui") and gui:FindFirstChild("UIid") then 
+        if gui:IsA("ScreenGui") and gui:FindFirstChild("UIid") then
             gui:Destroy()
         end
     end
-
     local scr = Instance.new("ScreenGui", game.Players.LocalPlayer:WaitForChild("PlayerGui"))
     scr.Name = n
     scr.ResetOnSpawn = false
@@ -57,7 +56,8 @@ function UI:CreateFrm(p, tit)
         else
             cntFrm.Visible = true
             tBtn.Text = "-"
-            frm.Size = UDim2.new(0.35, 0, 0, 60 + cntFrm.AbsoluteContentSize.Y)
+            -- Calcular tamaño después de hacer visible el contenido
+            frm.Size = UDim2.new(0.35, 0, 0, 60 + cntFrm.AbsoluteContentSize.Y) 
         end
     end)
     tBtn.Size = UDim2.new(0, 30, 0, 30)
@@ -103,7 +103,8 @@ end
 
 function UI:AddBtn(p, txt, f)
     local btn = b(p, txt, f)
-    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y)
+    -- Forzar actualización del tamaño del padre
+    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y) 
     return btn
 end
 
@@ -139,7 +140,7 @@ function UI:AddTBtn(p, tTxt, dState, f)
         btn.Text = tTxt .. " (" .. (state and "On" or "Off") .. ")"
         f(state)
     end)
-    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y)
+    p.Parent.Size = UDim2.new(0.35, 0, 0, 60 + p.AbsoluteContentSize.Y) 
     return btn
 end
 
