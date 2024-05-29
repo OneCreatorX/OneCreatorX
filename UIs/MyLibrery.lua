@@ -1,3 +1,40 @@
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui", player.PlayerGui)
+screenGui.Name = "LoadingScreen"
+
+local loadingFrame = Instance.new("Frame", screenGui)
+loadingFrame.Size = UDim2.new(0.3, 0, 0.1, 0)
+loadingFrame.Position = UDim2.new(0.35, 0, 0.45, 0)
+loadingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+loadingFrame.BorderSizePixel = 0
+
+local loadingLabel = Instance.new("TextLabel", loadingFrame)
+loadingLabel.Size = UDim2.new(1, 0, 0.5, 0)
+loadingLabel.Position = UDim2.new(0, 0, 0, 0)
+loadingLabel.Text = "Loading OneLib..."
+loadingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingLabel.Font = Enum.Font.GothamBold
+loadingLabel.TextSize = 24
+loadingLabel.BackgroundTransparency = 1
+
+local loadingBar = Instance.new("Frame", loadingFrame)
+loadingBar.Size = UDim2.new(0, 0, 0.5, 0)
+loadingBar.Position = UDim2.new(0, 0, 0.5, 0)
+loadingBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+
+local tweenService = game:GetService("TweenService")
+
+local function createTween(instance, size, duration)
+    return tweenService:Create(instance, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = size})
+end
+
+local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 0.5, 0), 3)
+loadingTween:Play()
+loadingTween.Completed:Connect(function()
+    loadingLabel.Text = "OneLib v0.1"
+    wait(2)
+    screenGui:Destroy()
+    
 local UL = {}
 print("Version UI 0.1")
 
@@ -292,3 +329,4 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
 end)
 print("by: OneCreatorX")
 return UL
+end)
