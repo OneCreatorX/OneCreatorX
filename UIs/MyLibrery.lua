@@ -156,7 +156,7 @@ end
 function UL:AddTBtn(parent, text, state, callback)
     local btn = Instance.new("TextButton")
     btn.Parent = parent
-    btn.Text = text .. " (" .. (state and "✓" or "X") .. ")"
+    btn.Text = text .. " [" .. (state and "ON" or "OFF") .. "]"
     btn.Size = UDim2.new(1, 0, 0, 30)
     btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     for prop, value in pairs(uiProperties) do
@@ -165,7 +165,7 @@ function UL:AddTBtn(parent, text, state, callback)
 
     btn.MouseButton1Click:Connect(function()
         state = not state
-        btn.Text = text .. " (" .. (state and "✓" or "X") .. ")"
+        btn.Text = text .. " [" .. (state and "ON" or "OFF") .. "]"
         btn.BackgroundColor3 = state and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
         callback(state)
     end)
@@ -177,13 +177,40 @@ function UL:AddTBox(parent, placeholder, callback)
     local box = Instance.new("TextBox")
     box.Parent = parent
     box.PlaceholderText = placeholder
-    box.Text = placeholder
+    box.Text = ""
     box.BorderSizePixel = 2
     box.Size = UDim2.new(1, 0, 0, 28)
     box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    for prop, value in pairs(uiProperties) do
-        box[prop] = value
-    end
+
+    -- Propiedades visuales para diferenciar el TextBox
+    box.BackgroundColor3 = Color3.fromRGB(245, 245, 245)  -- Fondo gris claro
+    box.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Texto negro
+    box.BorderColor3 = Color3.fromRGB(100, 100, 100)  -- Borde gris oscuro
+    box.Font = Enum.Font.SourceSans
+    box.TextSize = 18
+    box.ClearTextOnFocus = false
+    box.TextXAlignment = Enum.TextXAlignment.Left
+    
+    -- Añadir un padding interior para el texto
+    local padding = Instance.new("UIPadding")
+    padding.Parent = box
+    padding.PaddingLeft = UDim.new(0, 5)
+    
+    -- Añadir un borde redondeado
+    local corner = Instance.new("UICorner")
+    corner.Parent = box
+    corner.CornerRadius = UDim.new(0, 6)
+    
+    -- Añadir sombra para darle un efecto elevado
+    local shadow = Instance.new("ImageLabel")
+    shadow.Parent = box
+    shadow.BackgroundTransparency = 1
+    shadow.Image = "rbxassetid://1316045217"
+    shadow.Size = UDim2.new(1, 6, 1, 6)
+    shadow.Position = UDim2.new(0, -3, 0, -3)
+    shadow.ImageTransparency = 0.5
+    shadow.ScaleType = Enum.ScaleType.Slice
+    shadow.SliceCenter = Rect.new(10, 10, 118, 118)
 
     box.FocusLost:Connect(function(enterPressed)
         if enterPressed then
