@@ -1,5 +1,5 @@
 local UL = {}
-print("Version UI 0.2 Beta")
+print("Version UI 0.3 Beta")
 
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
@@ -33,7 +33,7 @@ function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
     frm.Size = UDim2.new(0.25, 0, 0, 60)
-    frm.Position = UDim2.new(0.2, 0, -0.3, 0)
+    frm.Position = UDim2.new(0.1, 0, 1, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.4
     frm.BorderSizePixel = 0
@@ -44,7 +44,7 @@ function UL:CrFrm(parent, title)
 lbl.Parent = frm
 lbl.Text = title
 lbl.Size = UDim2.new(1, 0, 0, 35)
-lbl.Position = UDim2.new(0, 0, 0.03, 0)
+lbl.Position = UDim2.new(0, 0, -0.05, 0)
 lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
 lbl.BackgroundTransparency = 0.5
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
