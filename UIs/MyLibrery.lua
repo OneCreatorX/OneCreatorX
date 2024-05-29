@@ -35,7 +35,14 @@ function UL:CrFrm(parent, name)
     cfrm.Position = UDim2.new(0, 0, 0, 30)
     cfrm.BackgroundTransparency = 1
 
-    return frm, cfrm
+    local crFrm = Instance.new("Frame")
+    crFrm.Parent = parent
+    crFrm.Size = UDim2.new(0.3, 0, 0.2, 0)
+    crFrm.Position = UDim2.new(0.7, 0, 0.3, 0)
+    crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+    crFrm.BorderSizePixel = 2
+
+    return frm, cfrm, crFrm
 end
 
 function UL:AddBtn(parent, name, callback)
@@ -105,8 +112,8 @@ end
 function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
-    oFrm.Size = UDim2.new(0.35, 0, 0.4, 0)
-    oFrm.Position = UDim2.new(parent.Position.X.Scale + 0.35, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
+    oFrm.Size = UDim2.new(0.35, 0, 0.4, 0)  -- Ajuste del tamaño
+    oFrm.Position = UDim2.new(parent.Position.X.Scale + 0.35, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)  -- Ajuste de la posición
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.1
     oFrm.BorderSizePixel = 1
@@ -141,26 +148,6 @@ function UL:AddOBtn(parent, name)
     parent.Parent.Size = UDim2.new(0.35, 0, 0, 60 + #parent:GetChildren() * 30)
 
     return btn, oFrm
-end
-
-function UL:AddCredits(parent, creditsText)
-    local creditsBtn = Instance.new("TextButton")
-    creditsBtn.Parent = parent
-    creditsBtn.Text = creditsText
-    creditsBtn.Size = UDim2.new(1, 0, 0, 30)
-    creditsBtn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    creditsBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    creditsBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    creditsBtn.Font = Enum.Font.SourceSans
-    creditsBtn.TextSize = 18
-
-    creditsBtn.MouseButton1Click:Connect(function()
-        setclipboard(creditsText)
-    end)
-
-    parent.Size = UDim2.new(parent.Size.X.Scale, parent.Size.X.Offset, 0, #parent:GetChildren() * 30)
-    
-    return creditsBtn
 end
 
 return UL
