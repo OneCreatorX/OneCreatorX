@@ -1,5 +1,6 @@
 local UL = {}
-
+print("Version UI 0.1")
+local p = game.Players.LocalPlayer
 function UL:CrSG(name)
     for _, gui in ipairs(game.Players.LocalPlayer:WaitForChild("PlayerGui"):GetChildren()) do
         if gui:IsA("ScreenGui") and gui:FindFirstChild("ULId") then
@@ -96,11 +97,11 @@ function UL:CrFrm(parent, title)
         if minimized then
             cfrm.Visible = false
             tbtn.Text = "+"
-            frm.Size = UDim2.new(0.35, 0, 0, 60)
+            frm.Size = UDim2.new(0.20, 0, 0, 30)
         else
             cfrm.Visible = true
             tbtn.Text = "-"
-            frm.Size = UDim2.new(0.20, 0, 0, 630 + #cfrm:GetChildren() * 30)
+            frm.Size = UDim2.new(0.20, 0, 0, 30 + #cfrm:GetChildren() * 30)
         end
     end)
 
