@@ -35,7 +35,7 @@ function UL:CrFrm(parent, title)
     frm.Size = UDim2.new(0.25, 0, 0, 60)
     frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    frm.BackgroundTransparency = 0.8
+    frm.BackgroundTransparency = 0.4
     frm.BorderSizePixel = 1
     frm.Active = true
     frm.Draggable = true
@@ -198,7 +198,7 @@ function UL:AddOBtn(parent, name)
     oFrm.Size = UDim2.new(0.7, 0, 0.7, 0) 
     oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    oFrm.BackgroundTransparency = 0.1
+    oFrm.BackgroundTransparency = 0.4
     oFrm.BorderSizePixel = 1
     oFrm.Visible = false
 
