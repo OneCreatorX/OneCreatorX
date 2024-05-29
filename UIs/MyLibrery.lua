@@ -43,13 +43,13 @@ function UL:CrFrm(parent, title)
     local lbl = Instance.new("TextLabel")
 lbl.Parent = frm
 lbl.Text = title
-lbl.Size = UDim2.new(1, 0, 0, 35)
+lbl.Size = UDim2.new(1, 0, 0, 33)
 lbl.Position = UDim2.new(0, 0, 0, 0)
-lbl.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
 lbl.BackgroundTransparency = 0.5
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
 lbl.Font = Enum.Font.GothamSemibold
-lbl.TextSize = 20
+lbl.TextSize = 19
 lbl.TextWrapped = true
 lbl.TextXAlignment = Enum.TextXAlignment.Center
 lbl.TextYAlignment = Enum.TextYAlignment.Center
