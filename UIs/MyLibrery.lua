@@ -156,12 +156,12 @@ padding.PaddingBottom = UDim.new(0, 5)
     crLbl.TextYAlignment = Enum.TextYAlignment.Center
 
     local corner = Instance.new("UICorner")
-corner.Parent = lbl
+corner.Parent = crLbl
 corner.CornerRadius = UDim.new(0, 4)
 
 
 local padding = Instance.new("UIPadding")
-padding.Parent = lbl
+padding.Parent = crLbl
 padding.PaddingLeft = UDim.new(0, 5)
 padding.PaddingRight = UDim.new(0, 5)
 padding.PaddingTop = UDim.new(0, 5)
@@ -289,7 +289,7 @@ function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
     oFrm.Size = UDim2.new(0.9, 0, 1, 0) 
-    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.18, parent.Position.Y.Offset)
+    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.184, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.4
     oFrm.BorderSizePixel = 1
