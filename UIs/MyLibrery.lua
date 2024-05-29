@@ -1,5 +1,5 @@
 local UL = {}
-print("Version UI 0.2")
+print("Version UI 0.1")
 
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
@@ -44,7 +44,7 @@ function UL:CrFrm(parent, title)
 lbl.Parent = frm
 lbl.Text = title
 lbl.Size = UDim2.new(1, 0, 0, 33)
-lbl.Position = UDim2.new(0, 0, -0.5, 0)
+lbl.Position = UDim2.new(0, 0, 0, 0)
 lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
 lbl.BackgroundTransparency = 0.8
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
@@ -114,7 +114,7 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
     end)
 
     function gg()
-        crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 100) or Color3.fromRGB(65, 65, 65)
+        crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(120, 0, 120) or Color3.fromRGB(65, 65, 65)
     end
     
     crBtn.MouseButton1Click:Connect(function()
@@ -226,7 +226,7 @@ function UL:AddOBtn(parent, name)
     
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
-              btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(65, 65, 65)
+              btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
             ff()
     end)
 
