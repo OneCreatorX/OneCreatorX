@@ -1,12 +1,12 @@
 local UL = {}
-print("Version UI 0.2 Beta")
+print("Version UI 0.2")
 
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
-    BackgroundTransparency = 0.8,
+    BackgroundTransparency = 0.5,
     TextColor3 = Color3.fromRGB(255, 255, 255),
     Font = Enum.Font.SourceSans,
-    TextSize = 14
+    TextSize = 15
 }
 
 function UL:CrSG(name)
@@ -33,23 +33,23 @@ function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
     frm.Size = UDim2.new(0.25, 0, 0, 60)
-    frm.Position = UDim2.new(0.2, 0, 2, 0)
+    frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     frm.BackgroundTransparency = 0.4
-    frm.BorderSizePixel = 1
+    frm.BorderSizePixel = 2
     frm.Active = true
     frm.Draggable = true
 
     local lbl = Instance.new("TextLabel")
 lbl.Parent = frm
 lbl.Text = title
-lbl.Size = UDim2.new(1, 0, 0, 35)
+lbl.Size = UDim2.new(1, 0, 0, 33)
 lbl.Position = UDim2.new(0, 0, 0, 0)
 lbl.BackgroundColor3 = Color3.fromRGB(128, 0, 128)
-lbl.BackgroundTransparency = 0.8
+lbl.BackgroundTransparency = 0.5
 lbl.TextColor3 = Color3.fromRGB(255, 255, 255) 
 lbl.Font = Enum.Font.GothamSemibold
-lbl.TextSize = 18
+lbl.TextSize = 19
 lbl.TextWrapped = true
 lbl.TextXAlignment = Enum.TextXAlignment.Center
 lbl.TextYAlignment = Enum.TextYAlignment.Center
@@ -67,7 +67,7 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
     cfrm.Parent = frm
     cfrm.Size = UDim2.new(1, 0, 1, -30)
     cfrm.Position = UDim2.new(0, 0, 0, 30)
-    cfrm.BackgroundTransparency = 0.4
+    cfrm.BackgroundTransparency = 1
     cfrm.Visible = false
 
     local crBtn = Instance.new("TextButton")
@@ -84,13 +84,13 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
     crFrm.Size = UDim2.new(0.25, 0, 0.4, 0)
     crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
     crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    crFrm.BackgroundTransparency = 0.4
+    crFrm.BackgroundTransparency = 0.5
     crFrm.BorderSizePixel = 1
     crFrm.Visible = false
 
     local crLbl = Instance.new("TextLabel")
     crLbl.Parent = crFrm
-    crLbl.Text = "Info/Updat/Credit"
+    crLbl.Text = "Info/Updats/Credits"
     crLbl.Size = UDim2.new(1, 0, 0, 30)
     crLbl.Position = UDim2.new(0, 0, 0, 0)
     for prop, value in pairs(uiProperties) do
@@ -198,7 +198,7 @@ function UL:AddOBtn(parent, name)
     oFrm.Size = UDim2.new(0.7, 0, 0.7, 0) 
     oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    oFrm.BackgroundTransparency = 0.4
+    oFrm.BackgroundTransparency = 0.1
     oFrm.BorderSizePixel = 1
     oFrm.Visible = false
 
@@ -240,7 +240,7 @@ function UL:AddText(parent, text, color)
     label.Size = UDim2.new(1, 0, 0, 30)
     label.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     label.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    label.BackgroundTransparency = 0.8
+    label.BackgroundTransparency = 0.2
     label.TextColor3 = color or Color3.fromRGB(255, 255, 255)
     label.Font = Enum.Font.SourceSans
     label.TextSize = 12
