@@ -113,10 +113,15 @@ lbl.TextYAlignment = Enum.TextYAlignment.Center
         end
     end)
 
+    function gg()
+        crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 100) or Color3.fromRGB(65, 65, 65)
+    end
+    
     crBtn.MouseButton1Click:Connect(function()
         crFrm.Visible = not crFrm.Visible
-            crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 100) or Color3.fromRGB(65, 65, 65)
+            
              crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(150, 0, 150) or Color3.fromRGB(65, 65, 65)
+            gg()
     end)
 
     local function syncFrames()
@@ -215,10 +220,14 @@ function UL:AddOBtn(parent, name)
         btn[prop] = value
     end
 
+    function ff()
+        oFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
+    end
+    
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
               btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(65, 65, 65)
-            oFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
+            ff()
     end)
 
     return btn, oFrm
