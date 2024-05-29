@@ -328,5 +328,6 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 print("by: OneCreatorX")
+        end)
+
 return UL
-end)
