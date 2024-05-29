@@ -1,5 +1,6 @@
 local UL = {}
 print("Version UI 0.1")
+print("Loading OneLib")
 
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
@@ -288,7 +289,7 @@ function UL:AddOBtn(parent, name)
     local oFrm = Instance.new("Frame")
     oFrm.Parent = parent.Parent
     oFrm.Size = UDim2.new(0.9, 0, 1, 0) 
-    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.3, parent.Position.Y.Offset)
+    oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.2, parent.Position.Y.Offset)
     oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
     oFrm.BackgroundTransparency = 0.4
     oFrm.BorderSizePixel = 1
@@ -346,6 +347,7 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
+print("Loading Finish")
 print("by: OneCreatorX")
         
 
