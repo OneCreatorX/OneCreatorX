@@ -1,13 +1,12 @@
 local UL = {}
 print("Version UI 0.2")
-local p = game.Players.LocalPlayer
 
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.5,
     TextColor3 = Color3.fromRGB(255, 255, 255),
     Font = Enum.Font.SourceSans,
-    TextSize = 18
+    TextSize = 15
 }
 
 function UL:CrSG(name)
@@ -33,10 +32,10 @@ end
 function UL:CrFrm(parent, title)
     local frm = Instance.new("Frame")
     frm.Parent = parent
-    frm.Size = UDim2.new(0.25, 0, 0, 60)
+    frm.Size = UDim2.new(0.25, 0, 0, 90)
     frm.Position = UDim2.new(0.2, 0, 0.2, 0)
     frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    frm.BackgroundTransparency = 0.1
+    frm.BackgroundTransparency = 0.5
     frm.BorderSizePixel = 2
     frm.Active = true
     frm.Draggable = true
@@ -61,7 +60,7 @@ function UL:CrFrm(parent, title)
 
     local cfrm = Instance.new("Frame")
     cfrm.Parent = frm
-    cfrm.Size = UDim2.new(1, 0, 1, -60)
+    cfrm.Size = UDim2.new(1, 0, 1, -90)
     cfrm.Position = UDim2.new(0, 0, 0, 30)
     cfrm.BackgroundTransparency = 1
 
@@ -79,7 +78,7 @@ function UL:CrFrm(parent, title)
     crFrm.Size = UDim2.new(0.25, 0, 0.4, 0)
     crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
     crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    crFrm.BackgroundTransparency = 0.1
+    crFrm.BackgroundTransparency = 0.5
     crFrm.BorderSizePixel = 1
     crFrm.Visible = false
 
@@ -92,7 +91,7 @@ function UL:CrFrm(parent, title)
         crLbl[prop] = value
     end
 
-    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 30) 
+    crFrm.Size = UDim2.new(0.25, 0, 0, 90 + #crFrm:GetChildren() * 30) 
 
     local minimized = false
     tbtn.MouseButton1Click:Connect(function()
@@ -104,7 +103,7 @@ function UL:CrFrm(parent, title)
         else
             cfrm.Visible = true
             tbtn.Text = "-"
-            frm.Size = UDim2.new(0.25, 0, 0, 60 + #cfrm:GetChildren() * 30)
+            frm.Size = UDim2.new(0.25, 0, 0, 90 + #cfrm:GetChildren() * 30)
         end
     end)
 
@@ -235,6 +234,9 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
     game:GetService('VirtualUser'):CaptureController()
     game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
+frm.Size = UDim2.new(0.25, 0, 0, 60)
+wait(0.2)
+frm.Size = UDim2.new(0.25, 0, 0, 90 + #cfrm:GetChildren() * 30)
 print("Anti AFK including")
 print("by: OneCreatorX")
 return UL
