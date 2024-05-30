@@ -92,8 +92,8 @@ game.Players.LocalPlayer.PlayerScripts.DeathEffectsHandler.Disabled = true
 
 UL:AddText(crFrm, "By Script: OneCreatorX ")
 UL:AddText(crFrm, "Create Script: 20/05/24 ")
-UL:AddText(crFrm, "Update Script: 29/05/24")
-UL:AddText(crFrm, "Script Version: 0.1")
+UL:AddText(crFrm, "Update Script: 30/05/24")
+UL:AddText(crFrm, "Script Version: 0.4")
 UL:AddBtn(crFrm, "Copy link YouTube", function() copy("https://youtube.com/@onecreatorx") end)
 UL:AddBtn(crFrm, "Copy link Discord", function() copy("https://discord.com/invite/UNJpdJx7c4") end)
 
