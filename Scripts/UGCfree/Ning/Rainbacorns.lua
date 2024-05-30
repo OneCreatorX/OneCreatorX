@@ -60,10 +60,50 @@ UL:AddTBtn(cfrm, "Auto Claim Gift", a, function(b)
     end
 end)
 
+UL:AddTBtn(cfrm, "Auto Tasks Pets", a, function(b) 
+    a = b
+while a do
+local playerName = game.Players.LocalPlayer.Name 
+local userDirectoryName = playerName .. ":Debris"
+local workspace = game:GetService("Workspace")
+local userDirectory = workspace:FindFirstChild(userDirectoryName)
+    wait()
+    if userDirectory then
+        for _, child in ipairs(userDirectory:GetChildren()) do
+            if a and child:IsA("Model") and not child.Name:find("_Accessories") then
+                local actions = {"Fed", "Bathed", "Hugged"}
+                for _, action in ipairs(actions) do
+                    local args = {
+                        [1] = {
+                            [1] = "PetInteractAction",
+                            [2] = "\27",
+                            [3] = {
+                                [1] = "\1",
+                                [2] = {
+                                    [1] = child.Name,
+                                    [2] = action
+                                }
+                            },
+                            [4] = "\16"
+                        }
+                    }
+                    
+                    game:GetService("ReplicatedStorage"):WaitForChild("dataRemoteEvent"):FireServer(unpack(args))
+                    wait(3.5)
+                end
+                wait(2)
+            end
+        end
+    else
+
+    end
+end
+end)
+
 UL:AddText(crFrm, "By Script: OneCreatorX ")
 UL:AddText(crFrm, "Create Script: 29/05/24 ")
-UL:AddText(crFrm, "Update Script: --/--/--")
-UL:AddText(crFrm, "Script Version: 0.1")
+UL:AddText(crFrm, "Update Script: 30/05/24")
+UL:AddText(crFrm, "Script Version: 0.2")
 UL:AddBtn(crFrm, "Copy link YouTube", function() setclipboard("https://youtube.com/@onecreatorx") end)
 UL:AddBtn(crFrm, "Copy link Discord", function() setclipboard("https://discord.com/invite/UNJpdJx7c4") end)
 
