@@ -26,7 +26,7 @@ UL:AddTBtn(OF, "Auto Moños", a, function(b)
 end)
 
 
-UL:AddTBtn(cfrm, "Auto Flowers", a, function(b) 
+UL:AddTBtn(cfrm, "Collect Flowers", a, function(b) 
     a = b
     while a do
         for _, h in ipairs(workspace.Activators:GetChildren()) do
@@ -34,6 +34,21 @@ UL:AddTBtn(cfrm, "Auto Flowers", a, function(b)
                 game.Players.LocalPlayer.Character.PrimaryPart.CFrame = h.Part.CFrame
 wait(0.5)
                 fireproximityprompt(h.Part.ProximityPrompt)
+                wait(0.2)
+            end
+        end
+    end
+end)
+
+UL:AddTBtn(cfrm, "Collect Magic Feathers", a, function(b) 
+    a = b
+    while a do
+wait()
+        for _, h in ipairs(workspace.Feathers:GetChildren()) do
+            if h.Name == "Feather" and h:FindFirstChild("Root") and a then
+                game.Players.LocalPlayer.Character.PrimaryPart.CFrame = h.Root.CFrame
+wait(0.5)
+                fireproximityprompt(h.Root.ProximityPrompt)
                 wait(0.2)
             end
         end
