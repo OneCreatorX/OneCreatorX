@@ -280,33 +280,66 @@ end)
 setreadonly(mt, true)
 
 
+local function onPlayerDeath()
+    wait(0.8)
+    local args = { [1] = "LeaveParty" }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
+    Player.PlayerGui.DungeonFinishUI.Enabled = false
+    wait(1)
+end
+
+-- Función para monitorear la salud del Humanoid del jugador
+local function monitorPlayerHealth(humanoid)
+    humanoid.HealthChanged:Connect(function(health)
+        if health <= 0 then
+            onPlayerDeath()
+        end
+    end)
+end
+
+-- Función para configurar el monitoreo del personaje del jugador
+local function setupCharacterMonitoring(player)
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        monitorPlayerHealth(humanoid)
+    end)
+
+    -- Si el personaje ya está cargado cuando se inicia el script
+    if player.Character then
+        local humanoid = player.Character:WaitForChild("Humanoid")
+        monitorPlayerHealth(humanoid)
+    end
+end
+
+-- Configurar el monitoreo del personaje del jugador
+local player = game.Players.LocalPlayer
+setupCharacterMonitoring(player)
+
+
 while true do
     local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
     local max = tonumber(maxText:match("%d+"))
-
+    
     if a then
         if limite ~= nil and max and max <= limite then
-            -- Primera condición: atacar y mover mientras max <= limite
             attackAndMove()
             wait()
         elseif limite ~= nil and max and max >= limite and workspace:FindFirstChild("Dungeon") then
-            -- Segunda condición: si max >= limite y la mazmorra existe, salir
             local args = { [1] = "Exit" }
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
             wait(2)
-        elseif not workspace:FindFirstChild("Dungeon") then
-            -- Tercera condición: si limite no es nil y no existe la mazmorra, dejar la party
+        elseif limite ~= nil and not workspace:FindFirstChild("Dungeon") then
             wait(0.8)
             local args = { [1] = "LeaveParty" }
             game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
             Player.PlayerGui.DungeonFinishUI.Enabled = false
             wait(1)
         else
-            -- No hacer nada si ninguna condición es verdadera
             wait(0.1)
+            -- no hacer nada
         end
     else
-        -- No hacer nada si 'a' es false
         wait(0.1)
+        -- no hacer nada
     end
 end
