@@ -198,7 +198,7 @@ function UL:AddBtn(parent, text, callback)
   local btn = Instance.new("TextButton", parent)
   btn.Text = text
   btn.Size = UDim2.new(1, 0, 0, 30)
-  btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+  btn.Position = UDim2.new(2, 0, 0, #parent:GetChildren() * 30 - 30)
   for prop, value in pairs(uiProperties) do
     btn[prop] = value
   end
@@ -212,7 +212,7 @@ function UL:AddTBtn(parent, text, state, callback)
   local btn = Instance.new("TextButton", parent)
   btn.Text = text .. " [" .. (state and "ON" or "OFF") .. "]"
   btn.Size = UDim2.new(1, 0, 0, 30)
-  btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+  btn.Position = UDim2.new(2, 0, 0, #parent:GetChildren() * 30 - 30)
   for prop, value in pairs(uiProperties) do
     btn[prop] = value
   end
@@ -233,7 +233,7 @@ function UL:AddTBox(parent, placeholder, callback)
   box.Text = ""
   box.BorderSizePixel = 1
   box.Size = UDim2.new(1, 0, 0, 30)
-  box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+  box.Position = UDim2.new(2, 0, 0, #parent:GetChildren() * 30 - 30)
 
   box.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
   box.TextColor3 = Color3.fromRGB(250, 250, 250)
