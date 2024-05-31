@@ -51,26 +51,26 @@ function UL:Button(txt)
     createBtn(mainFrm, txt, yPos)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-    adjustFrames()
 end
 
-local opcFrames = {}
-local opcBtns = {}
+local opcBtn
+local opcFrm
 
 function UL:Opc(txt)
     local yPos = 30 + mainBtnsCount * 30
-    local opcBtn = createBtn(mainFrm, txt .. " <", yPos)
+    opcBtn = createBtn(mainFrm, txt .. " <", yPos)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 
-    local opcFrm = Instance.new("Frame", gui)
+    opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
     opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
 
-    opcFrames[#opcFrames + 1] = opcFrm
-    opcBtns[#opcBtns + 1] = opcBtn
+    mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+        opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
+    end)
 
     opcBtn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
@@ -83,7 +83,6 @@ function UL:Opc(txt)
         createBtn(opcFrm, txt, opcBtnsCount * 30)
         opcBtnsCount = opcBtnsCount + 1
         opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
-        adjustFrames()
     end
     return obj
 end
@@ -92,6 +91,10 @@ local infoFrm = Instance.new("Frame", gui)
 infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
 infoFrm.BackgroundTransparency = 1
+
+mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+    infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
+end)
 
 local infoBtn = createBtn(mainFrm, "Info <", 30 + mainBtnsCount * 30)
 mainBtnsCount = mainBtnsCount + 1
@@ -108,22 +111,10 @@ function UL:Info(txt)
     createBtn(infoFrm, txt, infoBtnsCount * 30)
     infoBtnsCount = infoBtnsCount + 1
     infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
-    adjustFrames()
 end
 
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-function adjustFrames()
-    for i, opcFrm in pairs(opcFrames) do
-        opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
-    end
-    infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + mainFrm.Size.Y.Scale, 0)
-end
-
-mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFrames)
-mainFrm:GetPropertyChangedSignal("Size"):Connect(adjustFrames)
-
-print("2")
 return UL
