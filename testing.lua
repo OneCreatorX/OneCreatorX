@@ -64,9 +64,13 @@ function UL:Opc(txt)
 
     opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
-    opcFrm.Position = UDim2.new(0.625, 0, 0.2, 0)
+    opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
+
+    mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+        opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
+    end)
 
     opcBtn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
@@ -85,8 +89,12 @@ end
 
 local infoFrm = Instance.new("Frame", gui)
 infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
-infoFrm.Position = UDim2.new(0.375, 0, 0.8, 0)
+infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
 infoFrm.BackgroundTransparency = 1
+
+mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+    infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
+end)
 
 local infoBtn = createBtn(mainFrm, "Info <", 30 + mainBtnsCount * 30)
 mainBtnsCount = mainBtnsCount + 1
