@@ -1,41 +1,52 @@
 local UL = {}
-print("Version UI 0.2")
+print("Version UI 0.1")
 print("Loading OneLib")
 
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "LoadingScreen"
 
-local loadingFrame = Instance.new("Frame", screenGui)
-loadingFrame.Size = UDim2.new(0.3, 0, 0.1, 0)
-loadingFrame.Position = UDim2.new(0.35, 0, 0.45, 0)
-loadingFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-loadingFrame.BorderSizePixel = 0
-
-local loadingLabel = Instance.new("TextLabel", loadingFrame)
-loadingLabel.Size = UDim2.new(1, 0, 0.5, 0)
-loadingLabel.Position = UDim2.new(0, 0, 0, 0)
-loadingLabel.Text = "Loading OneLib..."
-loadingLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-loadingLabel.Font = Enum.Font.GothamBold
-loadingLabel.TextSize = 24
-loadingLabel.BackgroundTransparency = 1
-
-local loadingBar = Instance.new("Frame", loadingFrame)
-loadingBar.Size = UDim2.new(0, 0, 0.5, 0)
-loadingBar.Position = UDim2.new(0, 0, 0.5, 0)
-loadingBar.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-
-local tweenService = game:GetService("TweenService")
+local function createInstance(className, properties, parent)
+    local instance = Instance.new(className)
+    for prop, value in pairs(properties) do
+        instance[prop] = value
+    end
+    instance.Parent = parent
+    return instance
+end
 
 local function createTween(instance, size, duration)
+    local tweenService = game:GetService("TweenService")
     return tweenService:Create(instance, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = size})
 end
+
+local loadingFrame = createInstance("Frame", {
+    Size = UDim2.new(0.3, 0, 0.1, 0),
+    Position = UDim2.new(0.35, 0, 0.45, 0),
+    BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+    BorderSizePixel = 0
+}, screenGui)
+
+local loadingLabel = createInstance("TextLabel", {
+    Size = UDim2.new(1, 0, 0.5, 0),
+    Position = UDim2.new(0, 0, 0, 0),
+    Text = "Loading OneLib...",
+    TextColor3 = Color3.fromRGB(255, 255, 255),
+    Font = Enum.Font.GothamBold,
+    TextSize = 24,
+    BackgroundTransparency = 1
+}, loadingFrame)
+
+local loadingBar = createInstance("Frame", {
+    Size = UDim2.new(0, 0, 0.5, 0),
+    Position = UDim2.new(0, 0, 0.5, 0),
+    BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+}, loadingFrame)
 
 local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 0.5, 0), 2)
 loadingTween:Play()
 loadingTween.Completed:Connect(function()
-    loadingLabel.Text = "OneLib v0.2"
+    loadingLabel.Text = "OneLib v0.1"
     wait(1)
     screenGui:Destroy()
 end)
@@ -50,125 +61,203 @@ local uiProperties = {
     TextSize = 13
 }
 
-function UL:CreateScreenGui(name)
-    for _, gui in ipairs(player.PlayerGui:GetChildren()) do
+function UL:CrSG(name)
+    for _, gui in ipairs(player:WaitForChild("PlayerGui"):GetChildren()) do
         if gui:IsA("ScreenGui") and gui:FindFirstChild("ULId") then
             gui:Destroy()
         end
     end
 
-    local sg = Instance.new("ScreenGui")
-    sg.Name = name
-    sg.Parent = player.PlayerGui
-    sg.ResetOnSpawn = false
+    local sg = createInstance("ScreenGui", {
+        Name = name,
+        ResetOnSpawn = false
+    }, player:WaitForChild("PlayerGui"))
 
-    local id = Instance.new("BoolValue")
-    id.Name = "ULId"
-    id.Value = true
-    id.Parent = sg
+    createInstance("BoolValue", {
+        Name = "ULId",
+        Value = true
+    }, sg)
 
     return sg
 end
 
-local function createLabel(parent, text, size, position, color)
-    local lbl = Instance.new("TextLabel")
-    lbl.Parent = parent
-    lbl.Size = size
-    lbl.Position = position
-    lbl.Text = text
-    lbl.TextColor3 = color or Color3.fromRGB(255, 255, 255)
-    lbl.Font = Enum.Font.GothamBold
-    lbl.TextSize = 18
-    lbl.BackgroundTransparency = 1
-    lbl.TextWrapped = true
-    lbl.TextXAlignment = Enum.TextXAlignment.Center
-    lbl.TextYAlignment = Enum.TextYAlignment.Center
-    return lbl
-end
+function UL:CrFrm(parent, title)
+    local frm = createInstance("Frame", {
+        Size = UDim2.new(0.25, 0, 0, 60),
+        Position = UDim2.new(0.2, 0, 0.2, 0),
+        BackgroundColor3 = Color3.fromRGB(45, 45, 45),
+        BackgroundTransparency = 0.4,
+        BorderSizePixel = 1,
+        Active = true,
+        Draggable = true
+    }, parent)
 
-local function createButton(parent, text, size, position, properties)
-    local btn = Instance.new("TextButton")
-    btn.Parent = parent
-    btn.Size = size
-    btn.Position = position
-    btn.Text = text
-    for prop, value in pairs(properties or uiProperties) do
-        btn[prop] = value
+    local lbl = createInstance("TextLabel", {
+        Text = title,
+        Size = UDim2.new(1, 0, 0, 33),
+        Position = UDim2.new(0, 0, -0.02, 0),
+        BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+        BackgroundTransparency = 0.2,
+        TextColor3 = Color3.fromRGB(350, 250, 23),
+        Font = Enum.Font.GothamBold,
+        TextSize = 18,
+        TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Center,
+        TextYAlignment = Enum.TextYAlignment.Center
+    }, frm)
+
+    createInstance("UICorner", {CornerRadius = UDim.new(0, 4)}, lbl)
+    createInstance("UIPadding", {
+        PaddingLeft = UDim.new(0, 5),
+        PaddingRight = UDim.new(0, 5),
+        PaddingTop = UDim.new(0, 5),
+        PaddingBottom = UDim.new(0, 5)
+    }, lbl)
+
+    local tbtn = createInstance("TextButton", {
+        Text = "+",
+        Size = UDim2.new(0, 30, 0, 30),
+        Position = UDim2.new(1, -30, 0, 0)
+    }, frm)
+    for prop, value in pairs(uiProperties) do
+        tbtn[prop] = value
     end
-    return btn
-end
 
-function UL:CreateFrame(parent, title)
-    local frm = Instance.new("Frame")
-    frm.Parent = parent
-    frm.Size = UDim2.new(0.25, 0, 0, 60)
-    frm.Position = UDim2.new(0.2, 0, 0.2, 0)
-    frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    frm.BackgroundTransparency = 0.4
-    frm.BorderSizePixel = 1
-    frm.Active = true
-    frm.Draggable = true
+    local cfrm = createInstance("Frame", {
+        Size = UDim2.new(1, 0, 1, -30),
+        Position = UDim2.new(0, 0, 0, 30),
+        BackgroundTransparency = 0.6,
+        BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+        Visible = false
+    }, frm)
 
-    createLabel(frm, title, UDim2.new(1, 0, 0, 33), UDim2.new(0, 0, -0.02, 0), Color3.fromRGB(350, 250, 23))
+    local crBtn = createInstance("TextButton", {
+        Text = "Info Script",
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 1, -30)
+    }, frm)
+    for prop, value in pairs(uiProperties) do
+        crBtn[prop] = value
+    end
 
-    local toggleBtn = createButton(frm, "+", UDim2.new(0, 30, 0, 30), UDim2.new(1, -30, 0, 0))
+local crFrm = createInstance("Frame", {
+        Size = UDim2.new(0.25, 0, 0.4, 60),
+        Position = UDim2.new(0.685, 0, 0.3, 0),
+        BackgroundColor3 = Color3.fromRGB(45, 45, 45),
+        BackgroundTransparency = 1,
+        BorderSizePixel = 1,
+        Visible = false
+    }, parent)
 
-    local contentFrame = Instance.new("Frame")
-    contentFrame.Parent = frm
-    contentFrame.Size = UDim2.new(1, 0, 1, -30)
-    contentFrame.Position = UDim2.new(0, 0, 0, 30)
-    contentFrame.BackgroundTransparency = 0.6
-    contentFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    contentFrame.Visible = false
+    local crLbl = createInstance("TextLabel", {
+        BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+        BackgroundTransparency = 0.2,
+        TextColor3 = Color3.fromRGB(350, 250, 23),
+        Text = "Info/Updates/Credits",
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, 0),
+        Font = Enum.Font.GothamBold,
+        TextSize = 18,
+        TextWrapped = true,
+        TextXAlignment = Enum.TextXAlignment.Center,
+        TextYAlignment = Enum.TextYAlignment.Center
+    }, crFrm)
+
+    createInstance("UICorner", {CornerRadius = UDim.new(0, 4)}, crLbl)
+    createInstance("UIPadding", {
+        PaddingLeft = UDim.new(0, 5),
+        PaddingRight = UDim.new(0, 5),
+        PaddingTop = UDim.new(0, 5),
+        PaddingBottom = UDim.new(0, 5)
+    }, crLbl)
+
+    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 60)
 
     local minimized = true
-    toggleBtn.MouseButton1Click:Connect(function()
+    tbtn.MouseButton1Click:Connect(function()
         minimized = not minimized
-        contentFrame.Visible = not minimized
-        toggleBtn.Text = minimized and "+" or "-"
-        frm.Size = UDim2.new(0.25, 0, 0, 60 + (minimized and 0 or #contentFrame:GetChildren() * 30))
+        cfrm.Visible = not minimized
+        tbtn.Text = minimized and "+" or "-"
+        frm.Size = UDim2.new(0.25, 0, 0, 60 + (minimized and 0 or #cfrm:GetChildren() * 30))
     end)
 
-    return frm, contentFrame
+    local function syncFrames()
+        crFrm.Position = UDim2.new(frm.Position.X.Scale + frm.Size.X.Scale, frm.Position.X.Offset, frm.Position.Y.Scale, frm.Position.Y.Offset)
+    end
+
+    frm:GetPropertyChangedSignal("Position"):Connect(syncFrames)
+    frm:GetPropertyChangedSignal("Size"):Connect(syncFrames)
+
+    crBtn.MouseButton1Click:Connect(function()
+        crFrm.Visible = not crFrm.Visible
+        crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(150, 0, 150) or Color3.fromRGB(65, 65, 65)
+    end)
+
+    return frm, cfrm, crFrm
 end
 
-function UL:AddButton(parent, text, callback)
-    local btn = createButton(parent, text, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30))
+function UL:AddBtn(parent, text, callback)
+    local btn = createInstance("TextButton", {
+        Text = text,
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    }, parent)
+    for prop, value in pairs(uiProperties) do
+        btn[prop] = value
+    end
+
     btn.MouseButton1Click:Connect(callback)
     return btn
 end
 
-function UL:AddToggleButton(parent, text, state, callback)
-    local btn = createButton(parent, text .. " [" .. (state and "ON" or "OFF") .. "]", UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30))
+
+function UL:AddTBtn(parent, text, state, callback)
+    local btn = createInstance("TextButton", {
+        Text = text .. " [" .. (state and "ON" or "OFF") .. "]",
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    }, parent)
+    for prop, value in pairs(uiProperties) do
+        btn[prop] = value
+    end
+
     btn.MouseButton1Click:Connect(function()
         state = not state
         btn.Text = text .. " [" .. (state and "ON" or "OFF") .. "]"
         btn.BackgroundColor3 = state and Color3.fromRGB(85, 170, 85) or Color3.fromRGB(65, 65, 65)
         callback(state)
     end)
+
     return btn
 end
 
-function UL:AddTextBox(parent, placeholder, callback)
-    local box = Instance.new("TextBox")
-    box.Parent = parent
-    box.PlaceholderText = placeholder
-    box.Text = ""
-    box.Size = UDim2.new(1, 0, 0, 30)
-    box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
-    box.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-    box.TextColor3 = Color3.fromRGB(250, 250, 250)
-    box.Font = Enum.Font.SourceSans
-    box.TextSize = 18
-    box.ClearTextOnFocus = false
-    box.TextXAlignment = Enum.TextXAlignment.Left
-    
-    local padding = Instance.new("UIPadding")
-    padding.Parent = box
-    padding.PaddingLeft = UDim.new(0, 5)
-    local corner = Instance.new("UICorner")
-    corner.Parent = box
-    corner.CornerRadius = UDim.new(0, 6)
+function UL:AddTBox(parent, placeholder, callback)
+    local box = createInstance("TextBox", {
+        PlaceholderText = placeholder,
+        Text = "",
+        BorderSizePixel = 1,
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30),
+        BackgroundColor3 = Color3.fromRGB(0, 0, 0),
+        TextColor3 = Color3.fromRGB(250, 250, 250),
+        BorderColor3 = Color3.fromRGB(0, 0, 0),
+        Font = Enum.Font.SourceSans,
+        TextSize = 18,
+        ClearTextOnFocus = false,
+        TextXAlignment = Enum.TextXAlignment.Left
+    }, parent)
+
+    createInstance("UIPadding", {PaddingLeft = UDim.new(0, 5)}, box)
+    createInstance("UICorner", {CornerRadius = UDim.new(0, 6)}, box)
+    createInstance("ImageLabel", {
+        BackgroundTransparency = 0.95,
+        Image = "rbxassetid://1316045217",
+        Size = UDim2.new(1, 6, 1, 6),
+        Position = UDim2.new(0, -3, 0, -3),
+        ImageTransparency = 0.5,
+        ScaleType = Enum.ScaleType.Slice,
+        SliceCenter = Rect.new(10, 10, 118, 118)
+    }, box)
 
     box.FocusLost:Connect(function(enterPressed)
         if enterPressed then
@@ -179,65 +268,66 @@ function UL:AddTextBox(parent, placeholder, callback)
     return box
 end
 
-function UL:AddOptionsButton(parent, name)
-    local optionsFrame = Instance.new("Frame")
-    optionsFrame.Parent = parent.Parent
-    optionsFrame.Size = UDim2.new(0.9, 0, 1, 0)
-    optionsFrame.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.184, 0)
-    optionsFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    optionsFrame.BackgroundTransparency = 0.4
-    optionsFrame.BorderSizePixel = 1
-    optionsFrame.Visible = false
 
-    createLabel(optionsFrame, name, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0))
 
-    local btn = createButton(parent, name, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30))
-    btn.MouseButton1Click:Connect(function()
-        optionsFrame.Visible = not optionsFrame.Visible
-        btn.BackgroundColor3 = optionsFrame.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
-    end)
+function UL:AddOBtn(parent, name)
+    local oFrm = createInstance("Frame", {
+        Size = UDim2.new(0.9, 0, 1, 0),
+        Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.184, parent.Position.Y.Offset),
+        BackgroundColor3 = Color3.fromRGB(45, 45, 45),
+        BackgroundTransparency = 0.4,
+        BorderSizePixel = 1,
+        Visible = false
+    }, parent.Parent)
 
-    return optionsFrame
-end
-
-function UL:AddDropDown(parent, name, options, callback)
-    local dropDownBtn = createButton(parent, name, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30))
-    local dropDownFrame = Instance.new("Frame")
-    dropDownFrame.Parent = parent.Parent
-    dropDownFrame.Size = UDim2.new(0.9, 0, 0, #options * 30)
-    dropDownFrame.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale + dropDownBtn.Position.Y.Scale, 0)
-    dropDownFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-    dropDownFrame.BackgroundTransparency = 0.4
-    dropDownFrame.BorderSizePixel = 1
-    dropDownFrame.Visible = false
-
-    for i, option in ipairs(options) do
-        local optionBtn = createButton(dropDownFrame, option, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, (i - 1) * 30))
-        optionBtn.MouseButton1Click:Connect(function()
-            dropDownBtn.Text = name .. ": " .. option
-            dropDownFrame.Visible = false
-            dropDownBtn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-            callback(option)
-        end)
+    local lbl = createInstance("TextLabel", {
+        Text = name,
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, 0)
+    }, oFrm)
+    for prop, value in pairs(uiProperties) do
+        lbl[prop] = value
     end
 
-    dropDownBtn.MouseButton1Click:Connect(function()
-        dropDownFrame.Visible = not dropDownFrame.Visible
-        dropDownBtn.BackgroundColor3 = dropDownFrame.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
+    local btn = createInstance("TextButton", {
+        Text = name,
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+    }, parent)
+    for prop, value in pairs(uiProperties) do
+        btn[prop] = value
+    end
+
+    btn.MouseButton1Click:Connect(function()
+        oFrm.Visible = not oFrm.Visible
+        btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
     end)
 
-    return dropDownBtn, dropDownFrame
+    return btn, oFrm
 end
 
-function UL:CreateUI(name)
-    local screenGui = self:CreateScreenGui(name)
-    local mainFrame, contentFrame = self:CreateFrame(screenGui, name)
-    
-    return {
-        ScreenGui = screenGui,
-        MainFrame = mainFrame,
-        ContentFrame = contentFrame
-    }
+function UL:AddText(parent, text, color)
+    local label = createInstance("TextLabel", {
+        Text = text,
+        Size = UDim2.new(1, 0, 0, 30),
+        Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30),
+        BackgroundColor3 = Color3.fromRGB(250, 250, 250),
+        BackgroundTransparency = 0.6,
+        TextColor3 = color or Color3.fromRGB(0, 0, 0),
+        Font = Enum.Font.ArimoBold,
+        TextSize = 13,
+        TextWrapped = true
+    }, parent)
+
+    return label
 end
+
+game:GetService('Players').LocalPlayer.Idled:Connect(function()
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
+end)
+
+print("Loading Finish")
+print("by: OneCreatorX")
 
 return UL
