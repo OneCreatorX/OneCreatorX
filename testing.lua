@@ -72,7 +72,7 @@ end
 
 function UL:CrFrm(parent, title)
   local frm = Instance.new("Frame", parent)
-  frm.Size = UDim2.new(1, 0, 0, 60)
+  frm.Size = UDim2.new(0.25, 0, 0, 60)
   frm.Position = UDim2.new(0.2, 0, 0.2, 0)
   frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
   frm.BackgroundTransparency = 0.4
@@ -111,8 +111,8 @@ function UL:CrFrm(parent, title)
   end
 
   local cfrm = Instance.new("Frame", frm)
-  cfrm.Size = UDim2.new(1, 0, 1, -30)
-  cfrm.Position = UDim2.new(0, 0, 0, 30)
+  cfrm.Size = UDim2.new(1, 0, 0, 30) -- Initial size is 30
+  cfrm.Position = UDim2.new(0, 0, 0, 60) -- Start at the same height as the title
   cfrm.BackgroundTransparency = 0.6
   cfrm.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
   cfrm.Visible = false
@@ -126,8 +126,8 @@ function UL:CrFrm(parent, title)
   end
 
   local crFrm = Instance.new("Frame", parent)
-  crFrm.Size = UDim2.new(1, 0, 0.4, 60)
-  crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
+  crFrm.Size = UDim2.new(0.25, 0, 0, 30) -- Initial size is 30
+  crFrm.Position = UDim2.new(0.685, 0, 0.2, 0) -- Start at the same height as the title
   crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
   crFrm.BackgroundTransparency = 1
   crFrm.BorderSizePixel = 1
@@ -158,7 +158,7 @@ function UL:CrFrm(parent, title)
   local minimized = true
 
   local function updateFrameSize(frame)
-    frame.Size = UDim2.new(1, 0, 0, 60 + #frame:GetChildren() * 30)
+    frame.Size = UDim2.new(0.25, 0, 0, 60 + #frame:GetChildren() * 30)
   end
 
   local function toggleFrame(frame, button)
@@ -198,7 +198,7 @@ function UL:AddBtn(parent, text, callback)
   local btn = Instance.new("TextButton", parent)
   btn.Text = text
   btn.Size = UDim2.new(1, 0, 0, 30)
-  btn.Position = UDim2.new(2, 0, 0, #parent:GetChildren() * 30 - 30)
+  btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30) -- Adjust position for new buttons
   for prop, value in pairs(uiProperties) do
     btn[prop] = value
   end
@@ -212,7 +212,7 @@ function UL:AddTBtn(parent, text, state, callback)
   local btn = Instance.new("TextButton", parent)
   btn.Text = text .. " [" .. (state and "ON" or "OFF") .. "]"
   btn.Size = UDim2.new(1, 0, 0, 30)
-  btn.Position = UDim2.new(2, 0, 0, #parent:GetChildren() * 30 - 30)
+  btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30) -- Adjust position for new buttons
   for prop, value in pairs(uiProperties) do
     btn[prop] = value
   end
@@ -233,8 +233,7 @@ function UL:AddTBox(parent, placeholder, callback)
   box.Text = ""
   box.BorderSizePixel = 1
   box.Size = UDim2.new(1, 0, 0, 30)
-  box.Position = UDim2.new(2, 0, 0, #parent:GetChildren() * 30 - 30)
-
+  box.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30) -- Adjust position for new buttons
   box.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
   box.TextColor3 = Color3.fromRGB(250, 250, 250)
   box.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -268,8 +267,8 @@ end
 
 function UL:AddOBtn(parent, name)
   local oFrm = Instance.new("Frame", parent.Parent)
-  oFrm.Size = UDim2.new(0.9, 0, 0.6, 0)
-  oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale - 0.184, parent.Position.Y.Offset)
+  oFrm.Size = UDim2.new(0.9, 0, 0, 30) -- Initial size is 30
+  oFrm.Position = UDim2.new(parent.Position.X.Scale + 1, 0, parent.Position.Y.Scale, parent.Position.Y.Offset + #parent:GetChildren() * 30) -- Start at the same height as the title
   oFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
   oFrm.BackgroundTransparency = 0.4
   oFrm.BorderSizePixel = 1
@@ -286,7 +285,7 @@ function UL:AddOBtn(parent, name)
   local btn = Instance.new("TextButton", parent)
   btn.Text = name
   btn.Size = UDim2.new(1, 0, 0, 30)
-  btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+  btn.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30) -- Adjust position for new buttons
   for prop, value in pairs(uiProperties) do
     btn[prop] = value
   end
@@ -308,7 +307,7 @@ function UL:AddText(parent, text, color)
   local label = Instance.new("TextLabel", parent)
   label.Text = text
   label.Size = UDim2.new(1, 0, 0, 30)
-  label.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
+  label.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30) -- Adjust position for new buttons
   label.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
   label.BackgroundTransparency = 0.6
   label.TextColor3 = Color3.fromRGB(0, 0, 0)
