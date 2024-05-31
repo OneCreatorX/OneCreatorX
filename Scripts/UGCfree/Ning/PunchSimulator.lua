@@ -37,6 +37,59 @@ local function sendNotification(title, text, duration)
         Duration = duration
     })
 end
+local OP, OF = UL:AddOBtn(cfrm, "Options Items >")
+
+local sendCount = nil
+
+UL:AddTBox(OF, "Item Purchase Multiplier: 1", function(text)
+    local input = tonumber(text)
+    if input and input > 0 then
+        sendCount = input
+        
+    else
+        sendCount = nil
+        
+    end
+end)
+
+
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Events = ReplicatedStorage:WaitForChild("Events")
+local CraftingEvent = Events:WaitForChild("CraftingEvent")
+
+local isCallingFireServer = false
+
+local function nuevaFuncionFireServer(...)
+    local args = {...}
+    isCallingFireServer = true
+    if sendCount and sendCount > 0 then
+        for i = 1, sendCount do
+            CraftingEvent:FireServer(unpack(args))
+        end
+    else
+        CraftingEvent:FireServer(unpack(args))
+    end
+    isCallingFireServer = false
+end
+
+local mt = getrawmetatable(game)
+local oldNamecall = mt.__namecall
+setreadonly(mt, false)
+
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if method == "FireServer" and self == CraftingEvent and not isCallingFireServer then
+        spawn(function()
+            nuevaFuncionFireServer(unpack(args))
+        end)
+        return oldNamecall(self, unpack(args))
+    end
+    return oldNamecall(self, unpack(args))
+end)
+
+setreadonly(mt, true)
 
 local running = false
 local world = ""
@@ -197,7 +250,7 @@ remote.OnClientEvent:Connect(function(...)
 end)
 
 
-    UL:AddTBtn(cfrm, "Auto Marge Items", false, function()
+    UL:AddTBtn(OF, "Auto Marge Items", false, function()
 enviarAlServidor = not enviarAlServidor
 
  end)
