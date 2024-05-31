@@ -13,10 +13,19 @@ mainFrm.BorderSizePixel = 1
 mainFrm.Active = true
 mainFrm.Draggable = true
 
-local function createBtn(parent, txt)
+local titleLbl = Instance.new("TextLabel", mainFrm)
+titleLbl.Text = "Título Principal"
+titleLbl.Size = UDim2.new(1, 0, 0, 30)
+titleLbl.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+titleLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLbl.Font = Enum.Font.LuckiestGuy
+titleLbl.TextSize = 14
+
+local function createBtn(parent, txt, yPos)
     local btn = Instance.new("TextButton", parent)
     btn.Text = txt
     btn.Size = UDim2.new(1, 0, 0, 30)
+    btn.Position = UDim2.new(0, 0, 0, yPos)
     btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
     btn.BackgroundTransparency = 0.8
     btn.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -25,52 +34,65 @@ local function createBtn(parent, txt)
     return btn
 end
 
+local mainBtnsCount = 0
+
 function UL:Button(txt)
-    createBtn(mainFrm, txt)
+    local yPos = 30 + mainBtnsCount * 30
+    createBtn(mainFrm, txt, yPos)
+    mainBtnsCount = mainBtnsCount + 1
+    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 end
 
 local opcFrm
 local opcBtn
 
 function UL:Opc(txt)
-    opcBtn = createBtn(mainFrm, txt .. " <")
-    opcFrm = Instance.new("Frame", mainFrm)
-    opcFrm.Size = UDim2.new(1, 0, 0, 0)
-    opcFrm.Position = UDim2.new(0, 0, 0, #mainFrm:GetChildren() * 30)
+    local yPos = 30 + mainBtnsCount * 30
+    opcBtn = createBtn(mainFrm, txt .. " <", yPos)
+    mainBtnsCount = mainBtnsCount + 1
+    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+
+    opcFrm = Instance.new("Frame", gui)
+    opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
+    opcFrm.Position = UDim2.new(0.625, 0, 0.2, 0)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
 
     opcBtn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
         opcBtn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
-        mainFrm.Size = UDim2.new(0.25, 0, 0, #mainFrm:GetChildren() * 30)
     end)
 
+    local opcBtnsCount = 0
     local obj = {}
     function obj:Button(txt)
-        createBtn(opcFrm, txt)
-        opcFrm.Size = UDim2.new(1, 0, 0, #opcFrm:GetChildren() * 30)
-        mainFrm.Size = UDim2.new(0.25, 0, 0, #mainFrm:GetChildren() * 30)
+        createBtn(opcFrm, txt, opcBtnsCount * 30)
+        opcBtnsCount = opcBtnsCount + 1
+        opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
     end
     return obj
 end
 
-local infoFrm = Instance.new("Frame", mainFrm)
-infoFrm.Size = UDim2.new(1, 0, 0, 0)
-infoFrm.Position = UDim2.new(0, 0, 1, 0)
+local infoFrm = Instance.new("Frame", gui)
+infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
+infoFrm.Position = UDim2.new(0.375, 0, 0.8, 0)
 infoFrm.BackgroundTransparency = 1
 
-local infoBtn = createBtn(mainFrm, "Info <")
+local infoBtn = createBtn(mainFrm, "Info <", 30 + mainBtnsCount * 30)
+mainBtnsCount = mainBtnsCount + 1
+mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+
 infoBtn.MouseButton1Click:Connect(function()
     infoFrm.Visible = not infoFrm.Visible
     infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
-    mainFrm.Size = UDim2.new(0.25, 0, 0, #mainFrm:GetChildren() * 30)
 end)
 
+local infoBtnsCount = 0
+
 function UL:Info(txt)
-    createBtn(infoFrm, txt)
-    infoFrm.Size = UDim2.new(1, 0, 0, #infoFrm:GetChildren() * 30)
-    mainFrm.Size = UDim2.new(0.25, 0, 0, #mainFrm:GetChildren() * 30)
+    createBtn(infoFrm, txt, infoBtnsCount * 30)
+    infoBtnsCount = infoBtnsCount + 1
+    infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
 end
 
 return UL
