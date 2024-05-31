@@ -92,8 +92,12 @@ infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
 infoFrm.BackgroundTransparency = 1
 
-mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+local function adjustInfoFrmPosition()
     infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
+end
+
+mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+    adjustInfoFrmPosition()
 end)
 
 local infoBtn = createBtn(mainFrm, "Info <", 30 + mainBtnsCount * 30)
