@@ -72,7 +72,7 @@ end
 
 function UL:CrFrm(parent, title)
   local frm = Instance.new("Frame", parent)
-  frm.Size = UDim2.new(0.30, 0, 0, 60)
+  frm.Size = UDim2.new(0.3, 0, 0, 60)
   frm.Position = UDim2.new(0.2, 0, 0.2, 0)
   frm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
   frm.BackgroundTransparency = 0.4
@@ -111,7 +111,7 @@ function UL:CrFrm(parent, title)
   end
 
   local cfrm = Instance.new("Frame", frm)
-  cfrm.Size = UDim2.new(3, 0, 1, -30)
+  cfrm.Size = UDim2.new(1, 0, 1, -30)
   cfrm.Position = UDim2.new(0, 0, 0, 30)
   cfrm.BackgroundTransparency = 0.6
   cfrm.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
@@ -126,7 +126,7 @@ function UL:CrFrm(parent, title)
   end
 
   local crFrm = Instance.new("Frame", parent)
-  crFrm.Size = UDim2.new(0.25, 0, 0.4, 60)
+  crFrm.Size = UDim2.new(0.3, 0, 0.4, 60)
   crFrm.Position = UDim2.new(0.685, 0, 0.3, 0)
   crFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
   crFrm.BackgroundTransparency = 1
@@ -158,7 +158,7 @@ function UL:CrFrm(parent, title)
   local minimized = true
 
   local function updateFrameSize(frame)
-    frame.Size = UDim2.new(3, 0, 0, 60 + #frame:GetChildren() * 30)
+    frame.Size = UDim2.new(0.3, 0, 0, 60 + #frame:GetChildren() * 30)
   end
 
   local function toggleFrame(frame, button)
