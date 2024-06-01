@@ -4,8 +4,8 @@ screenGui.Name = "LoadingScreen"
 
 -- Fondo
 local background = Instance.new("Frame", screenGui)
-background.Size = UDim2.new(0.8, 0, 0.8, 0)
-background.Position = UDim2.new(0.1, 0, 0.1, 0)
+background.Size = UDim2.new(0.6, 0, 0.8, 0)
+background.Position = UDim2.new(0.2, 0, 0.1, 0)
 background.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 
 local gradient = Instance.new("UIGradient", background)
@@ -19,15 +19,15 @@ local logo = Instance.new("ImageLabel", background)
 logo.Size = UDim2.new(1, 0, 1, 0)
 logo.Position = UDim2.new(0, 0, 0, 0)
 logo.BackgroundTransparency = 1
-logo.Image = "rbxassetid://17690106018"
+logo.Image = "rbxassetid://17696175496"
 
-local columns = 5
+local columns = 4
 local rows = 1
-local totalFrames = 5
+local totalFrames = 4
 local currentFrame = 0
 
-local frameWidth = 204
-local frameHeight = 280
+local frameWidth = 258
+local frameHeight = 1200
 
 local function animateSpriteSheet()
     while true do
@@ -36,7 +36,7 @@ local function animateSpriteSheet()
         local row = math.floor(currentFrame / columns)
 
         logo.ImageRectOffset = Vector2.new(column * frameWidth, row * frameHeight)
-        wait(0.06)
+        wait(0.075)
     end
 end
 
