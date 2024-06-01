@@ -68,7 +68,9 @@ function UL:Opc(txt)
     opcFrm.Visible = false
 
     mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
+        print("MainFrm Position Changed")
         opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
+        print("OpcFrm Position Updated")
     end)
 
     opcBtn.MouseButton1Click:Connect(function()
@@ -91,9 +93,12 @@ infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.BackgroundTransparency = 1
 
 local function adjustFramesPosition()
+    print("MainFrm Position Changed")
     local mainPos = mainFrm.Position
     infoFrm.Position = UDim2.new(mainPos.X.Scale, 0, mainPos.Y.Scale + mainFrm.Size.Y.Scale, 0)
+    print("InfoFrm Position Updated")
     opcFrm.Position = UDim2.new(mainPos.X.Scale + 0.25, 0, mainPos.Y.Scale, 0)
+    print("OpcFrm Position Updated")
 end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
@@ -112,13 +117,13 @@ local infoBtnsCount = 0
 function UL:Info(txt)
     createBtn(infoFrm, txt, infoBtnsCount * 30)
     infoBtnsCount = infoBtnsCount + 1
-    infoFrm.Size = UDim2.new(0.25, 0, 0,infoBtnsCount * 30)
+    infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
 end
 
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión ..1")
+print("Versión 21")
 
 return UL
