@@ -91,7 +91,7 @@ end
 local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 5, 0), 3)
 loadingTween:Play()
 loadingTween.Completed:Connect(function()
-    loadingLabel.Text = "OneLib Loaded v0.3"
+    loadingLabel.Text = "OneLib Loaded v0.5"
     wait(1)
     local fadeOutTween = tweenService:Create(background, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1})
     fadeOutTween:Play()
