@@ -21,9 +21,28 @@ local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.Place
 gameName = gameName:gsub("%b[]", ""):match("^[^:]*"):match("^%s*(.-)%s*$")
 
 local titleLbl = Instance.new("TextLabel", mainFrm)
-titleLbl.Text, titleLbl.Size = gameName, UDim2.new(1, 0, 0, 30)
+titleLbl.Text, titleLbl.Size, titleLbl.Position = gameName, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0)
 titleLbl.BackgroundColor3, titleLbl.TextColor3 = Color3.fromRGB(35, 35, 35), Color3.fromRGB(255, 255, 255)
 titleLbl.Font, titleLbl.TextSize = Enum.Font.LuckiestGuy, 14
+titleLbl.TextXAlignment = Enum.TextXAlignment.Left
+
+local minimizeBtn = Instance.new("TextButton", titleLbl)
+minimizeBtn.Text, minimizeBtn.Size, minimizeBtn.Position = "-", UDim2.new(0, 30, 1, 0), UDim2.new(1, -30, 0, 0)
+minimizeBtn.BackgroundColor3, minimizeBtn.BackgroundTransparency = Color3.fromRGB(35, 35, 35), 0.4
+minimizeBtn.TextColor3, minimizeBtn.Font, minimizeBtn.TextSize = Color3.fromRGB(255, 255, 255), Enum.Font.LuckiestGuy, 14
+
+local isMinimized = false
+
+minimizeBtn.MouseButton1Click:Connect(function()
+    isMinimized = not isMinimized
+    if isMinimized then
+        mainFrm.Size = UDim2.new(0.25, 0, 0, 30)
+        minimizeBtn.Text = "+"
+    else
+        mainFrm.Size = UDim2.new(0.25, 0, 0, 200) -- Cambiar 200 al tamaño deseado
+        minimizeBtn.Text = "-"
+    end
+end)
 
 local function createBtn(parent, txt, yPos, callback)
     local btn = Instance.new("TextButton", parent)
@@ -125,6 +144,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión j2")
+print("Versión 2")
 
 return UL
