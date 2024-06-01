@@ -119,6 +119,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 1")
+print("Versión ..1")
 
 return UL
