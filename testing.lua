@@ -1,7 +1,7 @@
 local UL = {}
 
 local plr = game.Players.LocalPlayer
-local guiId = "LS"
+local guiId = "LoadScr"
 local existingGui = plr.PlayerGui:FindFirstChild(guiId)
 
 if existingGui then
@@ -14,37 +14,44 @@ gui.Name = guiId
 local mainFrm = Instance.new("Frame", gui)
 mainFrm.Size, mainFrm.Position = UDim2.new(0.25, 0, 0, 0), UDim2.new(0.375, 0, 0.2, 0)
 mainFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 1, 1
+mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 0.4, 1
 mainFrm.Active, mainFrm.Draggable = true, true
 
-local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name:gsub("%b[]", ""):match("^[^:]*"):match("^%s*(.-)%s*$")
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+gameName = gameName:gsub("%b[]", ""):match("^[^:]*"):match("^%s*(.-)%s*$")
 
 local titleLbl = Instance.new("TextLabel", mainFrm)
 titleLbl.Text, titleLbl.Size, titleLbl.Position = gameName, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, 0)
 titleLbl.BackgroundColor3, titleLbl.TextColor3 = Color3.fromRGB(35, 35, 35), Color3.fromRGB(255, 255, 255)
 titleLbl.Font, titleLbl.TextSize = Enum.Font.LuckiestGuy, 14
 
-local minBtn = Instance.new("TextButton", mainFrm)
-minBtn.Text, minBtn.Size, minBtn.Position = "-", UDim2.new(0, 30, 0, 30), UDim2.new(1, -30, 0, 0)
-minBtn.BackgroundColor3, minBtn.BackgroundTransparency = Color3.fromRGB(35, 35, 35), 0
-minBtn.TextColor3, minBtn.Font, minBtn.TextSize = Color3.fromRGB(255, 255, 255), Enum.Font.LuckiestGuy, 14
+local minimizeBtn = Instance.new("TextButton", mainFrm)
+minimizeBtn.Text, minimizeBtn.Size, minimizeBtn.Position = "-", UDim2.new(0, 30, 0, 30), UDim2.new(1, -30, 0, 0)
+minimizeBtn.BackgroundColor3, minimizeBtn.BackgroundTransparency = Color3.fromRGB(35, 35, 35), 0
+minimizeBtn.TextColor3, minimizeBtn.Font, minimizeBtn.TextSize = Color3.fromRGB(255, 255, 255), Enum.Font.LuckiestGuy, 14
 
 local function toggleVisibility(visible)
     for _, child in ipairs(mainFrm:GetChildren()) do
-        if child ~= titleLbl and child ~= minBtn then
+        if child ~= titleLbl and child ~= minimizeBtn then
             child.Visible = visible
+            if visible then
+                child.Text = child.Visible and child.Text:gsub(">", "<") or child.Text:gsub("<", ">")
+            end
         end
     end
+    -- También ocultar los frames de opciones
     for _, option in ipairs(opcBtns) do
         option.frame.Visible = visible
-        option.btn.Text = visible and option.txt .. " >" or option.txt .. " <"
+        if visible then
+            option.btn.Text = option.frame.Visible and option.btn.Text:gsub(">", "<") or option.btn.Text:gsub("<", ">")
+        end
     end
 end
 
 local minimized = false
-minBtn.MouseButton1Click:Connect(function()
+minimizeBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
-    minBtn.Text = minimized and "+" or "-"
+    minimizeBtn.Text = minimized and "+" or "-"
     toggleVisibility(not minimized)
 end)
 
@@ -75,7 +82,7 @@ end
 
 local opcBtns = {}
 
-function UL:Opt(txt)
+function UL:Opc(txt)
     local yPos = 30 + getChildCount(mainFrm) * 30
     local btn = createBtn(mainFrm, txt .. " <", yPos)
     local opcFrm = Instance.new("Frame", gui)
@@ -89,6 +96,7 @@ function UL:Opt(txt)
 
     btn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
+        btn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
         adjustOpcFrmPosition()
     end)
 
@@ -99,25 +107,12 @@ function UL:Opt(txt)
         local subBtn = createBtn(opcFrm, txt, opcBtnsCount * 30, callback)
         opcBtnsCount = opcBtnsCount + 1
         opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
-        table.insert(opcBtns, {btn = subBtn, frame = opcFrm, txt = txt})
+        table.insert(opcBtns, {btn = subBtn, frame = opcFrm})
     end
 
     adjustOpcFrmPosition()
 
     return obj
-end
-
-function UL:TxtLbl(txt)
-    local yPos = 30 + getChildCount(mainFrm) * 30
-    local lbl = Instance.new("TextLabel", mainFrm)
-    lbl.Text, lbl.Size, lbl.Position = txt, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, yPos)
-    lbl.BackgroundColor3, lbl.BackgroundTransparency = Color3.fromRGB(65, 65, 65), 0.8
-    lbl.TextColor3, lbl.Font, lbl.TextSize = Color3.fromRGB(255, 255, 255), Enum.Font.LuckiestGuy, 13
-    mainFrm.Size = UDim2.new(0.25, 0, 0, yPos + 30)
-end
-
-function UL:SetT(txt)
-    titleLbl.Text = txt
 end
 
 return UL
