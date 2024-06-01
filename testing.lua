@@ -76,7 +76,7 @@ function UL:Opc(txt)
         opcFrm.Visible = not opcFrm.Visible
         opcBtn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
         if opcFrm.Visible then
-            adjustOpcFrmPosition() 
+            adjustOpcFrmPosition()
         end
     end)
 
@@ -93,6 +93,7 @@ end
 local infoFrm = Instance.new("Frame", gui)
 infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.BackgroundTransparency = 1
+infoFrm.Visible = false
 
 local function adjustInfoFrmPosition()
     local mainFrmAbsolutePos = mainFrm.AbsolutePosition
@@ -131,10 +132,25 @@ function UL:Info(txt)
     infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
 end
 
+function UL:TextLabel(txt)
+    local yPos = 30 + mainBtnsCount * 30
+    local textLabel = Instance.new("TextLabel", mainFrm)
+    textLabel.Text = txt
+    textLabel.Size = UDim2.new(1, 0, 0, 30)
+    textLabel.Position = UDim2.new(0, 0, 0, yPos)
+    textLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    textLabel.BackgroundTransparency = 0.8
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.Font = Enum.Font.LuckiestGuy
+    textLabel.TextSize = 13
+    mainBtnsCount = mainBtnsCount + 1
+    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+end
+
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 1")
+print("Versión 4")
 
 return UL
