@@ -1,8 +1,15 @@
 local UL = {}
 
 local plr = game.Players.LocalPlayer
+local guiId = "LoadScr"
+local existingGui = plr.PlayerGui:FindFirstChild(guiId)
+
+if existingGui then
+    existingGui:Destroy()
+end
+
 local gui = Instance.new("ScreenGui", plr.PlayerGui)
-gui.Name = "LoadScr"
+gui.Name = guiId
 
 local mainFrm = Instance.new("Frame", gui)
 mainFrm.Size, mainFrm.Position = UDim2.new(0.25, 0, 0, 0), UDim2.new(0.375, 0, 0.2, 0)
@@ -118,6 +125,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 5")
+print("Versión 2")
 
 return UL
