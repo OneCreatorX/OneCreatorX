@@ -68,9 +68,10 @@ function UL:Opc(txt)
     opcFrm.Visible = false
 
     mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
-        print("MainFrm Position Changed")
+        local oldPos = opcFrm.Position
         opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
-        print("OpcFrm Position Updated")
+        local newPos = opcFrm.Position
+        print("OpcFrm Position Changed from", oldPos, "to", newPos)
     end)
 
     opcBtn.MouseButton1Click:Connect(function()
@@ -95,10 +96,14 @@ infoFrm.BackgroundTransparency = 1
 local function adjustFramesPosition()
     print("MainFrm Position Changed")
     local mainPos = mainFrm.Position
+    local oldInfoPos = infoFrm.Position
     infoFrm.Position = UDim2.new(mainPos.X.Scale, 0, mainPos.Y.Scale + mainFrm.Size.Y.Scale, 0)
-    print("InfoFrm Position Updated")
+    local newInfoPos = infoFrm.Position
+    print("InfoFrm Position Changed from", oldInfoPos, "to", newInfoPos)
+    local oldOpcPos = opcFrm.Position
     opcFrm.Position = UDim2.new(mainPos.X.Scale + 0.25, 0, mainPos.Y.Scale, 0)
-    print("OpcFrm Position Updated")
+    local newOpcPos = opcFrm.Position
+    print("OpcFrm Position Changed from", oldOpcPos, "to", newOpcPos)
 end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
@@ -109,7 +114,7 @@ mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 
 infoBtn.MouseButton1Click:Connect(function()
     infoFrm.Visible = not infoFrm.Visible
-    infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
+        infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
 end)
 
 local infoBtnsCount = 0
@@ -124,6 +129,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 21")
+print("Versión 1")
 
 return UL
