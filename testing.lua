@@ -5,42 +5,27 @@ local gui = Instance.new("ScreenGui", plr.PlayerGui)
 gui.Name = "LoadScr"
 
 local mainFrm = Instance.new("Frame", gui)
-mainFrm.Size = UDim2.new(0.25, 0, 0, 0)
-mainFrm.Position = UDim2.new(0.375, 0, 0.2, 0)
+mainFrm.Size, mainFrm.Position = UDim2.new(0.25, 0, 0, 0), UDim2.new(0.375, 0, 0.2, 0)
 mainFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-mainFrm.BackgroundTransparency = 0.4
-mainFrm.BorderSizePixel = 1
-mainFrm.Active = true
-mainFrm.Draggable = true
+mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 0.4, 1
+mainFrm.Active, mainFrm.Draggable = true, true
 
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-
-local function cleanGameName(name)
-    name = name:gsub("%b[]", "")
-    name = name:match("^[^:]*")
-    return name:match("^%s*(.-)%s*$")
-end
-
-gameName = cleanGameName(gameName)
+gameName = gameName:gsub("%b[]", ""):match("^[^:]*"):match("^%s*(.-)%s*$")
 
 local titleLbl = Instance.new("TextLabel", mainFrm)
-titleLbl.Text = gameName
-titleLbl.Size = UDim2.new(1, 0, 0, 30)
-titleLbl.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-titleLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
-titleLbl.Font = Enum.Font.LuckiestGuy
-titleLbl.TextSize = 14
+titleLbl.Text, titleLbl.Size = gameName, UDim2.new(1, 0, 0, 30)
+titleLbl.BackgroundColor3, titleLbl.TextColor3 = Color3.fromRGB(35, 35, 35), Color3.fromRGB(255, 255, 255)
+titleLbl.Font, titleLbl.TextSize = Enum.Font.LuckiestGuy, 14
 
-local function createBtn(parent, txt, yPos)
+local function createBtn(parent, txt, yPos, callback)
     local btn = Instance.new("TextButton", parent)
-    btn.Text = txt
-    btn.Size = UDim2.new(1, 0, 0, 30)
-    btn.Position = UDim2.new(0, 0, 0, yPos)
-    btn.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    btn.BackgroundTransparency = 0.8
-    btn.TextColor3 = Color3.fromRGB(255, 255, 255)
-    btn.Font = Enum.Font.LuckiestGuy
-    btn.TextSize = 13
+    btn.Text, btn.Size, btn.Position = txt, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, yPos)
+    btn.BackgroundColor3, btn.BackgroundTransparency = Color3.fromRGB(65, 65, 65), 0.8
+    btn.TextColor3, btn.Font, btn.TextSize = Color3.fromRGB(255, 255, 255), Enum.Font.LuckiestGuy, 13
+    if callback then
+        btn.MouseButton1Click:Connect(callback)
+    end
     return btn
 end
 
@@ -48,26 +33,21 @@ local mainBtnsCount = 0
 
 function UL:Button(txt, callback)
     local yPos = 30 + mainBtnsCount * 30
-    local btn = createBtn(mainFrm, txt, yPos)
+    local btn = createBtn(mainFrm, txt, yPos, callback)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-    
-    if callback then
-        btn.MouseButton1Click:Connect(callback)
-    end
 end
 
-local opcBtns = {} -- Almacenar botones de opciones para ajustar sus funciones de devolución de llamada
+local opcBtns = {}
 
 function UL:Opc(txt)
     local yPos = 30 + mainBtnsCount * 30
-    local opcBtn = createBtn(mainFrm, txt .. " <", yPos)
+    local btn = createBtn(mainFrm, txt .. " <", yPos)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-    
+
     local opcFrm = Instance.new("Frame", gui)
-    opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
-    opcFrm.BackgroundTransparency = 1
+    opcFrm.Size, opcFrm.BackgroundTransparency = UDim2.new(0.25, 0, 0, 0), 1
     opcFrm.Visible = false
 
     local function adjustOpcFrmPosition()
@@ -75,9 +55,9 @@ function UL:Opc(txt)
         opcFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
     end
 
-    opcBtn.MouseButton1Click:Connect(function()
+    btn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
-        opcBtn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
+        btn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
         if opcFrm.Visible then
             adjustOpcFrmPosition()
         end
@@ -85,24 +65,19 @@ function UL:Opc(txt)
 
     local opcBtnsCount = 0
     local obj = {}
+
     function obj:Button(txt, callback)
-        local btn = createBtn(opcFrm, txt, opcBtnsCount * 30)
+        local subBtn = createBtn(opcFrm, txt, opcBtnsCount * 30, callback)
         opcBtnsCount = opcBtnsCount + 1
         opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
-        
-        if callback then
-            btn.MouseButton1Click:Connect(callback)
-        end
+        table.insert(opcBtns, {btn = subBtn, frame = opcFrm})
     end
-    
-    table.insert(opcBtns, {btn = opcBtn, frame = opcFrm})
-    
+
     return obj
 end
 
 local infoFrm = Instance.new("Frame", gui)
-infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
-infoFrm.BackgroundTransparency = 1
+infoFrm.Size, infoFrm.BackgroundTransparency = UDim2.new(0.25, 0, 0, 0), 1
 infoFrm.Visible = false
 
 local function adjustInfoFrmPosition()
@@ -120,42 +95,21 @@ end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
 
-local infoBtn = createBtn(mainFrm, "Info Script <", 30 + mainBtnsCount * 30)
-mainBtnsCount = mainBtnsCount + 1
-mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-
-infoBtn.MouseButton1Click:Connect(function()
-    infoFrm.Visible = not infoFrm.Visible
-    infoBtn.Text = infoFrm.Visible and "Info Script >" or "Info Script <"
-    if infoFrm.Visible then
-        adjustInfoFrmPosition()
-    end
-end)
-
 local infoBtnsCount = 0
 
 function UL:Info(txt, callback)
     local yPos = 30 + mainBtnsCount * 30
-    local btn = createBtn(infoFrm, txt, yPos)
+    local btn = createBtn(infoFrm, txt, yPos, callback)
     mainBtnsCount = mainBtnsCount + 1
     infoFrm.Size = UDim2.new(0.25, 0, 0, mainBtnsCount * 30)
-    
-    if callback then
-        btn.MouseButton1Click:Connect(callback)
-    end
 end
 
 function UL:TextLabel(txt)
     local yPos = 30 + mainBtnsCount * 30
     local textLabel = Instance.new("TextLabel", mainFrm)
-    textLabel.Text = txt
-    textLabel.Size = UDim2.new(1, 0, 0, 30)
-    textLabel.Position = UDim2.new(0, 0, 0, yPos)
-    textLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    textLabel.BackgroundTransparency = 0.8
-    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.Font = Enum.Font.LuckiestGuy
-    textLabel.TextSize = 13
+    textLabel.Text, textLabel.Size, textLabel.Position = txt, UDim2.new(1, 0, 0, 30), UDim2.new(0, 0, 0, yPos)
+    textLabel.BackgroundColor3, textLabel.BackgroundTransparency = Color3.fromRGB(65, 65, 65), 0.8
+    textLabel.TextColor3, textLabel.Font, textLabel.TextSize = Color3.fromRGB(255, 255, 255), Enum.Font.LuckiestGuy, 13
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 end
