@@ -93,6 +93,7 @@ end
 local infoFrm = Instance.new("Frame", gui)
 infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.BackgroundTransparency = 1
+infoFrm.Visible = false
 
 local function adjustInfoFrmPosition()
     local mainFrmAbsolutePos = mainFrm.AbsolutePosition
@@ -111,13 +112,13 @@ end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
 
-local infoBtn = createBtn(mainFrm, "Info <", 30 + mainBtnsCount * 30)
+local infoBtn = createBtn(mainFrm, "Info Script <", 30 + mainBtnsCount * 30)
 mainBtnsCount = mainBtnsCount + 1
 mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 
 infoBtn.MouseButton1Click:Connect(function()
     infoFrm.Visible = not infoFrm.Visible
-    infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
+    infoBtn.Text = infoFrm.Visible and "Info Script >" or "Info Script <"
     if infoFrm.Visible then
         adjustInfoFrmPosition()
     end
@@ -135,6 +136,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 31")
+print("Versión 3")
 
 return UL
