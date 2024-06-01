@@ -14,7 +14,7 @@ gui.Name = guiId
 local mainFrm = Instance.new("Frame", gui)
 mainFrm.Size, mainFrm.Position = UDim2.new(0.25, 0, 0, 0), UDim2.new(0.375, 0, 0.2, 0)
 mainFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 1, 1
+mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 0.4, 1
 mainFrm.Active, mainFrm.Draggable = true, true
 
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
@@ -38,11 +38,16 @@ local function toggleVisibility(visible)
     end
 end
 
+local opcFrames = {}
+
 local minimized = false
 minimizeBtn.MouseButton1Click:Connect(function()
     minimized = not minimized
     minimizeBtn.Text = minimized and "+" or "-"
     toggleVisibility(not minimized)
+    for _, frame in ipairs(opcFrames) do
+        frame.Visible = not minimized
+    end
 end)
 
 local function createBtn(parent, txt, yPos, callback)
@@ -70,26 +75,24 @@ function UL:Button(txt, callback)
     mainFrm.Size = UDim2.new(0.25, 0, 0, yPos + 30)
 end
 
-local opcBtns = {}
+local function adjustOpcFramesPosition()
+    for _, frame in ipairs(opcFrames) do
+        frame.Position = UDim2.new(0, mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y)
+    end
+end
 
 function UL:Opc(txt)
     local yPos = 30 + getChildCount(mainFrm) * 30
-    local btn = createBtn(mainFrm, txt .. " [<]", yPos)
+    local btn = createBtn(mainFrm, txt .. " <", yPos)
     local opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
-    opcFrm.BackgroundTransparency = 0.85
+    opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
-
-    local function adjustOpcFrmPosition()
-        opcFrm.Position = UDim2.new(0, mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y)
-    end
 
     btn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
-        btn.Text = opcFrm.Visible and txt .. " [>]" or txt .. " [<]"
-        if opcFrm.Visible then
-            adjustOpcFrmPosition()
-        end
+        btn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
+        adjustOpcFramesPosition()
     end)
 
     local opcBtnsCount = 0
@@ -99,12 +102,43 @@ function UL:Opc(txt)
         local subBtn = createBtn(opcFrm, txt, opcBtnsCount * 30, callback)
         opcBtnsCount = opcBtnsCount + 1
         opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
-        table.insert(opcBtns, {btn = subBtn, frame = opcFrm})
     end
+
+    adjustOpcFramesPosition()
+    table.insert(opcFrames, opcFrm)
 
     return obj
 end
 
-print("Versión 3")
+local function updateFramesPosition()
+    for _, frame in ipairs(opcFrames) do
+        frame.Position = UDim2.new(0, mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y)
+    end
+end
+
+mainFrm:GetPropertyChangedSignal("Position"):Connect(updateFramesPosition)
+
+local infoFrm = Instance.new("Frame", gui)
+infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
+infoFrm.BackgroundTransparency = 1
+infoFrm.Visible = false
+
+local infoBtn = createBtn(mainFrm, "Info <", 30, function()
+    infoFrm.Visible = not infoFrm.Visible
+end)
+
+local infoBtnsCount = 0
+
+function UL:Info(txt)
+    local yPos = 30 + getChildCount(mainFrm) * 30
+    local btn = createBtn(infoFrm, txt, yPos)
+    infoFrm.Size = UDim2.new(0.25, 0, 0, yPos + 30)
+end
+
+function UL:SetTitle(txt)
+    titleLbl.Text = txt
+end
+
+print("Versión")
 
 return UL
