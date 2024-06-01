@@ -96,7 +96,7 @@ infoFrm.BackgroundTransparency = 1
 
 local function adjustInfoFrmPosition()
     local mainFrmAbsolutePos = mainFrm.AbsolutePosition
-    infoFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X, 0, mainFrmAbsolutePos.Y + mainFrm.AbsoluteSize.Y)
+    infoFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X + 5, 0, mainFrmAbsolutePos.Y)
 end
 
 local function adjustFramesPosition()
