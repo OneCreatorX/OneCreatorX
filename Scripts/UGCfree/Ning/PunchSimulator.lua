@@ -52,6 +52,79 @@ UL:AddTBox(OF, "Item Purchase Multiplier: 1", function(text)
     end
 end)
 
+local enviarAlServidor = false
+
+local function getFullName(instance)
+    return instance:GetFullName()
+end
+
+local function tableToString(t, indent)
+    indent = indent or 0
+    local result = "{\n"
+    local padding = string.rep(" ", indent + 2)
+    for k, v in pairs(t) do
+        if typeof(v) == "Instance" then
+            result = result .. padding .. tostring(k) .. " = " .. getFullName(v) .. ",\n"
+        elseif type(v) == "table" then
+            result = result .. padding .. tostring(k) .. " = " .. tableToString(v, indent + 2) .. ",\n"
+        else
+            result = result .. padding .. tostring(k) .. " = " .. tostring(v) .. ",\n"
+        end
+    end
+    return result .. string.rep(" ", indent) .. "}"
+end
+
+local function decryptArguments(...)
+    local decryptedArgs = {}
+    for _, arg in ipairs({...}) do
+        if type(arg) == "table" then
+            decryptedArgs[#decryptedArgs + 1] = tableToString(arg)
+        elseif typeof(arg) == "Instance" then
+            decryptedArgs[#decryptedArgs + 1] = getFullName(arg)
+        else
+            decryptedArgs[#decryptedArgs + 1] = tostring(arg)
+        end
+    end
+    return decryptedArgs
+end
+
+local remote = game.ReplicatedStorage:WaitForChild("Events"):WaitForChild("GenerateEquipment")
+local mergeRemote = game.ReplicatedStorage:WaitForChild("Events"):WaitForChild("PlayerMergeEquipment")
+
+remote.OnClientEvent:Connect(function(...)
+    if enviarAlServidor then 
+        local args = {...}
+        local decryptedArgs = decryptArguments(...)
+
+        local groupedItems = {}
+        for _, arg in ipairs(args) do
+            if type(arg) == "table" then
+                for id, item in pairs(arg) do
+                    if type(item) == "table" and item.equipped == false and item.rarity ~= "Demonic" then
+                        local key = item.name .. "_" .. item.rarity
+                        if not groupedItems[key] then
+                            groupedItems[key] = {}
+                        end
+                        table.insert(groupedItems[key], {id = id, item = item})
+                    end
+                end
+            end
+        end
+
+        for key, items in pairs(groupedItems) do
+            if #items >= 3 then
+                local idsToSend = {tostring(items[1].id), tostring(items[2].id), tostring(items[3].id)}
+                local args = {[1] = idsToSend}
+                
+                mergeRemote:FireServer(unpack(args))
+            end
+        end
+    end
+end)
+
+UL:AddTBtn(OF, "Auto Merge Items", false, function()
+    enviarAlServidor = not enviarAlServidor
+end)
 
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -173,85 +246,12 @@ local args = {
     [1] = "StopFight"
 }
 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("AutoFight"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("dEvents"):WaitForChild("AutoFight"):FireServer(unpack(args))
 else
 sendNotification("Use Auto Fight", "Button Game for farm", 5)
 end
 end)    
 
-local enviarAlServidor = false
-
-local function getFullName(instance)
-    return instance:GetFullName()
-end
-
-local function tableToString(t, indent)
-    indent = indent or 0
-    local result = "{\n"
-    local padding = string.rep(" ", indent + 2)
-    for k, v in pairs(t) do
-        if typeof(v) == "Instance" then
-            result = result .. padding .. tostring(k) .. " = " .. getFullName(v) .. ",\n"
-        elseif type(v) == "table" then
-            result = result .. padding .. tostring(k) .. " = " .. tableToString(v, indent + 2) .. ",\n"
-        else
-            result = result .. padding .. tostring(k) .. " = " .. tostring(v) .. ",\n"
-        end
-    end
-    return result .. string.rep(" ", indent) .. "}"
-end
-
-local function decryptArguments(...)
-    local decryptedArgs = {}
-    for _, arg in ipairs({...}) do
-        if type(arg) == "table" then
-            decryptedArgs[#decryptedArgs + 1] = tableToString(arg)
-        elseif typeof(arg) == "Instance" then
-            decryptedArgs[#decryptedArgs + 1] = getFullName(arg)
-        else
-            decryptedArgs[#decryptedArgs + 1] = tostring(arg)
-        end
-    end
-    return decryptedArgs
-end
-
-local remote = game.ReplicatedStorage:WaitForChild("Events"):WaitForChild("GenerateEquipment")
-local mergeRemote = game.ReplicatedStorage:WaitForChild("Events"):WaitForChild("PlayerMergeEquipment")
-
-remote.OnClientEvent:Connect(function(...)
-    if enviarAlServidor then  -- Verifica si se debe enviar al servidor
-        local args = {...}
-        local decryptedArgs = decryptArguments(...)
-
-        local groupedItems = {}
-        for _, arg in ipairs(args) do
-            if type(arg) == "table" then
-                for id, item in pairs(arg) do
-                    if type(item) == "table" and item.equipped == false then
-                        local key = item.name .. "_" .. item.rarity
-                        if not groupedItems[key] then
-                            groupedItems[key] = {}
-                        end
-                        table.insert(groupedItems[key], {id = id, item = item})
-                    end
-                end
-            end
-        end
-
-        for key, items in pairs(groupedItems) do
-            if #items >= 3 then
-                local idsToSend = {tostring(items[1].id), tostring(items[2].id), tostring(items[3].id)}
-                local args = {[1] = idsToSend}
-                
-                mergeRemote:FireServer(unpack(args))
-            end
-        end
-    end
-end)
-
-
-    UL:AddTBtn(OF, "Auto Marge Items", false, function()
-enviarAlServidor = not enviarAlServidor
 
  end)
 
