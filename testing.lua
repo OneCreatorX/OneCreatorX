@@ -76,7 +76,7 @@ function UL:Opc(txt)
         opcFrm.Visible = not opcFrm.Visible
         opcBtn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
         if opcFrm.Visible then
-            adjustOpcFrmPosition() -- Ajustar posición al mostrar opcFrm
+            adjustOpcFrmPosition()
         end
     end)
 
@@ -99,8 +99,14 @@ local function adjustInfoFrmPosition()
     infoFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X + 5, 0, mainFrmAbsolutePos.Y)
 end
 
+local function adjustOpcFrmPosition()
+    local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+    opcFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
+end
+
 local function adjustFramesPosition()
     adjustInfoFrmPosition()
+    adjustOpcFrmPosition()
 end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
@@ -113,7 +119,7 @@ infoBtn.MouseButton1Click:Connect(function()
     infoFrm.Visible = not infoFrm.Visible
     infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
     if infoFrm.Visible then
-        adjustInfoFrmPosition() -- Ajustar posición al mostrar infoFrm
+        adjustInfoFrmPosition()
     end
 end)
 
@@ -129,6 +135,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 1")
+print("Versión 31")
 
 return UL
