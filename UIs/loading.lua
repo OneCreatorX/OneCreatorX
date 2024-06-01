@@ -4,8 +4,8 @@ screenGui.Name = "LoadingScreen"
 
 -- Fondo
 local background = Instance.new("Frame", screenGui)
-background.Size = UDim2.new(0.5, 0, 0.5, 0)
-background.Position = UDim2.new(0.25, 0, 0.3, 0)
+background.Size = UDim2.new(0.8, 0, 0.8, 0)
+background.Position = UDim2.new(0.1, 0, 0.1, 0)
 background.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 
 local gradient = Instance.new("UIGradient", background)
@@ -89,7 +89,7 @@ end
 local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 5, 0), 3)
 loadingTween:Play()
 loadingTween.Completed:Connect(function()
-    loadingLabel.Text = "OneLib Loaded v0.5"
+    loadingLabel.Text = "OneLib Loaded v0.3"
     wait(1)
     local fadeOutTween = tweenService:Create(background, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1})
     fadeOutTween:Play()
