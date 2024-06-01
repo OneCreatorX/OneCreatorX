@@ -46,23 +46,26 @@ end
 
 local mainBtnsCount = 0
 
-function UL:Button(txt)
+function UL:Button(txt, callback)
     local yPos = 30 + mainBtnsCount * 30
-    createBtn(mainFrm, txt, yPos)
+    local btn = createBtn(mainFrm, txt, yPos)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+    
+    if callback then
+        btn.MouseButton1Click:Connect(callback)
+    end
 end
 
-local opcBtn
-local opcFrm
+local opcBtns = {} -- Almacenar botones de opciones para ajustar sus funciones de devolución de llamada
 
 function UL:Opc(txt)
     local yPos = 30 + mainBtnsCount * 30
-    opcBtn = createBtn(mainFrm, txt .. " <", yPos)
+    local opcBtn = createBtn(mainFrm, txt .. " <", yPos)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-
-    opcFrm = Instance.new("Frame", gui)
+    
+    local opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
@@ -82,11 +85,18 @@ function UL:Opc(txt)
 
     local opcBtnsCount = 0
     local obj = {}
-    function obj:Button(txt)
-        createBtn(opcFrm, txt, opcBtnsCount * 30)
+    function obj:Button(txt, callback)
+        local btn = createBtn(opcFrm, txt, opcBtnsCount * 30)
         opcBtnsCount = opcBtnsCount + 1
         opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
+        
+        if callback then
+            btn.MouseButton1Click:Connect(callback)
+        end
     end
+    
+    table.insert(opcBtns, {btn = opcBtn, frame = opcFrm})
+    
     return obj
 end
 
@@ -100,14 +110,12 @@ local function adjustInfoFrmPosition()
     infoFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X + 5, 0, mainFrmAbsolutePos.Y)
 end
 
-local function adjustOpcFrmPosition()
-    local mainFrmAbsolutePos = mainFrm.AbsolutePosition
-    opcFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
-end
-
 local function adjustFramesPosition()
     adjustInfoFrmPosition()
-    adjustOpcFrmPosition()
+    for _, option in ipairs(opcBtns) do
+        local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+        option.frame.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
+    end
 end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
@@ -126,10 +134,15 @@ end)
 
 local infoBtnsCount = 0
 
-function UL:Info(txt)
-    createBtn(infoFrm, txt, infoBtnsCount * 30)
-    infoBtnsCount = infoBtnsCount + 1
-    infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
+function UL:Info(txt, callback)
+    local yPos = 30 + mainBtnsCount * 30
+    local btn = createBtn(infoFrm, txt, yPos)
+    mainBtnsCount = mainBtnsCount + 1
+    infoFrm.Size = UDim2.new(0.25, 0, 0, mainBtnsCount * 30)
+    
+    if callback then
+        btn.MouseButton1Click:Connect(callback)
+    end
 end
 
 function UL:TextLabel(txt)
@@ -151,6 +164,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 4")
+print("Versión 5")
 
 return UL
