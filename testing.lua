@@ -112,12 +112,13 @@ local infoBtnsCount = 0
 function UL:Info(txt)
     createBtn(infoFrm, txt, infoBtnsCount * 30)
     infoBtnsCount = infoBtnsCount + 1
-    infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
+    infoFrm.Size = UDim2.new(0.25, 0, 0,infoBtnsCount * 30)
 end
 
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print(" use")
+print("Versión 1")
+
 return UL
