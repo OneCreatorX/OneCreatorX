@@ -64,7 +64,6 @@ function UL:Opc(txt)
 
     opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
-    opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
 
@@ -89,16 +88,15 @@ end
 
 local infoFrm = Instance.new("Frame", gui)
 infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
-infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
 infoFrm.BackgroundTransparency = 1
 
-local function adjustInfoFrmPosition()
-    infoFrm.Position = UDim2.new(mainFrm.Position.X.Scale, 0, mainFrm.Position.Y.Scale + 0.6, 0)
+local function adjustFramesPosition()
+    local mainPos = mainFrm.Position
+    infoFrm.Position = UDim2.new(mainPos.X.Scale, 0, mainPos.Y.Scale + mainFrm.Size.Y.Scale, 0)
+    opcFrm.Position = UDim2.new(mainPos.X.Scale + 0.25, 0, mainPos.Y.Scale, 0)
 end
 
-mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
-    adjustInfoFrmPosition()
-end)
+mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
 
 local infoBtn = createBtn(mainFrm, "Info <", 30 + mainBtnsCount * 30)
 mainBtnsCount = mainBtnsCount + 1
@@ -120,5 +118,6 @@ end
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
-print("Version 1")
+
+print(" use")
 return UL
