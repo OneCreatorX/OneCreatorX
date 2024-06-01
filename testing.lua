@@ -68,10 +68,7 @@ function UL:Opc(txt)
     opcFrm.Visible = false
 
     mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
-        local oldPos = opcFrm.Position
-        opcFrm.Position = UDim2.new(mainFrm.Position.X.Scale + 0.25, 0, mainFrm.Position.Y.Scale, 0)
-        local newPos = opcFrm.Position
-        print("OpcFrm Position Changed from", oldPos, "to", newPos)
+        opcFrm.Position = UDim2.new(mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y, 0)
     end)
 
     opcBtn.MouseButton1Click:Connect(function()
@@ -94,16 +91,8 @@ infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.BackgroundTransparency = 1
 
 local function adjustFramesPosition()
-    print("MainFrm Position Changed")
-    local mainPos = mainFrm.Position
-    local oldInfoPos = infoFrm.Position
-    infoFrm.Position = UDim2.new(mainPos.X.Scale, 0, mainPos.Y.Scale + mainFrm.Size.Y.Scale, 0)
-    local newInfoPos = infoFrm.Position
-    print("InfoFrm Position Changed from", oldInfoPos, "to", newInfoPos)
-    local oldOpcPos = opcFrm.Position
-    opcFrm.Position = UDim2.new(mainPos.X.Scale + 0.25, 0, mainPos.Y.Scale, 0)
-    local newOpcPos = opcFrm.Position
-    print("OpcFrm Position Changed from", oldOpcPos, "to", newOpcPos)
+    infoFrm.Position = UDim2.new(mainFrm.AbsolutePosition.X, 0, mainFrm.AbsolutePosition.Y + mainFrm.AbsoluteSize.Y, 0)
+    opcFrm.Position = UDim2.new(mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y, 0)
 end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
@@ -114,7 +103,7 @@ mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 
 infoBtn.MouseButton1Click:Connect(function()
     infoFrm.Visible = not infoFrm.Visible
-        infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
+    infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
 end)
 
 local infoBtnsCount = 0
@@ -129,6 +118,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 1")
+print("Versión 3")
 
 return UL
