@@ -56,8 +56,16 @@ local function createBtn(parent, txt, yPos, callback)
     return btn
 end
 
+local function getChildCount(parent)
+    local count = 0
+    for _ in pairs(parent:GetChildren()) do
+        count = count + 1
+    end
+    return count
+end
+
 function UL:Button(txt, callback)
-    local yPos = 30 + mainFrm:GetChildrenCount() * 30
+    local yPos = 30 + getChildCount(mainFrm) * 30
     local btn = createBtn(mainFrm, txt, yPos, callback)
     mainFrm.Size = UDim2.new(0.25, 0, 0, yPos + 30)
 end
@@ -65,7 +73,7 @@ end
 local opcBtns = {}
 
 function UL:Opc(txt)
-    local yPos = 30 + mainFrm:GetChildrenCount() * 30
+    local yPos = 30 + getChildCount(mainFrm) * 30
     local btn = createBtn(mainFrm, txt .. " <", yPos)
     local opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
