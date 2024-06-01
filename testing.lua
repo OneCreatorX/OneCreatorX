@@ -132,10 +132,25 @@ function UL:Info(txt)
     infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
 end
 
+function UL:Label(txt)
+    local yPos = 30 + mainBtnsCount * 30
+    local label = Instance.new("TextLabel", mainFrm)
+    label.Text = txt
+    label.Size = UDim2.new(1, 0, 0, 30)
+    label.Position = UDim2.new(0, 0, 0, yPos)
+    label.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    label.BackgroundTransparency = 0.8
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.Font = Enum.Font.LuckiestGuy
+    label.TextSize = 13
+    mainBtnsCount = mainBtnsCount + 1
+    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+end
+
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 3")
+print("Versión 42")
 
 return UL
