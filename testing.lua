@@ -14,7 +14,7 @@ gui.Name = guiId
 local mainFrm = Instance.new("Frame", gui)
 mainFrm.Size, mainFrm.Position = UDim2.new(0.25, 0, 0, 0), UDim2.new(0.375, 0, 0.2, 0)
 mainFrm.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
-mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 0.4, 1
+mainFrm.BackgroundTransparency, mainFrm.BorderSizePixel = 1, 1
 mainFrm.Active, mainFrm.Draggable = true, true
 
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
@@ -74,10 +74,10 @@ local opcBtns = {}
 
 function UL:Opc(txt)
     local yPos = 30 + getChildCount(mainFrm) * 30
-    local btn = createBtn(mainFrm, txt .. " <", yPos)
+    local btn = createBtn(mainFrm, txt .. " [<]", yPos)
     local opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
-    opcFrm.BackgroundTransparency = 1
+    opcFrm.BackgroundTransparency = 0.85
     opcFrm.Visible = false
 
     local function adjustOpcFrmPosition()
@@ -86,7 +86,7 @@ function UL:Opc(txt)
 
     btn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
-        btn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
+        btn.Text = opcFrm.Visible and txt .. " [>]" or txt .. " [<]"
         if opcFrm.Visible then
             adjustOpcFrmPosition()
         end
