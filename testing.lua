@@ -13,6 +13,24 @@ mainFrm.BorderSizePixel = 1
 mainFrm.Active = true
 mainFrm.Draggable = true
 
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+
+local function cleanGameName(name)
+    name = name:gsub("%b[]", "")
+    name = name:match("^[^:]*")
+    return name:match("^%s*(.-)%s*$")
+end
+
+gameName = cleanGameName(gameName)
+
+local titleLbl = Instance.new("TextLabel", mainFrm)
+titleLbl.Text = gameName
+titleLbl.Size = UDim2.new(1, 0, 0, 30)
+titleLbl.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+titleLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLbl.Font = Enum.Font.LuckiestGuy
+titleLbl.TextSize = 14
+
 local function createBtn(parent, txt, yPos)
     local btn = Instance.new("TextButton", parent)
     btn.Text = txt
@@ -35,46 +53,40 @@ function UL:Button(txt)
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 end
 
-function UL:Text(txt)
-    local yPos = 30 + mainBtnsCount * 30
-    local txtLabel = Instance.new("TextLabel", mainFrm)
-    txtLabel.Text = txt
-    txtLabel.Size = UDim2.new(1, 0, 0, 30)
-    txtLabel.Position = UDim2.new(0, 0, 0, yPos)
-    txtLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-    txtLabel.BackgroundTransparency = 0.8
-    txtLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    txtLabel.Font = Enum.Font.LuckiestGuy
-    txtLabel.TextSize = 13
-    mainBtnsCount = mainBtnsCount + 1
-    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-end
+local opcBtn
+local opcFrm
 
 function UL:Opc(txt)
     local yPos = 30 + mainBtnsCount * 30
-    local opcBtn = createBtn(mainFrm, txt .. " <", yPos)
+    opcBtn = createBtn(mainFrm, txt .. " <", yPos)
     mainBtnsCount = mainBtnsCount + 1
     mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 
-    local opcFrm = Instance.new("Frame", gui)
+    opcFrm = Instance.new("Frame", gui)
     opcFrm.Size = UDim2.new(0.25, 0, 0, 0)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
 
+    local function adjustOpcFrmPosition()
+        local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+        opcFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
+    end
+
     opcBtn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
         opcBtn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
+        if opcFrm.Visible then
+            adjustOpcFrmPosition()
+        end
     end)
 
     local opcBtnsCount = 0
     local obj = {}
-
     function obj:Button(txt)
         createBtn(opcFrm, txt, opcBtnsCount * 30)
         opcBtnsCount = opcBtnsCount + 1
         opcFrm.Size = UDim2.new(0.25, 0, 0, opcBtnsCount * 30)
     end
-
     return obj
 end
 
@@ -83,50 +95,62 @@ infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.BackgroundTransparency = 1
 infoFrm.Visible = false
 
+local function adjustInfoFrmPosition()
+    local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+    infoFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X + 5, 0, mainFrmAbsolutePos.Y)
+end
+
+local function adjustOpcFrmPosition()
+    local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+    opcFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
+end
+
+local function adjustFramesPosition()
+    adjustInfoFrmPosition()
+    adjustOpcFrmPosition()
+end
+
+mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
+
+local infoBtn = createBtn(mainFrm, "Info Script <", 30 + mainBtnsCount * 30)
+mainBtnsCount = mainBtnsCount + 1
+mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+
+infoBtn.MouseButton1Click:Connect(function()
+    infoFrm.Visible = not infoFrm.Visible
+    infoBtn.Text = infoFrm.Visible and "Info Script >" or "Info Script <"
+    if infoFrm.Visible then
+        adjustInfoFrmPosition()
+    end
+end)
+
 local infoBtnsCount = 0
 
 function UL:Info(txt)
-    local yPos = 30 + mainBtnsCount * 30
-    local infoBtn = createBtn(mainFrm, "Info <", yPos)
-    mainBtnsCount = mainBtnsCount + 1
-    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
-
-    infoBtn.MouseButton1Click:Connect(function()
-        infoFrm.Visible = not infoFrm.Visible
-        infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
-    end)
-
-    local obj = {}
-
-    function obj:Button(txt)
-        local btn = createBtn(infoFrm, txt, infoBtnsCount * 30)
-        infoBtnsCount = infoBtnsCount + 1
-        infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
-        return btn
-    end
-
-    function obj:Text(txt)
-        local txtLabel = Instance.new("TextLabel", infoFrm)
-        txtLabel.Text = txt
-        txtLabel.Size = UDim2.new(1, 0, 0, 30)
-        txtLabel.Position = UDim2.new(0, 0, 0, infoBtnsCount * 30)
-        txtLabel.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-        txtLabel.BackgroundTransparency = 0.8
-        txtLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-        txtLabel.Font = Enum.Font.LuckiestGuy
-        txtLabel.TextSize = 13
-        infoBtnsCount = infoBtnsCount + 1
-        infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
-        return txtLabel
-    end
-
-    return obj
+    createBtn(infoFrm, txt, infoBtnsCount * 30)
+    infoBtnsCount = infoBtnsCount + 1
+    infoFrm.Size = UDim2.new(0.25, 0, 0, infoBtnsCount * 30)
 end
 
 function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión")
+function UL:Text(txt)
+    local yPos = 30 + mainBtnsCount * 30
+    local textLbl = Instance.new("TextLabel", mainFrm)
+    textLbl.Text = txt
+    textLbl.Size = UDim2.new(1, 0, 0, 30)
+    textLbl.Position = UDim2.new(0, 0, 0, yPos)
+    textLbl.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+    textLbl.BackgroundTransparency = 0.8
+    textLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLbl.Font = Enum.Font.LuckiestGuy
+    textLbl.TextSize = 13
+    mainBtnsCount = mainBtnsCount + 1
+    mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
+end
+
+print("Versión jqja")
 
 return UL
