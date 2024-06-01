@@ -67,13 +67,17 @@ function UL:Opc(txt)
     opcFrm.BackgroundTransparency = 1
     opcFrm.Visible = false
 
-    mainFrm:GetPropertyChangedSignal("Position"):Connect(function()
-        opcFrm.Position = UDim2.new(mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y, 0)
-    end)
+    local function adjustOpcFrmPosition()
+        local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+        opcFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X + mainFrm.AbsoluteSize.X, 0, mainFrmAbsolutePos.Y)
+    end
 
     opcBtn.MouseButton1Click:Connect(function()
         opcFrm.Visible = not opcFrm.Visible
         opcBtn.Text = opcFrm.Visible and txt .. " >" or txt .. " <"
+        if opcFrm.Visible then
+            adjustOpcFrmPosition() -- Ajustar posición al mostrar opcFrm
+        end
     end)
 
     local opcBtnsCount = 0
@@ -90,9 +94,13 @@ local infoFrm = Instance.new("Frame", gui)
 infoFrm.Size = UDim2.new(0.25, 0, 0, 0)
 infoFrm.BackgroundTransparency = 1
 
+local function adjustInfoFrmPosition()
+    local mainFrmAbsolutePos = mainFrm.AbsolutePosition
+    infoFrm.Position = UDim2.new(0, mainFrmAbsolutePos.X, 0, mainFrmAbsolutePos.Y + mainFrm.AbsoluteSize.Y)
+end
+
 local function adjustFramesPosition()
-    infoFrm.Position = UDim2.new(mainFrm.AbsolutePosition.X, 0, mainFrm.AbsolutePosition.Y + mainFrm.AbsoluteSize.Y, 0)
-    opcFrm.Position = UDim2.new(mainFrm.AbsolutePosition.X + mainFrm.AbsoluteSize.X, 0, mainFrm.AbsolutePosition.Y, 0)
+    adjustInfoFrmPosition()
 end
 
 mainFrm:GetPropertyChangedSignal("Position"):Connect(adjustFramesPosition)
@@ -104,6 +112,9 @@ mainFrm.Size = UDim2.new(0.25, 0, 0, 30 + mainBtnsCount * 30)
 infoBtn.MouseButton1Click:Connect(function()
     infoFrm.Visible = not infoFrm.Visible
     infoBtn.Text = infoFrm.Visible and "Info >" or "Info <"
+    if infoFrm.Visible then
+        adjustInfoFrmPosition() -- Ajustar posición al mostrar infoFrm
+    end
 end)
 
 local infoBtnsCount = 0
@@ -118,6 +129,6 @@ function UL:SetTitle(txt)
     titleLbl.Text = txt
 end
 
-print("Versión 3")
+print("Versión 1")
 
 return UL
