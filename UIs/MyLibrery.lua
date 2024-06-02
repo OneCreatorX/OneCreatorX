@@ -2,7 +2,6 @@ local UL = {}
 print("Version UI 0.5")
 print("Loading OneLib")
 local loading = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/loading.lua"))
-wait(1)
 loading()
 wait(3.5)
 local uiProperties = {
