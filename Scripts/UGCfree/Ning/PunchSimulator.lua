@@ -234,7 +234,7 @@ if ja then
     local args = {[1] = true}
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
     wait(0.8)
-   Player.Character.HumanoidRootPart.CFrame = workspace.BreakableParts["Stage" .. arg2][arg3].PrimaryPart.CFrame
+   game.Players.LocalPlayer.Character:MoveTo(workspace.BreakableParts["Stage" .. arg2][arg3]:GetModelCFrame().Position)
 end
 end
 
