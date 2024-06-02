@@ -166,6 +166,7 @@ setreadonly(mt, true)
 
 local running = false
 local world = ""
+local worldd
 
 local function startOpeningEggs(world)
     running = true
@@ -185,6 +186,7 @@ game.Players.LocalPlayer.PlayerScripts:FindFirstChild("PlayerPetHandler").Enable
 sendNotification("Animation Egg Oppen", "Desabled Default", 5)
 
 UL:AddTBox(cfrm, "Auto Egg-number world or 'stop", function(value) 
+worldd = value
     if value == "" or value:lower() == "stop" then
         running = false
         sendNotification("Stop Open Egg", "Egg opening stopped", 5)
@@ -202,6 +204,16 @@ UL:AddTBox(cfrm, "Auto Egg-number world or 'stop", function(value)
         -- handle invalid input
         end
 end)
+
+UL:AddBtn(cfrm, "Tp Egg Worl", function()
+    local tp = workspace.EggVendors[worldd]:GetModelCFrame().Position + Vector3.new(0, 15, 0)
+    game.Players.LocalPlayer.Character:MoveTo(tp)
+    wait(0.2)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+    wait(2)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+end)
+
 
 local ah = false
 UL:AddTBtn(cfrm, "Auto Fast Train", false, function(state)
@@ -295,8 +307,8 @@ local attackDistance = 9
 local remoteEvent = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PunchEvent")
 
 local function findClosestNPC()
-local character = Player.Character or Player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+local character = Player:FindFirstChild("Character") or Player.CharacterAdded:Wait()
+local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
     local closestNPC = nil
     local closestDistance = math.huge
 
@@ -315,8 +327,8 @@ end
 
 local function attackAndMove()
     local success, err = pcall(function()
- local character = Player.Character or Player.CharacterAdded:Wait()
-local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+ local character = Player:FindFirstChild("Character") or Player.CharacterAdded:Wait()
+local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
         local closestNPC = findClosestNPC()
         if closestNPC then
             local direction = (closestNPC.PrimaryPart.Position - humanoidRootPart.Position).unit
@@ -425,14 +437,12 @@ local function monitorPlayerHealth(humanoid)
     end)
 end
 
--- Función para configurar el monitoreo del personaje del jugador
 local function setupCharacterMonitoring(player)
     player.CharacterAdded:Connect(function(character)
         local humanoid = character:WaitForChild("Humanoid")
         monitorPlayerHealth(humanoid)
     end)
 
-    -- Si el personaje ya está cargado cuando se inicia el script
     if player.Character then
         local humanoid = player.Character:WaitForChild("Humanoid")
         monitorPlayerHealth(humanoid)
