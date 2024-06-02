@@ -245,10 +245,22 @@ if ja then
        
     local args = {[1] = true}
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
-    wait(0.8)
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PushEvent"):FireServer(unpack(args))
+    wait(0.5)
+        
    game.Players.LocalPlayer.Character:MoveTo(workspace.BreakableParts["Stage" .. arg2][arg3]:GetModelCFrame().Position)
 end
 end
+
+local mt = getrawmetatable(game)
+local oldNamecall = mt.__namecall
+setreadonly(mt, false)
 
 
 UL:AddTBtn(cfrm, "Fast Auto Fight", false, function() 
@@ -277,16 +289,12 @@ local function newFireServer(self, ...)
     arg3 = args[3]
     
     if args[1] == "StopFight" then
-        return originalFireServer(self, unpack(args))
+        return oldNamecall(self, ...)
     else
         spawn(ah)
         return originalFireServer(self, unpack(args))
     end
 end
-
-local mt = getrawmetatable(game)
-local oldNamecall = mt.__namecall
-setreadonly(mt, false)
 
 mt.__namecall = newcclosure(function(self, ...)
     local method = getnamecallmethod()
