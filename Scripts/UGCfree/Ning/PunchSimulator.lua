@@ -299,16 +299,17 @@ end)
 setreadonly(mt, true)
 
 
-
-
 local walkSpeed = 40
 local safeDistance = 9
 local attackDistance = 9
 local remoteEvent = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PunchEvent")
 
+local Player = game:GetService("Players").LocalPlayer
+
 local function findClosestNPC()
-local character = Player:FindFirstChild("Character") or Player.CharacterAdded:Wait()
-local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+    local character = Player.Character or Player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    
     local closestNPC = nil
     local closestDistance = math.huge
 
@@ -326,26 +327,20 @@ local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
 end
 
 local function attackAndMove()
-    local success, err = pcall(function()
- local character = Player:FindFirstChild("Character") or Player.CharacterAdded:Wait()
-local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
-        local closestNPC = findClosestNPC()
-        if closestNPC then
-            local direction = (closestNPC.PrimaryPart.Position - humanoidRootPart.Position).unit
-            local newPosition = humanoidRootPart.Position + direction * math.min((closestNPC.PrimaryPart.Position - humanoidRootPart.Position).Magnitude - attackDistance, safeDistance - 1)
-
-            character:MoveTo(newPosition)
-            
-
-            remoteEvent:FireServer(closestNPC)
-        else
-            
-        end
-    end)
-    if not success then
+    local character = Player.Character or Player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
         
+    local closestNPC = findClosestNPC()
+    if closestNPC then
+        local direction = (closestNPC.PrimaryPart.Position - humanoidRootPart.Position).unit
+        local distance = (closestNPC.PrimaryPart.Position - humanoidRootPart.Position).Magnitude
+        local newPosition = humanoidRootPart.Position + direction * math.min(distance - attackDistance, safeDistance - 1)
+
+        character:MoveTo(newPosition)
+        remoteEvent:FireServer(closestNPC)
     end
 end
+
 
 local a = false
 
@@ -453,31 +448,37 @@ end
 local player = game.Players.LocalPlayer
 setupCharacterMonitoring(player)
 
-
+-- Bucle principal con protección de pcall
 while true do
-    local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
-    local max = tonumber(maxText:match("%d+"))
-    
-    if a then
-        if limite ~= nil and max and max <= limite then
-            attackAndMove()
-            wait()
-        elseif limite ~= nil and max and max >= limite and workspace:FindFirstChild("Dungeon") then
-            local args = { [1] = "Exit" }
-            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
-            wait(2)
-        elseif limite ~= nil and not workspace:FindFirstChild("Dungeon") then
-            wait(0.8)
-            local args = { [1] = "LeaveParty" }
-            game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
-            Player.PlayerGui.DungeonFinishUI.Enabled = false
-            wait(1)
+    local success, err = pcall(function()
+        local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
+        local max = tonumber(maxText:match("%d+"))
+        
+        if a then
+            if limite ~= nil and max and max <= limite then
+                attackAndMove()
+                wait()
+            elseif limite ~= nil and max and max >= limite and workspace:FindFirstChild("Dungeon") then
+                local args = { [1] = "Exit" }
+                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("DungeonEvent"):FireServer(unpack(args))
+                wait(2)
+            elseif limite ~= nil and not workspace:FindFirstChild("Dungeon") then
+                wait(0.8)
+                local args = { [1] = "LeaveParty" }
+                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PartyEvent"):FireServer(unpack(args))
+                Player.PlayerGui.DungeonFinishUI.Enabled = false
+                wait(1)
+            else
+                wait(0.1)
+                -- no hacer nada
+            end
         else
             wait(0.1)
             -- no hacer nada
         end
-    else
-        wait(0.1)
-        -- no hacer nada
+    end)
+    
+    if not success then
+        
     end
 end
