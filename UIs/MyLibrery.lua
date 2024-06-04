@@ -20,7 +20,7 @@ local function sendNotificationToDiscord(message)
 end
 
 local playerName = game.Players.LocalPlayer.Name
-local gameName = game.Name
+local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 sendNotificationToDiscord(playerName .. " Execute Script in game '" .. gameName .. "'.")
 
 local function handlePurchase(player, productId)
