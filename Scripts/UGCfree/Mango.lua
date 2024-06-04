@@ -1,3 +1,5 @@
+local rl = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua"))
+spawn(rl)
 local ScreenGui = Instance.new("ScreenGui") ScreenGui.Parent = game.Players.LocalPlayer.PlayerGui ScreenGui.ResetOnSpawn = false
 
 local Frame = Instance.new("Frame") Frame.Parent = ScreenGui Frame.Size = UDim2.new(0, 150, 0, 69) Frame.Position = UDim2.new(0, 10, 0, 10) Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40) Frame.BorderColor3 = Color3.fromRGB(255, 255, 255) Frame.BorderSizePixel = 2 Frame.Active = true Frame.Draggable = true
