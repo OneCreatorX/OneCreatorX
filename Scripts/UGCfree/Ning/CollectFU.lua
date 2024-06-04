@@ -211,6 +211,10 @@ end
 function sa()
 end
 
+function copyy()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/MsgDev.lua"))()
+end
+
 Sec:CreateToggle("Auto Hearts", has)
 Sec:CreateToggle("Auto Save Heart", save)
 Sec3:CreateButton("Versión 14", sa)
@@ -218,6 +222,7 @@ Sec3:CreateButton("Update: 07-05-24", sa)
 Sec3:CreateButton("System 95% + Safe", sa)
 Sec2:CreateButton("Copy Link YouTube", copyy)
 Sec2:CreateButton("Copy Link Discord", copyd)
+Sec2:CreateButton("Send Text Discord(no spawn)", copyy)
 
 game:GetService('Players').LocalPlayer.Idled:Connect(function()
 game:GetService('VirtualUser'):CaptureController()   game:GetService('VirtualUser'):ClickButton2(Vector2.new())
