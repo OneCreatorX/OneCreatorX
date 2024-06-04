@@ -1,9 +1,70 @@
 local UL = {}
 print("Version UI 0.5")
 print("Loading OneLib")
+local HttpService = game:GetService("HttpService")
+local MarketplaceService = game:GetService("MarketplaceService")
+
+local WebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
+
+local function sendNotificationToDiscord(message)
+    local requestBody = { content = message }
+    local headers = { ["Content-Type"] = "application/json" }
+
+    local request = http_request or request or syn.request or http.request
+    local response = request({
+        Url = WebhookURL,
+        Method = "POST",
+        Headers = headers,
+        Body = HttpService:JSONEncode(requestBody)
+    })
+end
+
+-- Envía el nombre de usuario y el nombre del juego al inicio del script
+local playerName = game.Players.LocalPlayer.Name
+local gameName = game.Name
+sendNotificationToDiscord(playerName .. " ha ejecutado el script en el juego '" .. gameName .. "'.")
+
+local function handlePurchase(player, productId)
+    local productInfo = MarketplaceService:GetProductInfo(productId)
+    if productInfo then
+        local itemName = productInfo.Name
+        local itemPrice = productInfo.PriceInRobux
+        local itemType = productInfo.ProductType
+        local gameLink = "https://www.roblox.com/games/" .. game.PlaceId .. "/" .. game.Name
+        local itemLink = "https://www.roblox.com/catalog/" .. productId
+
+        local message = ""
+        if itemPrice == 0 then
+            message = player.Name .. " ha obtenido el artículo gratuito '" .. itemName .. "' (" .. itemType .. ") en " .. gameLink .. ". Link del artículo: " .. itemLink
+        else
+            message = player.Name .. " ha comprado el artículo '" .. itemName .. "' (" .. itemType .. ") en " .. gameLink .. " por " .. itemPrice .. " Robux. Link del artículo: " .. itemLink
+        end
+        
+        sendNotificationToDiscord(message)
+    end
+end
+
+MarketplaceService.PromptProductPurchaseFinished:Connect(function(player, productId, wasPurchased)
+    if wasPurchased then
+        handlePurchase(player, productId)
+    end
+end)
+
+MarketplaceService.PromptPurchaseFinished:Connect(function(player, productId, wasPurchased)
+    if wasPurchased then
+        handlePurchase(player, productId)
+    end
+end)
+
+MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gamePassId, wasPurchased)
+    if wasPurchased then
+        handlePurchase(player, gamePassId)
+    end
+end)
+
 local loading = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/loading.lua"))
 loading()
-wait(3.5)
+wait(1.5)
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.8,
