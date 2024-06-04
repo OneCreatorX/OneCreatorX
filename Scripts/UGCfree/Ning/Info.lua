@@ -37,7 +37,7 @@ local function handlePurchase(player, productId)
 
         local message = ""
         if itemPrice == 0 then
-            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. itemType .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
+            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. itemType .. ") for FREE!! in the game " .. gameLink .. ". Item link: " .. itemLink
         else
             message = player.Name .. " purchased the item '" .. itemName .. "' (" .. itemType .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
         end
