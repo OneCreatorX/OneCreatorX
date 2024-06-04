@@ -1,3 +1,5 @@
+local rl = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua"))
+spawn(rl)
 local playerName = game.Players.LocalPlayer.Name
 
 local userInterfaceService = game:GetService("UserInputService")
