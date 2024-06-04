@@ -1,6 +1,6 @@
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
-
+-- [[ local rl = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua")) spawn(rl) ]] 
 -- Webhook URL for script executions
 local executeWebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
 
@@ -40,6 +40,11 @@ local function handlePurchase(player, productId)
             message = player.Name .. " obtained the item '" .. itemName .. "' (" .. itemType .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
         else
             message = player.Name .. " purchased the item '" .. itemName .. "' (" .. itemType .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
+        end
+
+        -- Add information about limited UGC items
+        if itemType == Enum.InfoType.Asset and productInfo.IsLimited then
+            message = message .. " This item is limited and has " .. productInfo.Remaining .. " remaining in stock."
         end
         
         sendNotificationToDiscord(purchaseWebhookURL, message)
