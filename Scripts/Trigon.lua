@@ -5112,8 +5112,8 @@ local data = {
     global = {
         _scripts = {
             {
-                scriptName = "Infinite Yield",
-                text = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source\",true))()"
+                scriptName = "Infinite Yield - Mobil",
+                text = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Generales/Final/Spy.lua\"))()"
             },
             {
                 scriptName = "Tools OneCreatorX",
