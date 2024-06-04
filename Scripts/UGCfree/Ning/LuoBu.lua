@@ -6,6 +6,9 @@ local Sec2 = Win:NewSection("Credits: OneCreatorX")
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 
+local rl = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua"))
+spawn(rl)
+
 local function copyToClipboard(text)
     if syn then
         syn.write_clipboard(text)
