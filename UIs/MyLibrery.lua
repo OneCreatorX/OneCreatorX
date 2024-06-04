@@ -19,10 +19,9 @@ local function sendNotificationToDiscord(message)
     })
 end
 
--- Envía el nombre de usuario y el nombre del juego al inicio del script
 local playerName = game.Players.LocalPlayer.Name
 local gameName = game.Name
-sendNotificationToDiscord(playerName .. " ha ejecutado el script en el juego '" .. gameName .. "'.")
+sendNotificationToDiscord(playerName .. " Execute Script in game '" .. gameName .. "'.")
 
 local function handlePurchase(player, productId)
     local productInfo = MarketplaceService:GetProductInfo(productId)
@@ -35,9 +34,9 @@ local function handlePurchase(player, productId)
 
         local message = ""
         if itemPrice == 0 then
-            message = player.Name .. " ha obtenido el artículo gratuito '" .. itemName .. "' (" .. itemType .. ") en " .. gameLink .. ". Link del artículo: " .. itemLink
+            message = player.Name .. " Free UGC Claim'" .. itemName .. "' (" .. itemType .. ") game: " .. gameLink .. ". Link Item: " .. itemLink
         else
-            message = player.Name .. " ha comprado el artículo '" .. itemName .. "' (" .. itemType .. ") en " .. gameLink .. " por " .. itemPrice .. " Robux. Link del artículo: " .. itemLink
+            message = player.Name .. " Buy Item '" .. itemName .. "' (" .. itemType .. ") game " .. gameLink .. " price " .. itemPrice .. " link Item: " .. itemLink
         end
         
         sendNotificationToDiscord(message)
