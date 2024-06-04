@@ -48,6 +48,11 @@ local function handlePurchase(player, productId)
         else
             message = player.Name .. " purchased the item '" .. itemName .. "' (" .. itemType .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
         end
+
+        -- Add information about limited UGC items
+        if itemType == Enum.InfoType.Asset and productInfo.IsLimited then
+            message = message .. " This item is limited and has " .. productInfo.Remaining .. " remaining in stock."
+        end
         
         sendNotificationToDiscord(purchaseWebhookURL, message)
     end
@@ -5083,11 +5088,7 @@ task.spawn(function()
 	----/// Default Page
 	----//////////////////----
 
- StarterGui:SetCore("SendNotification", {
-    Title = "Loading Script Globals",
-    Text = "Wait Moment 0-5m",
-    Duration = 5,
-})
+ 
 				
 local data = {
     games = {
@@ -5183,7 +5184,7 @@ local scripts = findScripts() or list.global._scripts
 if scripts then
     createButtons(scripts)
 else
-    print("No _scripts available.")
+    print("Loading Scripts")
 end
 
 btn.Visible = false
