@@ -20,7 +20,7 @@ Tp por Name:Beta/TpName
 Quitar Colision/NoClip:ParaMejorar/Nocolision
 Infinity Yield/Consola:Final/Consola
 Dex V3:Final/DexV3
-Spy Mobil:Final/Spy
+Rspy Mobil:Final/Spy
 Tp All Players OneClick:Final/TpAllPS
 Burbuja Invisible/bubble:Final/Bubble
 TP Click:Final/TpClick
