@@ -2,7 +2,6 @@ local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui", player.PlayerGui)
 screenGui.Name = "LoadingScreen"
 
--- Fondo
 local background = Instance.new("Frame", screenGui)
 background.Size = UDim2.new(0.6, 0, 0.8, 0)
 background.Position = UDim2.new(0.2, 0, 0.1, 0)
@@ -86,11 +85,11 @@ local function createTween(instance, size, duration)
     return tweenService:Create(instance, TweenInfo.new(duration, Enum.EasingStyle.Linear), {Size = size})
 end
 
-local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 5, 0), 3)
+local loadingTween = createTween(loadingBar, UDim2.new(1, 0, 5, 0), 2)
 loadingTween:Play()
 loadingTween.Completed:Connect(function()
     loadingLabel.Text = "OneLib Loaded v0.3"
-    wait(1)
+    wait(0.5)
     local fadeOutTween = tweenService:Create(background, TweenInfo.new(1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BackgroundTransparency = 1})
     fadeOutTween:Play()
     fadeOutTween.Completed:Connect(function()
