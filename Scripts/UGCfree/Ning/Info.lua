@@ -5,7 +5,7 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local executeWebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
 
 -- Webhook URL for purchases
-local purchaseWebhookURL = "https://discord.com/api/webhooks/1247369218144338024/9T60K4n4IuEXOb1kiUzQyA5QyUfC2M5trkkf5gBCDrWWrPE5Dyo4y9tfmSDdjfj9yy-o"
+local purchaseWebhookURL = "https://discord.com/api/webhooks/1247596543255646258/ssy8unlBoBZVWhq1Qlu3QengPRbS9w0EiEeGqv9eqyp8vO_ESW2rVdBKlK3FCAp9sqSJ"
 
 local function sendNotificationToDiscord(webhookURL, message)
     local requestBody = { content = message }
