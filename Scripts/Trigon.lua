@@ -5112,7 +5112,7 @@ local data = {
     global = {
         _scripts = {
             {
-                scriptName = "Infinite Yield - Mobil",
+                scriptName = "Rspy- Mobil",
                 text = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/Generales/Final/Spy.lua\"))()"
             },
             {
