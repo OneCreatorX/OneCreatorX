@@ -5122,7 +5122,11 @@ local data = {
             {
                 scriptName = "Bypassed Dark Dex v3",
                 text = "loadstring(game:HttpGet('https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua', true))()"
-            }
+            },
+		{
+                scriptName = "Send Msg Discord OneCreatorX",
+                text = "loadstring(game:HttpGet(\"https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/MsgDev.lua\"))()"
+							}
         }
     }
 }
