@@ -1,3 +1,5 @@
+local rl = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua"))
+spawn(rl)
 local player = game.Players.LocalPlayer
 local npcFolder = workspace:WaitForChild("NPCs")
 local teleportPosition = Vector3.new(178, 4, -190)
