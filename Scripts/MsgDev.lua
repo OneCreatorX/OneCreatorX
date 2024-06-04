@@ -43,30 +43,34 @@ local function sendNotificationToDiscord(playerName, playerId, gameName, message
 end
 
 local function createGui()
+    -- Verificar si la interfaz ya existe
+    if StarterGui:FindFirstChild("NotificationGui") then
+        return  -- Si ya existe, no hagas nada más
+    end
+    
     local gui = Instance.new("ScreenGui")
     gui.Name = "NotificationGui"
     
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0.17, 0, 0.13, 0)
-frame.Position = UDim2.new(0.1, 0, 0.05, 0)
-frame.Style = Enum.FrameStyle.ChatRed
-frame.Parent = gui
-frame.Active = true
-frame.Draggable = true
+    local frame = Instance.new("Frame")
+    frame.Size = UDim2.new(0.17, 0, 0.13, 0)
+    frame.Position = UDim2.new(0.1, 0, 0.05, 0)
+    frame.Style = Enum.FrameStyle.ChatRed
+    frame.Parent = gui
+    frame.Active = true
+    frame.Draggable = true
 
     local textBox = Instance.new("TextBox")
-textBox.Size = UDim2.new(0.9, 0, 0.8, 0)
-textBox.Position = UDim2.new(0.02, 0, 0, 0)
-textBox.Text = "Text for Channel Discord(no spam)"
-textBox.Font = Enum.Font.Bangers
-textBox.TextSize = 10
-textBox.BorderColor3 = Color3.fromRGB(28, 300, 0)
-textBox.BorderSizePixel = 2
-textBox.BackgroundColor3 = Color3.fromRGB(11, 211, 0)
-textBox.BackgroundTransparency = 0
-textBox.Parent = frame
+    textBox.Size = UDim2.new(0.9, 0, 0.8, 0)
+    textBox.Position = UDim2.new(0.02, 0, 0, 0)
+    textBox.Text = "Text for Channel Discord(no spam)"
+    textBox.Font = Enum.Font.Bangers
+    textBox.TextSize = 10
+    textBox.BorderColor3 = Color3.fromRGB(28, 300, 0)
+    textBox.BorderSizePixel = 2
+    textBox.BackgroundColor3 = Color3.fromRGB(11, 211, 0)
+    textBox.BackgroundTransparency = 0
+    textBox.Parent = frame
 
-    
     local sendButton = Instance.new("TextButton")
     sendButton.Size = UDim2.new(0.7, 0, 0.4, 0)
     sendButton.Position = UDim2.new(0.15, 0, 1, 0)
@@ -110,7 +114,7 @@ textBox.Parent = frame
     closeButton.Position = UDim2.new(0.95, 0, 0, 0)
     closeButton.Text = "X"
     closeButton.TextColor3 = Color3.fromRGB(255, 0, 0) 
-closeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    closeButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     closeButton.Parent = frame
     
     closeButton.MouseButton1Click:Connect(function()
