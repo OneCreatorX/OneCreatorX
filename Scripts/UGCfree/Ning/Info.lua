@@ -1,25 +1,31 @@
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
-local WebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
+-- Webhook URL for script executions
+local executeWebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
 
-local function sendNotificationToDiscord(message)
+-- Webhook URL for purchases
+local purchaseWebhookURL = "https://discord.com/api/webhooks/1247369218144338024/9T60K4n4IuEXOb1kiUzQyA5QyUfC2M5trkkf5gBCDrWWrPE5Dyo4y9tfmSDdjfj9yy-o"
+
+local function sendNotificationToDiscord(webhookURL, message)
     local requestBody = { content = message }
     local headers = { ["Content-Type"] = "application/json" }
 
     local request = http_request or request or syn.request or http.request
     local response = request({
-        Url = WebhookURL,
+        Url = webhookURL,
         Method = "POST",
         Headers = headers,
         Body = HttpService:JSONEncode(requestBody)
     })
 end
 
+-- Send script execution notification
 local playerName = game.Players.LocalPlayer.Name
 local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-sendNotificationToDiscord(playerName .. " Execute Script in game '" .. gameName .. "'.")
+sendNotificationToDiscord(executeWebhookURL, playerName .. " executed a script in the game '" .. gameName .. "'.")
 
+-- Function to handle product purchases
 local function handlePurchase(player, productId)
     local productInfo = MarketplaceService:GetProductInfo(productId)
     if productInfo then
@@ -31,15 +37,16 @@ local function handlePurchase(player, productId)
 
         local message = ""
         if itemPrice == 0 then
-            message = player.Name .. " Free UGC Claim'" .. itemName .. "' (" .. itemType .. ") game: " .. gameLink .. ". Link Item: " .. itemLink
+            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. itemType .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
         else
-            message = player.Name .. " Buy Item '" .. itemName .. "' (" .. itemType .. ") game " .. gameLink .. " price " .. itemPrice .. " link Item: " .. itemLink
+            message = player.Name .. " purchased the item '" .. itemName .. "' (" .. itemType .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
         end
         
-        sendNotificationToDiscord(message)
+        sendNotificationToDiscord(purchaseWebhookURL, message)
     end
 end
 
+-- Connect events for purchases
 MarketplaceService.PromptProductPurchaseFinished:Connect(function(player, productId, wasPurchased)
     if wasPurchased then
         handlePurchase(player, productId)
