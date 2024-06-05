@@ -2,7 +2,7 @@ local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local StarterGui = game.Players.LocalPlayer.PlayerGui
 
-local webhookURL = "https://discord.com/api/webhooks/1247617805172474007/3CZtUALti5agI2sBXu-VTeOvPkLDyyBuRULHmUzZeOEHhwn56k6xGgC2FhRnYMFZJSs4"
+local webhookURL = "https://discord.com/api/webhooks/1248001980664643735/J1ugDrhtJL8-7qiFokWA7MIA9q9xo0QWZcEVAWUm0wH12JpRgz4z1D-NVoOmEuUo5Em1"
 local forbiddenPatterns = {"@everyone", "@here", "/%w+"}
 local prefix = "[Message received]"
 
