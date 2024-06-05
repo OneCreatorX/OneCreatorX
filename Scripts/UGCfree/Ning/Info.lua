@@ -26,6 +26,10 @@ local function sanitizeMessage(message)
         return "[filtered]"
     end)
 
+    -- Sanitiza nombres de usuario que contengan "@everyone" o "@here"
+    message = message:gsub("@everyone", "[filtered]")
+    message = message:gsub("@here", "[filtered]")
+
     return message
 end
 
@@ -86,21 +90,20 @@ else
     warn("You are not allowed to send messages.")
 end
 
-local function handlePurchase(player, productId)
+local function handlePurchase(player, productId, productType)
     local productInfo = MarketplaceService:GetProductInfo(productId)
     if productInfo then
         local itemName = productInfo.Name
         local itemPrice = productInfo.PriceInRobux
-        local itemType = productInfo.ProductType
         local isCollectible = productInfo.IsLimited or productInfo.IsLimitedUnique
         local gameLink = "https://www.roblox.com/games/" .. game.PlaceId .. "/" .. game.Name
         local itemLink = "https://www.roblox.com/catalog/" .. productId
 
         local message = ""
         if itemPrice == 0 then
-            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
+            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or productType) .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
         else
-            message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
+            message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or productType) .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
         end
 
         sendNotificationToDiscord(PurchaseWebhookURL, message)
@@ -109,18 +112,24 @@ end
 
 MarketplaceService.PromptProductPurchaseFinished:Connect(function(player, productId, wasPurchased)
     if wasPurchased then
-        handlePurchase(player, productId)
+        handlePurchase(player, productId, "Product")
     end
 end)
 
 MarketplaceService.PromptPurchaseFinished:Connect(function(player, productId, wasPurchased)
     if wasPurchased then
-        handlePurchase(player, productId)
+        handlePurchase(player, productId, "Purchase")
     end
 end)
 
 MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gamePassId, wasPurchased)
     if wasPurchased then
-        handlePurchase(player, gamePassId)
+        handlePurchase(player, gamePassId, "GamePass")
+    end
+end)
+
+MarketplaceService.PromptBundlePurchaseFinished:Connect(function(player, bundleId, wasPurchased)
+    if wasPurchased and bundleId >= 0 then
+        handlePurchase(player, bundleId, "Bundle")
     end
 end)
