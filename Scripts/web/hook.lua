@@ -1,7 +1,6 @@
-local HttpService = game:GetService("HttpService")
-
 local function web(webhookURL)
     return function()
+        local HttpService = game:GetService("HttpService")
         local playerName = game.Players.LocalPlayer.Name
         local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
         
