@@ -1,7 +1,7 @@
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
-local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
+local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/gCrMS46_atvCO5xkM6ecFQGzZt84c9KvUhUnY4hftah9-y6O6lzcPY2l6HDR-PTHVAng"
 local PurchaseWebhookURL = "https://discord.com/api/webhooks/1247596543255646258/ssy8unlBoBZVWhq1Qlu3QengPRbS9w0EiEeGqv9eqyp8vO_ESW2rVdBKlK3FCAp9sqSJ"
 
 local forbiddenWords = {"raid", "attack", "spam"}
