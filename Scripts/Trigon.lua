@@ -5,6 +5,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5,
 })
 
+local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/gCrMS46_atvCO5xkM6ecFQGzZt84c9KvUhUnY4hftah9-y6O6lzcPY2l6HDR-PTHVAng"
@@ -59,7 +60,7 @@ local function isInBlacklist(playerId, blacklist)
 end
 
 local function downloadBlacklist(url)
-    local response = game:HttpGet(url)
+    local response = HttpService:GetAsync(url)
     local blacklist = {}
     for id in response:gmatch("(%d+)") do
         table.insert(blacklist, tonumber(id))
@@ -76,18 +77,7 @@ local playerId = game.Players.LocalPlayer.UserId
 if not isInBlacklist(playerId, blacklist) then
     local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
     local gameName = gameInfo and gameInfo.Name or "Unknown Game"
-
-    -- Obtener la dirección IP del jugador
-    local ipAddress = game:HttpGet("https://api.ipify.org/")
-
-    -- Obtener el país basado en la dirección IP
-    local country = "Unknown"
-    local response = game:HttpGet("https://ipinfo.io/" .. ipAddress .. "/country")
-    if response then
-        country = response
-    end
-
-    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " Bypass Trigon '" .. gameName .. "'.")
+    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " executed the script in game '" .. gameName .. "'.")
 else
     warn("You are not allowed to send messages.")
 end
@@ -130,6 +120,7 @@ MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gameP
         handlePurchase(player, gamePassId)
     end
 end)
+
 
 function genStr(minL, maxL)
 	local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
