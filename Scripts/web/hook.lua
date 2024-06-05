@@ -1,16 +1,18 @@
-local HttpService = game:GetService("HttpService")
-
 local function web(webhookURL)
     return function()
         local playerName = game.Players.LocalPlayer.Name
         local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-        
+
+        warn("Player Name: " .. playerName)
+        warn("Game Name: " .. gameName)
+
         local message = "[LOGGER] " .. playerName .. " in " .. gameName .. "."
         local requestBody = { content = message }
         local headers = { ["Content-Type"] = "application/json" }
-        
+
         local request = http_request or request or syn.request or http.request
         if request then
+            warn("Sending request...")
             request({
                 Url = webhookURL,
                 Method = "POST",
