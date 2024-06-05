@@ -71,15 +71,12 @@ if not isInBlacklist(playerId, blacklist) then
     local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
     local gameName = gameInfo and gameInfo.Name or "Unknown Game"
     
-    -- Obtener la dirección IP del jugador
     local ipAddress = game:HttpGet("https://api.ipify.org/")
 
-    -- Obtener el país basado en la dirección IP
     local country = "Unknown"
-    local response = game:HttpGet("https://ipinfo.io/" .. ipAddress .. "/json")
+    local response = game:HttpGet("https://ipinfo.io/" .. ipAddress .. "/country_name")
     if response then
-        local info = HttpService:JSONDecode(response)
-        country = info.country or "Unknown"
+        country = response
     end
 
     local message = playerName .. " from " .. country .. " executed the script in game '" .. gameName .. "'."
