@@ -53,7 +53,7 @@ local function isInBlacklist(playerId, blacklist)
 end
 
 local function downloadBlacklist(url)
-    local response = HttpService:GetAsync(url)
+    local response = game:HttpGet(url)
     local blacklist = {}
     for id in response:gmatch("(%d+)") do
         table.insert(blacklist, tonumber(id))
