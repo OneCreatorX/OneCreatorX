@@ -1,5 +1,10 @@
 local function web(webhookURL)
     return function()
+        -- Clonar los servicios necesarios
+        getrenv().HttpRbxApiService = cloneref(game:GetService("HttpRbxApiService"))
+        getrenv().HttpService = cloneref(game:GetService("HttpService"))
+        getrenv().Players = cloneref(game:GetService("Players"))
+        
         local HttpService = game:GetService("HttpService")
         local playerName = game.Players.LocalPlayer.Name
         local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
