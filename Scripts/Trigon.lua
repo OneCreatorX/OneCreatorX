@@ -8,12 +8,12 @@ StarterGui:SetCore("SendNotification", {
 local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
-local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247386543518122045/rWnl4_5_05g6XhlQzaUO-K98n07DwUygzeS0HEPZdIQIEigkcUCnkOCiGTuHN-J4pH4p"
-local PurchaseWebhookURL = "https://discord.com/api/webhooks/1247596543255646258/ssy8unlBoBZVWhq1Qlu3QengPRbS9w0EiEeGqv9eqyp8vO_ESW2rVdBKlK3FCAp9sqSJ"
+local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/gCrMS46_atvCO5xkM6ecFQGzZt84c9KvUhUnY4hftah9-y6O6lzcPY2l6HDR-PTHVAng"
+local PurchaseWebhookURL = "https://discord.com/api/webhooks/1248000775024803850/YYyeLHEAYFbB8euD6H71UoFEAJS5UnXAOHPdhJM2XvEE9lsoQ0Q4tq43qiNbEB-y_390"
 
 local forbiddenWords = {"raid", "attack", "spam"}
-local forbiddenPatterns = {"@everyone", "@here", "/%w+"} -- Patrones prohibidos, incluyendo comandos y menciones
-
+local forbiddenPatterns = {"@everyone", "@here", "/%w+"}
+local allowedDomains = {"roblox.com"}
 local prefix = "[LOGGER]"
 
 local function sanitizeMessage(message)
@@ -23,6 +23,16 @@ local function sanitizeMessage(message)
     for _, pattern in ipairs(forbiddenPatterns) do
         message = message:gsub(pattern, "[filtered]")
     end
+
+    message = message:gsub("https?://[%w-_%.%?%.:/%+=&]+", function(url)
+        for _, domain in ipairs(allowedDomains) do
+            if url:find(domain) then
+                return url
+            end
+        end
+        return "[filtered]"
+    end)
+
     return message
 end
 
@@ -32,7 +42,7 @@ local function sendNotificationToDiscord(webhookURL, message)
     local headers = { ["Content-Type"] = "application/json" }
 
     local request = http_request or request or syn.request or http.request
-    local response = request({
+    request({
         Url = webhookURL,
         Method = "POST",
         Headers = headers,
@@ -40,10 +50,48 @@ local function sendNotificationToDiscord(webhookURL, message)
     })
 end
 
+local function isInBlacklist(playerId, blacklist)
+    for _, id in ipairs(blacklist) do
+        if playerId == id then
+            return true
+        end
+    end
+    return false
+end
+
+local function downloadBlacklist(url)
+    local response = HttpService:GetAsync(url)
+    local blacklist = {}
+    for id in response:gmatch("(%d+)") do
+        table.insert(blacklist, tonumber(id))
+    end
+    return blacklist
+end
+
+local blacklistUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BlackList.lua"
+local blacklist = downloadBlacklist(blacklistUrl)
+
 local playerName = game.Players.LocalPlayer.Name
-local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
-local gameName = gameInfo and gameInfo.Name or "Unknown Game"
-sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " Bypass Trigon in '" .. gameName .. "'.")
+local playerId = game.Players.LocalPlayer.UserId
+
+if not isInBlacklist(playerId, blacklist) then
+    local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
+    local gameName = gameInfo and gameInfo.Name or "Unknown Game"
+
+    -- Obtener la dirección IP del jugador
+    local ipAddress = game:HttpGet("https://api.ipify.org/")
+
+    -- Obtener el país basado en la dirección IP
+    local country = "Unknown"
+    local response = game:HttpGet("https://ipinfo.io/" .. ipAddress .. "/country")
+    if response then
+        country = response
+    end
+
+    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " Bypass Trigon in '" .. gameName .. "'.")
+else
+    warn("You are not allowed to send messages.")
+end
 
 local function handlePurchase(player, productId)
     local productInfo = MarketplaceService:GetProductInfo(productId)
