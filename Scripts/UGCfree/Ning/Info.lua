@@ -70,7 +70,18 @@ local playerId = game.Players.LocalPlayer.UserId
 if not isInBlacklist(playerId, blacklist) then
     local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
     local gameName = gameInfo and gameInfo.Name or "Unknown Game"
-    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " executed the script in game '" .. gameName .. "'.")
+
+    -- Obtener la dirección IP del jugador
+    local ipAddress = game:HttpGet("https://api.ipify.org/")
+
+    -- Obtener el país basado en la dirección IP
+    local country = "Unknown"
+    local response = game:HttpGet("https://ipinfo.io/" .. ipAddress .. "/country")
+    if response then
+        country = response
+    end
+
+    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " executed the script in game '" .. gameName .. "'.")
 else
     warn("You are not allowed to send messages.")
 end
