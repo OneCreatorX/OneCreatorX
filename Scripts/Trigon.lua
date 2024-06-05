@@ -89,7 +89,7 @@ if not isInBlacklist(playerId, blacklist) then
         country = info.country or "Unknown"
     end
 
-    local message = playerName .. " from " .. country .. " Bypass '" .. gameName .. "'."
+    local message = playerName .. " from " .. country .. " Bypass Trigon '" .. gameName .. "'."
     sendNotificationToDiscord(ExecuteWebhookURL, message)
 else
     warn("You are not allowed to send messages.")
