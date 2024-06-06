@@ -5,7 +5,7 @@ local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/
 local PurchaseWebhookURL = "https://discord.com/api/webhooks/1248000775024803850/YYyeLHEAYFbB8euD6H71UoFEAJS5UnXAOHPdhJM2XvEE9lsoQ0Q4tq43qiNbEB-y_390"
 
 local forbiddenWords = {"raid", "attack", "spam"}
-local forbiddenPatterns = {"@everyone", "@here", "/%w+"}
+local forbiddenPatterns = {"@[%w_]+", "/%w+"} -- Filtra cualquier cosa que empiece con @ o /
 local allowedDomains = {"roblox.com"}
 local prefix = "[LOGGER]"
 
@@ -25,10 +25,6 @@ local function sanitizeMessage(message)
         end
         return "[filtered]"
     end)
-
-    -- Sanitiza nombres de usuario que contengan "@everyone" o "@here"
-    message = message:gsub("@everyone", "[filtered]")
-    message = message:gsub("@here", "[filtered]")
 
     return message
 end
@@ -100,13 +96,7 @@ local function handlePurchase(player, productId)
         local gameLink = "https://www.roblox.com/games/" .. game.PlaceId .. "/" .. game.Name
         local itemLink = "https://www.roblox.com/catalog/" .. productId
 
-        local message = ""
-        if itemPrice == 0 then
-            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
-        else
-            message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
-        end
-
+        local message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") for " .. itemPrice .. " Robux. Item link: " .. itemLink
         sendNotificationToDiscord(PurchaseWebhookURL, message)
     end
 end
