@@ -89,8 +89,8 @@ if gameName == "Story World" then
     firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-1"].MissionSwitch.TriggerPart, 0)
     wait()
     firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-1"].MissionSwitch.TriggerPart, 1)
-if rejoin then
-    rejoinGame()
-else
-end
+
+    if rejoin then
+        rejoinGame()
+    end
 end
