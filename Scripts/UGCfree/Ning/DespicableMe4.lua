@@ -19,6 +19,7 @@ local function writeConfig(config)
         writefile(fileName, HttpService:JSONEncode(config))
     end)
     if not success then
+        warn("Failed to write configuration file: " .. tostring(result))
     end
 end
 
@@ -38,51 +39,56 @@ end
 
 gameName = cleanGameName(gameName)
 
-local p = game.Players.LocalPlayer
-local sg = UL:CrSG("Default")
-local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
+if gameName == "Story World" then
+    local p = game.Players.LocalPlayer
+    local sg = UL:CrSG("Default")
+    local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
 
-local function rejoinGame()
-    local Players = game:GetService("Players")
-    local TeleportService = game:GetService("TeleportService")
-    local PlaceId = game.PlaceId
-    local JobId = game.JobId
+    local function rejoinGame()
+        local Players = game:GetService("Players")
+        local TeleportService = game:GetService("TeleportService")
+        local PlaceId = game.PlaceId
+        local JobId = game.JobId
 
-    if rejoin then
-        if #Players:GetPlayers() <= 1 then
-            Players.LocalPlayer:Kick("\nRejoining...")
-            wait()
-            TeleportService:Teleport(PlaceId, Players.LocalPlayer)
-        else
-            TeleportService:TeleportToPlaceInstance(PlaceId, JobId, Players.LocalPlayer)
+        if rejoin then
+            if #Players:GetPlayers() <= 1 then
+                Players.LocalPlayer:Kick("\nRejoining...")
+                wait()
+                TeleportService:Teleport(PlaceId, Players.LocalPlayer)
+            else
+                TeleportService:TeleportToPlaceInstance(PlaceId, JobId, Players.LocalPlayer)
+            end
         end
     end
-end
 
-UL:AddBtn(cfrm, "Auto Rejoin/false-true", function()
-    rejoin = not rejoin
-    config.rejoin = rejoin
-    writeConfig(config)
-if rejoin then
-rejoinGame()
-else
-end
-end)
+    UL:AddBtn(cfrm, "Auto Rejoin/false-true", function()
+        rejoin = not rejoin
+        config.rejoin = rejoin
+        writeConfig(config)
+        if rejoin then
+            rejoinGame()
+        end
+    end)
 
-UL:AddText(crFrm, "By Script: OneCreatorX ")
-UL:AddText(crFrm, "Create Script: 05/06/24 ")
-UL:AddText(crFrm, "Update Script: --/--/--")
-UL:AddText(crFrm, "Script Version: 0.1")
-UL:AddBtn(crFrm, "Copy link YouTube", function() setclipboard("https://youtube.com/@onecreatorx") end)
-UL:AddBtn(crFrm, "Copy link Discord", function() setclipboard("https://discord.com/invite/UNJpdJx7c4") end)
+    UL:AddText(crFrm, "By Script: OneCreatorX ")
+    UL:AddText(crFrm, "Create Script: 05/06/24 ")
+    UL:AddText(crFrm, "Update Script: --/--/--")
+    UL:AddText(crFrm, "Script Version: 0.1")
+    UL:AddBtn(crFrm, "Copy link YouTube", function() setclipboard("https://youtube.com/@onecreatorx") end)
+    UL:AddBtn(crFrm, "Copy link Discord", function() setclipboard("https://discord.com/invite/UNJpdJx7c4") end)
 
-for _, obj in ipairs(workspace.BananaSpawnPoints:GetDescendants()) do
-    if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
-        local plr = game.Players.LocalPlayer
-        firetouchinterest(plr.Character.HumanoidRootPart, obj, 0)
-        wait()
-        firetouchinterest(plr.Character.HumanoidRootPart, obj, 1)
+    for _, obj in ipairs(workspace.BananaSpawnPoints:GetDescendants()) do
+        if obj:IsA("BasePart") and obj:FindFirstChild("TouchInterest") then
+            local plr = game.Players.LocalPlayer
+            firetouchinterest(plr.Character.HumanoidRootPart, obj, 0)
+            wait()
+            firetouchinterest(plr.Character.HumanoidRootPart, obj, 1)
+        end
     end
-end
 
-rejoinGame()
+    firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-1"].MissionSwitch.TriggerPart, 0)
+    wait()
+    firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-1"].MissionSwitch.TriggerPart, 1)
+
+    rejoinGame()
+end
