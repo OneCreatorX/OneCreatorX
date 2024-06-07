@@ -115,6 +115,20 @@ end
  wait()
     end
 end)
+UL:AddTBtn(cfrm, "Auto Claim Gift ", taaa, function(b)
+    taaa = b
+    while taaa do
+for i = 1, 12 do
+local args = {
+    [1] = "OnlineGift00" .. i
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Stats"):WaitForChild("Re_ClaimOnline"):FireServer(unpack(args))
+wait(1)
+end
+wait(0.2)
+end
+end)
 
 UL:AddTBtn(cfrm, "Auto Equipe Better all", yoa, function(b)
     yoa = b
