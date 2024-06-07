@@ -22,6 +22,45 @@ UL:AddTBox(cfrm, "Mission Obby Finish 1 to 4:", function(inputText)
     if num and num >= 1 and num <= 4 then
         local mapPoint = "Lobby-" .. num
         
+        if num == 3 then
+            -- Specific commands for Lobby-3
+            local args = {
+                [1] = {
+                    ["Success"] = true
+                }
+            }
+
+            local function fireLockedDoorRE(trapNumber, doorName)
+                local door = workspace:WaitForChild("Maps")
+                                    :WaitForChild(mapPoint)
+                                    :WaitForChild("Trap")
+                                    :WaitForChild(tostring(trapNumber))
+                                    :WaitForChild(doorName)
+                                    :WaitForChild("DoorControl")
+                                    :WaitForChild("InteractRoot")
+                                    :WaitForChild("LockedDoorRE")
+                door:FireServer(unpack(args))
+            end
+
+            fireLockedDoorRE(6, "Door_Nailboard_Complete")
+            wait()
+            fireLockedDoorRE(1, "Door_Nailboard_Complete")
+            wait()
+            fireLockedDoorRE(2, "Door_Nailboard_Complete")
+            wait()
+            fireLockedDoorRE(2, "Door_Nailboard_Thorn")
+            wait()
+            fireLockedDoorRE(5, "Door_Nailboard_Thorn")
+            wait()
+            fireLockedDoorRE(1, "Door_Nailboard_Complete")
+        elseif num == 4 then
+            
+            p.Character.HumanoidRootPart.CFrame = CFrame.new(-3128, 9, -405)
+      p.Character.HumanoidRootPart.Anchored = true
+    wait(3)
+   p.Character.HumanoidRootPart.Anchored = false
+        end
+
         local missionSwitch = workspace.Maps[mapPoint] and workspace.Maps[mapPoint].MissionSwitch and workspace.Maps[mapPoint].MissionSwitch.TriggerPart
         if missionSwitch then
             firetouchinterest(p.Character.HumanoidRootPart, missionSwitch, 0)
