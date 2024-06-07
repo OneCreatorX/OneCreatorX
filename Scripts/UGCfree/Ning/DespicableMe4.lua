@@ -61,7 +61,23 @@ local rejoin = config.rejoin
             end
         end
     end
+    
+UL:AddBtn(cfrm, "Rejoin", function()
+            local Players = game:GetService("Players")
+        local TeleportService = game:GetService("TeleportService")
+        local PlaceId = game.PlaceId
+        local JobId = game.JobId
+            
+if #Players:GetPlayers() <= 1 then
+                Players.LocalPlayer:Kick("\nRejoining...")
+                wait()
+                TeleportService:Teleport(PlaceId, Players.LocalPlayer)
+            else
+                TeleportService:TeleportToPlaceInstance(PlaceId, JobId, Players.LocalPlayer)
+            end
+        end)
 
+    
     UL:AddBtn(cfrm, "Auto Rejoin/false-true", function()
         rejoin = not rejoin
         config.rejoin = rejoin
