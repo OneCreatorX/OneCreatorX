@@ -42,6 +42,27 @@ end)
 
 setreadonly(mtNpcDamage, true)
 
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local remoteEventNpcDamage = ReplicatedStorage.Events:WaitForChild("Tower"):WaitForChild("Re_NpcDamage")
+local originalFireServerNpcDamage = remoteEventNpcDamage.FireServer
+
+local mtNpcDamage = getrawmetatable(remoteEventNpcDamage)
+local oldNamecallNpcDamage = mtNpcDamage.__namecall
+setreadonly(mtNpcDamage, false)
+
+mtNpcDamage.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+    if method == "FireServer" and self == remoteEventNpcDamage and a then
+        
+        return nil
+    end
+    return oldNamecallNpcDamage(self, ...)
+end)
+
+setreadonly(mtNpcDamage, true)
+
+
 local remoteEventTrainPower = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Game"):WaitForChild("Re_TrainPower")
 local originalFireServerTrainPower = remoteEventTrainPower.FireServer
 
@@ -100,28 +121,29 @@ UL:AddTBtn(cfrm, "Auto Atack NPC ", ya, function(b)
     ya = b
     while ya do
 for _, npc in (workspace.FightNpcs:GetChildren()) do
-if npc:IsA("Model") then
-for i = 1, 20 do
+if npc:IsA("Model") and npc:FindFirstChild("HumanoidRootPart") then
+for i = 1, 5 do
             local args = {
     [1] = tostring(npc.Name),
     [2] = i
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Fight"):WaitForChild("Re_TakeDamage"):FireServer(unpack(args))
-                        local args = {
+local args = {
     [1] = 1
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_TakeDamage"):FireServer(unpack(args))
-                        
+
 end 
-                   
             wait()
         end
    end
- wait()
+wait(0.1)
     end
+wait(0.1)
 end)
+
 UL:AddTBtn(cfrm, "Auto Claim Gift ", taaa, function(b)
     taaa = b
     while taaa do
@@ -149,8 +171,8 @@ end)
 
 UL:AddText(crFrm, "By Script: OneCreatorX ")
 UL:AddText(crFrm, "Create Script: 07/06/24 ")
-UL:AddText(crFrm, "Update Script: --/--/--")
-UL:AddText(crFrm, "Script Version: 0.1")
+UL:AddText(crFrm, "Update Script: 07/06/24")
+UL:AddText(crFrm, "Script Version: 0.5")
 UL:AddBtn(crFrm, "Copy link YouTube", function() setclipboard("https://youtube.com/@onecreatorx") end)
 UL:AddBtn(crFrm, "Copy link Discord", function() setclipboard("https://discord.com/invite/UNJpdJx7c4") end)
 
