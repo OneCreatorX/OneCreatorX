@@ -86,11 +86,12 @@ local rejoin = config.rejoin
             firetouchinterest(plr.Character.HumanoidRootPart, obj, 1)
         end
     end
-
+wait(0.2)
 local p = game.Players.LocalPlayer
     firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-1"].MissionSwitch.TriggerPart, 0)
-    wait()
+    wait(0.1)
     firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-1"].MissionSwitch.TriggerPart, 1)
+    wait(0.5)
 if rejoin then
     rejoinGame()
 else
