@@ -78,13 +78,10 @@ if #Players:GetPlayers() <= 1 then
         end)
 
     
-    UL:AddBtn(cfrm, "Auto Rejoin/false-true", function()
+    UL:AddBtn(cfrm, " Save Auto Rejoin/false-true", function()
         rejoin = not rejoin
         config.rejoin = rejoin
         writeConfig(config)
-        if rejoin then
-            rejoinGame()
-        end
     end)
 
     UL:AddText(crFrm, "By Script: OneCreatorX ")
