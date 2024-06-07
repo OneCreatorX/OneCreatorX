@@ -108,7 +108,14 @@ for i = 1, 20 do
 }
 
 game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Fight"):WaitForChild("Re_TakeDamage"):FireServer(unpack(args))
+                        local args = {
+    [1] = 1
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Tower"):WaitForChild("Re_TakeDamage"):FireServer(unpack(args))
+                        
 end 
+                   
             wait()
         end
    end
