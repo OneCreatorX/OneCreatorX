@@ -96,7 +96,7 @@ wait(0.1)
 firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-2"].MissionSwitch.TriggerPart, 0)
     wait(0.1)
     firetouchinterest(p.Character.HumanoidRootPart, workspace.Maps["Lobby-2"].MissionSwitch.TriggerPart, 1)
-    wait(0.3)
+    wait(0.6)
 if rejoin then
     rejoinGame()
 else
