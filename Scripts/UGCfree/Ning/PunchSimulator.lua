@@ -146,7 +146,7 @@ local function nuevaFuncionFireServer(...)
     isCallingFireServer = false
 end
 
-local mt = getrawmetatable(game)
+local mt = getrawmetatable(CraftingEvent)
 local oldNamecall = mt.__namecall
 setreadonly(mt, false)
 
@@ -259,7 +259,13 @@ if ja then
 end
 end
 
-local mt = getrawmetatable(game)
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Events = ReplicatedStorage:WaitForChild("Events")
+local AutoFight = Events:WaitForChild("AutoFight")
+local originalFireServer = AutoFight.FireServer
+
+
+local mt = getrawmetatable(AutoFight)
 local oldNamecall = mt.__namecall
 setreadonly(mt, false)
 
@@ -277,13 +283,7 @@ sendNotification("Use Auto Fight", "Button Game for farm", 5)
 end
 end)    
 
-
-
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local Events = ReplicatedStorage:WaitForChild("Events")
-local AutoFight = Events:WaitForChild("AutoFight")
-local originalFireServer = AutoFight.FireServer
-
+ñ
 local function newFireServer(self, ...)
     local args = {...}
     arg2 = args[2]
@@ -408,7 +408,7 @@ Start()
 local targetRemoteEventName = "PartyEvent"
 local PartyEvent = ReplicatedStorage:WaitForChild("Events"):WaitForChild(targetRemoteEventName)
 
-local mt = getrawmetatable(game)
+local mt = getrawmetatable(PartyEvent)
 local oldNamecall = mt.__namecall
 setreadonly(mt, false)
 
@@ -453,11 +453,9 @@ local function setupCharacterMonitoring(player)
     end
 end
 
--- Configurar el monitoreo del personaje del jugador
 local player = game.Players.LocalPlayer
 setupCharacterMonitoring(player)
 
--- Bucle principal con protección de pcall
 while true do
     local success, err = pcall(function()
         local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
