@@ -100,7 +100,7 @@ if not isInBlacklist(playerId, blacklist) then
         end
     end
     
-    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " executed the script in game '" .. gameName .. "'.")
+    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " Bypass Trigon in '" .. gameName .. "'.")
 else
     warn("You are not allowed to send messages.")
 end
