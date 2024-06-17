@@ -230,8 +230,8 @@ game.Players.LocalPlayer.PlayerScripts.DeathEffectsHandler.Disabled = true
 
 UL:AddText(crFrm, "By Script: OneCreatorX ")
 UL:AddText(crFrm, "Create Script: 20/05/24 ")
-UL:AddText(crFrm, "Update Script: 30/05/24")
-UL:AddText(crFrm, "Script Version: 0.4")
+UL:AddText(crFrm, "Update Script: 17/06/24")
+UL:AddText(crFrm, "Script Version: 0.7")
 UL:AddBtn(crFrm, "Send text for Discord", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/MsgDev.lua"))() end)
 UL:AddBtn(crFrm, "Copy link YouTube", function() copy("https://youtube.com/@onecreatorx") end)
 UL:AddBtn(crFrm, "Copy link Discord", function() copy("https://discord.com/invite/UNJpdJx7c4") end)
@@ -423,6 +423,83 @@ end)
 
 setreadonly(mt, true)
 
+local claim = false
+local currentEvent = nil
+local eventStats = nil
+
+function claimUGC()
+if claim then
+    local args = { currentEvent }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("ClickedEventClaimButton"):FireServer(unpack(args))
+end
+end
+
+function reintentar()
+    wait(1)
+if claim then
+    local args = { currentEvent }
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("RequestEventData"):FireServer(unpack(args))
+end
+end
+
+local function hookRequestEventData()
+    local mt = getrawmetatable(game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("RequestEventData"))
+    local oldFireServer = mt.__namecall
+
+    setreadonly(mt, false)
+
+    mt.__namecall = newcclosure(function(self, ...)
+        local args = {...}
+        local method = getnamecallmethod()
+
+        if method == "FireServer" and self.Name == "RequestEventData" and claim then
+            currentEvent = args[1]
+        end
+
+        return oldFireServer(self, ...)
+    end)
+
+    setreadonly(mt, true)
+end
+
+local function hookSendEventQuestStats()
+    game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("SendEventQuestStats").OnClientEvent:Connect(function(eventName, stats)
+        if eventName == currentEvent and claim then
+            eventStats = stats
+            
+            local allQuestsComplete = true
+            for _, quest in pairs(stats) do
+                if quest.current < quest.required then
+                    allQuestsComplete = false
+                    spawn(reintentar)
+                    break
+                end
+            end
+            
+            if allQuestsComplete then
+                spawn(claimUGC)
+            end
+        end
+    end)
+end
+
+
+    
+    UL:AddTBtn(cfrm, "Auto GET and Claim UGC", false, function(state)
+ claim = not claim 
+        if claim then
+    reintentar()
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Auto Get and claim UGC",
+    Text = "(Auto Cancel Items no free)",
+    Duration = 5,
+})
+        end
+end)
+
+hookRequestEventData()
+hookSendEventQuestStats()
 
 local function onPlayerDeath()
     wait(0.8)
@@ -432,7 +509,6 @@ local function onPlayerDeath()
     wait(1)
 end
 
--- Función para monitorear la salud del Humanoid del jugador
 local function monitorPlayerHealth(humanoid)
     humanoid.HealthChanged:Connect(function(health)
         if health <= 0 then
@@ -453,11 +529,9 @@ local function setupCharacterMonitoring(player)
     end
 end
 
--- Configurar el monitoreo del personaje del jugador
 local player = game.Players.LocalPlayer
 setupCharacterMonitoring(player)
-
--- Bucle principal con protección de pcall
+spawn(function()
 while true do
     local success, err = pcall(function()
         local maxText = Player.PlayerGui.DungeonMain.Frame.Wave.WaveNumber.Text
@@ -491,3 +565,88 @@ while true do
         
     end
 end
+    end)
+
+
+
+local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+
+local notificationSent = {
+    buyButton = false,
+    cancelButton = false
+}
+
+local function sendNotification(title, text, duration)
+    if not notificationSent[title] then
+        StarterGui:SetCore("SendNotification", {
+            Title = title,
+            Text = text,
+            Duration = duration,
+        })
+        notificationSent[title] = true
+    end
+end
+
+local function clickCancelButton(purchasePrompt)
+    local cancelButtonText = nil
+    local zeroTextButton = nil
+
+    for _, descendant in ipairs(purchasePrompt:GetDescendants()) do
+        if descendant:IsA("TextLabel") and descendant.Name == "Text" then
+            local text = descendant.Text:lower()
+            if text == "cancelar" or text == "cancel" then
+                cancelButtonText = text
+            elseif text == "0" then
+                zeroTextButton = descendant
+            end
+        end
+    end
+
+    if zeroTextButton and claim then
+        local buttonCenterX = zeroTextButton.AbsolutePosition.X + zeroTextButton.AbsoluteSize.X / 0.5
+        local buttonCenterY = zeroTextButton.AbsolutePosition.Y + zeroTextButton.AbsoluteSize.Y / 0.5
+        
+        game:GetService("VirtualInputManager"):SendMouseButtonEvent(buttonCenterX, buttonCenterY, 0, true, game, 1)
+        game:GetService("VirtualInputManager"):SendMouseButtonEvent(buttonCenterX, buttonCenterY, 0, false, game, 1)
+        sendNotification("FREE UGC Available", "Auto Claim Accept. By:OneCreatorX", 5)
+    elseif cancelButtonText then
+        for _, descendant in ipairs(purchasePrompt:GetDescendants()) do
+            if descendant:IsA("TextLabel") and descendant.Name == "Text" and descendant.Text:lower() == cancelButtonText then
+                local buttonCenterX = descendant.AbsolutePosition.X + descendant.AbsoluteSize.X / 0.5
+                local buttonCenterY = descendant.AbsolutePosition.Y + descendant.AbsoluteSize.Y / 0.5
+                
+                game:GetService("VirtualInputManager"):SendMouseButtonEvent(buttonCenterX, buttonCenterY, 0, true, game, 1)
+                game:GetService("VirtualInputManager"):SendMouseButtonEvent(buttonCenterX, buttonCenterY, 0, false, game, 1)
+                sendNotification("NO FREE UGC", "Auto Claim Decline. By:OneCreatorX", 5)
+                break
+            end
+        end
+    end
+end
+
+local coreGui = game:GetService("CoreGui")
+local purchasePrompt = coreGui:WaitForChild("PurchasePrompt")
+
+RunService.Heartbeat:Connect(function()
+if claim then
+    local buttonsFound = false
+
+    for _, descendant in ipairs(purchasePrompt:GetDescendants()) do
+        if descendant:IsA("TextLabel") and descendant.Name == "Text" then
+            buttonsFound = true
+            break
+        end
+    end
+
+    if not buttonsFound then
+        notificationSent = {
+            buyButton = false,
+            cancelButton = false
+        }
+    end
+
+    clickCancelButton(purchasePrompt)
+end
+end)
+
