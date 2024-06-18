@@ -52,6 +52,22 @@ UL:AddTBox(OF, "Item Purchase Multiplier: 1", function(text)
     end
 end)
 
+
+    UL:AddTBtn(cfrm, "Auto Get Gift time", kyo, function(kay)
+         kyo = ky
+        while kyo do
+            wait(1)
+            for i = 1, 12 do
+                local args = {
+    [1] = i
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("PlaytimeRewardUpdateEvent"):FireServer(unpack(args))
+                wait(1)
+            end
+        end
+    end)
+
 local enviarAlServidor = false
 
 local function getFullName(instance)
