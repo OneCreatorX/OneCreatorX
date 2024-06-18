@@ -492,7 +492,7 @@ end
 local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCore("SendNotification", {
     Title = "Auto Get and claim UGC",
-    Text = "(Auto Cancel Items no free)",
+    Text = "No Support in all executors",
     Duration = 5,
 })
         end
