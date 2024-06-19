@@ -52,9 +52,9 @@ UL:AddTBox(OF, "Item Purchase Multiplier: 1", function(text)
     end
 end)
 
-
-    UL:AddTBtn(cfrm, "Auto Get Gift time", kyo, function(kay)
-         kyo = kay
+local kyo = false
+    UL:AddTBtn(cfrm, "Auto Get Gift time", false, function()
+         kyo = not kyo
         while kyo do
             wait(1)
             for i = 1, 12 do
