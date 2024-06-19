@@ -54,7 +54,7 @@ end)
 
 
     UL:AddTBtn(cfrm, "Auto Get Gift time", kyo, function(kay)
-         kyo = ky
+         kyo = kay
         while kyo do
             wait(1)
             for i = 1, 12 do
