@@ -228,8 +228,7 @@ spawn(function()
       local player = game.Players.LocalPlayer
       if player.Character then
         local p = player.Character.PrimaryPart
-        for _, drone in pairs(ultraman.DroneSwarm:GetDescendants()) do
-          if drone.Name:find("Drone") then
+        for _, drone in pairs(ultraman.DroneSwarm.Back:GetChildren()) do
 pcall(function()
             p.CFrame = drone.PrimaryPart.CFrame + Vector3.new(0, 2, 0)
 end)
@@ -238,8 +237,7 @@ end)
               [2] = 500
             }
             game:GetService("ReplicatedStorage"):WaitForChild("RemoteEvents"):WaitForChild("DroneHit"):FireServer(unpack(args))
-end
-        end
+end 
       end
     end
 
