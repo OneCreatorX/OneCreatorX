@@ -69,6 +69,13 @@ end)
 UL:AddBtn(MOF, "JesterUi", function() 
     pp.JesterUi.Enabled = true 
     showAllFrames(pp.JesterUi)
+        local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Visible all efects",
+    Text = "5s",
+    Duration = 5,
+})
+        
     wait(0.5)
     for i = 1, 10 do
         local cardFrame = pp.JesterUi.Frame.cardframe[i]
@@ -76,13 +83,7 @@ UL:AddBtn(MOF, "JesterUi", function()
 
         if lockedElement and lockedElement.Visible then
             lockedElement.Visible = false
-            local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-    Title = "Visible all efects",
-    Text = "5s",
-    Duration = 5,
-})
-
+            
 spawn(function()
             wait(5)
             lockedElement.Visible = true
