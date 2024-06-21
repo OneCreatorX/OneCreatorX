@@ -17,6 +17,85 @@ local p = game.Players.LocalPlayer
 local sg = UL:CrSG("Defauld")
 local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
 
+local pp = p.PlayerGui
+
+local function showAllFrames(gui)
+    if gui and gui:IsA("ScreenGui") then
+        for _, frame in ipairs(gui:GetChildren()) do
+            if frame:IsA("Frame") then
+                frame.Visible = true
+            end
+        end
+    end
+end
+
+local MOB, MOF = UL:AddOBtn(cfrm, "UI Structures")
+UL:AddBtn(MOF, "AltarUI", function() 
+    pp.AltarUI.Enabled = true 
+    showAllFrames(pp.AltarUI)
+end)
+UL:AddBtn(MOF, "GemShop", function() 
+    pp.GemShop.Enabled = true 
+    showAllFrames(pp.GemShop)
+end)
+UL:AddBtn(MOF, "WishingwellUI", function() 
+    pp.WishingwellUI.Enabled = true 
+    showAllFrames(pp.WishingwellUI)
+end)
+UL:AddBtn(MOF, "Hacker", function() 
+    pp.Hacker.Enabled = true 
+    showAllFrames(pp.Hacker)
+end)
+UL:AddBtn(MOF, "PowerCoreUi", function() 
+    pp.PowerCoreUi.Enabled = true 
+    showAllFrames(pp.PowerCoreUi)
+end)
+UL:AddBtn(MOF, "PerksShop", function() 
+    pp.PerksShop.Enabled = true 
+    showAllFrames(pp.PerksShop)
+end)
+UL:AddBtn(MOF, "MergeEquipment", function() 
+    pp.MergeEquipment.Enabled = true 
+    showAllFrames(pp.MergeEquipment)
+end)
+UL:AddBtn(MOF, "TempleUI", function() 
+    pp.TempleUI.Enabled = true 
+    showAllFrames(pp.TempleUI)
+end)
+UL:AddBtn(MOF, "EquipmentShop", function() 
+    pp.EquipmentShop.Enabled = true 
+    showAllFrames(pp.EquipmentShop)
+end)
+UL:AddBtn(MOF, "JesterUi", function() 
+    pp.JesterUi.Enabled = true 
+    showAllFrames(pp.JesterUi)
+    wait(0.5)
+    for i = 1, 10 do
+        local cardFrame = pp.JesterUi.Frame.cardframe[i]
+        local lockedElement = cardFrame:FindFirstChild("Locked")
+
+        if lockedElement and lockedElement.Visible then
+            lockedElement.Visible = false
+            local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Visible all efects",
+    Text = "5s",
+    Duration = 5,
+})
+
+spawn(function()
+            wait(5)
+            lockedElement.Visible = true
+end)
+        end
+    end
+end)
+UL:AddBtn(MOF, "PowerCoreV2Ui", function() 
+    pp.PowerCoreV2Ui.Enabled = true 
+    showAllFrames(pp.PowerCoreV2Ui)
+end)
+
+
 local function copy(text)
     if syn then
         syn.write_clipboard(text)
