@@ -19,7 +19,6 @@ local sg = UL:CrSG("Defauld")
 local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
 local pp = p.PlayerGui
 
-spawn(function()
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 playerGui:WaitForChild("WishingwellUI").Enabled = true
@@ -105,7 +104,40 @@ end)
 
 wishingWellLabel:GetPropertyChangedSignal("Text"):Connect(updateTimeRemaining)
 updateTimeRemaining()
-end)
+
+function goi()
+    local player = game.Players.LocalPlayer
+    local wishingWellUI = player.PlayerGui:FindFirstChild("WishingwellUI")
+    
+    if wishingWellUI then
+        local textObject = wishingWellUI:FindFirstChild("Frame")
+        
+        if textObject and textObject:FindFirstChild("top") and textObject.top:FindFirstChild("WISH") then
+            local text = textObject.top.WISH.Text
+            
+            local trimmedText = text:match("^%s*(.-)%s*$")
+            trimmedText = trimmedText:gsub("%s+", " ")
+            
+            if trimmedText == "None. Feed me gems for a surprise!" then
+                print("Encontró la frase 'None. Feed me gems for a surprise!'")
+                local args = { tostring(wis) }
+                game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("WishingWell"):FireServer(unpack(args))
+            end
+        end
+    end
+
+end
+
+function yaw()
+    while true do
+        if auto then
+         goi()
+wait(3)
+        end
+        wait(1)
+    end
+end
+
 
 local function showAllFrames(gui)
     if gui and gui:IsA("ScreenGui") then
@@ -818,3 +850,4 @@ if claim then
     clickCancelButton(purchasePrompt)
 end
 end)
+yaw()
