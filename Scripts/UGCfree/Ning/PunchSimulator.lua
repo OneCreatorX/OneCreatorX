@@ -1,3 +1,4 @@
+
 local UL = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/MyLibrery.lua"))()
 
 local gameName = ""
@@ -16,8 +17,95 @@ gameName = cleanGameName(gameName)
 local p = game.Players.LocalPlayer
 local sg = UL:CrSG("Defauld")
 local frm, cfrm, crFrm = UL:CrFrm(sg, gameName)
-
 local pp = p.PlayerGui
+
+spawn(function()
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+playerGui:WaitForChild("WishingwellUI").Enabled = true
+playerGui:WaitForChild("WishingwellUI"):WaitForChild("Frame").Visible = false
+local wishingWellLabel = playerGui:WaitForChild("WishingwellUI"):WaitForChild("Frame"):WaitForChild("top"):WaitForChild("WISH")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TimeRemainingGui"
+screenGui.Parent = playerGui
+
+local frame = Instance.new("Frame")
+frame.Name = "TimeFrame"
+frame.Size = UDim2.new(0, 350, 0, 20)
+frame.Position = UDim2.new(0.6, 0, 0.96, 0)
+frame.BackgroundTransparency = 0.5
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.Parent = screenGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Name = "TimeLabel"
+textLabel.Size = UDim2.new(1, 0, 1, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.TextColor3 = Color3.new(1, 1, 1)
+textLabel.BackgroundTransparency = 1
+textLabel.Font = Enum.Font.SourceSansBold
+textLabel.TextScaled = true
+textLabel.Text = "No Have Wish"
+textLabel.Parent = frame
+
+local auto = false
+
+local wis = "Small"
+local myOptionsButton, myOptionsFrame = UL:AddOBtn(cfrm, "Options Wishingwell")
+
+UL:AddTBtn(myOptionsFrame, "Auto Buy Wish", false, function() auto = not auto textLabel.Text = "No Have - Wish Auto buy: " .. tostring(auto) .. " Select: " .. wis end)
+UL:AddBtn(myOptionsFrame, " Select Small 15 minutes - 2 Wish", function() wis = "Small" local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Wish Select Small",
+    Text = "Proce 50 Gems",
+    Duration = 5,
+})
+ end)
+UL:AddBtn(myOptionsFrame, "Select Medium 1 hs - 3 Wish", function() wis = "Medium"
+ local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Wish Select Medium",
+    Text = "Price 200 Gems",
+    Duration = 5,
+})
+ end)
+UL:AddBtn(myOptionsFrame, "Select Mega 3 hs - 4 Wish", function() wis = "Mega" 
+local StarterGui = game:GetService("StarterGui")
+StarterGui:SetCore("SendNotification", {
+    Title = "Wish Select Mega",
+    Text = "Price 1000 Gems",
+    Duration = 5,
+})
+ end)
+UL:AddBtn(myOptionsFrame, "Buy Wish Select", function() local args = {
+            [1] = tostring(wis)
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("WishingWell"):FireServer(unpack(args)) end)
+
+local function updateTimeRemaining()
+    local text = wishingWellLabel.Text
+    local timeRemaining = string.match(text, "<font size='200'>(%d+%s*m%s*%d+%s*s)%s*REMAINING!</font>")
+    
+    if timeRemaining then
+        textLabel.Text = "Time Wish: " .. timeRemaining .. " Auto buy: " .. tostring(auto) .. " Select: "  .. wis
+    elseif wishingWellLabel.Text == "None. Feed me gems for a surprise!" and auto then
+        local args = {
+            [1] = tostring(wis)
+        }
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("WishingWell"):FireServer(unpack(args))
+    else
+        textLabel.Text = "No Have Wish:  Auto buy: " .. tostring(auto) .. " Select: "  .. wis
+    end
+end
+
+UL:AddTBtn(myOptionsFrame, "Visibilidad Info", true, function() 
+textLabel.Parent.Visible = not textLabel.Parent.Visible
+end)
+
+wishingWellLabel:GetPropertyChangedSignal("Text"):Connect(updateTimeRemaining)
+updateTimeRemaining()
+end)
 
 local function showAllFrames(gui)
     if gui and gui:IsA("ScreenGui") then
@@ -38,17 +126,9 @@ UL:AddBtn(MOF, "GemShop", function()
     pp.GemShop.Enabled = true 
     showAllFrames(pp.GemShop)
 end)
-UL:AddBtn(MOF, "WishingwellUI", function() 
-    pp.WishingwellUI.Enabled = true 
-    showAllFrames(pp.WishingwellUI)
-end)
 UL:AddBtn(MOF, "Hacker", function() 
     pp.Hacker.Enabled = true 
     showAllFrames(pp.Hacker)
-end)
-UL:AddBtn(MOF, "PowerCoreUi", function() 
-    pp.PowerCoreUi.Enabled = true 
-    showAllFrames(pp.PowerCoreUi)
 end)
 UL:AddBtn(MOF, "PerksShop", function() 
     pp.PerksShop.Enabled = true 
@@ -62,10 +142,7 @@ UL:AddBtn(MOF, "TempleUI", function()
     pp.TempleUI.Enabled = true 
     showAllFrames(pp.TempleUI)
 end)
-UL:AddBtn(MOF, "EquipmentShop", function() 
-    pp.EquipmentShop.Enabled = true 
-    showAllFrames(pp.EquipmentShop)
-end)
+
 UL:AddBtn(MOF, "JesterUi", function() 
     pp.JesterUi.Enabled = true 
     showAllFrames(pp.JesterUi)
@@ -90,10 +167,6 @@ spawn(function()
 end)
         end
     end
-end)
-UL:AddBtn(MOF, "PowerCoreV2Ui", function() 
-    pp.PowerCoreV2Ui.Enabled = true 
-    showAllFrames(pp.PowerCoreV2Ui)
 end)
 
 
@@ -745,4 +818,3 @@ if claim then
     clickCancelButton(purchasePrompt)
 end
 end)
-
