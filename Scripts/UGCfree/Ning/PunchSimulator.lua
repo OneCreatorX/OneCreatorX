@@ -28,6 +28,7 @@ local wishingWellLabel = playerGui:WaitForChild("WishingwellUI"):WaitForChild("F
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "TimeRemainingGui"
 screenGui.Parent = playerGui
+screenGui.ResetOnSpawn = false
 
 local frame = Instance.new("Frame")
 frame.Name = "TimeFrame"
