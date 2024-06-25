@@ -6,7 +6,7 @@ local ExecuteWebhookURL = "https://discord.com/api/webhooks/1247987606407483492/
 local PurchaseWebhookURL = "https://discord.com/api/webhooks/1250811161096618024/48K9A2MM-GxxzP4T-leSyTALMkW-sq8-I7IS0RkEGtAMwED_NYc2YWoxZV4KLYY9n7PL"
 
 local forbiddenWords = {"raid", "attack", "spam", "@", "everyone", "here"}
-local prefix = "[LOGGER]"
+local prefix = "[LOG]"
 
 local purchaseIdValue = ServerScriptService:FindFirstChild("LastPurchaseId")
 if not purchaseIdValue then
