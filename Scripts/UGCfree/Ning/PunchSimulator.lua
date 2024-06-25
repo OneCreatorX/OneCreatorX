@@ -85,7 +85,13 @@ UL:AddBtn(myOptionsFrame, "Buy Wish Select", function() local args = {
 
 local function updateTimeRemaining()
     local text = wishingWellLabel.Text
-    local timeRemaining = string.match(text, "<font size='200'>(%d+%s*m%s*%d+%s*s)%s*REMAINING!</font>")
+    -- Utilizamos una expresión regular más flexible para capturar el tiempo restante
+    local timeRemaining = string.match(text, "<font size='200'>(%d+%s*h%s*%d+%s*m%s*%d+%s*s)%s*REMAINING!</font>")
+    
+    if not timeRemaining then
+        -- Si no se encuentra el formato con horas, intentamos con minutos y segundos
+        timeRemaining = string.match(text, "<font size='200'>(%d+%s*m%s*%d+%s*s)%s*REMAINING!</font>")
+    end
     
     if timeRemaining then
         textLabel.Text = "Time Wish: " .. timeRemaining .. " Auto buy: " .. tostring(auto) .. " Select: "  .. wis
@@ -99,11 +105,10 @@ local function updateTimeRemaining()
     end
 end
 
-UL:AddTBtn(myOptionsFrame, "Visibilidad Info", true, function() 
-textLabel.Parent.Visible = not textLabel.Parent.Visible
-end)
-
+-- Conectar la función al cambio de propiedad del texto
 wishingWellLabel:GetPropertyChangedSignal("Text"):Connect(updateTimeRemaining)
+
+-- Llamar a la función una vez al inicio para asegurarnos de que se actualice
 updateTimeRemaining()
 
 function goi()
