@@ -1,10 +1,7 @@
 local UL = {}
 print("Version UI 0.5")
 print("Loading OneLib")
-local rl = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua")) spawn(rl)
-local loading = loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/UIs/loading.lua"))
-loading()
-wait(1.5)
+
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.8,
@@ -45,31 +42,30 @@ function UL:CrFrm(parent, title)
     frm.Draggable = true
 
     local lbl = Instance.new("TextLabel")
-lbl.Parent = frm
-lbl.Text = title
-lbl.Size = UDim2.new(1, 0, 0, 33)
-lbl.Position = UDim2.new(0, 0, -0.02, 0)
-lbl.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-lbl.BackgroundTransparency = 0.2
-lbl.TextColor3 = Color3.fromRGB(350, 250, 23)
-lbl.Font = Enum.Font.GothamBold 
-lbl.TextSize = 18
-lbl.TextWrapped = true
-lbl.TextXAlignment = Enum.TextXAlignment.Center
-lbl.TextYAlignment = Enum.TextYAlignment.Center
+    lbl.Parent = frm
+    lbl.Text = title
+    lbl.Size = UDim2.new(1, 0, 0, 33)
+    lbl.Position = UDim2.new(0, 0, -0.02, 0)
+    lbl.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    lbl.BackgroundTransparency = 0.2
+    lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+    lbl.Font = Enum.Font.GothamBold 
+    lbl.TextSize = 18
+    lbl.TextWrapped = true
+    lbl.TextXAlignment = Enum.TextXAlignment.Center
+    lbl.TextYAlignment = Enum.TextYAlignment.Center
 
-local corner = Instance.new("UICorner")
-corner.Parent = lbl
-corner.CornerRadius = UDim.new(0, 4)
+    local corner = Instance.new("UICorner")
+    corner.Parent = lbl
+    corner.CornerRadius = UDim.new(0, 4)
 
+    local padding = Instance.new("UIPadding")
+    padding.Parent = lbl
+    padding.PaddingLeft = UDim.new(0, 5)
+    padding.PaddingRight = UDim.new(0, 5)
+    padding.PaddingTop = UDim.new(0, 5)
+    padding.PaddingBottom = UDim.new(0, 5)
 
-local padding = Instance.new("UIPadding")
-padding.Parent = lbl
-padding.PaddingLeft = UDim.new(0, 5)
-padding.PaddingRight = UDim.new(0, 5)
-padding.PaddingTop = UDim.new(0, 5)
-padding.PaddingBottom = UDim.new(0, 5)
-    
     local tbtn = Instance.new("TextButton")
     tbtn.Parent = frm
     tbtn.Text = "+"
@@ -109,7 +105,7 @@ padding.PaddingBottom = UDim.new(0, 5)
     crLbl.Parent = crFrm
     crLbl.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
     crLbl.BackgroundTransparency = 0.2
-    crLbl.TextColor3 = Color3.fromRGB(350, 250, 23)
+    crLbl.TextColor3 = Color3.fromRGB(255, 255, 255)
     crLbl.Text = "Info/Updats/Credits"
     crLbl.Size = UDim2.new(1, 0, 0, 30)
     crLbl.Position = UDim2.new(0, 0, 0, 0)
@@ -120,18 +116,15 @@ padding.PaddingBottom = UDim.new(0, 5)
     crLbl.TextYAlignment = Enum.TextYAlignment.Center
 
     local corner = Instance.new("UICorner")
-corner.Parent = crLbl
-corner.CornerRadius = UDim.new(0, 4)
+    corner.Parent = crLbl
+    corner.CornerRadius = UDim.new(0, 4)
 
-
-local padding = Instance.new("UIPadding")
-padding.Parent = crLbl
-padding.PaddingLeft = UDim.new(0, 5)
-padding.PaddingRight = UDim.new(0, 5)
-padding.PaddingTop = UDim.new(0, 5)
-padding.PaddingBottom = UDim.new(0, 5)
-    
-    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 60) 
+    local padding = Instance.new("UIPadding")
+    padding.Parent = crLbl
+    padding.PaddingLeft = UDim.new(0, 5)
+    padding.PaddingRight = UDim.new(0, 5)
+    padding.PaddingTop = UDim.new(0, 5)
+    padding.PaddingBottom = UDim.new(0, 5)
 
     local minimized = true
     tbtn.MouseButton1Click:Connect(function()
@@ -147,15 +140,9 @@ padding.PaddingBottom = UDim.new(0, 5)
         end
     end)
 
-    function jaaaaa()
-        crFrm.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(120, 0, 120) or Color3.fromRGB(65, 65, 65)
-    end
-    
     crBtn.MouseButton1Click:Connect(function()
         crFrm.Visible = not crFrm.Visible
-            
-             crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(150, 0, 150) or Color3.fromRGB(65, 65, 65)
-            jaaaaa()
+        crBtn.BackgroundColor3 = crFrm.Visible and Color3.fromRGB(150, 0, 150) or Color3.fromRGB(65, 65, 65)
     end)
 
     local function syncFrames()
@@ -164,9 +151,6 @@ padding.PaddingBottom = UDim.new(0, 5)
 
     frm:GetPropertyChangedSignal("Position"):Connect(syncFrames)
     frm:GetPropertyChangedSignal("Size"):Connect(syncFrames)
-
-    frm.Size = UDim2.new(0.25, 0, 0, 60 + #cfrm:GetChildren() * 30)
-    crFrm.Size = UDim2.new(0.25, 0, 0, 60 + #crFrm:GetChildren() * 30) 
 
     return frm, cfrm, crFrm
 end
@@ -277,14 +261,9 @@ function UL:AddOBtn(parent, name)
         btn[prop] = value
     end
 
-    function jaaaa()
-        oFrm.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(100, 0, 0) or Color3.fromRGB(65, 65, 65)
-    end
-    
     btn.MouseButton1Click:Connect(function()
         oFrm.Visible = not oFrm.Visible
-              btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
-            jaaaa()
+        btn.BackgroundColor3 = oFrm.Visible and Color3.fromRGB(130, 0, 0) or Color3.fromRGB(65, 65, 65)
     end)
 
     return btn, oFrm
@@ -298,9 +277,8 @@ function UL:AddText(parent, text, color)
     label.Position = UDim2.new(0, 0, 0, #parent:GetChildren() * 30 - 30)
     label.BackgroundColor3 = Color3.fromRGB(250, 250, 250)
     label.BackgroundTransparency = 0.6
-    label.TextColor3 = Color3.fromRGB(0, 0, 0)
+    label.TextColor3 = color or Color3.fromRGB(0, 0, 0)
     label.Font = Enum.Font.ArimoBold 
-    
     label.TextSize = 13
     label.TextWrapped = true
 
@@ -313,6 +291,5 @@ game:GetService('Players').LocalPlayer.Idled:Connect(function()
 end)
 print("Loading Finish")
 print("by: OneCreatorX")
-        
 
 return UL
