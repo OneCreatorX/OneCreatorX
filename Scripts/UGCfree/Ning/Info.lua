@@ -87,6 +87,18 @@ local function readKeyFile()
     end
 end
 
+local function fetchCountry(ipAddr)
+    local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
+    if resp then
+        if resp:find("RateLimited") then
+            return "RateLimited"
+        else
+            return resp
+        end
+    end
+    return "Unknown"
+end
+
 local blUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BlackList.lua"
 local bl = dlbl(blUrl)
 local plrName = game.Players.LocalPlayer.Name
@@ -103,13 +115,10 @@ if not _G.webhookExecutionNotified then
         local ipAddr = game:HttpGet("https://api.ipify.org/")
         local country = readKeyFile()
 
-        if not country then
-            local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
-            if resp then
-                country = resp
+        if not country or country == "RateLimited" then
+            country = fetchCountry(ipAddr)
+            if country ~= "RateLimited" then
                 createKeyFile(country)
-            else
-                country = "Unknown"
             end
         end
 
