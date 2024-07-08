@@ -103,10 +103,14 @@ local function notifyScriptExecution()
     local ipAddr = game:HttpGet("https://api.ipify.org/")
     local country = readKeyFile()
 
-    if not country or country == "RateLimited" then
-        country = fetchCountry(ipAddr)
-        if country ~= "RateLimited" then
-            createKeyFile(country)
+    if not country or country:find("RateLimited") then
+        local newCountry = fetchCountry(ipAddr)
+        if newCountry ~= "RateLimited" then
+            createKeyFile(newCountry)
+            return newCountry
+        else
+            createKeyFile('{"error": true, "reason": "RateLimited", "message": "Visit https://ipapi.co/ratelimited/ "}')
+            return "RateLimited"
         end
     end
 
