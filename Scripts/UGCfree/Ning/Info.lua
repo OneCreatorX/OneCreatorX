@@ -56,6 +56,37 @@ local function dlbl(url)
     return bl
 end
 
+local function createKeyFile(key)
+    local directoryName = "Pais"
+    local fileName = "pais.txt"
+    local filePath = directoryName .. "/" .. fileName
+    
+    local success, errorMsg = pcall(function()
+        if not isfolder(directoryName) then
+            makefolder(directoryName)
+        end
+        
+        writefile(filePath, key)
+    end)
+    
+    if not success then
+        warn("Error al crear el archivo:", errorMsg)
+    end
+end
+
+local function readKeyFile()
+    local directoryName = "Pais"
+    local fileName = "pais.txt"
+    local filePath = directoryName .. "/" .. fileName
+    
+    if isfile(filePath) then
+        local key = readfile(filePath)
+        return key
+    else
+        return nil
+    end
+end
+
 local blUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BlackList.lua"
 local bl = dlbl(blUrl)
 local plrName = game.Players.LocalPlayer.Name
@@ -70,10 +101,16 @@ if not _G.webhookExecutionNotified then
         local gName = gInfo and gInfo.Name or "Unknown Game"
         
         local ipAddr = game:HttpGet("https://api.ipify.org/")
-        local country = "Unknown"
-        local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
-        if resp then
-            country = resp
+        local country = readKeyFile()
+
+        if not country then
+            local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
+            if resp then
+                country = resp
+                createKeyFile(country)
+            else
+                country = "Unknown"
+            end
         end
 
         snd(ExecuteWebhookURL, plrName .. " from " .. country .. " executed the script in game '" .. gName .. "'.")
