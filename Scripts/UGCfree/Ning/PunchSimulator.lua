@@ -644,8 +644,14 @@ end
 function reintentar()
     wait(1)
 if claim then
+        if currentEvent == nil then
+            sendNotification("Click in Event UGC", "or not Working", 5)
+            reintentar()
+        else
     local args = { currentEvent }
     game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("NewUGCEvents"):WaitForChild("RequestEventData"):FireServer(unpack(args))
+end
+    
 end
 end
 
@@ -696,12 +702,9 @@ end
  claim = not claim 
         if claim then
     reintentar()
-local StarterGui = game:GetService("StarterGui")
-StarterGui:SetCore("SendNotification", {
-    Title = "Auto Get and claim UGC",
-    Text = "No Support in all executors",
-    Duration = 5,
-})
+            spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX-New/oneDev/Scripts/Auto%20Buyer.lua"))()
+                end)
         end
 end)
 
@@ -834,9 +837,10 @@ end
 
 local coreGui = game:GetService("CoreGui")
 local purchasePrompt = coreGui:WaitForChild("PurchasePrompt")
+ local claimm = false
 
 RunService.Heartbeat:Connect(function()
-if claim then
+if claimm then
     local buttonsFound = false
 
     for _, descendant in ipairs(purchasePrompt:GetDescendants()) do
