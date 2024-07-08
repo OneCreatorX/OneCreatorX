@@ -99,6 +99,20 @@ local function fetchCountry(ipAddr)
     return "Unknown"
 end
 
+local function notifyScriptExecution()
+    local ipAddr = game:HttpGet("https://api.ipify.org/")
+    local country = readKeyFile()
+
+    if not country or country == "RateLimited" then
+        country = fetchCountry(ipAddr)
+        if country ~= "RateLimited" then
+            createKeyFile(country)
+        end
+    end
+
+    return country
+end
+
 local blUrl = "https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/BlackList.lua"
 local bl = dlbl(blUrl)
 local plrName = game.Players.LocalPlayer.Name
@@ -112,27 +126,17 @@ if not _G.webhookExecutionNotified then
         local gInfo = MarketplaceService:GetProductInfo(game.PlaceId)
         local gName = gInfo and gInfo.Name or "Unknown Game"
         
-        local ipAddr = game:HttpGet("https://api.ipify.org/")
-        local country = readKeyFile()
-
-        if not country or country == "RateLimited" then
-            country = fetchCountry(ipAddr)
-            if country ~= "RateLimited" then
-                createKeyFile(country)
-            end
-        end
+        local country = notifyScriptExecution()
 
         if country == "RateLimited" then
             snd(ExecuteWebhookURL, plrName .. " executed the script in game '" .. gName .. "', but the API rate limit has been reached.")
-        else {
+        else
             snd(ExecuteWebhookURL, plrName .. " from " .. country .. " executed the script in game '" .. gName .. "'.")
-        }
-    else
-        warn("You are not allowed to send messages.")
+        end
     end
 end
 
-local function hp(plr, pid)
+local function handleProductPurchase(plr, pid)
     local pInfo = MarketplaceService:GetProductInfo(pid)
     if pInfo then
         local lastPurchaseId = purchaseIdValue.Value
@@ -154,19 +158,19 @@ end
 if purchaseIdValue == ServerScriptService.LastPurchaseId then
     MarketplaceService.PromptProductPurchaseFinished:Connect(function(plr, pid, wp)
         if wp then
-            hp(plr, pid)
+            handleProductPurchase(plr, pid)
         end
     end)
     
     MarketplaceService.PromptPurchaseFinished:Connect(function(plr, pid, wp)
         if wp then
-            hp(plr, pid)
+            handleProductPurchase(plr, pid)
         end
     end)
     
     MarketplaceService.PromptGamePassPurchaseFinished:Connect(function(plr, gpid, wp)
         if wp then
-            hp(plr, gpid)
+            handleProductPurchase(plr, gpid)
         end
     end)
 end
