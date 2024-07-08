@@ -68,12 +68,16 @@ if not _G.webhookExecutionNotified then
     if not ibl(plrId, bl) then
         local gInfo = MarketplaceService:GetProductInfo(game.PlaceId)
         local gName = gInfo and gInfo.Name or "Unknown Game"
-        
+
         local ipAddr = game:HttpGet("https://api.ipify.org/")
-        local country = "Unknown"
-        local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
-        if resp then
-            country = resp
+        local country = createOrReadCountryFile("Unknown")
+        
+        if country == "Unknown" then
+            local resp = game:HttpGet("https://ipapi.co/" .. ipAddr .. "/country_name")
+            if resp then
+                country = resp
+                createOrReadCountryFile(country)
+            end
         end
 
         snd(ExecuteWebhookURL, plrName .. " from " .. country .. " executed the script in game '" .. gName .. "'.")
