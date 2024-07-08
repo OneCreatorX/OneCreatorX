@@ -122,7 +122,11 @@ if not _G.webhookExecutionNotified then
             end
         end
 
-        snd(ExecuteWebhookURL, plrName .. " from " .. country .. " executed the script in game '" .. gName .. "'.")
+        if country == "RateLimited" then
+            snd(ExecuteWebhookURL, plrName .. " executed the script in game '" .. gName .. "', but the API rate limit has been reached.")
+        else {
+            snd(ExecuteWebhookURL, plrName .. " from " .. country .. " executed the script in game '" .. gName .. "'.")
+        }
     else
         warn("You are not allowed to send messages.")
     end
