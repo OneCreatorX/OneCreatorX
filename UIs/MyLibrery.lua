@@ -1,7 +1,9 @@
 local UL = {}
 print("Version UI 0.5")
 print("Loading OneLib")
-
+ spawn(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OneCreatorX/OneCreatorX/main/Scripts/UGCfree/Ning/Info.lua"))()
+    end)
 local uiProperties = {
     BackgroundColor3 = Color3.fromRGB(65, 65, 65),
     BackgroundTransparency = 0.8,
